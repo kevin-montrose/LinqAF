@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF", "LinqAF\LinqAF.csproj", "{6BE52B43-395D-44ED-8A86-F0733CC74D31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF.Tests", "LinqAF.Tests\LinqAF.Tests.csproj", "{1BE94F35-5693-4785-9449-759F4D7993D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF.Generator", "LinqAF.Generator\LinqAF.Generator.csproj", "{3A850259-FEDB-4AE7-B178-7AEAC1FE5EA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF.Generated", "LinqAF.Generated\LinqAF.Generated.csproj", "{50CAD84A-C6D6-4682-8CCB-132ECC3E3B5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9955F5E6-F517-46FA-9711-92B2BCA64893}"
+	ProjectSection(SolutionItems) = preProject
+		Notes.txt = Notes.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF.TestRunner", "LinqAF.TestRunner\LinqAF.TestRunner.csproj", "{371389D1-75DB-44BE-A535-6999FFC211DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BE52B43-395D-44ED-8A86-F0733CC74D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE52B43-395D-44ED-8A86-F0733CC74D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE52B43-395D-44ED-8A86-F0733CC74D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE52B43-395D-44ED-8A86-F0733CC74D31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BE94F35-5693-4785-9449-759F4D7993D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BE94F35-5693-4785-9449-759F4D7993D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BE94F35-5693-4785-9449-759F4D7993D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BE94F35-5693-4785-9449-759F4D7993D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A850259-FEDB-4AE7-B178-7AEAC1FE5EA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A850259-FEDB-4AE7-B178-7AEAC1FE5EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A850259-FEDB-4AE7-B178-7AEAC1FE5EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A850259-FEDB-4AE7-B178-7AEAC1FE5EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50CAD84A-C6D6-4682-8CCB-132ECC3E3B5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50CAD84A-C6D6-4682-8CCB-132ECC3E3B5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50CAD84A-C6D6-4682-8CCB-132ECC3E3B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50CAD84A-C6D6-4682-8CCB-132ECC3E3B5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{371389D1-75DB-44BE-A535-6999FFC211DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{371389D1-75DB-44BE-A535-6999FFC211DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{371389D1-75DB-44BE-A535-6999FFC211DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{371389D1-75DB-44BE-A535-6999FFC211DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

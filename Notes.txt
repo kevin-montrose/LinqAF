@@ -1,0 +1,933 @@
+  # Optimizations
+  
+  ## All ops
+  
+  - Aggregate
+  - All
+  - Any
+  - AsEnumerable
+  - Average
+  - Cast
+  - Concat
+  - Contains
+  - Count
+  - DefaultIfEmpty
+  - Distinct
+  - ElementAt
+  - Except
+  - First
+  - GroupBy
+  - GroupJoin
+  - Intersect
+  - Join
+  - Last
+  - Max
+  - Min
+  - OfType
+  - OrderBy
+  - Reverse
+  - Select
+  - SelectMany
+  - SequenceEqual
+  - Single
+  - Skip
+  - Sum
+  - Take
+  - ThenBy (only for Ordered enumerables)
+  - ToArray
+  - ToDictionary
+  - ToList
+  - ToLookup
+  - Union
+  - Where
+  - Zip
+  
+  ## Cast 
+  
+  None are possible
+  
+  ## Concat
+
+  None are possible
+  
+  ## DefaultIfEmpty
+  
+  - Aggregate: no
+  - All: no
+  - Any: yes
+    * no predicate Any always returns true, as DefaultIfEmpty cannot be empty
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: yes
+    * can return self, since it cannot be empty
+  - Distinct: no
+  - ElementAt: no
+  - Except: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no
+  - Select: no
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: no
+  - Sum: no
+  - Take: no
+  - ToArray: no
+  - ToDictionary: no
+  - ToList: no
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+  
+  ## Distinct
+  - Aggregate: no
+  - All: no
+  - Any: no
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: no
+  - Distinct: yes
+	* if default, second call to distinct() can return self
+  - ElementAt: no
+  - Except: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no
+  - Select: no
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: no
+  - Sum: no
+  - Take: no
+  - ToArray: no
+  - ToDictionary: no
+  - ToList: no
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+  
+  ## Empty
+  
+  - Aggregate: yes
+    * return seed, default, or throw
+  - All: yes
+    * always false
+  - Any: yes
+    * always false
+  - AsEnumerable: yes
+    * can return a cached empty enumerable
+  - Average: yes
+    * if T is nullable, return null
+	* if T is non-nullable, throw
+  - Cast: yes
+    * just return Empty of new T
+  - Concat: yes
+    * just return right side
+  - Contains: yes
+    * just return false
+  - Count: yes
+    * just return 0
+  - DefaultIfEmpty: yes
+    * Could return a 'single item'-enumerable
+  - Distinct: yes
+    * just return empty
+  - ElementAt: yes
+    * return default(T) or throw
+  - Except: no (you'd think so, but we have to dedupe right-hand side)
+  - First: yes
+    * return default(T) or throw
+  - GroupBy: yes
+    * return a known empty grouping
+  - GroupJoin: yes
+    * return empty
+  - Intersect: no 
+  - Join: yes
+    * return empty
+  - Last: yes
+    * return default(T) or throw
+  - Max: yes
+    * return default or throw
+  - Min: yes
+    * return default or throw
+  - OfType: yes
+    * just return Empty of new T 
+  - OrderBy: yes
+    * return an EmptyOrderedEnumerable<T> (needs to be a new type so ThenBy(Descending) is available)
+  - Reverse: yes
+    * just return Empty<T>
+  - Select: yes
+    * return Empty<T>
+  - SelectMany: yes
+    * return Empty<T>
+  - SequenceEqual: yes
+    * if identity: compare to length if ICollection
+	* if range: compare to inner count
+	* if repeat: compare to inner count
+  - Single: yes
+    * return default(T) or throw
+  - Skip: yes
+    * return Empty<T>
+  - Sum: yes
+    * return default or throw
+  - Take: yes
+    * return Empty<T>
+  - ToArray: yes
+    * return a 0 length array
+  - ToDictionary: yes
+    * return a 0 capactiy Dictionary
+  - ToList: yes
+    * return a 0 capacity List
+  - ToLookup: yes
+    * return a known empty lookup
+  - Union: no (you'd think so, but we have to dedupe right-hand side)
+  - Where: yes
+    * return Empty<T>
+  - Zip: yes
+    * return Empty<T>
+  
+  ## EmptyOrdered
+  
+  - Then same as Empty
+  - ThenBy: yes
+    * returns self
+  
+  ## Except
+
+  None are possible
+  
+  ## GroupBy
+
+  None are possible
+  
+  ## GroupJoin
+
+  None are possible
+  
+  ## Identity
+  
+  - Aggregate: no
+  - All: no
+  - Any: yes
+    * if ICollection, Any() can be faster
+  - AsEnumerable: yes
+    * return inner enumerable
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: yes
+    * if HashSet<T>, and the equality comparer is the same delegate
+  - Count: yes
+    * if ICollection<T>, delegate to count
+	* if T[], delegate to longcount
+  - DefaultIfEmpty: no
+  - Distinct: no
+  - ElementAt: yes
+    * if IList<T>, delegate to []
+  - Except: no
+  - First: yes
+    * if IList<T>
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: yes
+    * if IList<T>
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no (you'd think we could, but buffering requirement prevents that)
+  - Select: no
+  - SeletMany: no
+  - SequenceEqual: yes
+    * if right is empty, and is ICollection<T>, check length
+  - Single: yes
+    * if IList<T>
+  - Skip: no
+  - Sum: no
+  - Take: no
+  - ToArray: yes
+    * if ICollection, pre-size the array
+  - ToDictionary: yes
+    * if ICollection, pre-size the dictionary
+  - ToList: yes
+    * if ICollection, pre-size the List
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+  
+  ## Intersect
+
+  None are possible
+  
+  ## Join
+
+  None are possible
+  
+  ## Lookup
+  
+  ## OfType
+
+  None are possible
+  
+  
+  None are possible
+
+  ## OneItem
+  
+  - Aggregate: no
+  - All: yes
+    * check single item (don't bother with enumerator or whatever)
+  - Any: yes
+    * non-predicate versions return true
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: yes
+    * can directly compare against single item
+  - Count: yes
+    * non-predicate versions return 1, predicate checks against whatever
+  - DefaultIfEmpty: yes
+    * return self
+  - Distinct: no
+  - ElementAt: yes
+    * quick check and return single item
+  - Except: no
+  - First: yes
+    * non-predicate versions return item
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: yes
+    * non-predicate versions return item
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: yes 
+    * return an OrderedSingleItem
+  - Reverse: yes
+    * return self
+  - Select: no
+  - SelectMany: no
+  - SequenceEqual: yes
+    * empty always returns false
+	* any known size is false if count != 1
+	* if there's an O(1) access to first element, use that rather than enumerator when count == 1
+  - Single: yes
+    * non-predicate versions return item
+  - Skip: no
+  - Sum: yes (TODO extension method)
+    * returns single item
+  - Take: no
+  - ToArray: yes
+    * known size
+  - ToDictionary: yes
+    * known size
+  - ToList: yes
+    * known size
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+
+  ## OneItemOrdered
+
+  - Same as OneItem
+  - ThenBy: yes
+    * return self
+
+  ## OrderBy
+
+  None are possible (you might think Reverse, but stable sort screw that)
+  
+  ## Range
+  
+  - Any: yes
+    * check inner count
+  - All: no
+  - Average: yes (TODO: extension)
+    * (min + max) / 2
+  - Cast: no
+  - Concat: no
+  - Contains: yes
+    * if >= min && < max
+  - Count: yes
+    * return inner count
+  - DefaultIfEmpty: no (could be a range of 0-length)
+  - Distinct: yes
+    * for default comparer, just return self
+  - ElementAt: yes
+    * check against inner count, return min + index, or throw, or return default
+  - Except: no
+  - First: yes
+    * return min
+  - GroupBy: no
+  - GroupJoin: no
+  - Last: yes
+    * return max
+  - Max: yes
+    * return max
+  - Min: yes
+    * return min
+  - OfType: no
+  - OrderBy: no
+  - Reverse: yes
+    * return a ReverseRange that counts down
+  - Select: no
+  - SelectMany: no
+  - SequenceEqual: yes
+    * if right is empty, compare against count
+    * if right is range, compare start and count
+	* if right is repeat, if start and element are equal and length is one return true, otherwise if both are empty return true, otherwise return false
+  - Single: yes
+    * if inner count != 1, throw or return default
+  - Skip: yes
+    * move start up and count down, return a Range
+  - Take: yes
+    * move count down, return a Range
+  - ToArray: yes
+    * if ICollection, pre-size the array
+  - ToDictionary: yes
+    * if ICollection, pre-size the dictionary
+  - ToList: yes
+    * if ICollection, pre-size the List
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+  
+  ## Repeat
+  
+  - Aggregate: no
+  - All: no
+  - Any: yes
+    * if inner count >= 1, return true
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: yes
+    * check single element
+  - Count: yes
+    * return inner count
+  - DefaultIfEmpty: no
+  - Distinct: yes
+    * for default comparer, return self with count of 0 or 1 (as appropriate)
+  - ElementAt: yes
+    * check index against count, and return element or throw or default depending on comparison
+  - Except: no (you'd think yes, but we have to defer execution)
+  - First: yes
+    * return element if count > 0
+  - GroupBy: no
+  - GroupJoin: no
+  - Last: yes
+    * return element if count > 0
+  - Max: yes
+    * return element if count > 0
+  - Min: yes
+    * return element if count > 0
+  - OfType: no
+  - OrderBy: no
+  - Reverse: yes
+    * return self
+  - Select: no
+  - SelectMany: no
+  - SequenceEqual: yes
+    * if right is empty, compare against count
+    * if right is repeat, compare element and count
+	* if right is range, if start and element are equal and length is one return true, otherwise if both are empty return true, otherwise return false
+  - Single: yes
+    * return element if count == 1
+  - Skip: yes
+    * move count down and return a Repeat
+  - Sum: no
+  - Take: yes
+    * move count down and return a Repeat
+  - ToArray: yes
+    * don't actually iterate use a for loop, and pre-size the Array
+  - ToDictionary: no (you might think so, but the equality comparer might be non-default)
+  - ToList: yes
+    * don't actually iterate use a for loop, and pre-size the List
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+  
+  ## Reverse
+  
+  - Aggregate: no
+  - All: no
+  - Any: no
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: no
+  - Distinct: no
+  - ElementAt: no
+  - Except: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: yes
+    * return inner TEnumerable
+  - Select: no
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: no
+  - Sum: no
+  - Take: no
+  - ToList: no
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+  
+  ## ReverseRange
+  
+  - Any: yes
+    * check inner count
+  - All: no
+  - Average: yes (TODO: extension)
+    * (min + max) / 2
+  - Cast: no
+  - Concat: no
+  - Contains: yes
+    * if >= min && < max
+  - Count: yes
+    * return inner count
+  - DefaultIfEmpty: no (could be a range of 0-length)
+  - Distinct: yes
+    * for default comparer, just return self
+  - ElementAt: yes
+    * check against inner count, return min + index, or throw, or return default
+  - Except: no
+  - First: yes
+    * return max
+  - GroupBy: no
+  - GroupJoin: no
+  - Last: yes
+    * return min
+  - Max: yes
+    * return max
+  - Min: yes
+    * return min
+  - OfType: no
+  - OrderBy: no
+  - Reverse: yes
+    * return a Range that counts up
+  - Select: no
+  - SelectMany: no
+  - SequenceEqual: yes
+    * if right is empty, compare against count
+    * if right is reverserange, compare start and count
+	* if right is repeat, if start and element are equal and length is one return true, otherwise if both are empty return true, otherwise return false
+  - Single: yes
+    * if inner count != 1, throw or return default
+  - Skip: yes
+    * move start up and count down, return a ReverseRange
+  - Take: yes
+    * move count down, return a ReverseRange
+  - ToArray: yes
+    * if ICollection, pre-size the array
+  - ToDictionary: yes
+    * if ICollection, pre-size the dictionary
+  - ToList: yes
+    * if ICollection, pre-size the List
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+
+  ## Select
+  
+  - Aggregate: no
+  - All: no
+  - Any: no
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: no
+  - Distinct: no
+  - ElementAt: no
+  - Except: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no
+  - Select: yes
+    * return a combo SelectChain that only interates over inner enumerable once
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: no
+  - Take: no
+  - ToArray: no
+  - ToDictionary: no
+  - ToList: no
+  - ToLookup: no
+  - Union: no
+  - Where: yes
+    * return a combo SelectWhere that only iterates over the inner enumerable once
+  - Zip: no
+  
+  ## SelectSelect
+  
+  - Aggregate: no
+  - All: no
+  - Any: no
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: no
+  - Distinct: no
+  - ElementAt: no
+  - Except: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no
+  - Select: yes
+    * return a combo SelectChain
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: no
+  - Sum: no
+  - Take: no
+  - ToArray: no
+  - ToDictionary: no
+  - ToList: no
+  - ToLookup: no
+  - Union: no
+  - Where: yes
+    * return a combo SelectWhereChain
+  - Zip: no
+  
+  ## SelectMany
+
+  None are possible
+  
+  ## SelectWhere
+  
+  - Aggregate: no
+  - All: no
+  - Any: no
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: no
+  - Distinct: no
+  - ElementAt: no
+  - Except: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no
+  - Select: no
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: no
+  - Sum: no
+  - Take: no
+  - ToArray: no
+  - ToDictionary: no
+  - ToList: no
+  - ToLookup: no
+  - Union: no
+  - Where: yes
+    * return a combo SelectWhereChain
+  - Zip: no
+  
+  ## Skip
+  
+  - Aggregate: no
+  - All: no
+  - Any: no
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: no
+  - Distinct: no
+  - ElementAt: no
+  - Except: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no
+  - Select: no
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: yes
+    * move inner count up, return Skip
+  - Sum: no
+  - Take: no
+  - ToArray: no
+  - ToDictionary: no
+  - ToList: no
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+  
+  ## Take
+  
+  - Aggregate: no
+  - All: no
+  - Any: no
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: no
+  - Distinct: no
+  - ElementAt: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no
+  - Select: no
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: no
+  - Sum: no
+  - Take: yes
+    * if take is less than count, return new shorter take else return original take
+  - ToArray: yes
+    * pre-size the array, and shrink if necessary
+  - ToDictionary: yes
+    * pre-size the dictionary
+  - ToList: yes
+    * pre-size the list
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+  
+  ## Union
+
+  None are possible
+  
+  ## Where
+  
+  - Aggregate: no
+  - All: no
+  - Any: no
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: no
+  - Distinct: no
+  - ElementAt: no
+  - Except: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no
+  - Select: yes
+    * return a combo SelectWhere that only iterates over the inner enumerable once
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: no
+  - Sum: no
+  - Take: no
+  - ToArray: no
+  - ToDictionary: no
+  - ToList: no
+  - ToLookup: no
+  - Union: no
+  - Where: yes
+    * return a combo WhereChained that only iterates over the inner enumerable once
+  - Zip: no
+  
+  ## WhereSelect
+  
+  - Aggregate: no
+  - All: no
+  - Any: no
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: no
+  - Distinct: no
+  - ElementAt: no
+  - Except: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no
+  - Select: yes
+    * return a WhereSelect chain
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: no
+  - Sum: no
+  - Take: no
+  - ToArray: no
+  - ToDictionary: no
+  - ToList: no
+  - ToLookup: no
+  - Union: no
+  - Where: no
+  - Zip: no
+  
+  ## WhereWhere
+  
+  - Aggregate: no
+  - All: no
+  - Any: no
+  - AsEnumerable: no
+  - Average: no
+  - Cast: no
+  - Concat: no
+  - Contains: no
+  - Count: no
+  - DefaultIfEmpty: no
+  - Distinct: no
+  - ElementAt: no
+  - Except: no
+  - First: no
+  - GroupBy: no
+  - GroupJoin: no
+  - Intersect: no
+  - Join: no
+  - Last: no
+  - Max: no
+  - Min: no
+  - OfType: no
+  - OrderBy: no
+  - Reverse: no
+  - Select: yes
+    * return a WhereSelect chain
+  - SelectMany: no
+  - SequenceEqual: no
+  - Single: no
+  - Skip: no
+  - Sum: no
+  - Take: no
+  - ToArray: no
+  - ToDictionary: no
+  - ToList: no
+  - ToLookup: no
+  - Union: no
+  - Where: yes
+    * return a WhereWhere chain
+  - Zip: no
+  
+  ## Zip
+
+  None are possible
