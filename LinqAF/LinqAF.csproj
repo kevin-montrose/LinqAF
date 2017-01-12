@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6BE52B43-395D-44ED-8A86-F0733CC74D31}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LinqAF</RootNamespace>
+    <AssemblyName>LinqAF</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Array.cs" />
+    <Compile Include="Cast.cs" />
+    <Compile Include="CastBridgeExtensionMethods.cs" />
+    <Compile Include="Comparers.cs" />
+    <Compile Include="Concat.cs" />
+    <Compile Include="DefaultIfEmpty.cs" />
+    <Compile Include="Dictionary.cs" />
+    <Compile Include="Boxed.cs" />
+    <Compile Include="Distinct.cs" />
+    <Compile Include="Impl\CommonImplementation.Reset.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OneItemOrdered.cs" />
+    <Compile Include="EmptyOrdered.cs" />
+    <Compile Include="Enumerable.cs" />
+    <Compile Include="Except.cs" />
+    <Compile Include="GroupBy.cs" />
+    <Compile Include="Grouping.cs" />
+    <Compile Include="GroupJoin.cs" />
+    <Compile Include="HashSet.cs" />
+    <Compile Include="Impl\BoxedBase.cs" />
+    <Compile Include="Impl\CommonImplementation.Aggregate.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.All.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Any.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.AsEnumerable.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Average.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Bridge.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Cast.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Concat.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Contains.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Count.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.cs" />
+    <Compile Include="Identity.cs" />
+    <Compile Include="Empty.cs" />
+    <Compile Include="Impl\CommonImplementation.DefaultIfEmpty.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Distinct.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.ElementAt.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Except.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.First.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.GroupBy.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.GroupJoin.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Intersect.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Join.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Last.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Max.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Min.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.OfType.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.OrderBy.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Reverse.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Select.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.SelectMany.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.SequenceEqual.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Single.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Skip.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Sum.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Take.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.ThenBy.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.ToArray.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.ToDictionary.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.ToList.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.ToLookup.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Union.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Where.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Zip.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\DoNotInjectAttribute.cs" />
+    <Compile Include="Impl\EmptyCache.cs" />
+    <Compile Include="Impl\ExpressionUtil.cs" />
+    <Compile Include="Impl\IAggregate.cs" />
+    <Compile Include="Impl\IAll.cs" />
+    <Compile Include="Impl\IAny.cs" />
+    <Compile Include="Impl\IAsEnumerable.cs" />
+    <Compile Include="Impl\IAverage.cs" />
+    <Compile Include="Impl\IBoxedEnumerable.cs" />
+    <Compile Include="Impl\ICast.cs" />
+    <Compile Include="Impl\IConcat.cs" />
+    <Compile Include="Impl\IContains.cs" />
+    <Compile Include="Impl\ICount.cs" />
+    <Compile Include="Impl\IDefaultIfEmpty.cs" />
+    <Compile Include="Impl\IdentityMaps.cs" />
+    <Compile Include="Impl\IDistinct.cs" />
+    <Compile Include="Impl\IElementAt.cs" />
+    <Compile Include="Impl\IExcept.cs" />
+    <Compile Include="Impl\IFirst.cs" />
+    <Compile Include="Impl\IGroupBy.cs" />
+    <Compile Include="Impl\IHasComparer.cs" />
+    <Compile Include="Impl\IGroupJoin.cs" />
+    <Compile Include="Impl\IJoin.cs" />
+    <Compile Include="Impl\ILast.cs" />
+    <Compile Include="Impl\IMax.cs" />
+    <Compile Include="Impl\IMin.cs" />
+    <Compile Include="Impl\IOfType.cs" />
+    <Compile Include="Impl\IOrderBy.cs" />
+    <Compile Include="Impl\IReverse.cs" />
+    <Compile Include="Impl\IThenBy.cs" />
+    <Compile Include="Impl\IToArray.cs" />
+    <Compile Include="Impl\IToDictionary.cs" />
+    <Compile Include="Impl\IToList.cs" />
+    <Compile Include="Impl\IToLookup.cs" />
+    <Compile Include="Impl\IIntersect.cs" />
+    <Compile Include="Impl\IUnion.cs" />
+    <Compile Include="Impl\OrderBySortItem.cs" />
+    <Compile Include="Impl\Orderer.cs" />
+    <Compile Include="Intersect.cs" />
+    <Compile Include="IStructPredicate.cs" />
+    <Compile Include="Impl\ISelect.cs" />
+    <Compile Include="Impl\ISelectMany.cs" />
+    <Compile Include="Impl\ISequenceEqual.cs" />
+    <Compile Include="Impl\ISingle.cs" />
+    <Compile Include="Impl\ISkip.cs" />
+    <Compile Include="Impl\ISum.cs" />
+    <Compile Include="Impl\ITake.cs" />
+    <Compile Include="Impl\IWhere.cs" />
+    <Compile Include="Impl\IZip.cs" />
+    <Compile Include="Impl\Operator.cs" />
+    <Compile Include="IStructProjection.cs" />
+    <Compile Include="IStructEnumerable.cs" />
+    <Compile Include="IStructEnumerator.cs" />
+    <Compile Include="Join.cs" />
+    <Compile Include="LinkedList.cs" />
+    <Compile Include="List.cs" />
+    <Compile Include="Lookup.cs" />
+    <Compile Include="LookupExtensionMethods.cs" />
+    <Compile Include="OfType.cs" />
+    <Compile Include="OfTypeBridgeExtensionMethods.cs" />
+    <Compile Include="OneItem.cs" />
+    <Compile Include="OrderBy.cs" />
+    <Compile Include="Overrides\DefaultIfEmptyDefault.cs" />
+    <Compile Include="Overrides\DefaultIfEmptySpecific.cs" />
+    <Compile Include="Overrides\DistinctDefault.cs" />
+    <Compile Include="Overrides\Empty.Concat.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\Empty.cs" />
+    <Compile Include="Overrides\Empty.GroupJoin.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\Empty.Join.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\Empty.SelectMany.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\Empty.SequenceEqual.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\Empty.Zip.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\EmptyOrdered.Concat.cs">
+      <DependentUpon>EmptyOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\EmptyOrdered.cs" />
+    <Compile Include="Overrides\EmptyOrdered.GroupJoin.cs">
+      <DependentUpon>EmptyOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\EmptyOrdered.Join.cs">
+      <DependentUpon>EmptyOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\EmptyOrdered.SelectMany.cs">
+      <DependentUpon>EmptyOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\EmptyOrdered.SequenceEqual.cs">
+      <DependentUpon>EmptyOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\EmptyOrdered.Zip.cs">
+      <DependentUpon>EmptyOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\Identity.cs" />
+    <Compile Include="Overrides\OneItemDefault.SequenceEqual.cs">
+      <DependentUpon>OneItemDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\OneItemSpecific.SequenceEqual.cs">
+      <DependentUpon>OneItemSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\OneItemDefaultOrdered.SequenceEqual.cs">
+      <DependentUpon>OneItemDefaultOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\OneItemSpecificOrdered.cs" />
+    <Compile Include="Overrides\OneItemDefaultOrdered.cs" />
+    <Compile Include="Overrides\OneItemSpecific.cs" />
+    <Compile Include="Overrides\OneItemDefault.cs" />
+    <Compile Include="Overrides\OneItemSpecificOrdered.SequenceEqual.cs">
+      <DependentUpon>OneItemSpecificOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\ReverseRange.cs" />
+    <Compile Include="Overrides\Range.cs" />
+    <Compile Include="Overrides\Repeat.cs" />
+    <Compile Include="Overrides\Reverse.cs" />
+    <Compile Include="Overrides\Select.cs" />
+    <Compile Include="Overrides\SelectSelect.cs" />
+    <Compile Include="Overrides\SelectWhere.cs" />
+    <Compile Include="Overrides\Skip.cs" />
+    <Compile Include="Overrides\Take.cs" />
+    <Compile Include="Reverse.cs" />
+    <Compile Include="Templates\AsEnumerableBase.cs" />
+    <Compile Include="Templates\ExceptBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\MinExtensionMethodsBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\MaxExtensionMethodsBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Concat.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Except.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Intersect.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.GroupJoin.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Join.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.SequenceEqual.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Union.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Zip.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\ExceptExtensionMethodsBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\IntersectExtensionMethodsBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\UnionExtensionMethodsBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\ConcatExtensionMethodsBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\SequenceEqualExtensionMethodsBase.cs" />
+    <Compile Include="Templates\GroupByBase.cs" />
+    <Compile Include="Templates\GroupJoinBase.cs" />
+    <Compile Include="Templates\IntersectBase.cs" />
+    <Compile Include="Templates\JoinBase.cs" />
+    <Compile Include="Templates\OrderByBase.cs" />
+    <Compile Include="Templates\ReverseBase.cs" />
+    <Compile Include="Templates\ThenByBase.cs" />
+    <Compile Include="Templates\ToDictionaryBase.cs" />
+    <Compile Include="Templates\ToArrayBase.cs" />
+    <Compile Include="Overrides\Where.cs" />
+    <Compile Include="Overrides\WhereSelect.cs" />
+    <Compile Include="Overrides\WhereWhere.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queue.cs" />
+    <Compile Include="Range.cs" />
+    <Compile Include="Repeat.cs" />
+    <Compile Include="Select.cs" />
+    <Compile Include="SelectMany.cs" />
+    <Compile Include="SelectSelect.cs" />
+    <Compile Include="SelectWhere.cs" />
+    <Compile Include="Skip.cs" />
+    <Compile Include="SortedDictionary.cs" />
+    <Compile Include="SortedSet.cs" />
+    <Compile Include="Stack.cs" />
+    <Compile Include="Take.cs" />
+    <Compile Include="Templates\AggregateBase.cs" />
+    <Compile Include="Templates\AllBase.cs" />
+    <Compile Include="Templates\AnyBase.cs" />
+    <Compile Include="Templates\AverageBase.cs" />
+    <Compile Include="Templates\ConcatBase.cs" />
+    <Compile Include="Templates\DistinctBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\AverageExtensionMethodsBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Average.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.SelectMany.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Sum.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ExtensionMethods\ExtensionMethodsBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\SumExtensionMethodsBase.cs" />
+    <Compile Include="Templates\SelectManyBase.cs" />
+    <Compile Include="Templates\SequenceEqualBase.cs" />
+    <Compile Include="Templates\SingleBase.cs" />
+    <Compile Include="Templates\OfTypeBase.cs" />
+    <Compile Include="Templates\CastBase.cs" />
+    <Compile Include="Templates\ContainsBase.cs" />
+    <Compile Include="Templates\CountBase.cs" />
+    <Compile Include="Templates\DefaultIfEmptyBase.cs" />
+    <Compile Include="Templates\ElementAtBase.cs" />
+    <Compile Include="Templates\LastBase.cs" />
+    <Compile Include="Templates\FirstBase.cs" />
+    <Compile Include="Templates\MinBase.cs" />
+    <Compile Include="Templates\MaxBase.cs" />
+    <Compile Include="Templates\SelectBase.cs" />
+    <Compile Include="Templates\TakeBase.cs" />
+    <Compile Include="Templates\SkipBase.cs" />
+    <Compile Include="Templates\SumBase.cs" />
+    <Compile Include="Templates\TemplateBase.cs" />
+    <Compile Include="Templates\ToListBase.cs" />
+    <Compile Include="Templates\ToLookupBase.cs" />
+    <Compile Include="Templates\UnionBase.cs" />
+    <Compile Include="Templates\WhereBase.cs" />
+    <Compile Include="Templates\ZipBase.cs" />
+    <Compile Include="Union.cs" />
+    <Compile Include="Where.cs" />
+    <Compile Include="WhereSelect.cs" />
+    <Compile Include="WhereWhere.cs" />
+    <Compile Include="Zip.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
