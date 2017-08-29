@@ -10,7 +10,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return ContainsImpl<TItem, TEnumerable, TEnumerator>(ref source, value);
         }
@@ -41,7 +41,7 @@ namespace LinqAF.Impl
                 return Contains<TItem, TEnumerable, TEnumerator>(ref source, value);
             }
 
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return ContainsImpl<TItem, TEnumerable, TEnumerator>(ref source, value, comparer);
         }

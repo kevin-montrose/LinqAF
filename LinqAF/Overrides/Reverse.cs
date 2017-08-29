@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqAF.Impl;
+using System;
 
 namespace LinqAF
 {
@@ -6,7 +7,7 @@ namespace LinqAF
     {
         public TEnumerable Reverse()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return Inner;
         }

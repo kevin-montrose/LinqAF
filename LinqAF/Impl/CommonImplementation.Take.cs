@@ -8,7 +8,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return TakeImpl<TItem, TEnumerable, TEnumerator>(ref source, count);
         }
@@ -29,8 +29,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return TakeWhileImpl<TItem, TEnumerable, TEnumerator>(ref source, predicate);
         }
@@ -46,8 +46,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return TakeWhileImpl<TItem, TEnumerable, TEnumerator>(ref source, predicate);
         }

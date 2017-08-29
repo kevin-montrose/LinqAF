@@ -1,8 +1,9 @@
-﻿using System;
+﻿using LinqAF.Impl;
 using System.Collections.Generic;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct UnionDefaultEnumerator<TItem, TFirstEnumerator, TSecondEnumerator>:
         IStructEnumerator<TItem>
         where TFirstEnumerator : struct, IStructEnumerator<TItem>
@@ -13,39 +14,46 @@ namespace LinqAF
         TFirstEnumerator FirstInner;
         bool FirstFinished;
         TSecondEnumerator SecondInner;
-        HashSet<TItem> AlreadyYielded;
+        IndexedItemContainer<TItem> Container;
+        CompactSet<TItem> AlreadyYielded;
         internal UnionDefaultEnumerator(ref TFirstEnumerator first, ref TSecondEnumerator second)
         {
             FirstInner = first;
             FirstFinished = false;
             SecondInner = second;
-            AlreadyYielded = null;
+            AlreadyYielded = new CompactSet<TItem>();
+            Container = new IndexedItemContainer<TItem>();
             Current = default(TItem);
         }
 
         public bool IsDefaultValue()
         {
-            return FirstInner.IsDefaultValue() && SecondInner.IsDefaultValue();
+            return FirstInner.IsDefaultValue();
         }
 
         public void Dispose()
         {
             FirstInner.Dispose();
             SecondInner.Dispose();
-            AlreadyYielded = null;
+            AlreadyYielded.Dispose();
+            Container.Dispose();
         }
 
         public bool MoveNext()
         {
-            var alreadyYielded = AlreadyYielded ?? (AlreadyYielded = new HashSet<TItem>(EqualityComparer<TItem>.Default));
-
+            if (AlreadyYielded.IsDefaultValue())
+            {
+                AlreadyYielded.Initialize();
+                Container.Initialize();
+            }
+            
             if (!FirstFinished)
             {
                 while (FirstInner.MoveNext())
                 {
                     var cur = FirstInner.Current;
 
-                    if (alreadyYielded.Add(cur))
+                    if (AlreadyYielded.Add(cur, ref Container))
                     {
                         Current = cur;
                         return true;
@@ -59,7 +67,7 @@ namespace LinqAF
             {
                 var cur = SecondInner.Current;
 
-                if (alreadyYielded.Add(cur))
+                if (AlreadyYielded.Add(cur, ref Container))
                 {
                     Current = cur;
                     return true;
@@ -75,10 +83,12 @@ namespace LinqAF
             SecondInner.Reset();
 
             FirstFinished = false;
-            AlreadyYielded = null;
+            AlreadyYielded.Reset();
+            Container.Reset();
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct UnionDefaultEnumerable<TItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator>:
         IStructEnumerable<TItem, UnionDefaultEnumerator<TItem, TFirstEnumerator, TSecondEnumerator>>
         where TFirstEnumerable: struct, IStructEnumerable<TItem, TFirstEnumerator>
@@ -96,7 +106,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return FirstInner.IsDefaultValue() && SecondInner.IsDefaultValue();
+            return FirstInner.IsDefaultValue();
         }
 
         public UnionDefaultEnumerator<TItem, TFirstEnumerator, TSecondEnumerator> GetEnumerator()
@@ -108,6 +118,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct UnionSpecificEnumerator<TItem, TFirstEnumerator, TSecondEnumerator> :
         IStructEnumerator<TItem>
         where TFirstEnumerator : struct, IStructEnumerator<TItem>
@@ -118,41 +129,48 @@ namespace LinqAF
         TFirstEnumerator FirstInner;
         bool FirstFinished;
         TSecondEnumerator SecondInner;
-        HashSet<TItem> AlreadyYielded;
+        IndexedItemContainer<TItem> Container;
+        CompactSet<TItem> AlreadyYielded;
         IEqualityComparer<TItem> Comparer;
         internal UnionSpecificEnumerator(ref TFirstEnumerator first, ref TSecondEnumerator second, IEqualityComparer<TItem> comparer)
         {
             FirstInner = first;
             FirstFinished = false;
             SecondInner = second;
-            AlreadyYielded = null;
+            AlreadyYielded = new CompactSet<TItem>();
+            Container = new IndexedItemContainer<TItem>();
             Current = default(TItem);
             Comparer = comparer;
         }
 
         public bool IsDefaultValue()
         {
-            return Comparer == null && FirstInner.IsDefaultValue() && SecondInner.IsDefaultValue();
+            return Comparer == null;
         }
 
         public void Dispose()
         {
             FirstInner.Dispose();
             SecondInner.Dispose();
-            AlreadyYielded = null;
+            AlreadyYielded.Dispose();
+            Container.Dispose();
         }
 
         public bool MoveNext()
         {
-            var alreadyYielded = AlreadyYielded ?? (AlreadyYielded = new HashSet<TItem>(Comparer));
-
+            if (AlreadyYielded.IsDefaultValue())
+            {
+                AlreadyYielded.Initialize();
+                Container.Initialize();
+            }
+            
             if (!FirstFinished)
             {
                 while (FirstInner.MoveNext())
                 {
                     var cur = FirstInner.Current;
 
-                    if (alreadyYielded.Add(cur))
+                    if (AlreadyYielded.Add(cur, ref Container, Comparer))
                     {
                         Current = cur;
                         return true;
@@ -166,7 +184,7 @@ namespace LinqAF
             {
                 var cur = SecondInner.Current;
 
-                if (alreadyYielded.Add(cur))
+                if (AlreadyYielded.Add(cur, ref Container, Comparer))
                 {
                     Current = cur;
                     return true;
@@ -182,10 +200,12 @@ namespace LinqAF
             SecondInner.Reset();
 
             FirstFinished = false;
-            AlreadyYielded = null;
+            AlreadyYielded.Reset();
+            Container.Reset();
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct UnionSpecificEnumerable<TItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator> :
         IStructEnumerable<TItem, UnionSpecificEnumerator<TItem, TFirstEnumerator, TSecondEnumerator>>
         where TFirstEnumerable : struct, IStructEnumerable<TItem, TFirstEnumerator>
@@ -205,10 +225,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return 
-                Comparer == null &&
-                FirstInner.IsDefaultValue() && 
-                SecondInner.IsDefaultValue();
+            return Comparer == null;
         }
 
         public UnionSpecificEnumerator<TItem, TFirstEnumerator, TSecondEnumerator> GetEnumerator()

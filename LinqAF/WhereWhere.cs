@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LinqAF
+﻿namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct WhereWhereEnumerator<TItem, TInnerEnumerator, TPredicate>:
         IStructEnumerator<TItem>
         where TInnerEnumerator: struct, IStructEnumerator<TItem>
@@ -25,9 +20,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate.IsDefaultValue() ||
-                Inner.IsDefaultValue();
+            return Predicate.IsDefaultValue();
         }
 
         public void Dispose()
@@ -57,6 +50,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct WhereWhereEnumerable<TItem, TInnerEnumerable, TInnerEnumerator, TPredicate>:
         IStructEnumerable<TItem, WhereWhereEnumerator<TItem, TInnerEnumerator, TPredicate>>
         where TInnerEnumerable: struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -74,9 +68,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate.IsDefaultValue() ||
-                Inner.IsDefaultValue();
+            return Predicate.IsDefaultValue();
         }
 
         public WhereWhereEnumerator<TItem, TInnerEnumerator, TPredicate> GetEnumerator()

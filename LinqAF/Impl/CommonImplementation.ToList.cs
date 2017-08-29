@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqAF.Config;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace LinqAF.Impl
             where TEnumerable: struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator: struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return ToListImpl<TItem, TEnumerable, TEnumerator>(ref source);
         }
@@ -21,7 +22,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            var ret = new List<TItem>();
+            var ret = Allocator.Current.GetEmptyList<TItem>(null);
             foreach (var item in source)
             {
                 ret.Add(item);

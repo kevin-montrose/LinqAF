@@ -36,6 +36,22 @@ namespace LinqAF.Generator
                     // don't replace calls to Bridge, we rely on type inference there
                     if (name.Identifier.ValueText == "Bridge") continue;
 
+                    // exception methods!
+                    if (name.Identifier.ValueText == "ForbiddenCall") continue;
+                    if (name.Identifier.ValueText == "UnexpectedPath") continue;
+                    if (name.Identifier.ValueText == "Uninitialized") continue;
+                    if (name.Identifier.ValueText == "ArgumentNull") continue;
+                    if (name.Identifier.ValueText == "SequenceEmpty") continue;
+                    if (name.Identifier.ValueText == "OutOfRange") continue;
+                    if (name.Identifier.ValueText == "NoItemsMatched") continue;
+                    if (name.Identifier.ValueText == "MultipleMatchingElements") continue;
+                    if (name.Identifier.ValueText == "MultipleElements") continue;
+                    if (name.Identifier.ValueText == "UninitializedProjection") continue;
+                    if (name.Identifier.ValueText == "UnexpectedState") continue;
+                    if (name.Identifier.ValueText == "NotImplemented") continue;
+                    if (name.Identifier.ValueText == "InnerUninitialized") continue;
+                    if (name.Identifier.ValueText == "InvalidOperation") continue;
+
                     var genName = SyntaxFactory.GenericName(name.Identifier, genArgs);
 
                     var updatedCall = call.WithName(genName);

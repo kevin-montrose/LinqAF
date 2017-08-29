@@ -7,7 +7,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return OfTypeImpl<TInItem, TOutItem, TEnumerable, TEnumerator>(ref source);
         }

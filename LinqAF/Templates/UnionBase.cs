@@ -22,37 +22,37 @@ namespace LinqAF
             where TOrderByComparer : struct, IStructComparer<TItem, TOrderByKey>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Union(IEnumerable<TItem> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Union(IEnumerable<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
         }
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Union(HashSet<TItem> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Union(HashSet<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
         }
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Union(List<TItem> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Union(List<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
         }
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Union(Queue<TItem> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Union(Queue<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
         }
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Union(SortedSet<TItem> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Union(SortedSet<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
         }
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Union(TItem[] second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Union(TItem[] second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
@@ -61,7 +61,7 @@ namespace LinqAF
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Union(ReverseRangeEnumerable<TItem> second)
         => CommonImplementation.Union(RefThis(), ref second);
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Union(Stack<TItem> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Union(Stack<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
@@ -73,7 +73,7 @@ namespace LinqAF
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Union(RepeatEnumerable<TItem> second)
         => CommonImplementation.Union(RefThis(), ref second);
         
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Union(LinkedList<TItem> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Union(LinkedList<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
@@ -82,25 +82,25 @@ namespace LinqAF
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, BoxedEnumerable<TItem>, BoxedEnumerator<TItem>> Union(BoxedEnumerable<TItem> second)
         => CommonImplementation.Union(RefThis(), ref second);
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Union(IEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Union(IEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
         }
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Union(LinkedList<TItem> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Union(LinkedList<TItem> second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
         }
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Union(Queue<TItem> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Union(Queue<TItem> second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
         }
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Union(TItem[] second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Union(TItem[] second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
@@ -115,25 +115,25 @@ namespace LinqAF
         public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Union(RangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Union(Stack<TItem> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Union(Stack<TItem> second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
         }
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Union(SortedSet<TItem> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Union(SortedSet<TItem> second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
         }
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Union(List<TItem> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Union(List<TItem> second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
         }
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Union(HashSet<TItem> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Union(HashSet<TItem> second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
@@ -145,13 +145,13 @@ namespace LinqAF
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, GroupingEnumerable<TGroupedKey, TItem>, GroupingEnumerator<TItem>> Union<TGroupedKey>(GroupingEnumerable<TGroupedKey, TItem> second)
         => CommonImplementation.Union(RefThis(), ref second);
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TUnion_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>> Union<TUnion_DictionaryKey>(SortedDictionary<TUnion_DictionaryKey, TItem>.ValueCollection second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TUnion_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TUnion_DictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>> Union<TUnion_DictionaryKey>(SortedDictionary<TUnion_DictionaryKey, TItem>.ValueCollection second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
         }
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TUnion_DictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TUnion_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TUnion_DictionaryValue>> Union<TUnion_DictionaryValue>(SortedDictionary<TItem, TUnion_DictionaryValue>.KeyCollection second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TUnion_DictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TUnion_DictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TUnion_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TUnion_DictionaryValue>> Union<TUnion_DictionaryValue>(SortedDictionary<TItem, TUnion_DictionaryValue>.KeyCollection second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
@@ -160,25 +160,25 @@ namespace LinqAF
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, GroupedEnumerable<TGroupedKey, TItem>, GroupedEnumerator<TItem>> Union<TGroupedKey>(GroupedEnumerable<TGroupedKey, TItem> second)
         => CommonImplementation.Union(RefThis(), ref second);
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TUnion_DictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>> Union<TUnion_DictionaryKey>(Dictionary<TUnion_DictionaryKey, TItem>.ValueCollection second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TUnion_DictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TUnion_DictionaryKey, TItem>, DictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>> Union<TUnion_DictionaryKey>(Dictionary<TUnion_DictionaryKey, TItem>.ValueCollection second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
         }
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Union<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Union<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
         }
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TUnion_DictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>> Union<TUnion_DictionaryKey>(Dictionary<TUnion_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TUnion_DictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TUnion_DictionaryKey, TItem>, DictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>> Union<TUnion_DictionaryKey>(Dictionary<TUnion_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
         }
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TUnion_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>> Union<TUnion_DictionaryKey>(SortedDictionary<TUnion_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TUnion_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TUnion_DictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TUnion_DictionaryKey, TItem>> Union<TUnion_DictionaryKey>(SortedDictionary<TUnion_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
@@ -190,13 +190,13 @@ namespace LinqAF
         public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, GroupedEnumerable<TGroupedKey, TItem>, GroupedEnumerator<TItem>> Union<TGroupedKey>(GroupedEnumerable<TGroupedKey, TItem> second, IEqualityComparer<TItem> comparer)
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TUnion_DictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TUnion_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TUnion_DictionaryValue>> Union<TUnion_DictionaryValue>(SortedDictionary<TItem, TUnion_DictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TUnion_DictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TUnion_DictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TUnion_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TUnion_DictionaryValue>> Union<TUnion_DictionaryValue>(SortedDictionary<TItem, TUnion_DictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
         }
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Union<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Union<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge, comparer);
@@ -267,9 +267,10 @@ namespace LinqAF
             where TUnion_InnerEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Union(RefThis(), ref second);
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TUnion_IdentityBridgeType, TUnion_IdentityEnumerator>, TUnion_IdentityEnumerator> Union<TUnion_IdentityBridgeType, TUnion_IdentityEnumerator>(IdentityEnumerable<TItem, TUnion_IdentityBridgeType, TUnion_IdentityEnumerator> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TUnion_IdentityBridgeType, TUnion_IdentityBridger, TUnion_IdentityEnumerator>, TUnion_IdentityEnumerator> Union<TUnion_IdentityBridgeType, TUnion_IdentityBridger, TUnion_IdentityEnumerator>(IdentityEnumerable<TItem, TUnion_IdentityBridgeType, TUnion_IdentityBridger, TUnion_IdentityEnumerator> second)
             where TUnion_IdentityBridgeType : class
             where TUnion_IdentityEnumerator : struct, IStructEnumerator<TItem>
+            where TUnion_IdentityBridger: struct, IStructBridger<TItem, TUnion_IdentityBridgeType, TUnion_IdentityEnumerator>
         => CommonImplementation.Union(RefThis(), ref second);
 
         public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, WhereEnumerable<TItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator>, WhereEnumerator<TItem, TUnion_InnerEnumerator>> Union<TUnion_InnerEnumerable, TUnion_InnerEnumerator>(WhereEnumerable<TItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator> second, IEqualityComparer<TItem> comparer)
@@ -337,9 +338,10 @@ namespace LinqAF
             where TUnion_InnerEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TUnion_IdentityBridgeType, TUnion_IdentityEnumerator>, TUnion_IdentityEnumerator> Union<TUnion_IdentityBridgeType, TUnion_IdentityEnumerator>(IdentityEnumerable<TItem, TUnion_IdentityBridgeType, TUnion_IdentityEnumerator> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TUnion_IdentityBridgeType, TUnion_IdentityBridger, TUnion_IdentityEnumerator>, TUnion_IdentityEnumerator> Union<TUnion_IdentityBridgeType, TUnion_IdentityBridger, TUnion_IdentityEnumerator>(IdentityEnumerable<TItem, TUnion_IdentityBridgeType, TUnion_IdentityBridger, TUnion_IdentityEnumerator> second, IEqualityComparer<TItem> comparer)
             where TUnion_IdentityBridgeType : class
             where TUnion_IdentityEnumerator : struct, IStructEnumerator<TItem>
+            where TUnion_IdentityBridger: struct, IStructBridger<TItem, TUnion_IdentityBridgeType, TUnion_IdentityEnumerator>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectIndexedEnumerable<TUnion_SelectInItem, TItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator>, SelectIndexedEnumerator<TUnion_SelectInItem, TItem, TUnion_InnerEnumerator>> Union<TUnion_SelectInItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator>(SelectIndexedEnumerable<TUnion_SelectInItem, TItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator> second)
@@ -518,11 +520,12 @@ namespace LinqAF
             where TUnion_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Union(RefThis(), ref second);
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator> second)
             where TUnion_SelectManyBridgeType : class
             where TUnion_SelectManyInnerEnumerable : struct, IStructEnumerable<TUnion_SelectManyInItem, TUnion_SelectManyInnerEnumerator>
             where TUnion_SelectManyInnerEnumerator : struct, IStructEnumerator<TUnion_SelectManyInItem>
             where TUnion_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TUnion_SelectManyBridger: struct, IStructBridger<TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyProjectedEnumerator>
         => CommonImplementation.Union(RefThis(), ref second);
 
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectWhereEnumerable<TItem, TUnion_SelectInnerItem, TUnion_SelectInnerEnumerable, TUnion_SelectInnerEnumerator, TUnion_SelectProjection, TUnion_SelectPredicate>, SelectWhereEnumerator<TItem, TUnion_SelectInnerItem, TUnion_SelectInnerEnumerator, TUnion_SelectProjection, TUnion_SelectPredicate>> Union<TUnion_SelectInnerItem, TUnion_SelectInnerEnumerable, TUnion_SelectInnerEnumerator, TUnion_SelectProjection, TUnion_SelectPredicate>(SelectWhereEnumerable<TItem, TUnion_SelectInnerItem, TUnion_SelectInnerEnumerable, TUnion_SelectInnerEnumerator, TUnion_SelectProjection, TUnion_SelectPredicate> second)
@@ -549,11 +552,12 @@ namespace LinqAF
             where TGroupByEnumerator : struct, IStructEnumerator<TGroupByInItem>
         => CommonImplementation.Union(RefThis(), ref second);
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>, SelectManyBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_BridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>(SelectManyBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_Bridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>, SelectManyBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_Bridger, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_BridgeType, TUnion_Bridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>(SelectManyBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_Bridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator> second)
             where TUnion_BridgeType : class
             where TUnion_InnerEnumerable : struct, IStructEnumerable<TUnion_SelectManyInItem, TUnion_InnerEnumerator>
             where TUnion_InnerEnumerator : struct, IStructEnumerator<TUnion_SelectManyInItem>
             where TUnion_ProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TUnion_Bridger: struct, IStructBridger<TItem, TUnion_BridgeType, TUnion_ProjectedEnumerator>
         => CommonImplementation.Union(RefThis(), ref second);
 
         public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectWhereEnumerable<TItem, TUnion_SelectInnerItem, TUnion_SelectInnerEnumerable, TUnion_SelectInnerEnumerator, TUnion_SelectProjection, TUnion_SelectPredicate>, SelectWhereEnumerator<TItem, TUnion_SelectInnerItem, TUnion_SelectInnerEnumerator, TUnion_SelectProjection, TUnion_SelectPredicate>> Union<TUnion_SelectInnerItem, TUnion_SelectInnerEnumerable, TUnion_SelectInnerEnumerator, TUnion_SelectProjection, TUnion_SelectPredicate>(SelectWhereEnumerable<TItem, TUnion_SelectInnerItem, TUnion_SelectInnerEnumerable, TUnion_SelectInnerEnumerator, TUnion_SelectProjection, TUnion_SelectPredicate> second, IEqualityComparer<TItem> comparer)
@@ -580,11 +584,12 @@ namespace LinqAF
             where TGroupByEnumerator : struct, IStructEnumerator<TGroupByInItem>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TUnion_SelectManyBridgeType : class
             where TUnion_SelectManyInnerEnumerable : struct, IStructEnumerable<TUnion_SelectManyInItem, TUnion_SelectManyInnerEnumerator>
             where TUnion_SelectManyInnerEnumerator : struct, IStructEnumerator<TUnion_SelectManyInItem>
             where TUnion_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TUnion_SelectManyBridger: struct, IStructBridger<TItem, TUnion_SelectManyBridgeType, TUnion_SelectManyProjectedEnumerator>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
         public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyEnumerable<TUnion_SelectManyInItem, TItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator>, SelectManyEnumerator<TUnion_SelectManyInItem, TItem, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator>(SelectManyEnumerable<TUnion_SelectManyInItem, TItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
@@ -601,11 +606,12 @@ namespace LinqAF
             where TUnion_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>, SelectManyBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_BridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>(SelectManyBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_Bridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>, SelectManyBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_Bridger, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_BridgeType, TUnion_Bridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator>(SelectManyBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_BridgeType, TUnion_Bridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TUnion_BridgeType : class
             where TUnion_InnerEnumerable : struct, IStructEnumerable<TUnion_SelectManyInItem, TUnion_InnerEnumerator>
             where TUnion_InnerEnumerator : struct, IStructEnumerator<TUnion_SelectManyInItem>
             where TUnion_ProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TUnion_Bridger: struct, IStructBridger<TItem, TUnion_BridgeType, TUnion_ProjectedEnumerator>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator>, SelectManyCollectionEnumerator<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_CollectionItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator>(SelectManyCollectionEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator> second)
@@ -629,18 +635,20 @@ namespace LinqAF
             where TUnion_SelectManyProjectedEnumerator : struct, IStructEnumerator<TUnion_CollectionItem>
         => CommonImplementation.Union(RefThis(), ref second);
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator> second)
             where TUnion_SelectManyBridgeType : class
             where TUnion_SelectManyInnerEnumerable : struct, IStructEnumerable<TUnion_SelectManyInItem, TUnion_SelectManyInnerEnumerator>
             where TUnion_SelectManyInnerEnumerator : struct, IStructEnumerator<TUnion_SelectManyInItem>
             where TUnion_SelectManyProjectedEnumerator : struct, IStructEnumerator<TUnion_CollectionItem>
+            where TUnion_SelectManyBridger: struct, IStructBridger<TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyProjectedEnumerator>
         => CommonImplementation.Union(RefThis(), ref second);
 
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator> second)
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator> second)
             where TUnion_SelectManyBridgeType : class
             where TUnion_InnerEnumerable : struct, IStructEnumerable<TUnion_SelectManyInItem, TUnion_InnerEnumerator>
             where TUnion_InnerEnumerator : struct, IStructEnumerator<TUnion_SelectManyInItem>
             where TUnion_SelectManyProjectedEnumerator : struct, IStructEnumerator<TUnion_CollectionItem>
+            where TUnion_SelectManyBridger: struct, IStructBridger<TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyProjectedEnumerator>
         => CommonImplementation.Union(RefThis(), ref second);
 
         public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator>, SelectManyCollectionEnumerator<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_CollectionItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator>(SelectManyCollectionEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_ProjectedEnumerable, TUnion_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
@@ -664,18 +672,20 @@ namespace LinqAF
             where TUnion_SelectManyProjectedEnumerator : struct, IStructEnumerator<TUnion_CollectionItem>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_SelectManyInnerEnumerable, TUnion_SelectManyInnerEnumerator, TUnion_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TUnion_SelectManyBridgeType : class
             where TUnion_SelectManyInnerEnumerable : struct, IStructEnumerable<TUnion_SelectManyInItem, TUnion_SelectManyInnerEnumerator>
             where TUnion_SelectManyInnerEnumerator : struct, IStructEnumerator<TUnion_SelectManyInItem>
             where TUnion_SelectManyProjectedEnumerator : struct, IStructEnumerator<TUnion_CollectionItem>
+            where TUnion_SelectManyBridger: struct, IStructBridger<TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyProjectedEnumerator>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>> Union<TUnion_SelectManyInItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TUnion_SelectManyInItem, TItem, TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyBridger, TUnion_InnerEnumerable, TUnion_InnerEnumerator, TUnion_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TUnion_SelectManyBridgeType : class
             where TUnion_InnerEnumerable : struct, IStructEnumerable<TUnion_SelectManyInItem, TUnion_InnerEnumerator>
             where TUnion_InnerEnumerator : struct, IStructEnumerator<TUnion_SelectManyInItem>
             where TUnion_SelectManyProjectedEnumerator : struct, IStructEnumerator<TUnion_CollectionItem>
+            where TUnion_SelectManyBridger: struct, IStructBridger<TUnion_CollectionItem, TUnion_SelectManyBridgeType, TUnion_SelectManyProjectedEnumerator>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
 
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, JoinSpecificEnumerable<TItem, TJoinKeyItem, TJoinLeftItem, TJoinLeftEnumerable, TJoinLeftEnumerator, TJoinRightItem, TJoinRightEnumerable, TJoinRightEnumerator>, JoinSpecificEnumerator<TItem, TJoinKeyItem, TJoinLeftItem, TJoinLeftEnumerator, TJoinRightItem, TJoinRightEnumerator>> Union<TJoinKeyItem, TJoinLeftItem, TJoinLeftEnumerable, TJoinLeftEnumerator, TJoinRightItem, TJoinRightEnumerable, TJoinRightEnumerator>(JoinSpecificEnumerable<TItem, TJoinKeyItem, TJoinLeftItem, TJoinLeftEnumerable, TJoinLeftEnumerator, TJoinRightItem, TJoinRightEnumerable, TJoinRightEnumerator> second)
@@ -739,8 +749,8 @@ namespace LinqAF
 
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>> Union(EmptyOrderedEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             var empty = EmptyCache<TItem>.Empty;
             return CommonImplementation.UnionImpl(RefThis(), ref empty);
@@ -751,8 +761,8 @@ namespace LinqAF
 
         public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>> Union(EmptyOrderedEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             var empty = EmptyCache<TItem>.Empty;
             return CommonImplementation.UnionImpl(RefThis(), ref empty, comparer);

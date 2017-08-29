@@ -66,11 +66,11 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
                 PlaceholderEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Except<TGenLookupKey, TGenLookupElement>(
                 PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> first,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> second
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second
             )
         {
             return
@@ -78,8 +78,33 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
                     PlaceholderEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    RefParam(first),
+                    ref second
+                );
+        }
+
+        public
+            ExceptDefaultEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                PlaceholderEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenLookupKey, TGenLookupElement>(
+                PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second
+            )
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                    PlaceholderEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(
                     RefParam(first),
                     ref second
@@ -150,11 +175,11 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
                 PlaceholderEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Except<TGenLookupKey, TGenLookupElement>(
                 PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> first,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> second,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second,
                 IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
             )
         {
@@ -163,8 +188,35 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
                     PlaceholderEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    RefParam(first),
+                    ref second,
+                    comparer
+                );
+        }
+
+        public
+            ExceptSpecificEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                PlaceholderEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenLookupKey, TGenLookupElement>(
+                PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second,
+                IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
+            )
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    PlaceholderEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                    PlaceholderEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(
                     RefParam(first),
                     ref second,
@@ -237,11 +289,11 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
                 GroupByDefaultEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Except<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>(
                 GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator> first,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> second
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second
             )
             where TGenGroupByEnumerable: struct, IStructEnumerable<TGenGroupByInItem, TGenGroupByEnumerator>
             where TGenGroupByEnumerator: struct, IStructEnumerator<TGenGroupByInItem>
@@ -251,8 +303,35 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
                     GroupByDefaultEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public
+            ExceptDefaultEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
+                GroupByDefaultEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>(
+                GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second
+            )
+            where TGenGroupByEnumerable : struct, IStructEnumerable<TGenGroupByInItem, TGenGroupByEnumerator>
+            where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
+                    GroupByDefaultEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(
                     ref first,
                     ref second
@@ -328,11 +407,11 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
                 GroupByDefaultEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Except<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>(
                 GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator> first,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> second,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second,
                 IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
             )
             where TGenGroupByEnumerable : struct, IStructEnumerable<TGenGroupByInItem, TGenGroupByEnumerator>
@@ -343,8 +422,37 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
                     GroupByDefaultEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        public
+            ExceptSpecificEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
+                GroupByDefaultEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>(
+                GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second,
+                IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
+            )
+            where TGenGroupByEnumerable : struct, IStructEnumerable<TGenGroupByInItem, TGenGroupByEnumerator>
+            where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    GroupByDefaultEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
+                    GroupByDefaultEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(
                     ref first,
                     ref second,
@@ -417,11 +525,11 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
                 GroupBySpecificEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Except<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>(
                 GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator> first,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> second
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second
             )
             where TGenGroupByEnumerable : struct, IStructEnumerable<TGenGroupByInItem, TGenGroupByEnumerator>
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
@@ -431,8 +539,35 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
                     GroupBySpecificEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public
+            ExceptDefaultEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
+                GroupBySpecificEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>(
+                GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second
+            )
+            where TGenGroupByEnumerable : struct, IStructEnumerable<TGenGroupByInItem, TGenGroupByEnumerator>
+            where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
+                    GroupBySpecificEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(
                     ref first,
                     ref second
@@ -508,11 +643,11 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
                 GroupBySpecificEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Except<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>(
                 GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator> first,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> second,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second,
                 IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
             )
             where TGenGroupByEnumerable : struct, IStructEnumerable<TGenGroupByInItem, TGenGroupByEnumerator>
@@ -523,8 +658,37 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
                     GroupBySpecificEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        public
+            ExceptSpecificEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
+                GroupBySpecificEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>(
+                GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second,
+                IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
+            )
+            where TGenGroupByEnumerable : struct, IStructEnumerable<TGenGroupByInItem, TGenGroupByEnumerator>
+            where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    GroupBySpecificEnumerable<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
+                    GroupBySpecificEnumerator<TGenGroupByInItem, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(
                     ref first,
                     ref second,
@@ -537,22 +701,22 @@ namespace LinqAF
         public
             ExceptDefaultEnumerable<
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
                 GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
                 GroupByDefaultEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
             > Except<TGenLookupKey, TGenLookupElement, TGenGroupByInItem2, TGenGroupByEnumerable2, TGenGroupByEnumerator2>(
-            LookupEnumerable<TGenLookupKey, TGenLookupElement> first,
-            GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2> second
-        )
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> first,
+                GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2> second
+            )
             where TGenGroupByEnumerable2 : struct, IStructEnumerable<TGenGroupByInItem2, TGenGroupByEnumerator2>
             where TGenGroupByEnumerator2 : struct, IStructEnumerator<TGenGroupByInItem2>
         {
             return
                 CommonImplementation.Except<
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
                     GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
                     GroupByDefaultEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
                 >(
@@ -564,12 +728,39 @@ namespace LinqAF
         public
             ExceptDefaultEnumerable<
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
+                GroupByDefaultEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
+            > Except<TGenLookupKey, TGenLookupElement, TGenGroupByInItem2, TGenGroupByEnumerable2, TGenGroupByEnumerator2>(
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> first,
+                GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2> second
+            )
+            where TGenGroupByEnumerable2 : struct, IStructEnumerable<TGenGroupByInItem2, TGenGroupByEnumerator2>
+            where TGenGroupByEnumerator2 : struct, IStructEnumerator<TGenGroupByInItem2>
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                    GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
+                    GroupByDefaultEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public
+            ExceptDefaultEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
                 GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
                 GroupBySpecificEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
             > Except<TGenLookupKey, TGenLookupElement, TGenGroupByInItem2, TGenGroupByEnumerable2, TGenGroupByEnumerator2>(
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> first,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> first,
                 GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2> second
             )
                 where TGenGroupByEnumerable2 : struct, IStructEnumerable<TGenGroupByInItem2, TGenGroupByEnumerator2>
@@ -578,8 +769,8 @@ namespace LinqAF
             return
                 CommonImplementation.Except<
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
                     GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
                     GroupBySpecificEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
                 >(
@@ -591,22 +782,126 @@ namespace LinqAF
         public
             ExceptDefaultEnumerable<
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
+                GroupBySpecificEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
+            > Except<TGenLookupKey, TGenLookupElement, TGenGroupByInItem2, TGenGroupByEnumerable2, TGenGroupByEnumerator2>(
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> first,
+                GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2> second
+            )
+                where TGenGroupByEnumerable2 : struct, IStructEnumerable<TGenGroupByInItem2, TGenGroupByEnumerator2>
+                where TGenGroupByEnumerator2 : struct, IStructEnumerator<TGenGroupByInItem2>
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                    GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
+                    GroupBySpecificEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public
+            ExceptDefaultEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Except<TGenLookupKey, TGenLookupElement>(
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> first,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> second
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> first,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second
             )
         {
             return
                 CommonImplementation.Except<
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public
+            ExceptDefaultEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenLookupKey, TGenLookupElement>(
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second
+            )
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        //
+
+        public
+            ExceptDefaultEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenLookupKey, TGenLookupElement>(
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> first,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second
+            )
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public
+            ExceptDefaultEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenLookupKey, TGenLookupElement>(
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second
+            )
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(
                     ref first,
                     ref second
@@ -618,23 +913,23 @@ namespace LinqAF
         public
             ExceptSpecificEnumerable<
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
                 GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
                 GroupByDefaultEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
             > Except<TGenLookupKey, TGenLookupElement, TGenGroupByInItem2, TGenGroupByEnumerable2, TGenGroupByEnumerator2>(
-            LookupEnumerable<TGenLookupKey, TGenLookupElement> first,
-            GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2> second,
-            IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
-        )
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> first,
+                GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2> second,
+                IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
+            )
             where TGenGroupByEnumerable2 : struct, IStructEnumerable<TGenGroupByInItem2, TGenGroupByEnumerator2>
             where TGenGroupByEnumerator2 : struct, IStructEnumerator<TGenGroupByInItem2>
         {
             return
                 CommonImplementation.Except<
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
                     GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
                     GroupByDefaultEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
                 >(
@@ -647,12 +942,41 @@ namespace LinqAF
         public
             ExceptSpecificEnumerable<
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
+                GroupByDefaultEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
+            > Except<TGenLookupKey, TGenLookupElement, TGenGroupByInItem2, TGenGroupByEnumerable2, TGenGroupByEnumerator2>(
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> first,
+                GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2> second,
+                IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
+            )
+            where TGenGroupByEnumerable2 : struct, IStructEnumerable<TGenGroupByInItem2, TGenGroupByEnumerator2>
+            where TGenGroupByEnumerator2 : struct, IStructEnumerator<TGenGroupByInItem2>
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                    GroupByDefaultEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
+                    GroupByDefaultEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        public
+            ExceptSpecificEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
                 GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
                 GroupBySpecificEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
             > Except<TGenLookupKey, TGenLookupElement, TGenGroupByInItem2, TGenGroupByEnumerable2, TGenGroupByEnumerator2>(
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> first,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> first,
                 GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2> second,
                 IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
             )
@@ -662,8 +986,8 @@ namespace LinqAF
             return
                 CommonImplementation.Except<
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
                     GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
                     GroupBySpecificEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
                 >(
@@ -676,23 +1000,135 @@ namespace LinqAF
         public
             ExceptSpecificEnumerable<
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
+                GroupBySpecificEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
+            > Except<TGenLookupKey, TGenLookupElement, TGenGroupByInItem2, TGenGroupByEnumerable2, TGenGroupByEnumerator2>(
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> first,
+                GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2> second,
+                IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
+            )
+                where TGenGroupByEnumerable2 : struct, IStructEnumerable<TGenGroupByInItem2, TGenGroupByEnumerator2>
+                where TGenGroupByEnumerator2 : struct, IStructEnumerator<TGenGroupByInItem2>
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                    GroupBySpecificEnumerable<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerable2, TGenGroupByEnumerator2>,
+                    GroupBySpecificEnumerator<TGenGroupByInItem2, TGenLookupKey, TGenLookupElement, TGenGroupByEnumerator2>
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        public
+            ExceptSpecificEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Except<TGenLookupKey, TGenLookupElement>(
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> first,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> second,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> first,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second,
                 IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
             )
         {
             return
                 CommonImplementation.Except<
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        public
+            ExceptSpecificEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenLookupKey, TGenLookupElement>(
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second,
+                IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
+            )
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        //
+
+        public
+            ExceptSpecificEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenLookupKey, TGenLookupElement>(
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> first,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second,
+                IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
+            )
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        public
+            ExceptSpecificEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Except<TGenLookupKey, TGenLookupElement>(
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second,
+                IEqualityComparer<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> comparer
+            )
+        {
+            return
+                CommonImplementation.Except<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(
                     ref first,
                     ref second,

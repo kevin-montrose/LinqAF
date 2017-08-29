@@ -26,7 +26,7 @@ namespace LinqAF
         public bool SequenceEqual<TItem>(BuiltInEnumerable<TItem> first, PlaceholderEnumerable<TItem> second)
         {
             var firstBridge = Bridge(first, nameof(second));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.SequenceEqualImpl<
@@ -60,7 +60,7 @@ namespace LinqAF
         public bool SequenceEqual<TItem>(BuiltInEnumerable<TItem> first, PlaceholderEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
             var firstBridge = Bridge(first, nameof(second));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.SequenceEqualImpl<
@@ -83,7 +83,7 @@ namespace LinqAF
             where TGenEnumerator: struct, IStructEnumerator<TGenInItem>
         {
             var firstBridge = Bridge(first, nameof(second));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.SequenceEqualImpl<
@@ -103,7 +103,7 @@ namespace LinqAF
             where TGenEnumerator : struct, IStructEnumerator<TGenInItem>
         {
             var firstBridge = Bridge(first, nameof(second));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.SequenceEqualImpl<
@@ -114,22 +114,42 @@ namespace LinqAF
                     GroupBySpecificEnumerator<TGenInItem, TGenKey, TGenElement, TGenEnumerator>
                 >(RefLocal(firstBridge), ref second);
         }
+
         [DoNotInject]
         public bool SequenceEqual<TGenKey, TGenElement>(
             BuiltInEnumerable<GroupingEnumerable<TGenKey, TGenElement>> first,
-            LookupEnumerable<TGenKey, TGenElement> second
+            LookupDefaultEnumerable<TGenKey, TGenElement> second
             )
         {
             var firstBridge = Bridge(first, nameof(second));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.SequenceEqualImpl<
                     GroupingEnumerable<TGenKey, TGenElement>,
                     BuiltInEnumerable<GroupingEnumerable<TGenKey, TGenElement>>,
                     BuiltInEnumerator<GroupingEnumerable<TGenKey, TGenElement>>,
-                    LookupEnumerable<TGenKey, TGenElement>,
-                    LookupEnumerator<TGenKey, TGenElement>
+                    LookupDefaultEnumerable<TGenKey, TGenElement>,
+                    LookupDefaultEnumerator<TGenKey, TGenElement>
+                >(RefLocal(firstBridge), ref second);
+        }
+
+        [DoNotInject]
+        public bool SequenceEqual<TGenKey, TGenElement>(
+            BuiltInEnumerable<GroupingEnumerable<TGenKey, TGenElement>> first,
+            LookupSpecificEnumerable<TGenKey, TGenElement> second
+            )
+        {
+            var firstBridge = Bridge(first, nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return
+                CommonImplementation.SequenceEqualImpl<
+                    GroupingEnumerable<TGenKey, TGenElement>,
+                    BuiltInEnumerable<GroupingEnumerable<TGenKey, TGenElement>>,
+                    BuiltInEnumerator<GroupingEnumerable<TGenKey, TGenElement>>,
+                    LookupSpecificEnumerable<TGenKey, TGenElement>,
+                    LookupSpecificEnumerator<TGenKey, TGenElement>
                 >(RefLocal(firstBridge), ref second);
         }
 
@@ -145,7 +165,7 @@ namespace LinqAF
             where TGenEnumerator : struct, IStructEnumerator<TGenInItem>
         {
             var firstBridge = Bridge(first, nameof(second));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.SequenceEqualImpl<
@@ -166,7 +186,7 @@ namespace LinqAF
             where TGenEnumerator : struct, IStructEnumerator<TGenInItem>
         {
             var firstBridge = Bridge(first, nameof(second));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.SequenceEqualImpl<
@@ -177,23 +197,44 @@ namespace LinqAF
                     GroupBySpecificEnumerator<TGenInItem, TGenKey, TGenElement, TGenEnumerator>
                 >(RefLocal(firstBridge), ref second, comparer);
         }
+
         [DoNotInject]
         public bool SequenceEqual<TGenKey, TGenElement>(
             BuiltInEnumerable<GroupingEnumerable<TGenKey, TGenElement>> first,
-            LookupEnumerable<TGenKey, TGenElement> second,
+            LookupDefaultEnumerable<TGenKey, TGenElement> second,
             IEqualityComparer<GroupingEnumerable<TGenKey, TGenElement>> comparer
             )
         {
             var firstBridge = Bridge(first, nameof(second));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.SequenceEqualImpl<
                     GroupingEnumerable<TGenKey, TGenElement>,
                     BuiltInEnumerable<GroupingEnumerable<TGenKey, TGenElement>>,
                     BuiltInEnumerator<GroupingEnumerable<TGenKey, TGenElement>>,
-                    LookupEnumerable<TGenKey, TGenElement>,
-                    LookupEnumerator<TGenKey, TGenElement>
+                    LookupDefaultEnumerable<TGenKey, TGenElement>,
+                    LookupDefaultEnumerator<TGenKey, TGenElement>
+                >(RefLocal(firstBridge), ref second, comparer);
+        }
+
+        [DoNotInject]
+        public bool SequenceEqual<TGenKey, TGenElement>(
+            BuiltInEnumerable<GroupingEnumerable<TGenKey, TGenElement>> first,
+            LookupSpecificEnumerable<TGenKey, TGenElement> second,
+            IEqualityComparer<GroupingEnumerable<TGenKey, TGenElement>> comparer
+            )
+        {
+            var firstBridge = Bridge(first, nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return
+                CommonImplementation.SequenceEqualImpl<
+                    GroupingEnumerable<TGenKey, TGenElement>,
+                    BuiltInEnumerable<GroupingEnumerable<TGenKey, TGenElement>>,
+                    BuiltInEnumerator<GroupingEnumerable<TGenKey, TGenElement>>,
+                    LookupSpecificEnumerable<TGenKey, TGenElement>,
+                    LookupSpecificEnumerator<TGenKey, TGenElement>
                 >(RefLocal(firstBridge), ref second, comparer);
         }
     }

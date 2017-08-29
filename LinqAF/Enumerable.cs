@@ -17,7 +17,7 @@ namespace LinqAF
         {
             if (count < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(count));
+                throw CommonImplementation.OutOfRange(nameof(count));
             }
 
             long lastItem = start;
@@ -26,7 +26,7 @@ namespace LinqAF
 
             if (lastItem > int.MaxValue)
             {
-                throw new ArgumentOutOfRangeException(nameof(count));
+                throw CommonImplementation.OutOfRange(nameof(count));
             }
 
             return new RangeEnumerable<int>(RangeSigil, start, count);
@@ -36,7 +36,7 @@ namespace LinqAF
 
         public static RepeatEnumerable<TItem> Repeat<TItem>(TItem item, int count)
         {
-            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count));
+            if (count < 0) throw CommonImplementation.OutOfRange(nameof(count));
 
             return new RepeatEnumerable<TItem>(RepeatSigil, item, count);
         }

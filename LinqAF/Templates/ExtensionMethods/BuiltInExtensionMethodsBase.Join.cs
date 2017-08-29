@@ -30,9 +30,9 @@ namespace LinqAF
             var outerBridge = Bridge(outer, nameof(outer));
             var innerBridge = Bridge(inner, nameof(inner));
 
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.JoinImpl<
@@ -66,11 +66,11 @@ namespace LinqAF
             )
         {
             var outerBridge = Bridge(outer, nameof(outer));
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
 
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.JoinImpl<
@@ -107,9 +107,9 @@ namespace LinqAF
             var outerBridge = Bridge(outer, nameof(outer));
             var innerBridge = Bridge(inner, nameof(inner));
 
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.JoinImpl<
@@ -144,11 +144,11 @@ namespace LinqAF
             )
         {
             var outerBridge = Bridge(outer, nameof(outer));
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
 
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.JoinImpl<
@@ -187,11 +187,11 @@ namespace LinqAF
             where TGenGroupByEnumerator: struct, IStructEnumerator<TGenGroupByInItem>
         {
             var outerBridge = Bridge(outer, nameof(outer));
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
 
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.JoinImpl<
@@ -228,11 +228,11 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var outerBridge = Bridge(outer, nameof(outer));
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
 
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.JoinImpl<
@@ -256,22 +256,22 @@ namespace LinqAF
                 BuiltInEnumerable<TJoinLeftItem>,
                 BuiltInEnumerator<TJoinLeftItem>,
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Join<TOutItem, TJoinKeyItem, TJoinLeftItem, TGenLookupKey, TGenLookupElement>(
                 BuiltInEnumerable<TJoinLeftItem> outer,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> inner,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> inner,
                 Func<TJoinLeftItem, TJoinKeyItem> outerKeySelector,
                 Func<GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TJoinKeyItem> innerKeySelector,
                 Func<TJoinLeftItem, GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TOutItem> resultSelector
             )
         {
             var outerBridge = Bridge(outer, nameof(outer));
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
 
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.JoinImpl<
@@ -281,8 +281,47 @@ namespace LinqAF
                     BuiltInEnumerable<TJoinLeftItem>,
                     BuiltInEnumerator<TJoinLeftItem>,
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector);
+        }
+
+        [DoNotInject]
+        public
+            JoinDefaultEnumerable<
+                TOutItem,
+                TJoinKeyItem,
+                TJoinLeftItem,
+                BuiltInEnumerable<TJoinLeftItem>,
+                BuiltInEnumerator<TJoinLeftItem>,
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Join<TOutItem, TJoinKeyItem, TJoinLeftItem, TGenLookupKey, TGenLookupElement>(
+                BuiltInEnumerable<TJoinLeftItem> outer,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> inner,
+                Func<TJoinLeftItem, TJoinKeyItem> outerKeySelector,
+                Func<GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TJoinKeyItem> innerKeySelector,
+                Func<TJoinLeftItem, GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TOutItem> resultSelector
+            )
+        {
+            var outerBridge = Bridge(outer, nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.JoinImpl<
+                    TOutItem,
+                    TJoinKeyItem,
+                    TJoinLeftItem,
+                    BuiltInEnumerable<TJoinLeftItem>,
+                    BuiltInEnumerator<TJoinLeftItem>,
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector);
         }
 
@@ -311,11 +350,11 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var outerBridge = Bridge(outer, nameof(outer));
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
 
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.JoinImpl<
@@ -353,11 +392,11 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var outerBridge = Bridge(outer, nameof(outer));
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
 
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.JoinImpl<
@@ -381,11 +420,11 @@ namespace LinqAF
                 BuiltInEnumerable<TJoinLeftItem>,
                 BuiltInEnumerator<TJoinLeftItem>,
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Join<TOutItem, TJoinKeyItem, TJoinLeftItem, TGenLookupKey, TGenLookupElement>(
                 BuiltInEnumerable<TJoinLeftItem> outer,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> inner,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> inner,
                 Func<TJoinLeftItem, TJoinKeyItem> outerKeySelector,
                 Func<GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TJoinKeyItem> innerKeySelector,
                 Func<TJoinLeftItem, GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TOutItem> resultSelector,
@@ -393,11 +432,11 @@ namespace LinqAF
             )
         {
             var outerBridge = Bridge(outer, nameof(outer));
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
 
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.JoinImpl<
@@ -407,8 +446,48 @@ namespace LinqAF
                     BuiltInEnumerable<TJoinLeftItem>,
                     BuiltInEnumerator<TJoinLeftItem>,
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+        }
+
+        [DoNotInject]
+        public
+            JoinSpecificEnumerable<
+                TOutItem,
+                TJoinKeyItem,
+                TJoinLeftItem,
+                BuiltInEnumerable<TJoinLeftItem>,
+                BuiltInEnumerator<TJoinLeftItem>,
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Join<TOutItem, TJoinKeyItem, TJoinLeftItem, TGenLookupKey, TGenLookupElement>(
+                BuiltInEnumerable<TJoinLeftItem> outer,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> inner,
+                Func<TJoinLeftItem, TJoinKeyItem> outerKeySelector,
+                Func<GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TJoinKeyItem> innerKeySelector,
+                Func<TJoinLeftItem, GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TOutItem> resultSelector,
+                IEqualityComparer<TJoinKeyItem> comparer
+            )
+        {
+            var outerBridge = Bridge(outer, nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.JoinImpl<
+                    TOutItem,
+                    TJoinKeyItem,
+                    TJoinLeftItem,
+                    BuiltInEnumerable<TJoinLeftItem>,
+                    BuiltInEnumerator<TJoinLeftItem>,
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
     }

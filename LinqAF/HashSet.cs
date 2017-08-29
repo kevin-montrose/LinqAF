@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct HashSetEnumerator<TItem>: IStructEnumerator<TItem>
     {
         public TItem Current { get; private set; }

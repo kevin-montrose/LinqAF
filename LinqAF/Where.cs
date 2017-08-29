@@ -2,6 +2,7 @@
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct WhereEnumerator<TItem, TInnerEnumerator> : IStructEnumerator<TItem>
         where TInnerEnumerator: struct, IStructEnumerator<TItem>
     {
@@ -19,9 +20,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Filter == null &&
-                Inner.IsDefaultValue();
+            return Filter == null;
         }
 
         public bool MoveNext()
@@ -44,6 +43,7 @@ namespace LinqAF
         public void Reset() => Inner.Reset();
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct WhereEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>: 
         IStructEnumerable<TItem, WhereEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -59,9 +59,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Filter == null &&
-                Inner.IsDefaultValue();
+            return Filter == null;
         }
 
         public WhereEnumerator<TItem, TInnerEnumerator> GetEnumerator()
@@ -71,6 +69,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct WhereIndexedEnumerator<TItem, TInnerEnumerator> : IStructEnumerator<TItem>
         where TInnerEnumerator : struct, IStructEnumerator<TItem>
     {
@@ -90,10 +89,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Filter == null &&
-                Index == default(int) &&
-                Inner.IsDefaultValue();
+            return Filter == null;
         }
 
         public bool MoveNext()
@@ -123,6 +119,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct WhereIndexedEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>: 
         IStructEnumerable<TItem, WhereIndexedEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -138,9 +135,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Filter == null &&
-                Inner.IsDefaultValue();
+            return Filter == null;
         }
 
         public WhereIndexedEnumerator<TItem, TInnerEnumerator> GetEnumerator()

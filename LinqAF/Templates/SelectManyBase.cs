@@ -10,38 +10,38 @@ namespace LinqAF
         where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
         where TEnumerator : struct, IStructEnumerator<TItem>
     {
-        public SelectManyBridgeEnumerable<TItem, TOutItem, HashSet<TOutItem>, TEnumerable, TEnumerator, HashSetEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, HashSet<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.HashSet);
+        public SelectManyBridgeEnumerable<TItem, TOutItem, HashSet<TOutItem>, HashSetBridger<TOutItem>, TEnumerable, TEnumerator, HashSetEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, HashSet<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, LinkedList<TOutItem>, TEnumerable, TEnumerator, LinkedListEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, LinkedList<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.LinkedList);
+        public SelectManyBridgeEnumerable<TItem, TOutItem, LinkedList<TOutItem>, LinkedListBridger<TOutItem>, TEnumerable, TEnumerator, LinkedListEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, LinkedList<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, Queue<TOutItem>, TEnumerable, TEnumerator, QueueEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, Queue<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.Queue);
+        public SelectManyBridgeEnumerable<TItem, TOutItem, Queue<TOutItem>, QueueBridger<TOutItem>, TEnumerable, TEnumerator, QueueEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, Queue<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, List<TOutItem>, TEnumerable, TEnumerator, ListEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, List<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.List);
+        public SelectManyBridgeEnumerable<TItem, TOutItem, List<TOutItem>, ListBridger<TOutItem>, TEnumerable, TEnumerator, ListEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, List<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, Stack<TOutItem>, TEnumerable, TEnumerator, StackEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, Stack<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.Stack);
+        public SelectManyBridgeEnumerable<TItem, TOutItem, Stack<TOutItem>, StackBridger<TOutItem>, TEnumerable, TEnumerator, StackEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, Stack<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, BoxedEnumerable<TOutItem>, BoxedEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, BoxedEnumerable<TOutItem>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, TOutItem[], TEnumerable, TEnumerator, ArrayEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, TOutItem[]> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.Array);
+        public SelectManyBridgeEnumerable<TItem, TOutItem, TOutItem[], ArrayBridger<TOutItem>, TEnumerable, TEnumerator, ArrayEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, TOutItem[]> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, IEnumerable<TOutItem>, TEnumerable, TEnumerator, IdentityEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, IEnumerable<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.IEnumerable);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, IEnumerable<TOutItem>, IEnumerableBridger<TOutItem>, TEnumerable, TEnumerator, IdentityEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, IEnumerable<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, List<TOutItem>, TEnumerable, TEnumerator, ListEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, List<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.List);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, List<TOutItem>, ListBridger<TOutItem>, TEnumerable, TEnumerator, ListEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, List<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, LinkedList<TOutItem>, TEnumerable, TEnumerator, LinkedListEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, LinkedList<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.LinkedList);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, LinkedList<TOutItem>,  LinkedListBridger<TOutItem>, TEnumerable, TEnumerator, LinkedListEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, LinkedList<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, HashSet<TOutItem>, TEnumerable, TEnumerator, HashSetEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, HashSet<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.HashSet);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, HashSet<TOutItem>, HashSetBridger<TOutItem>, TEnumerable, TEnumerator, HashSetEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, HashSet<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TOutItem>, ReverseRangeEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, ReverseRangeEnumerable<TOutItem>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
@@ -61,17 +61,17 @@ namespace LinqAF
         public EmptyEnumerable<TOutItem> SelectMany<TOutItem>(Func<TItem, EmptyEnumerable<TOutItem>> selector)
         => CommonImplementation.EmptySelectMany<TItem, TOutItem, TEnumerable, TEnumerator>(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, SortedSet<TOutItem>, TEnumerable, TEnumerator, SortedSetEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, SortedSet<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.SortedSet);
+        public SelectManyBridgeEnumerable<TItem, TOutItem, SortedSet<TOutItem>, SortedSetBridger<TOutItem>, TEnumerable, TEnumerator, SortedSetEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, SortedSet<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
         public EmptyEnumerable<TOutItem> SelectMany<TOutItem>(Func<TItem, EmptyOrderedEnumerable<TOutItem>> selector)
         => CommonImplementation.EmptySelectMany<TItem, TOutItem, TEnumerable, TEnumerator>(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, Queue<TOutItem>, TEnumerable, TEnumerator, QueueEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, Queue<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.Queue);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, Queue<TOutItem>, QueueBridger<TOutItem>, TEnumerable, TEnumerator, QueueEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, Queue<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, Stack<TOutItem>, TEnumerable, TEnumerator, StackEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, Stack<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.Stack);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, Stack<TOutItem>, StackBridger<TOutItem>, TEnumerable, TEnumerator, StackEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, Stack<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, BoxedEnumerable<TOutItem>, BoxedEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, BoxedEnumerable<TOutItem>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
@@ -85,20 +85,20 @@ namespace LinqAF
         public EmptyEnumerable<TOutItem> SelectMany<TOutItem>(Func<TItem, int, EmptyEnumerable<TOutItem>> selector)
         => CommonImplementation.EmptySelectMany<TItem, TOutItem, TEnumerable, TEnumerator>(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, TOutItem[], TEnumerable, TEnumerator, ArrayEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, TOutItem[]> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.Array);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, TOutItem[], ArrayBridger<TOutItem>, TEnumerable, TEnumerator, ArrayEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, TOutItem[]> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, SortedSet<TOutItem>, TEnumerable, TEnumerator, SortedSetEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, SortedSet<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.SortedSet);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, SortedSet<TOutItem>, SortedSetBridger<TOutItem>, TEnumerable, TEnumerator, SortedSetEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, SortedSet<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, IEnumerable<TOutItem>, TEnumerable, TEnumerator, IdentityEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, IEnumerable<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem>.IEnumerable);
+        public SelectManyBridgeEnumerable<TItem, TOutItem, IEnumerable<TOutItem>, IEnumerableBridger<TOutItem>, TEnumerable, TEnumerator, IdentityEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, IEnumerable<TOutItem>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, GroupingEnumerable<TSelectMany_GroupingKey, TOutItem>, GroupingEnumerator<TOutItem>> SelectMany<TOutItem, TSelectMany_GroupingKey>(Func<TItem, GroupingEnumerable<TSelectMany_GroupingKey, TOutItem>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, Dictionary<TDictionaryKey, TOutItem>.ValueCollection, TEnumerable, TEnumerator, DictionaryValuesEnumerator<TDictionaryKey, TOutItem>> SelectMany<TOutItem, TDictionaryKey>(Func<TItem, int, Dictionary<TDictionaryKey, TOutItem>.ValueCollection> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TDictionaryKey, TOutItem>.DictionaryValues);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, Dictionary<TDictionaryKey, TOutItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TOutItem>, TEnumerable, TEnumerator, DictionaryValuesEnumerator<TDictionaryKey, TOutItem>> SelectMany<TOutItem, TDictionaryKey>(Func<TItem, int, Dictionary<TDictionaryKey, TOutItem>.ValueCollection> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, GroupedEnumerable<TSelectMany_GroupedKey, TOutItem>, GroupedEnumerator<TOutItem>> SelectMany<TOutItem, TSelectMany_GroupedKey>(Func<TItem, int, GroupedEnumerable<TSelectMany_GroupedKey, TOutItem>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
@@ -106,44 +106,50 @@ namespace LinqAF
         public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, GroupingEnumerable<TSelectMany_GroupingKey, TOutItem>, GroupingEnumerator<TOutItem>> SelectMany<TOutItem, TSelectMany_GroupingKey>(Func<TItem, int, GroupingEnumerable<TSelectMany_GroupingKey, TOutItem>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedEnumerable<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, int, LookupEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> selector)
+        public SelectManyIndexedEnumerable<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupDefaultEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupDefaultEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, int, LookupDefaultEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, Dictionary<TOutItem, TDictionaryValue>.KeyCollection, TEnumerable, TEnumerator, DictionaryKeysEnumerator<TOutItem, TDictionaryValue>> SelectMany<TOutItem, TDictionaryValue>(Func<TItem, int, Dictionary<TOutItem, TDictionaryValue>.KeyCollection> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem, TDictionaryValue>.DictionaryKeys);
-
-        public SelectManyEnumerable<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, LookupEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> selector)
+        public SelectManyIndexedEnumerable<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupSpecificEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupSpecificEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, int, LookupSpecificEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection, TEnumerable, TEnumerator, SortedDictionaryValuesEnumerator<TDictionaryKey, TOutItem>> SelectMany<TOutItem, TDictionaryKey>(Func<TItem, SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TDictionaryKey, TOutItem>.SortedDictionaryValues);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, Dictionary<TOutItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TOutItem, TDictionaryValue>, TEnumerable, TEnumerator, DictionaryKeysEnumerator<TOutItem, TDictionaryValue>> SelectMany<TOutItem, TDictionaryValue>(Func<TItem, int, Dictionary<TOutItem, TDictionaryValue>.KeyCollection> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection, TEnumerable, TEnumerator, SortedDictionaryKeysEnumerator<TOutItem, TDictionaryValue>> SelectMany<TOutItem, TDictionaryValue>(Func<TItem, SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem, TDictionaryValue>.SortedDictionaryKeys);
+        public SelectManyEnumerable<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupDefaultEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupDefaultEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, LookupDefaultEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyEnumerable<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupSpecificEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupSpecificEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, LookupSpecificEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyBridgeEnumerable<TItem, TOutItem, SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TOutItem>, TEnumerable, TEnumerator, SortedDictionaryValuesEnumerator<TDictionaryKey, TOutItem>> SelectMany<TOutItem, TDictionaryKey>(Func<TItem, SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyBridgeEnumerable<TItem, TOutItem, SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TOutItem, TDictionaryValue>, TEnumerable, TEnumerator, SortedDictionaryKeysEnumerator<TOutItem, TDictionaryValue>> SelectMany<TOutItem, TDictionaryValue>(Func<TItem, SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, GroupedEnumerable<TSelectMany_GroupedKey, TOutItem>, GroupedEnumerator<TOutItem>> SelectMany<TOutItem, TSelectMany_GroupedKey>(Func<TItem, GroupedEnumerable<TSelectMany_GroupedKey, TOutItem>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, Dictionary<TDictionaryKey, TOutItem>.ValueCollection, TEnumerable, TEnumerator, DictionaryValuesEnumerator<TDictionaryKey, TOutItem>> SelectMany<TOutItem, TDictionaryKey>(Func<TItem, Dictionary<TDictionaryKey, TOutItem>.ValueCollection> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TDictionaryKey, TOutItem>.DictionaryValues);
+        public SelectManyBridgeEnumerable<TItem, TOutItem, Dictionary<TDictionaryKey, TOutItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TOutItem>, TEnumerable, TEnumerator, DictionaryValuesEnumerator<TDictionaryKey, TOutItem>> SelectMany<TOutItem, TDictionaryKey>(Func<TItem, Dictionary<TDictionaryKey, TOutItem>.ValueCollection> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection, TEnumerable, TEnumerator, SortedDictionaryValuesEnumerator<TDictionaryKey, TOutItem>> SelectMany<TOutItem, TDictionaryKey>(Func<TItem, int, SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TDictionaryKey, TOutItem>.SortedDictionaryValues);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TOutItem>, TEnumerable, TEnumerator, SortedDictionaryValuesEnumerator<TDictionaryKey, TOutItem>> SelectMany<TOutItem, TDictionaryKey>(Func<TItem, int, SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection, TEnumerable, TEnumerator, SortedDictionaryKeysEnumerator<TOutItem, TDictionaryValue>> SelectMany<TOutItem, TDictionaryValue>(Func<TItem, int, SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem, TDictionaryValue>.SortedDictionaryKeys);
+        public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TOutItem, TDictionaryValue>, TEnumerable, TEnumerator, SortedDictionaryKeysEnumerator<TOutItem, TDictionaryValue>> SelectMany<TOutItem, TDictionaryValue>(Func<TItem, int, SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyBridgeEnumerable<TItem, TOutItem, Dictionary<TOutItem, TDictionaryValue>.KeyCollection, TEnumerable, TEnumerator, DictionaryKeysEnumerator<TOutItem, TDictionaryValue>> SelectMany<TOutItem, TDictionaryValue>(Func<TItem, Dictionary<TOutItem, TDictionaryValue>.KeyCollection> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector, IdentityMaps<TOutItem, TDictionaryValue>.DictionaryKeys);
+        public SelectManyBridgeEnumerable<TItem, TOutItem, Dictionary<TOutItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TOutItem, TDictionaryValue>, TEnumerable, TEnumerator, DictionaryKeysEnumerator<TOutItem, TDictionaryValue>> SelectMany<TOutItem, TDictionaryValue>(Func<TItem, Dictionary<TOutItem, TDictionaryValue>.KeyCollection> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, LinkedList<TCollectionItem>, TEnumerable, TEnumerator, LinkedListEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, LinkedList<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.LinkedList);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, LinkedList<TCollectionItem>, LinkedListBridger<TCollectionItem>, TEnumerable, TEnumerator, LinkedListEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, LinkedList<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, Queue<TCollectionItem>, TEnumerable, TEnumerator, QueueEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, Queue<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.Queue);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, Queue<TCollectionItem>, QueueBridger<TCollectionItem>, TEnumerable, TEnumerator, QueueEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, Queue<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, Stack<TCollectionItem>, TEnumerable, TEnumerator, StackEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, Stack<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.Stack);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, Stack<TCollectionItem>, StackBridger<TCollectionItem>, TEnumerable, TEnumerator, StackEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, Stack<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public EmptyEnumerable<TOutItem> SelectMany<TOutItem, TCollectionItem>(Func<TItem, EmptyOrderedEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.EmptySelectMany<TItem, TOutItem, TEnumerable, TEnumerator>(RefThis(), collectionSelector, resultSelector);
@@ -160,14 +166,14 @@ namespace LinqAF
         public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, RepeatEnumerable<TCollectionItem>, RepeatEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, RepeatEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, IEnumerable<TCollectionItem>, TEnumerable, TEnumerator, IdentityEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, IEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.IEnumerable);
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, IEnumerable<TCollectionItem>, IEnumerableBridger<TCollectionItem>, TEnumerable, TEnumerator, IdentityEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, IEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, Queue<TCollectionItem>, TEnumerable, TEnumerator, QueueEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, Queue<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.Queue);
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, Queue<TCollectionItem>, QueueBridger<TCollectionItem>, TEnumerable, TEnumerator, QueueEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, Queue<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, Stack<TCollectionItem>, TEnumerable, TEnumerator, StackEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, Stack<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.Stack);
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, Stack<TCollectionItem>, StackBridger<TCollectionItem>, TEnumerable, TEnumerator, StackEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, Stack<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, BoxedEnumerable<TCollectionItem>, BoxedEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, BoxedEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
@@ -181,20 +187,20 @@ namespace LinqAF
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, RangeEnumerable<TCollectionItem>, RangeEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, RangeEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, TCollectionItem[], TEnumerable, TEnumerator, ArrayEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, TCollectionItem[]> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.Array);
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, TCollectionItem[], ArrayBridger<TCollectionItem>, TEnumerable, TEnumerator, ArrayEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, TCollectionItem[]> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedSet<TCollectionItem>, TEnumerable, TEnumerator, SortedSetEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, SortedSet<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.SortedSet);
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedSet<TCollectionItem>, SortedSetBridger<TCollectionItem>, TEnumerable, TEnumerator, SortedSetEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, SortedSet<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, List<TCollectionItem>, TEnumerable, TEnumerator, ListEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, List<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.List);
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, List<TCollectionItem>, ListBridger<TCollectionItem>, TEnumerable, TEnumerator, ListEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, List<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, LinkedList<TCollectionItem>, TEnumerable, TEnumerator, LinkedListEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, LinkedList<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.LinkedList);
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, LinkedList<TCollectionItem>, LinkedListBridger<TCollectionItem>, TEnumerable, TEnumerator, LinkedListEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, LinkedList<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, HashSet<TCollectionItem>, TEnumerable, TEnumerator, HashSetEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, HashSet<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.HashSet);
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, HashSet<TCollectionItem>, HashSetBridger<TCollectionItem>, TEnumerable, TEnumerator, HashSetEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, HashSet<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public EmptyEnumerable<TOutItem> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, EmptyOrderedEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.EmptySelectMany<TItem, TOutItem, TEnumerable, TEnumerator>(RefThis(), collectionSelector, resultSelector);
@@ -202,23 +208,23 @@ namespace LinqAF
         public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TCollectionItem>, ReverseRangeEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, ReverseRangeEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, TCollectionItem[], TEnumerable, TEnumerator, ArrayEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, TCollectionItem[]> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.Array);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, TCollectionItem[], ArrayBridger<TCollectionItem>, TEnumerable, TEnumerator, ArrayEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, TCollectionItem[]> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedSet<TCollectionItem>, TEnumerable, TEnumerator, SortedSetEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, SortedSet<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.SortedSet);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedSet<TCollectionItem>, SortedSetBridger<TCollectionItem>, TEnumerable, TEnumerator, SortedSetEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, SortedSet<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, List<TCollectionItem>, TEnumerable, TEnumerator, ListEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, List<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.List);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, List<TCollectionItem>, ListBridger<TCollectionItem>, TEnumerable, TEnumerator, ListEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, List<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TCollectionItem>, ReverseRangeEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, ReverseRangeEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, HashSet<TCollectionItem>, TEnumerable, TEnumerator, HashSetEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, HashSet<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.HashSet);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, HashSet<TCollectionItem>, HashSetBridger<TCollectionItem>, TEnumerable, TEnumerator, HashSetEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, HashSet<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, IEnumerable<TCollectionItem>, TEnumerable, TEnumerator, IdentityEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, IEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem>.IEnumerable);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, IEnumerable<TCollectionItem>, IEnumerableBridger<TCollectionItem>, TEnumerable, TEnumerator, IdentityEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, IEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SkipWhileIndexedEnumerable<TOutItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>, SkipWhileIndexedEnumerator<TOutItem, TDefaultIfEmptyInnerEnumerator>> SelectMany<TOutItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>(Func<TItem, SkipWhileIndexedEnumerable<TOutItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>> selector)
             where TDefaultIfEmptyInnerEnumerable : struct, IStructEnumerable<TOutItem, TDefaultIfEmptyInnerEnumerator>
@@ -250,9 +256,10 @@ namespace LinqAF
             where TDefaultIfEmptyInnerEnumerator : struct, IStructEnumerator<TOutItem>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, IdentityEnumerable<TOutItem, TIdentityBridgeType, TIdentityEnumerator>, TIdentityEnumerator> SelectMany<TOutItem, TIdentityBridgeType, TIdentityEnumerator>(Func<TItem, int, IdentityEnumerable<TOutItem, TIdentityBridgeType, TIdentityEnumerator>> selector)
+        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, IdentityEnumerable<TOutItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>, TIdentityEnumerator> SelectMany<TOutItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>(Func<TItem, int, IdentityEnumerable<TOutItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>> selector)
             where TIdentityBridgeType : class
             where TIdentityEnumerator : struct, IStructEnumerator<TOutItem>
+            where TIdentityBridger: struct, IStructBridger<TOutItem, TIdentityBridgeType, TIdentityEnumerator>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, DistinctSpecificEnumerable<TOutItem, TSelectMany_DistinctInnerEnumerable, TSelectMany_DistinctInnerEnumerator>, DistinctSpecificEnumerator<TOutItem, TSelectMany_DistinctInnerEnumerator>> SelectMany<TOutItem, TSelectMany_DistinctInnerEnumerable, TSelectMany_DistinctInnerEnumerator>(Func<TItem, DistinctSpecificEnumerable<TOutItem, TSelectMany_DistinctInnerEnumerable, TSelectMany_DistinctInnerEnumerator>> selector)
@@ -355,9 +362,10 @@ namespace LinqAF
             where TDefaultIfEmptyInnerEnumerator : struct, IStructEnumerator<TOutItem>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, IdentityEnumerable<TOutItem, TIdentityBridgeType, TIdentityEnumerator>, TIdentityEnumerator> SelectMany<TOutItem, TIdentityBridgeType, TIdentityEnumerator>(Func<TItem, IdentityEnumerable<TOutItem, TIdentityBridgeType, TIdentityEnumerator>> selector)
+        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, IdentityEnumerable<TOutItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>, TIdentityEnumerator> SelectMany<TOutItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>(Func<TItem, IdentityEnumerable<TOutItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>> selector)
             where TIdentityBridgeType : class
             where TIdentityEnumerator : struct, IStructEnumerator<TOutItem>
+            where TIdentityBridger: struct, IStructBridger<TOutItem, TIdentityBridgeType, TIdentityEnumerator>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, GroupingEnumerable<TSelectMany_GroupedKey, TCollectionItem>, GroupingEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TSelectMany_GroupedKey>(Func<TItem, int, GroupingEnumerable<TSelectMany_GroupedKey, TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
@@ -366,41 +374,47 @@ namespace LinqAF
         public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, GroupingEnumerable<TSelectMany_GroupedKey, TCollectionItem>, GroupingEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TSelectMany_GroupedKey>(Func<TItem, GroupingEnumerable<TSelectMany_GroupedKey, TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TOutItem, TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, int, LookupEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> collectionSelector, Func<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TOutItem> resultSelector)
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupDefaultEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupDefaultEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TOutItem, TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, int, LookupDefaultEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> collectionSelector, Func<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupSpecificEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupSpecificEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TOutItem, TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, int, LookupSpecificEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> collectionSelector, Func<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, GroupedEnumerable<TSelectMany_GroupedKey, TCollectionItem>, GroupedEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TSelectMany_GroupedKey>(Func<TItem, GroupedEnumerable<TSelectMany_GroupedKey, TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedDictionary<TDictionaryKey, TCollectionItem>.ValueCollection, TEnumerable, TEnumerator, SortedDictionaryValuesEnumerator<TDictionaryKey, TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TDictionaryKey>(Func<TItem, int, SortedDictionary<TDictionaryKey, TCollectionItem>.ValueCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TDictionaryKey, TCollectionItem>.SortedDictionaryValues);
-
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedDictionary<TCollectionItem, TDictionaryValue>.KeyCollection, TEnumerable, TEnumerator, SortedDictionaryKeysEnumerator<TCollectionItem, TDictionaryValue>> SelectMany<TOutItem, TCollectionItem, TDictionaryValue>(Func<TItem, int, SortedDictionary<TCollectionItem, TDictionaryValue>.KeyCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem, TDictionaryValue>.SortedDictionaryKeys);
-
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedDictionary<TDictionaryKey, TCollectionItem>.ValueCollection, TEnumerable, TEnumerator, SortedDictionaryValuesEnumerator<TDictionaryKey, TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TDictionaryKey>(Func<TItem, SortedDictionary<TDictionaryKey, TCollectionItem>.ValueCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TDictionaryKey, TCollectionItem>.SortedDictionaryValues);
-
-        public SelectManyCollectionEnumerable<TItem, TOutItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TOutItem, TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, LookupEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> collectionSelector, Func<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedDictionary<TDictionaryKey, TCollectionItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TCollectionItem>, TEnumerable, TEnumerator, SortedDictionaryValuesEnumerator<TDictionaryKey, TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TDictionaryKey>(Func<TItem, int, SortedDictionary<TDictionaryKey, TCollectionItem>.ValueCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, Dictionary<TDictionaryKey, TCollectionItem>.ValueCollection, TEnumerable, TEnumerator, DictionaryValuesEnumerator<TDictionaryKey, TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TDictionaryKey>(Func<TItem, int, Dictionary<TDictionaryKey, TCollectionItem>.ValueCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TDictionaryKey, TCollectionItem>.DictionaryValues);
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedDictionary<TCollectionItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TCollectionItem, TDictionaryValue>, TEnumerable, TEnumerator, SortedDictionaryKeysEnumerator<TCollectionItem, TDictionaryValue>> SelectMany<TOutItem, TCollectionItem, TDictionaryValue>(Func<TItem, int, SortedDictionary<TCollectionItem, TDictionaryValue>.KeyCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedDictionary<TDictionaryKey, TCollectionItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TCollectionItem>, TEnumerable, TEnumerator, SortedDictionaryValuesEnumerator<TDictionaryKey, TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TDictionaryKey>(Func<TItem, SortedDictionary<TDictionaryKey, TCollectionItem>.ValueCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionEnumerable<TItem, TOutItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupDefaultEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupDefaultEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TOutItem, TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, LookupDefaultEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> collectionSelector, Func<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionEnumerable<TItem, TOutItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TEnumerable, TEnumerator, LookupSpecificEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, LookupSpecificEnumerator<TSelectMany_LookupKey, TSelectMany_LookupElement>> SelectMany<TOutItem, TSelectMany_LookupKey, TSelectMany_LookupElement>(Func<TItem, LookupSpecificEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>> collectionSelector, Func<TItem, GroupingEnumerable<TSelectMany_LookupKey, TSelectMany_LookupElement>, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, Dictionary<TDictionaryKey, TCollectionItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TCollectionItem>, TEnumerable, TEnumerator, DictionaryValuesEnumerator<TDictionaryKey, TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TDictionaryKey>(Func<TItem, int, Dictionary<TDictionaryKey, TCollectionItem>.ValueCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, GroupedEnumerable<TSelectMany_GroupedKey, TCollectionItem>, GroupedEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TSelectMany_GroupedKey>(Func<TItem, int, GroupedEnumerable<TSelectMany_GroupedKey, TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, Dictionary<TCollectionItem, TDictionaryValue>.KeyCollection, TEnumerable, TEnumerator, DictionaryKeysEnumerator<TCollectionItem, TDictionaryValue>> SelectMany<TOutItem, TCollectionItem, TDictionaryValue>(Func<TItem, int, Dictionary<TCollectionItem, TDictionaryValue>.KeyCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem, TDictionaryValue>.DictionaryKeys);
+        public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, Dictionary<TCollectionItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TCollectionItem, TDictionaryValue>, TEnumerable, TEnumerator, DictionaryKeysEnumerator<TCollectionItem, TDictionaryValue>> SelectMany<TOutItem, TCollectionItem, TDictionaryValue>(Func<TItem, int, Dictionary<TCollectionItem, TDictionaryValue>.KeyCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedDictionary<TCollectionItem, TDictionaryValue>.KeyCollection, TEnumerable, TEnumerator, SortedDictionaryKeysEnumerator<TCollectionItem, TDictionaryValue>> SelectMany<TOutItem, TCollectionItem, TDictionaryValue>(Func<TItem, SortedDictionary<TCollectionItem, TDictionaryValue>.KeyCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem, TDictionaryValue>.SortedDictionaryKeys);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, SortedDictionary<TCollectionItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TCollectionItem, TDictionaryValue>, TEnumerable, TEnumerator, SortedDictionaryKeysEnumerator<TCollectionItem, TDictionaryValue>> SelectMany<TOutItem, TCollectionItem, TDictionaryValue>(Func<TItem, SortedDictionary<TCollectionItem, TDictionaryValue>.KeyCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, Dictionary<TDictionaryKey, TCollectionItem>.ValueCollection, TEnumerable, TEnumerator, DictionaryValuesEnumerator<TDictionaryKey, TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TDictionaryKey>(Func<TItem, Dictionary<TDictionaryKey, TCollectionItem>.ValueCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TDictionaryKey, TCollectionItem>.DictionaryValues);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, Dictionary<TDictionaryKey, TCollectionItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TCollectionItem>, TEnumerable, TEnumerator, DictionaryValuesEnumerator<TDictionaryKey, TCollectionItem>> SelectMany<TOutItem, TCollectionItem, TDictionaryKey>(Func<TItem, Dictionary<TDictionaryKey, TCollectionItem>.ValueCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, Dictionary<TCollectionItem, TDictionaryValue>.KeyCollection, TEnumerable, TEnumerator, DictionaryKeysEnumerator<TCollectionItem, TDictionaryValue>> SelectMany<TOutItem, TCollectionItem, TDictionaryValue>(Func<TItem, Dictionary<TCollectionItem, TDictionaryValue>.KeyCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector, IdentityMaps<TCollectionItem, TDictionaryValue>.DictionaryKeys);
+        public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, Dictionary<TCollectionItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TCollectionItem, TDictionaryValue>, TEnumerable, TEnumerator, DictionaryKeysEnumerator<TCollectionItem, TDictionaryValue>> SelectMany<TOutItem, TCollectionItem, TDictionaryValue>(Func<TItem, Dictionary<TCollectionItem, TDictionaryValue>.KeyCollection> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, CastEnumerable<TCastInItem, TOutItem, TCastInnerEnumerable, TCastInnerEnumerator>, CastEnumerator<TCastInItem, TOutItem, TCastInnerEnumerator>> SelectMany<TCastInItem, TOutItem, TCastInnerEnumerable, TCastInnerEnumerator>(Func<TItem, CastEnumerable<TCastInItem, TOutItem, TCastInnerEnumerable, TCastInnerEnumerator>> selector)
             where TCastInnerEnumerable : struct, IStructEnumerable<TCastInItem, TCastInnerEnumerator>
@@ -531,9 +545,10 @@ namespace LinqAF
             where TSelectMany_DistinctInnerEnumerator : struct, IStructEnumerator<TCollectionItem>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, IdentityEnumerable<TCollectionItem, TIdentityBridgeType, TIdentityEnumerator>, TIdentityEnumerator> SelectMany<TOutItem, TCollectionItem, TIdentityBridgeType, TIdentityEnumerator>(Func<TItem, int, IdentityEnumerable<TCollectionItem, TIdentityBridgeType, TIdentityEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, IdentityEnumerable<TCollectionItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>, TIdentityEnumerator> SelectMany<TOutItem, TCollectionItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>(Func<TItem, int, IdentityEnumerable<TCollectionItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
             where TIdentityBridgeType : class
             where TIdentityEnumerator : struct, IStructEnumerator<TCollectionItem>
+            where TIdentityBridger: struct, IStructBridger<TCollectionItem, TIdentityBridgeType, TIdentityEnumerator>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, DefaultIfEmptyDefaultEnumerable<TCollectionItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>, DefaultIfEmptyDefaultEnumerator<TCollectionItem, TDefaultIfEmptyInnerEnumerator>> SelectMany<TOutItem, TCollectionItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>(Func<TItem, int, DefaultIfEmptyDefaultEnumerable<TCollectionItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
@@ -601,9 +616,10 @@ namespace LinqAF
             where TDefaultIfEmptyInnerEnumerator : struct, IStructEnumerator<TCollectionItem>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, IdentityEnumerable<TCollectionItem, TIdentityBridgeType, TIdentityEnumerator>, TIdentityEnumerator> SelectMany<TOutItem, TCollectionItem, TIdentityBridgeType, TIdentityEnumerator>(Func<TItem, IdentityEnumerable<TCollectionItem, TIdentityBridgeType, TIdentityEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, IdentityEnumerable<TCollectionItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>, TIdentityEnumerator> SelectMany<TOutItem, TCollectionItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>(Func<TItem, IdentityEnumerable<TCollectionItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
             where TIdentityBridgeType : class
             where TIdentityEnumerator : struct, IStructEnumerator<TCollectionItem>
+            where TIdentityBridger: struct, IStructBridger<TCollectionItem, TIdentityBridgeType, TIdentityEnumerator>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, IntersectDefaultEnumerable<TOutItem, TSelectMany_IntersectFirstEnumerable, TSelectMany_IntersectFirstEnumerator, TSelectMany_IntersectSecondEnumerable, TSelectMany_IntersectSecondEnumerator>, IntersectDefaultEnumerator<TOutItem, TSelectMany_IntersectFirstEnumerator, TSelectMany_IntersectSecondEnumerator>> SelectMany<TOutItem, TSelectMany_IntersectFirstEnumerable, TSelectMany_IntersectFirstEnumerator, TSelectMany_IntersectSecondEnumerable, TSelectMany_IntersectSecondEnumerator>(Func<TItem, int, IntersectDefaultEnumerable<TOutItem, TSelectMany_IntersectFirstEnumerable, TSelectMany_IntersectFirstEnumerator, TSelectMany_IntersectSecondEnumerable, TSelectMany_IntersectSecondEnumerator>> selector)
@@ -814,11 +830,12 @@ namespace LinqAF
             where TSelectManyInnerProjectedEnumerator : struct, IStructEnumerator<TOutItem>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyIndexedBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
+        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyIndexedBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TOutItem>
+            where TSelectManyBridger: struct, IStructBridger<TOutItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectWhereEnumerable<TOutItem, TSelectMany_SelectInnerItem, TSelectMany_SelectInnerEnumerable, TSelectMany_SelectInnerEnumerator, TSelectMany_SelectProjection, TSelectMany_SelectPredicate>, SelectWhereEnumerator<TOutItem, TSelectMany_SelectInnerItem, TSelectMany_SelectInnerEnumerator, TSelectMany_SelectProjection, TSelectMany_SelectPredicate>> SelectMany<TSelectMany_SelectInnerItem, TOutItem, TSelectMany_SelectInnerEnumerable, TSelectMany_SelectInnerEnumerator, TSelectMany_SelectProjection, TSelectMany_SelectPredicate>(Func<TItem, SelectWhereEnumerable<TOutItem, TSelectMany_SelectInnerItem, TSelectMany_SelectInnerEnumerable, TSelectMany_SelectInnerEnumerator, TSelectMany_SelectProjection, TSelectMany_SelectPredicate>> selector)
@@ -840,18 +857,20 @@ namespace LinqAF
             where TSelectMany_SelectPredicate : struct, IStructPredicate<TOutItem>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
+        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TOutItem>
+            where TSelectManyBridger: struct, IStructBridger<TOutItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyIndexedBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
+        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyIndexedBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TOutItem>
+            where TSelectManyBridger: struct, IStructBridger<TOutItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyEnumerable<TSelectInItem, TOutItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyInnerProjectedEnumerable, TSelectManyInnerProjectedEnumerator>, SelectManyEnumerator<TSelectInItem, TOutItem, TSelectManyInnerEnumerator, TSelectManyInnerProjectedEnumerable, TSelectManyInnerProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyInnerProjectedEnumerable, TSelectManyInnerProjectedEnumerator>(Func<TItem, int, SelectManyEnumerable<TSelectInItem, TOutItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyInnerProjectedEnumerable, TSelectManyInnerProjectedEnumerator>> selector)
@@ -897,11 +916,12 @@ namespace LinqAF
             where TSelectMany_WhereProjection : struct, IStructProjection<TOutItem, TSelectMany_WhereInnerItem>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
+        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyBridgeEnumerable<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TOutItem>
+            where TSelectManyBridger: struct, IStructBridger<TOutItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, GroupingEnumerable<TSelectMany_GroupByKey, TSelectMany_GroupByElement>, TEnumerable, TEnumerator, GroupBySpecificEnumerable<TSelectMany_GroupByInItem, TSelectMany_GroupByKey, TSelectMany_GroupByElement, TSelectMany_GroupByEnumerable, TSelectMany_GroupByEnumerator>, GroupBySpecificEnumerator<TSelectMany_GroupByInItem, TSelectMany_GroupByKey, TSelectMany_GroupByElement, TSelectMany_GroupByEnumerator>> SelectMany<TOutItem, TSelectMany_GroupByInItem, TSelectMany_GroupByKey, TSelectMany_GroupByElement, TSelectMany_GroupByEnumerable, TSelectMany_GroupByEnumerator>(Func<TItem, int, GroupBySpecificEnumerable<TSelectMany_GroupByInItem, TSelectMany_GroupByKey, TSelectMany_GroupByElement, TSelectMany_GroupByEnumerable, TSelectMany_GroupByEnumerator>> collectionSelector, Func<TItem, GroupingEnumerable<TSelectMany_GroupByKey, TSelectMany_GroupByElement>, TOutItem> resultSelector)
@@ -1055,18 +1075,20 @@ namespace LinqAF
             where TZipSecondEnumerator : struct, IStructEnumerator<TZipSecondItem>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
+        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
+        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyCollectionEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>, SelectManyCollectionEnumerator<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyCollectionEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>> selector)
@@ -1083,18 +1105,20 @@ namespace LinqAF
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
+        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
-        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
+        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> selector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, ZipEnumerable<TOutItem, TZipFirstItem, TZipSecondItem, TZipFirstEnumerable, TZipFirstEnumerator, TZipSecondEnumerable, TZipSecondEnumerator>, ZipEnumerator<TOutItem, TZipFirstItem, TZipSecondItem, TZipFirstEnumerator, TZipSecondEnumerator>> SelectMany<TZipFirstItem, TZipSecondItem, TOutItem, TZipFirstEnumerable, TZipFirstEnumerator, TZipSecondEnumerable, TZipSecondEnumerator>(Func<TItem, ZipEnumerable<TOutItem, TZipFirstItem, TZipSecondItem, TZipFirstEnumerable, TZipFirstEnumerator, TZipSecondEnumerable, TZipSecondEnumerator>> selector)
@@ -1145,18 +1169,20 @@ namespace LinqAF
             where TSelectMany_SelectPredicate : struct, IStructPredicate<TCollectionItem>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyIndexedBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyIndexedBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyEnumerable<TSelectInItem, TCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyInnerProjectedEnumerable, TSelectManyInnerProjectedEnumerator>, SelectManyEnumerator<TSelectInItem, TCollectionItem, TSelectManyInnerEnumerator, TSelectManyInnerProjectedEnumerable, TSelectManyInnerProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyInnerProjectedEnumerable, TSelectManyInnerProjectedEnumerator>(Func<TItem, int, SelectManyEnumerable<TSelectInItem, TCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyInnerProjectedEnumerable, TSelectManyInnerProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
@@ -1180,11 +1206,12 @@ namespace LinqAF
             where TSelectManyInnerProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyBridgeType, TCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyIndexedBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TSelectManyBridgeType, TSelectManyBridger, TCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyIndexedBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectWhereEnumerable<TCollectionItem, TSelectMany_SelectInnerItem, TSelectMany_SelectInnerEnumerable, TSelectMany_SelectInnerEnumerator, TSelectMany_SelectProjection, TSelectMany_SelectPredicate>, SelectWhereEnumerator<TCollectionItem, TSelectMany_SelectInnerItem, TSelectMany_SelectInnerEnumerator, TSelectMany_SelectProjection, TSelectMany_SelectPredicate>> SelectMany<TSelectMany_SelectInnerItem, TCollectionItem, TOutItem, TSelectMany_SelectInnerEnumerable, TSelectMany_SelectInnerEnumerator, TSelectMany_SelectProjection, TSelectMany_SelectPredicate>(Func<TItem, SelectWhereEnumerable<TCollectionItem, TSelectMany_SelectInnerItem, TSelectMany_SelectInnerEnumerable, TSelectMany_SelectInnerEnumerator, TSelectMany_SelectProjection, TSelectMany_SelectPredicate>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
@@ -1201,11 +1228,12 @@ namespace LinqAF
             where TSelectManyInnerProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectInItem, TOutItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyBridgeEnumerable<TSelectInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, GroupJoinDefaultEnumerable<TOutItem, TSelectMany_GroupJoinKey, TSelectMany_GroupJoinLeftItem, TSelectMany_GroupJoinLeftEnumerable, TSelectMany_GroupJoinLeftEnumerator, TSelectMany_GroupJoinRightItem, TSelectMany_GroupJoinRightEnumerable, TSelectMany_GroupJoinRightEnumerator>, GroupJoinDefaultEnumerator<TOutItem, TSelectMany_GroupJoinKey, TSelectMany_GroupJoinLeftItem, TSelectMany_GroupJoinLeftEnumerator, TSelectMany_GroupJoinRightItem, TSelectMany_GroupJoinRightEnumerator>> SelectMany<TOutItem, TSelectMany_GroupJoinKey, TSelectMany_GroupJoinLeftItem, TSelectMany_GroupJoinLeftEnumerable, TSelectMany_GroupJoinLeftEnumerator, TSelectMany_GroupJoinRightItem, TSelectMany_GroupJoinRightEnumerable, TSelectMany_GroupJoinRightEnumerator>(Func<TItem, int, GroupJoinDefaultEnumerable<TOutItem, TSelectMany_GroupJoinKey, TSelectMany_GroupJoinLeftItem, TSelectMany_GroupJoinLeftEnumerable, TSelectMany_GroupJoinLeftEnumerator, TSelectMany_GroupJoinRightItem, TSelectMany_GroupJoinRightEnumerable, TSelectMany_GroupJoinRightEnumerator>> selector)
@@ -1271,18 +1299,20 @@ namespace LinqAF
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyCollectionEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>, SelectManyCollectionEnumerator<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>(Func<TItem, int, SelectManyCollectionEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
@@ -1320,18 +1350,20 @@ namespace LinqAF
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> SelectMany<TSelectManyInItem, TOutItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(Func<TItem, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TCollectionItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, GroupJoinSpecificEnumerable<TCollectionItem, TSelectMany_GroupJoinKeyItem, TSelectMany_GroupJoinLeftItem, TSelectMany_GroupJoinLeftEnumerable, TSelectMany_GroupJoinLeftEnumerator, TSelectMany_GroupJoinRightItem, TSelectMany_GroupJoinRightEnumerable, TSelectMany_GroupJoinRightEnumerator>, GroupJoinSpecificEnumerator<TCollectionItem, TSelectMany_GroupJoinKeyItem, TSelectMany_GroupJoinLeftItem, TSelectMany_GroupJoinLeftEnumerator, TSelectMany_GroupJoinRightItem, TSelectMany_GroupJoinRightEnumerator>> SelectMany<TOutItem, TCollectionItem, TSelectMany_GroupJoinKeyItem, TSelectMany_GroupJoinLeftItem, TSelectMany_GroupJoinLeftEnumerable, TSelectMany_GroupJoinLeftEnumerator, TSelectMany_GroupJoinRightItem, TSelectMany_GroupJoinRightEnumerable, TSelectMany_GroupJoinRightEnumerator>(Func<TItem, int, GroupJoinSpecificEnumerable<TCollectionItem, TSelectMany_GroupJoinKeyItem, TSelectMany_GroupJoinLeftItem, TSelectMany_GroupJoinLeftEnumerable, TSelectMany_GroupJoinLeftEnumerator, TSelectMany_GroupJoinRightItem, TSelectMany_GroupJoinRightEnumerable, TSelectMany_GroupJoinRightEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)

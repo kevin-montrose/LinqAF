@@ -10,8 +10,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -22,7 +22,7 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = selector(i.Current);
 
@@ -44,8 +44,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -78,8 +78,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -90,7 +90,7 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = selector(i.Current);
 
@@ -112,8 +112,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -146,8 +146,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -158,7 +158,7 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = selector(i.Current);
 
@@ -180,8 +180,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -214,8 +214,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -226,7 +226,7 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = selector(i.Current);
 
@@ -248,8 +248,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -282,8 +282,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -294,7 +294,7 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = selector(i.Current);
 
@@ -316,8 +316,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -351,7 +351,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return MinComparableImpl<TItem, TEnumerable, TEnumerator>(ref source);
         }
@@ -405,7 +405,7 @@ namespace LinqAF.Impl
 
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = i.Current;
 
@@ -427,8 +427,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return MinProjectedComparableImpl<TItem, TResult, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -482,7 +482,7 @@ namespace LinqAF.Impl
 
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = selector(i.Current);
 
@@ -505,18 +505,18 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<int, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<int>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
-            return MinIntimpl<TEnumerable, TEnumerator>(ref source);
+            return MinIntImpl<TEnumerable, TEnumerator>(ref source);
         }
 
-        internal static int MinIntimpl<TEnumerable, TEnumerator>(ref TEnumerable source)
+        internal static int MinIntImpl<TEnumerable, TEnumerator>(ref TEnumerable source)
             where TEnumerable : struct, IStructEnumerable<int, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<int>
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = i.Current;
                 while (i.MoveNext())
@@ -536,7 +536,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<int?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<int?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return MinNullableIntImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -571,7 +571,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<long, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<long>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return MinLongImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -582,7 +582,7 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = i.Current;
                 while (i.MoveNext())
@@ -602,7 +602,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<long?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<long?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return MinNullableLongImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -637,7 +637,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<float, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<float>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return MinFloatImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -648,13 +648,17 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = i.Current;
                 while (i.MoveNext())
                 {
+                    if (float.IsNaN(best)) break;
+
                     var cur = i.Current;
-                    if (cur < best)
+
+                    // NaN is lowest value
+                    if (float.IsNaN(cur) || cur < best)
                     {
                         best = cur;
                     }
@@ -668,7 +672,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<float?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<float?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return MinNullableFloatImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -684,12 +688,23 @@ namespace LinqAF.Impl
                 var best = i.Current;
                 while (i.MoveNext())
                 {
+                    // NaN is the lowest value there is
+                    if (best != null && float.IsNaN(best.Value)) continue;
+
                     var cur = i.Current;
                     if (cur == null) continue;
 
-                    if (best == null || cur < best)
+                    if (best == null)
                     {
                         best = cur;
+                    }
+                    else
+                    {
+                        // NaN is lowest value
+                        if (float.IsNaN(cur.Value) || cur < best)
+                        {
+                            best = cur;
+                        }
                     }
                 }
 
@@ -703,7 +718,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<double, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<double>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return MinDoubleImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -714,13 +729,17 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = i.Current;
                 while (i.MoveNext())
                 {
+                    if (double.IsNaN(best)) break;
+
                     var cur = i.Current;
-                    if (cur < best)
+
+                    // NaN is lowest value
+                    if (double.IsNaN(cur) || cur < best)
                     {
                         best = cur;
                     }
@@ -734,7 +753,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<double?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<double?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return MinNullableDoubleImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -750,12 +769,23 @@ namespace LinqAF.Impl
                 var best = i.Current;
                 while (i.MoveNext())
                 {
+                    // NaN is the lowest value there is
+                    if (best != null && double.IsNaN(best.Value)) continue;
+
                     var cur = i.Current;
                     if (cur == null) continue;
 
-                    if (best == null || cur < best)
+                    if (best == null)
                     {
                         best = cur;
+                    }
+                    else
+                    {
+                        // NaN is lowest value
+                        if (double.IsNaN(cur.Value) || cur < best)
+                        {
+                            best = cur;
+                        }
                     }
                 }
 
@@ -769,7 +799,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<decimal, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<decimal>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return MinDecimalImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -780,7 +810,7 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var best = i.Current;
                 while (i.MoveNext())
@@ -800,7 +830,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<decimal?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<decimal?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return MinNullableDecimalImpl<TEnumerable, TEnumerator>(ref source);
         }

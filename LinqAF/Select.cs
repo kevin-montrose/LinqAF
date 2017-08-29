@@ -2,6 +2,7 @@
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SelectEnumerator<TInItem, TOutItem, TInnerEnumerator> : IStructEnumerator<TOutItem>
         where TInnerEnumerator: struct, IStructEnumerator<TInItem>
     {
@@ -18,9 +19,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Mapper == null &&
-                Inner.IsDefaultValue();
+            return Mapper == null;
         }
 
         public void Dispose() => Inner.Dispose();
@@ -41,6 +40,7 @@ namespace LinqAF
         public void Reset() => Inner.Reset();
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct SelectEnumerable<TInItem, TOutItem, TInnerEnumerable, TInnerEnumerator> : 
         IStructEnumerable<TOutItem, SelectEnumerator<TInItem, TOutItem, TInnerEnumerator>>
         where TInnerEnumerable: struct, IStructEnumerable<TInItem, TInnerEnumerator>
@@ -56,9 +56,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Mapper == null &&
-                Inner.IsDefaultValue();
+            return Mapper == null;
         }
 
         public SelectEnumerator<TInItem, TOutItem, TInnerEnumerator> GetEnumerator()
@@ -68,6 +66,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SelectIndexedEnumerator<TInItem, TOutItem, TInnerEnumerator> : IStructEnumerator<TOutItem>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
     {
@@ -86,10 +85,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Index == default(int) &&
-                Mapper == null &&
-                Inner.IsDefaultValue();
+            return Mapper == null;
         }
 
         public void Dispose() => Inner.Dispose();
@@ -118,6 +114,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct SelectIndexedEnumerable<TInItem, TOutItem, TInnerEnumerable, TInnerEnumerator>: 
         IStructEnumerable<TOutItem, SelectIndexedEnumerator<TInItem, TOutItem, TInnerEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
@@ -133,9 +130,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Mapper == null &&
-                Inner.IsDefaultValue();
+            return Mapper == null;
         }
 
         public SelectIndexedEnumerator<TInItem, TOutItem, TInnerEnumerator> GetEnumerator()

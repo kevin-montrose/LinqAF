@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqAF.Impl;
+using System;
 using System.Collections.Generic;
 
 namespace LinqAF
@@ -9,6 +10,39 @@ namespace LinqAF
         TCompositeKey MakeKey(TItem item);
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct ConfiguredComparer<TItem, TCompareOn> : IStructComparer<TItem, TCompareOn>
+    {
+        Func<TItem, TCompareOn> Selector;
+        IComparer<TCompareOn> Comparer;
+        bool Descending;
+
+        internal ConfiguredComparer(Func<TItem, TCompareOn> selector, IComparer<TCompareOn> comparer, bool descending)
+        {
+            Selector = selector;
+            Comparer = comparer;
+            Descending = descending;
+        }
+
+        public bool IsDefaultValue()
+        {
+            return Selector == null;
+        }
+
+        public TCompareOn MakeKey(TItem item) => Selector(item);
+
+        public int Compare(TCompareOn x, TCompareOn y)
+        {
+            if (Descending)
+            {
+                return Comparer.Compare(y, x);
+            }
+
+            return Comparer.Compare(x, y);
+        }
+    }
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct DefaultAscending<TItem, TCompareOn> : IStructComparer<TItem, TCompareOn>
     {
         Func<TItem, TCompareOn> Selector;
@@ -20,8 +54,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Selector == null;
+            return Selector == null;
         }
 
         public TCompareOn MakeKey(TItem item) => Selector(item);
@@ -32,6 +65,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct DefaultDescending<TItem, TCompareOn> : IStructComparer<TItem, TCompareOn>
     {
         Func<TItem, TCompareOn> Selector;
@@ -43,8 +77,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Selector == null;
+            return Selector == null;
         }
 
         public TCompareOn MakeKey(TItem item) => Selector(item);
@@ -55,6 +88,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SingleComparerAscending<TItem, TCompareOn> : IStructComparer<TItem, TCompareOn>
     {
         Func<TItem, TCompareOn> Selector;
@@ -68,9 +102,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Selector == null &&
-                Inner == null;
+            return Selector == null;
         }
 
         public TCompareOn MakeKey(TItem item) => Selector(item);
@@ -81,6 +113,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SingleComparerDescending<TItem, TCompareOn> : IStructComparer<TItem, TCompareOn>
     {
         Func<TItem, TCompareOn> Selector;
@@ -94,9 +127,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Selector == null &&
-                Inner == null;
+            return Selector == null;
         }
 
         public TCompareOn MakeKey(TItem item) => Selector(item);
@@ -107,6 +138,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct CompoundKey<TFirstKey, TSecondKey>
     {
         public TFirstKey FirstKey;
@@ -119,6 +151,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct CompoundComparer<TItem, TFirstKey, TFirstComparer, TSecondKey, TSecondComparer> :
         IStructComparer<TItem, CompoundKey<TFirstKey, TSecondKey>>
         where TFirstComparer : struct, IStructComparer<TItem, TFirstKey>
@@ -135,7 +168,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return First.IsDefaultValue() && Second.IsDefaultValue();
+            return First.IsDefaultValue();
         }
 
         public CompoundKey<TFirstKey, TSecondKey> MakeKey(TItem item)
@@ -155,6 +188,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct EmptyComparer<TItem> :
         IStructComparer<TItem, object>
     {
@@ -169,14 +203,8 @@ namespace LinqAF
             return Sigil == default(byte);
         }
 
-        public object MakeKey(TItem item)
-        {
-            throw new InvalidOperationException($"Called {nameof(MakeKey)} on {nameof(EmptyComparer<TItem>)}");
-        }
+        public object MakeKey(TItem item) { throw CommonImplementation.ForbiddenCall(nameof(MakeKey), nameof(EmptyComparer<TItem>)); }
 
-        public int Compare(object x, object y)
-        {
-            throw new InvalidOperationException($"Called {nameof(Compare)} on {nameof(EmptyComparer<TItem>)}");
-        }
+        public int Compare(object x, object y) { throw CommonImplementation.ForbiddenCall(nameof(Compare), nameof(EmptyComparer<TItem>)); }
     }
 }

@@ -11,8 +11,8 @@ namespace LinqAF.Impl
             where TSecondEnumerable : struct, IStructEnumerable<TItem, TSecondEnumerator>
             where TSecondEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return UnionImpl<TItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator>(ref first, ref second);
         }
@@ -32,8 +32,8 @@ namespace LinqAF.Impl
             where TSecondEnumerable : struct, IStructEnumerable<TItem, TSecondEnumerator>
             where TSecondEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return UnionImpl<TItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator>(ref first, ref second, comparer);
         }
@@ -44,6 +44,8 @@ namespace LinqAF.Impl
             where TSecondEnumerable : struct, IStructEnumerable<TItem, TSecondEnumerator>
             where TSecondEnumerator : struct, IStructEnumerator<TItem>
         {
+            comparer = comparer ?? EqualityComparer<TItem>.Default;
+
             return new UnionSpecificEnumerable<TItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator>(ref first, ref second, comparer);
         }
     }

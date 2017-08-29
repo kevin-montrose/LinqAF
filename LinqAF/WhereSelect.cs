@@ -2,6 +2,7 @@
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct WhereSelectEnumerator<TOutItem, TInnerItem, TInnerEnumerator, TPredicate, TProjection>:
         IStructEnumerator<TOutItem>
         where TInnerEnumerator : struct, IStructEnumerator<TInnerItem>
@@ -24,10 +25,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate.IsDefaultValue() ||
-                Projection.IsDefaultValue() ||
-                Inner.IsDefaultValue();
+            return Predicate.IsDefaultValue();
         }
 
         public void Dispose()
@@ -57,6 +55,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct WhereSelectEnumerable<TOutItem, TInnerItem, TInnerEnumerable, TInnerEnumerator, TPredicate, TProjection>:
         IStructEnumerable<TOutItem, WhereSelectEnumerator<TOutItem, TInnerItem, TInnerEnumerator, TPredicate, TProjection>>
         where TInnerEnumerable: struct, IStructEnumerable<TInnerItem, TInnerEnumerator>
@@ -77,10 +76,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate.IsDefaultValue() ||
-                Projection.IsDefaultValue() ||
-                Inner.IsDefaultValue();
+            return Predicate.IsDefaultValue();
         }
 
         public WhereSelectEnumerator<TOutItem, TInnerItem, TInnerEnumerator, TPredicate, TProjection> GetEnumerator()
