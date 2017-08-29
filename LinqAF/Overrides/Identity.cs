@@ -1,14 +1,15 @@
-﻿using LinqAF.Impl;
+﻿using LinqAF.Config;
+using LinqAF.Impl;
 using System;
 using System.Collections.Generic;
 
 namespace LinqAF
 {
-    public partial struct IdentityEnumerable<TItem, TBridgeType, TEnumerator>
+    public partial struct IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>
     {
         public bool Any()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asICollection = this.Inner as ICollection<TItem>;
             if (asICollection != null)
@@ -16,19 +17,19 @@ namespace LinqAF
                 return asICollection.Count > 0;
             }
 
-            return CommonImplementation.AnyImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.AnyImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
 
         public IEnumerable<TItem> AsEnumerable()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return (IEnumerable<TItem>)this.Inner;
         }
         
         public bool Contains(TItem value)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asHashSet = this.Inner as HashSet<TItem>;
             if (asHashSet != null)
@@ -39,12 +40,12 @@ namespace LinqAF
                 }
             }
 
-            return CommonImplementation.ContainsImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, value);
+            return CommonImplementation.ContainsImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, value);
         }
 
         public bool Contains(TItem value, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asHashSet = this.Inner as HashSet<TItem>;
             if (asHashSet != null)
@@ -55,12 +56,12 @@ namespace LinqAF
                 }
             }
 
-            return CommonImplementation.ContainsImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, value, comparer);
+            return CommonImplementation.ContainsImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, value, comparer);
         }
 
         public int Count()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asICollection = this.Inner as ICollection<TItem>;
             if (asICollection != null)
@@ -68,12 +69,12 @@ namespace LinqAF
                 return asICollection.Count;
             }
 
-            return CommonImplementation.CountImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.CountImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
 
         public long LongCount()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asArr = this.Inner as TItem[];
             if(asArr != null)
@@ -87,30 +88,30 @@ namespace LinqAF
                 return asICollection.Count;
             }
 
-            return CommonImplementation.CountImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.CountImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
 
         public TItem ElementAt(int index)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asIList = this.Inner as IList<TItem>;
             if (asIList != null)
             {
                 if (index < 0 || index >= asIList.Count)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(index));
+                    throw CommonImplementation.OutOfRange(nameof(index));
                 }
 
                 return asIList[index];
             }
 
-            return CommonImplementation.ElementAtImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, index);
+            return CommonImplementation.ElementAtImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, index);
         }
 
         public TItem ElementAtOrDefault(int index)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asIList = this.Inner as IList<TItem>;
             if (asIList != null)
@@ -123,30 +124,30 @@ namespace LinqAF
                 return asIList[index];
             }
 
-            return CommonImplementation.ElementAtOrDefaultImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, index);
+            return CommonImplementation.ElementAtOrDefaultImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, index);
         }
 
         public TItem First()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asIList = this.Inner as IList<TItem>;
             if (asIList != null)
             {
                 if (asIList.Count == 0)
                 {
-                    throw new InvalidOperationException("Sequence was empty");
+                    throw CommonImplementation.SequenceEmpty();
                 }
 
                 return asIList[0];
             }
 
-            return CommonImplementation.FirstImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.FirstImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
 
         public TItem FirstOrDefault()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asIList = this.Inner as IList<TItem>;
             if (asIList != null)
@@ -159,35 +160,35 @@ namespace LinqAF
                 return asIList[0];
             }
 
-            return CommonImplementation.FirstOrDefaultImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.FirstOrDefaultImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
 
         public TItem Single()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asIList = this.Inner as IList<TItem>;
             if (asIList != null)
             {
                 if (asIList.Count == 0)
                 {
-                    throw new InvalidOperationException("Sequence was empty");
+                    throw CommonImplementation.SequenceEmpty();
                 }
 
                 if (asIList.Count > 1)
                 {
-                    throw new InvalidOperationException("Sequence contained multiple elements");
+                    throw CommonImplementation.MultipleElements();
                 }
 
                 return asIList[0];
             }
 
-            return CommonImplementation.SingleImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.SingleImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
 
         public TItem SingleOrDefault()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asIList = this.Inner as IList<TItem>;
             if (asIList != null)
@@ -199,36 +200,36 @@ namespace LinqAF
 
                 if (asIList.Count > 1)
                 {
-                    throw new InvalidOperationException("Sequence contained multiple elements");
+                    throw CommonImplementation.MultipleElements();
                 }
 
                 return asIList[0];
             }
 
-            return CommonImplementation.SingleOrDefaultImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.SingleOrDefaultImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
 
         public TItem Last()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asIList = this.Inner as IList<TItem>;
             if (asIList != null)
             {
                 if (asIList.Count == 0)
                 {
-                    throw new InvalidOperationException("Sequence was empty");
+                    throw CommonImplementation.SequenceEmpty();
                 }
 
                 return asIList[asIList.Count - 1];
             }
 
-            return CommonImplementation.LastImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.LastImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
 
         public TItem LastOrDefault()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asIList = this.Inner as IList<TItem>;
             if (asIList != null)
@@ -241,13 +242,13 @@ namespace LinqAF
                 return asIList[asIList.Count - 1];
             }
 
-            return CommonImplementation.LastOrDefaultImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.LastOrDefaultImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
 
         public bool SequenceEqual(EmptyEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             var asICollection = this.Inner as ICollection<TItem>;
             if (asICollection != null)
@@ -255,14 +256,14 @@ namespace LinqAF
                 return asICollection.Count == 0;
             }
 
-            return CommonImplementation.SequenceEqualImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>>(ref this, ref second, null);
+            return CommonImplementation.SequenceEqualImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>>(ref this, ref second, null);
         }
 
 
         public bool SequenceEqual(EmptyEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             var asICollection = this.Inner as ICollection<TItem>;
             if (asICollection != null)
@@ -270,101 +271,101 @@ namespace LinqAF
                 return asICollection.Count == 0;
             }
 
-            return CommonImplementation.SequenceEqualImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>>(ref this, ref second, comparer);
+            return CommonImplementation.SequenceEqualImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>>(ref this, ref second, comparer);
         }
 
         public List<TItem> ToList()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asIEnumerable = this.Inner as IEnumerable<TItem>;
             if(asIEnumerable != null)
             {
-                return new List<TItem>(asIEnumerable);
+                return Allocator.Current.GetPopulatedList(asIEnumerable);
             }
 
-            return CommonImplementation.ToListImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.ToListImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
 
         public TItem[] ToArray()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var asICollection = this.Inner as ICollection<TItem>;
             if(asICollection != null)
             {
-                var ret = new TItem[asICollection.Count];
+                var ret = Allocator.Current.GetArray<TItem>(asICollection.Count);
                 asICollection.CopyTo(ret, 0);
                 return ret;
             }
 
-            return CommonImplementation.ToArrayImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this);
+            return CommonImplementation.ToArrayImpl<TItem, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this);
         }
         
         public Dictionary<TToDictionary_Key, TItem> ToDictionary<TToDictionary_Key>(Func<TItem, TToDictionary_Key> keySelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             var asICollection = this.Inner as ICollection<TItem>;
             if (asICollection != null)
             {
-                var ret = new Dictionary<TToDictionary_Key, TItem>(asICollection.Count);
-                CommonImplementation.ToDictionaryLoopImpl<TItem, TToDictionary_Key, TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, ret, keySelector, _ => _);
+                var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TItem>(asICollection.Count, null);
+                CommonImplementation.ToDictionaryLoopImpl<TItem, TToDictionary_Key, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, ret, keySelector);
                 return ret;
             }
 
-            return CommonImplementation.ToDictionaryImpl<TItem, TToDictionary_Key, TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, keySelector, _ => _, null);
+            return CommonImplementation.ToDictionaryImpl<TItem, TToDictionary_Key, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, keySelector);
         }
 
         public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<TItem, TToDictionary_Key> keySelector, Func<TItem, TToDictionary_Value> elementSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
             var asICollection = this.Inner as ICollection<TItem>;
             if (asICollection != null)
             {
-                var ret = new Dictionary<TToDictionary_Key, TToDictionary_Value>(asICollection.Count);
-                CommonImplementation.ToDictionaryLoopImpl<TItem, TToDictionary_Key, TToDictionary_Value, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, ret, keySelector, elementSelector);
+                var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TToDictionary_Value>(asICollection.Count, null);
+                CommonImplementation.ToDictionaryLoopImpl<TItem, TToDictionary_Key, TToDictionary_Value, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, ret, keySelector, elementSelector);
                 return ret;
             }
 
-            return CommonImplementation.ToDictionaryImpl<TItem, TToDictionary_Key, TToDictionary_Value, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, keySelector, elementSelector, null);
+            return CommonImplementation.ToDictionaryImpl<TItem, TToDictionary_Key, TToDictionary_Value, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, keySelector, elementSelector);
         }
 
         public Dictionary<TToDictionary_Key, TItem> ToDictionary<TToDictionary_Key>(Func<TItem, TToDictionary_Key> keySelector, IEqualityComparer<TToDictionary_Key> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             var asICollection = this.Inner as ICollection<TItem>;
             if (asICollection != null)
             {
-                var ret = new Dictionary<TToDictionary_Key, TItem>(asICollection.Count, comparer);
-                CommonImplementation.ToDictionaryLoopImpl<TItem, TToDictionary_Key, TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, ret, keySelector, _ => _);
+                var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TItem>(asICollection.Count, comparer);
+                CommonImplementation.ToDictionaryLoopImpl<TItem, TToDictionary_Key, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, ret, keySelector);
                 return ret;
             }
 
-            return CommonImplementation.ToDictionaryImpl<TItem, TToDictionary_Key, TItem, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, keySelector, _ => _, comparer);
+            return CommonImplementation.ToDictionaryImpl<TItem, TToDictionary_Key, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, keySelector, comparer);
         }
 
         public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<TItem, TToDictionary_Key> keySelector, Func<TItem, TToDictionary_Value> elementSelector, IEqualityComparer<TToDictionary_Key> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
             var asICollection = this.Inner as ICollection<TItem>;
             if (asICollection != null)
             {
-                var ret = new Dictionary<TToDictionary_Key, TToDictionary_Value>(asICollection.Count, comparer);
-                CommonImplementation.ToDictionaryLoopImpl<TItem, TToDictionary_Key, TToDictionary_Value, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, ret, keySelector, elementSelector);
+                var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TToDictionary_Value>(asICollection.Count, comparer);
+                CommonImplementation.ToDictionaryLoopImpl<TItem, TToDictionary_Key, TToDictionary_Value, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, ret, keySelector, elementSelector);
                 return ret;
             }
 
-            return CommonImplementation.ToDictionaryImpl<TItem, TToDictionary_Key, TToDictionary_Value, IdentityEnumerable<TItem, TBridgeType, TEnumerator>, TEnumerator>(ref this, keySelector, elementSelector, comparer);
+            return CommonImplementation.ToDictionaryImpl<TItem, TToDictionary_Key, TToDictionary_Value, IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator>, TEnumerator>(ref this, keySelector, elementSelector, comparer);
         }
     }
 }

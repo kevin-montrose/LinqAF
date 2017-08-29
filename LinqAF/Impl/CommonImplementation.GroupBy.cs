@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqAF.Config;
+using System;
 using System.Collections.Generic;
 
 namespace LinqAF.Impl
@@ -13,9 +14,9 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
             return GroupByImpl<TItem, TKey, TElement, TEnumerable, TEnumerator>(ref source, keySelector, elementSelector);
         }
@@ -40,9 +41,9 @@ namespace LinqAF.Impl
             where TEnumerable: struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator: struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
             return GroupByImpl<TItem, TKey, TElement, TEnumerable, TEnumerator>(ref source, keySelector, elementSelector, comparer ?? EqualityComparer<TKey>.Default);
         }
@@ -68,10 +69,10 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return GroupByImpl<TItem, TKey, TElement, TResult, TEnumerable, TEnumerator>(ref source, keySelector, elementSelector, resultSelector);
         }
@@ -98,10 +99,10 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return GroupByImpl<TItem, TKey, TElement, TResult, TEnumerable, TEnumerator>(ref source, keySelector, elementSelector, resultSelector, comparer ?? EqualityComparer<TKey>.Default);
         }
@@ -117,6 +118,17 @@ namespace LinqAF.Impl
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
             return new GroupByCollectionSpecificEnumerable<TItem, TKey, TElement, TResult, TEnumerable, TEnumerator>(ref source, keySelector, elementSelector, resultSelector, comparer);
+        }
+
+        const int GROUPING_MAX_DOUBLE_SIZE = 4096;
+        static int NextGroupingSize(int oldSize)
+        {
+            if(oldSize >= GROUPING_MAX_DOUBLE_SIZE)
+            {
+                return oldSize + GROUPING_MAX_DOUBLE_SIZE;
+            }
+
+            return oldSize * 2;
         }
     }
 }

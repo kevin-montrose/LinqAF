@@ -8,16 +8,16 @@ namespace LinqAF
     {
         public OneItemDefaultOrderedEnumerable<TItem> Concat(OneItemDefaultOrderedEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
         public OneItemSpecificOrderedEnumerable<TItem> Concat(OneItemSpecificOrderedEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -27,24 +27,24 @@ namespace LinqAF
             where TConcat_OrderByEnumerator : struct, IStructEnumerator<TItem>
             where TConcat_OrderByComparer : struct, IStructComparer<TItem, TConcat_OrderByKey>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
         public GroupingEnumerable<TConcat_GroupedKey, TItem> Concat<TConcat_GroupedKey>(GroupingEnumerable<TConcat_GroupedKey, TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
         public GroupedEnumerable<TConcat_GroupedKey, TItem> Concat<TConcat_GroupedKey>(GroupedEnumerable<TConcat_GroupedKey, TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -53,8 +53,8 @@ namespace LinqAF
             where TConcat_Concat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_Concat_InnerEnumerator>
             where TConcat_Concat_InnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -63,8 +63,8 @@ namespace LinqAF
             where TConcat_ReverseEnumerable : struct, IStructEnumerable<TItem, TConcat_ReverseEnumerator>
             where TConcat_ReverseEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -75,8 +75,8 @@ namespace LinqAF
             where TConcat_ExceptSecondEnumerable : struct, IStructEnumerable<TItem, TConcat_ExceptSecondEnumerator>
             where TConcat_ExceptSecondEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -87,8 +87,8 @@ namespace LinqAF
             where TConcat_ExceptSecondEnumerable : struct, IStructEnumerable<TItem, TConcat_ExceptSecondEnumerator>
             where TConcat_ExceptSecondEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -99,8 +99,8 @@ namespace LinqAF
             where TConcat_IntersectSecondEnumerable : struct, IStructEnumerable<TItem, TConcat_IntersectSecondEnumerator>
             where TConcat_IntersectSecondEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -111,8 +111,8 @@ namespace LinqAF
             where TConcat_UnionSecondEnumerable : struct, IStructEnumerable<TItem, TConcat_UnionSecondEnumerator>
             where TConcat_UnionSecondEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -123,8 +123,8 @@ namespace LinqAF
             where TConcat_UnionSecondEnumerable : struct, IStructEnumerable<TItem, TConcat_UnionSecondEnumerator>
             where TConcat_UnionSecondEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -135,8 +135,8 @@ namespace LinqAF
             where TConcat_IntersectSecondEnumerable : struct, IStructEnumerable<TItem, TConcat_IntersectSecondEnumerator>
             where TConcat_IntersectSecondEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -145,8 +145,8 @@ namespace LinqAF
             where TConcat_GroupByEnumerable : struct, IStructEnumerable<TConcat_GroupByInItem, TConcat_GroupByEnumerator>
             where TConcat_GroupByEnumerator : struct, IStructEnumerator<TConcat_GroupByInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -155,8 +155,8 @@ namespace LinqAF
             where TConcat_GroupByEnumerable : struct, IStructEnumerable<TConcat_GroupByInItem, TConcat_GroupByEnumerator>
             where TConcat_GroupByEnumerator : struct, IStructEnumerator<TConcat_GroupByInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -167,8 +167,8 @@ namespace LinqAF
             where TConcat_JoinRightEnumerable : struct, IStructEnumerable<TConcat_JoinRightItem, TConcat_JoinRightEnumerator>
             where TConcat_JoinRightEnumerator : struct, IStructEnumerator<TConcat_JoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -179,8 +179,8 @@ namespace LinqAF
             where TConcat_JoinRightEnumerable : struct, IStructEnumerable<TConcat_JoinRightItem, TConcat_JoinRightEnumerator>
             where TConcat_JoinRightEnumerator : struct, IStructEnumerator<TConcat_JoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -191,8 +191,8 @@ namespace LinqAF
             where TConcat_GroupJoinRightEnumerable : struct, IStructEnumerable<TConcat_GroupJoinRightItem, TConcat_GroupJoinRightEnumerator>
             where TConcat_GroupJoinRightEnumerator : struct, IStructEnumerator<TConcat_GroupJoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -203,48 +203,48 @@ namespace LinqAF
             where TConcat_GroupJoinRightEnumerable : struct, IStructEnumerable<TConcat_GroupJoinRightItem, TConcat_GroupJoinRightEnumerator>
             where TConcat_GroupJoinRightEnumerator : struct, IStructEnumerator<TConcat_GroupJoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
         public OneItemDefaultEnumerable<TItem> Concat(OneItemDefaultEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
         public OneItemSpecificEnumerable<TItem> Concat(OneItemSpecificEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
-        
+
         public RepeatEnumerable<TItem> Concat(RepeatEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
         public RangeEnumerable<TItem> Concat(RangeEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
         public EmptyEnumerable<TItem> Concat(EmptyEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return EmptyCache<TItem>.Empty;
         }
@@ -253,8 +253,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -263,8 +263,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -273,8 +273,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -283,8 +283,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -293,8 +293,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -303,8 +303,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -313,8 +313,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -323,8 +323,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -333,8 +333,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -343,8 +343,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TConcat_SelectInItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TConcat_SelectInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -353,8 +353,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TConcat_InItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TConcat_InItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -363,8 +363,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TConcat_InItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TConcat_InItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -373,8 +373,8 @@ namespace LinqAF
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TConcat_SelectInItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TConcat_SelectInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -385,8 +385,8 @@ namespace LinqAF
             where TConcat_InnerRightEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerRightEnumerator>
             where TConcat_InnerRightEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -397,8 +397,8 @@ namespace LinqAF
             where TConcat_SelectManyProjectedEnumerable : struct, IStructEnumerable<TItem, TConcat_SelectManyProjectedEnumerator>
             where TConcat_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -409,8 +409,8 @@ namespace LinqAF
             where TConcat_ProjectedEnumerable : struct, IStructEnumerable<TItem, TConcat_ProjectedEnumerator>
             where TConcat_ProjectedEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -421,8 +421,8 @@ namespace LinqAF
             where TConcat_SelectManyProjectedEnumerable : struct, IStructEnumerable<TConcat_CollectionItem, TConcat_SelectManyProjectedEnumerator>
             where TConcat_SelectManyProjectedEnumerator : struct, IStructEnumerator<TConcat_CollectionItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -433,8 +433,8 @@ namespace LinqAF
             where TConcat_ProjectedEnumerable : struct, IStructEnumerable<TConcat_CollectionItem, TConcat_ProjectedEnumerator>
             where TConcat_ProjectedEnumerator : struct, IStructEnumerator<TConcat_CollectionItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -445,149 +445,162 @@ namespace LinqAF
             where TConcat_ZipSecondEnumerable : struct, IStructEnumerable<TConcat_ZipSecondItem, TConcat_ZipSecondEnumerator>
             where TConcat_ZipSecondEnumerator : struct, IStructEnumerator<TConcat_ZipSecondItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
-        public IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>> Concat(IEnumerable<TItem> second)
+        public IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>> Concat(IEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>> Concat(List<TItem> second)
+        public IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>> Concat(List<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>> Concat(LinkedList<TItem> second)
+        public IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>> Concat(LinkedList<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>> Concat(HashSet<TItem> second)
+        public IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>> Concat(HashSet<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>> Concat(Queue<TItem> second)
+        public IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>> Concat(Queue<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>> Concat(Stack<TItem> second)
+        public IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>> Concat(Stack<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>> Concat(SortedSet<TItem> second)
+        public IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>> Concat(SortedSet<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public IdentityEnumerable<TItem, Dictionary<TConcat_DictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TConcat_DictionaryKey, TItem>> Concat<TConcat_DictionaryKey>(Dictionary<TConcat_DictionaryKey, TItem>.ValueCollection second)
+        public IdentityEnumerable<TItem, Dictionary<TConcat_DictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TConcat_DictionaryKey, TItem>, DictionaryValuesEnumerator<TConcat_DictionaryKey, TItem>> Concat<TConcat_DictionaryKey>(Dictionary<TConcat_DictionaryKey, TItem>.ValueCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public IdentityEnumerable<TItem, SortedDictionary<TConcat_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TConcat_DictionaryKey, TItem>> Concat<TConcat_DictionaryKey>(SortedDictionary<TConcat_DictionaryKey, TItem>.ValueCollection second)
+        public IdentityEnumerable<TItem, SortedDictionary<TConcat_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TConcat_DictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TConcat_DictionaryKey, TItem>> Concat<TConcat_DictionaryKey>(SortedDictionary<TConcat_DictionaryKey, TItem>.ValueCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public IdentityEnumerable<TItem, SortedDictionary<TItem, TConcat_DictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TConcat_DictionaryValue>> Concat<TConcat_DictionaryValue>(SortedDictionary<TItem, TConcat_DictionaryValue>.KeyCollection second)
+        public IdentityEnumerable<TItem, SortedDictionary<TItem, TConcat_DictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TConcat_DictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TConcat_DictionaryValue>> Concat<TConcat_DictionaryValue>(SortedDictionary<TItem, TConcat_DictionaryValue>.KeyCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public IdentityEnumerable<TItem, Dictionary<TItem, TConcat_DictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TConcat_DictionaryValue>> Concat<TConcat_DictionaryValue>(Dictionary<TItem, TConcat_DictionaryValue>.KeyCollection second)
+        public IdentityEnumerable<TItem, Dictionary<TItem, TConcat_DictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TConcat_DictionaryValue>, DictionaryKeysEnumerator<TItem, TConcat_DictionaryValue>> Concat<TConcat_DictionaryValue>(Dictionary<TItem, TConcat_DictionaryValue>.KeyCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
         }
 
-        public SelectManyBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator> Concat<TConcat_SelectManyInItem, TConcat_BridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator>(SelectManyBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator> second)
+        public ReverseRangeEnumerable<TItem> Concat(ReverseRangeEnumerable<TItem> second)
+        {
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return second;
+        }
+
+        public SelectManyBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator> Concat<TConcat_SelectManyInItem, TConcat_BridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator>(SelectManyBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator> second)
             where TConcat_BridgeType : class
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TConcat_SelectManyInItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TConcat_SelectManyInItem>
             where TConcat_ProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TConcat_SelectManyBridger : struct, IStructBridger<TItem, TConcat_BridgeType, TConcat_ProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
-        public SelectManyIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> Concat<TConcat_SelectManyInItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> second)
+        public SelectManyIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> Concat<TConcat_SelectManyInItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> second)
             where TConcat_SelectManyBridgeType : class
             where TConcat_SelectManyInnerEnumerable : struct, IStructEnumerable<TConcat_SelectManyInItem, TConcat_SelectManyInnerEnumerator>
             where TConcat_SelectManyInnerEnumerator : struct, IStructEnumerator<TConcat_SelectManyInItem>
             where TConcat_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TConcat_SelectManyBridger: struct, IStructBridger<TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
-        public SelectManyCollectionBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator> Concat<TConcat_SelectManyInItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator> second)
+        public SelectManyCollectionBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator> Concat<TConcat_SelectManyInItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator> second)
             where TConcat_SelectManyBridgeType : class
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TConcat_SelectManyInItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TConcat_SelectManyInItem>
             where TConcat_SelectManyProjectedEnumerator : struct, IStructEnumerator<TConcat_CollectionItem>
+            where TConcat_SelectManyBridger: struct, IStructBridger<TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> Concat<TConcat_SelectManyInItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> second)
+        public SelectManyCollectionIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> Concat<TConcat_SelectManyInItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> second)
             where TConcat_SelectManyBridgeType : class
             where TConcat_SelectManyInnerEnumerable : struct, IStructEnumerable<TConcat_SelectManyInItem, TConcat_SelectManyInnerEnumerator>
             where TConcat_SelectManyInnerEnumerator : struct, IStructEnumerator<TConcat_SelectManyInItem>
             where TConcat_SelectManyProjectedEnumerator : struct, IStructEnumerator<TConcat_CollectionItem>
+            where TConcat_SelectManyBridger: struct, IStructBridger<TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
-        public IdentityEnumerable<TItem, TConcat_IdentityBridgeType, TConcat_IdentityEnumerator> Concat<TConcat_IdentityBridgeType, TConcat_IdentityEnumerator>(IdentityEnumerable<TItem, TConcat_IdentityBridgeType, TConcat_IdentityEnumerator> second)
+        public IdentityEnumerable<TItem, TConcat_IdentityBridgeType, TConcat_IdentityBridger, TConcat_IdentityEnumerator> Concat<TConcat_IdentityBridgeType, TConcat_IdentityBridger, TConcat_IdentityEnumerator>(IdentityEnumerable<TItem, TConcat_IdentityBridgeType, TConcat_IdentityBridger, TConcat_IdentityEnumerator> second)
             where TConcat_IdentityBridgeType : class
             where TConcat_IdentityEnumerator : struct, IStructEnumerator<TItem>
+            where TConcat_IdentityBridger: struct, IStructBridger<TItem, TConcat_IdentityBridgeType, TConcat_IdentityEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
 
-        public IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>> Concat(TItem[] second)
+        public IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>> Concat(TItem[] second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var ident = CommonImplementation.Bridge(second, nameof(second));
 
             return ident;
@@ -595,8 +608,8 @@ namespace LinqAF
 
         public BoxedEnumerable<TItem> Concat(BoxedEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -606,8 +619,8 @@ namespace LinqAF
             where TConcat_Concat_SelectInnerEnumerator : struct, IStructEnumerator<TConcat_Concat_SelectInnerItem>
             where TConcat_Concat_SelectProjection : struct, IStructProjection<TItem, TConcat_Concat_SelectInnerItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -618,8 +631,8 @@ namespace LinqAF
             where TConcat_Concat_SelectProjection : struct, IStructProjection<TItem, TConcat_Concat_SelectInnerItem>
             where TConcat_Concat_SelectPredicate : struct, IStructPredicate<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -629,8 +642,8 @@ namespace LinqAF
             where TConcat_Concat_WhereInnerEnumerator : struct, IStructEnumerator<TItem>
             where TConcat_Concat_WherePredicate : struct, IStructPredicate<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -641,8 +654,8 @@ namespace LinqAF
             where TConcat_Concat_WherePredicate : struct, IStructPredicate<TConcat_Concat_WhereInnerItem>
             where TConcat_Concat_WhereProjection : struct, IStructProjection<TItem, TConcat_Concat_WhereInnerItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -651,8 +664,8 @@ namespace LinqAF
             where TConcat_Concat_DistinctInnerEnumerable : struct, IStructEnumerable<TItem, TConcat_Concat_DistinctInnerEnumerator>
             where TConcat_Concat_DistinctInnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }
@@ -661,8 +674,8 @@ namespace LinqAF
             where TConcat_Concat_DistinctInnerEnumerable : struct, IStructEnumerable<TItem, TConcat_Concat_DistinctInnerEnumerator>
             where TConcat_Concat_DistinctInnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return second;
         }

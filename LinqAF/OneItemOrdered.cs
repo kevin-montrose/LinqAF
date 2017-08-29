@@ -2,6 +2,7 @@
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct OneItemDefaultOrderedEnumerator<TItem> :
         IStructEnumerator<TItem>
     {
@@ -36,6 +37,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct OneItemDefaultOrderedEnumerable<TItem> :
         IStructEnumerable<TItem, OneItemDefaultOrderedEnumerator<TItem>>,
         IHasComparer<TItem, object, EmptyComparer<TItem>, OneItemDefaultEnumerable<TItem>, OneItemDefaultEnumerator<TItem>>
@@ -60,6 +62,7 @@ namespace LinqAF
         OneItemDefaultEnumerable<TItem> IHasComparer<TItem, object, EmptyComparer<TItem>, OneItemDefaultEnumerable<TItem>, OneItemDefaultEnumerator<TItem>>.GetInnerEnumerable() => OneItemDefaultEnumerable<TItem>.Instance;
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct OneItemSpecificOrderedEnumerator<TItem> :
         IStructEnumerator<TItem>
     {
@@ -99,6 +102,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct OneItemSpecificOrderedEnumerable<TItem> :
         IStructEnumerable<TItem, OneItemSpecificOrderedEnumerator<TItem>>,
         IHasComparer<TItem, object, EmptyComparer<TItem>, OneItemSpecificEnumerable<TItem>, OneItemSpecificEnumerator<TItem>>

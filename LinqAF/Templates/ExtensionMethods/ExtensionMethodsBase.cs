@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqAF.Impl;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,16 +12,16 @@ namespace LinqAF
         /// </summary>
         public struct PlaceholderEnumerable<TItem> : IStructEnumerable<TItem, PlaceholderEnumerator<TItem>>
         {
-            public PlaceholderEnumerator<TItem> GetEnumerator() { throw new NotImplementedException(); }
-            public bool IsDefaultValue() { throw new NotImplementedException(); }
+            public PlaceholderEnumerator<TItem> GetEnumerator() { throw CommonImplementation.NotImplemented(); }
+            public bool IsDefaultValue() { throw CommonImplementation.NotImplemented(); }
         }
         public struct PlaceholderEnumerator<TItem> : IStructEnumerator<TItem>
         {
-            public TItem Current { get { throw new NotImplementedException(); } }
-            public void Dispose() { throw new NotImplementedException(); }
-            public bool IsDefaultValue() { throw new NotImplementedException(); }
-            public bool MoveNext() { throw new NotImplementedException(); }
-            public void Reset() { throw new NotImplementedException(); }
+            public TItem Current { get { throw CommonImplementation.NotImplemented(); } }
+            public void Dispose() { throw CommonImplementation.NotImplemented(); }
+            public bool IsDefaultValue() { throw CommonImplementation.NotImplemented(); }
+            public bool MoveNext() { throw CommonImplementation.NotImplemented(); }
+            public void Reset() { throw CommonImplementation.NotImplemented(); }
         }
 
         // just so BuiltInEnumerable can be cast to IEnumerable<TItem>
@@ -28,12 +29,12 @@ namespace LinqAF
         {
             public IEnumerator<TItem> GetEnumerator()
             {
-                throw new NotImplementedException();
+                throw CommonImplementation.NotImplemented();
             }
 
             IEnumerator IEnumerable.GetEnumerator()
             {
-                throw new NotImplementedException();
+                throw CommonImplementation.NotImplemented();
             }
         }
 
@@ -42,21 +43,21 @@ namespace LinqAF
         /// </summary>
         public struct BuiltInEnumerable<TItem>: IStructEnumerable<TItem, BuiltInEnumerator<TItem>>
         {
-            public BuiltInEnumerator<TItem> GetEnumerator() { throw new NotImplementedException(); }
-            public bool IsDefaultValue() { throw new NotImplementedException(); }
+            public BuiltInEnumerator<TItem> GetEnumerator() { throw CommonImplementation.NotImplemented(); }
+            public bool IsDefaultValue() { throw CommonImplementation.NotImplemented(); }
 
             public static implicit operator FakeEnumerable<TItem>(BuiltInEnumerable<TItem> self)
             {
-                throw new NotImplementedException();
+                throw CommonImplementation.NotImplemented();
             }
         }
         public struct BuiltInEnumerator<TItem>: IStructEnumerator<TItem>
         {
-            public TItem Current { get { throw new NotImplementedException(); } }
-            public void Dispose() { throw new NotImplementedException(); }
-            public bool IsDefaultValue() { throw new NotImplementedException(); }
-            public bool MoveNext() { throw new NotImplementedException(); }
-            public void Reset() { throw new NotImplementedException(); }
+            public TItem Current { get { throw CommonImplementation.NotImplemented(); } }
+            public void Dispose() { throw CommonImplementation.NotImplemented(); }
+            public bool IsDefaultValue() { throw CommonImplementation.NotImplemented(); }
+            public bool MoveNext() { throw CommonImplementation.NotImplemented(); }
+            public void Reset() { throw CommonImplementation.NotImplemented(); }
         }
 
         /// <summary>
@@ -64,16 +65,16 @@ namespace LinqAF
         /// </summary>
         public struct ConstrainedBuiltInEnumerable<TItem> : IStructEnumerable<TItem, ConstrainedBuiltInEnumerator<TItem>>
         {
-            public ConstrainedBuiltInEnumerator<TItem> GetEnumerator() { throw new NotImplementedException(); }
-            public bool IsDefaultValue() { throw new NotImplementedException(); }
+            public ConstrainedBuiltInEnumerator<TItem> GetEnumerator() { throw CommonImplementation.NotImplemented(); }
+            public bool IsDefaultValue() { throw CommonImplementation.NotImplemented(); }
         }
         public struct ConstrainedBuiltInEnumerator<TItem> : IStructEnumerator<TItem>
         {
-            public TItem Current { get { throw new NotImplementedException(); } }
-            public void Dispose() { throw new NotImplementedException(); }
-            public bool IsDefaultValue() { throw new NotImplementedException(); }
-            public bool MoveNext() { throw new NotImplementedException(); }
-            public void Reset() { throw new NotImplementedException(); }
+            public TItem Current { get { throw CommonImplementation.NotImplemented(); } }
+            public void Dispose() { throw CommonImplementation.NotImplemented(); }
+            public bool IsDefaultValue() { throw CommonImplementation.NotImplemented(); }
+            public bool MoveNext() { throw CommonImplementation.NotImplemented(); }
+            public void Reset() { throw CommonImplementation.NotImplemented(); }
         }
 
         protected abstract dynamic RefParam<TItem>(PlaceholderEnumerable<TItem> source);

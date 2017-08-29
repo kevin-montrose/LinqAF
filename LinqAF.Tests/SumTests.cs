@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using TestHelpers;
 
 namespace LinqAF.Tests
@@ -34,7 +35,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -44,7 +46,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -54,7 +57,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -64,7 +68,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -77,7 +82,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -87,7 +93,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -97,7 +104,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -107,7 +115,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -120,7 +129,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -130,7 +140,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -140,7 +151,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -150,7 +162,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -163,7 +176,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -173,7 +187,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -183,7 +198,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -193,7 +209,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -206,7 +223,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -216,7 +234,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -226,7 +245,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -236,9 +256,17 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
+        }
+
+        class _IntComparer : IEqualityComparer<int>
+        {
+            public bool Equals(int x, int y) => x == y;
+
+            public int GetHashCode(int obj) => obj;
         }
 
         [TestMethod]
@@ -246,7 +274,8 @@ namespace LinqAF.Tests
         {
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -337,20 +366,36 @@ namespace LinqAF.Tests
                 Assert.AreEqual(13m, groupBySpecific.Sum(kv => (decimal?)kv.Key.Length));
             }
 
-            // lookup
+            // lookupDefault
             {
                 // no project sums don't make sense
 
-                Assert.AreEqual(6, lookup.Sum(kv => (int)kv.Key));
-                Assert.AreEqual(6, lookup.Sum(kv => (int?)kv.Key));
-                Assert.AreEqual(6L, lookup.Sum(kv => (long)kv.Key));
-                Assert.AreEqual(6L, lookup.Sum(kv => (long?)kv.Key));
-                Assert.AreEqual(6f, lookup.Sum(kv => (float)kv.Key));
-                Assert.AreEqual(6f, lookup.Sum(kv => (float?)kv.Key));
-                Assert.AreEqual(6.0, lookup.Sum(kv => (double)kv.Key));
-                Assert.AreEqual(6.0, lookup.Sum(kv => (double?)kv.Key));
-                Assert.AreEqual(6m, lookup.Sum(kv => (decimal)kv.Key));
-                Assert.AreEqual(6m, lookup.Sum(kv => (decimal?)kv.Key));
+                Assert.AreEqual(6, lookupDefault.Sum(kv => (int)kv.Key));
+                Assert.AreEqual(6, lookupDefault.Sum(kv => (int?)kv.Key));
+                Assert.AreEqual(6L, lookupDefault.Sum(kv => (long)kv.Key));
+                Assert.AreEqual(6L, lookupDefault.Sum(kv => (long?)kv.Key));
+                Assert.AreEqual(6f, lookupDefault.Sum(kv => (float)kv.Key));
+                Assert.AreEqual(6f, lookupDefault.Sum(kv => (float?)kv.Key));
+                Assert.AreEqual(6.0, lookupDefault.Sum(kv => (double)kv.Key));
+                Assert.AreEqual(6.0, lookupDefault.Sum(kv => (double?)kv.Key));
+                Assert.AreEqual(6m, lookupDefault.Sum(kv => (decimal)kv.Key));
+                Assert.AreEqual(6m, lookupDefault.Sum(kv => (decimal?)kv.Key));
+            }
+
+            // lookupSpecific
+            {
+                // no project sums don't make sense
+
+                Assert.AreEqual(6, lookupSpecific.Sum(kv => (int)kv.Key));
+                Assert.AreEqual(6, lookupSpecific.Sum(kv => (int?)kv.Key));
+                Assert.AreEqual(6L, lookupSpecific.Sum(kv => (long)kv.Key));
+                Assert.AreEqual(6L, lookupSpecific.Sum(kv => (long?)kv.Key));
+                Assert.AreEqual(6f, lookupSpecific.Sum(kv => (float)kv.Key));
+                Assert.AreEqual(6f, lookupSpecific.Sum(kv => (float?)kv.Key));
+                Assert.AreEqual(6.0, lookupSpecific.Sum(kv => (double)kv.Key));
+                Assert.AreEqual(6.0, lookupSpecific.Sum(kv => (double?)kv.Key));
+                Assert.AreEqual(6m, lookupSpecific.Sum(kv => (decimal)kv.Key));
+                Assert.AreEqual(6m, lookupSpecific.Sum(kv => (decimal?)kv.Key));
             }
 
             // range
@@ -523,7 +568,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(default(Func<string, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -531,7 +577,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(default(Func<string, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -542,7 +589,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(default(Func<string, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -550,7 +598,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(default(Func<string, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -561,7 +610,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(default(Func<string, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -569,7 +619,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(default(Func<string, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -580,7 +631,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(default(Func<string, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -588,7 +640,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(default(Func<string, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -599,7 +652,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(default(Func<string, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -607,7 +661,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(default(Func<string, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -619,7 +674,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -684,18 +740,32 @@ namespace LinqAF.Tests
                 try { groupBySpecific.Sum(default(Func<GroupingEnumerable<string, string>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.Sum(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Sum(default(Func<GroupingEnumerable<int, int>, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Sum(default(Func<GroupingEnumerable<int, int>, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Sum(default(Func<GroupingEnumerable<int, int>, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Sum(default(Func<GroupingEnumerable<int, int>, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Sum(default(Func<GroupingEnumerable<int, int>, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Sum(default(Func<GroupingEnumerable<int, int>, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Sum(default(Func<GroupingEnumerable<int, int>, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Sum(default(Func<GroupingEnumerable<int, int>, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Sum(default(Func<GroupingEnumerable<int, int>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Sum(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Sum(default(Func<GroupingEnumerable<int, int>, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Sum(default(Func<GroupingEnumerable<int, int>, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Sum(default(Func<GroupingEnumerable<int, int>, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Sum(default(Func<GroupingEnumerable<int, int>, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Sum(default(Func<GroupingEnumerable<int, int>, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Sum(default(Func<GroupingEnumerable<int, int>, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Sum(default(Func<GroupingEnumerable<int, int>, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Sum(default(Func<GroupingEnumerable<int, int>, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Sum(default(Func<GroupingEnumerable<int, int>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.Sum(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Sum(default(Func<GroupingEnumerable<int, int>, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Sum(default(Func<GroupingEnumerable<int, int>, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Sum(default(Func<GroupingEnumerable<int, int>, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Sum(default(Func<GroupingEnumerable<int, int>, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Sum(default(Func<GroupingEnumerable<int, int>, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Sum(default(Func<GroupingEnumerable<int, int>, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Sum(default(Func<GroupingEnumerable<int, int>, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Sum(default(Func<GroupingEnumerable<int, int>, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Sum(default(Func<GroupingEnumerable<int, int>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
             }
 
             // range
@@ -806,28 +876,32 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<int?>(
                     @"a => { try { a.Sum(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<int>(
                     @"a => { try { a.Sum(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<int?>(
                     @"a => { try { a.Sum(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -837,28 +911,32 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<long?>(
                     @"a => { try { a.Sum(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<long>(
                     @"a => { try { a.Sum(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<long?>(
                     @"a => { try { a.Sum(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -868,28 +946,32 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<float?>(
                     @"a => { try { a.Sum(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<float>(
                     @"a => { try { a.Sum(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<float?>(
                     @"a => { try { a.Sum(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -899,28 +981,32 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<double?>(
                     @"a => { try { a.Sum(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<double>(
                     @"a => { try { a.Sum(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<double?>(
                     @"a => { try { a.Sum(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -930,28 +1016,32 @@ namespace LinqAF.Tests
                     @"a => { try { a.Sum(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<decimal?>(
                     @"a => { try { a.Sum(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<decimal>(
                     @"a => { try { a.Sum(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachMalformedEnumerableExpression<decimal?>(
                     @"a => { try { a.Sum(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual(""source"", exc.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -961,7 +1051,8 @@ namespace LinqAF.Tests
         {
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -1052,20 +1143,36 @@ namespace LinqAF.Tests
                 try { groupBySpecific.Sum(x => (decimal?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
                 // no projection sums make no sense
 
-                try { lookup.Sum(x => (int)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Sum(x => (int?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Sum(x => (long)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Sum(x => (long?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Sum(x => (float)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Sum(x => (float?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Sum(x => (double)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Sum(x => (double?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Sum(x => (decimal)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Sum(x => (decimal?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Sum(x => (int)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Sum(x => (int?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Sum(x => (long)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Sum(x => (long?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Sum(x => (float)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Sum(x => (float?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Sum(x => (double)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Sum(x => (double?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Sum(x => (decimal)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Sum(x => (decimal?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                // no projection sums make no sense
+
+                try { lookupSpecific.Sum(x => (int)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Sum(x => (int?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Sum(x => (long)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Sum(x => (long?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Sum(x => (float)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Sum(x => (float?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Sum(x => (double)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Sum(x => (double?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Sum(x => (decimal)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Sum(x => (decimal?)x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
             // range

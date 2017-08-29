@@ -10,16 +10,16 @@ namespace LinqAF
         where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
         where TEnumerator : struct, IStructEnumerator<TItem>
     {
-        public LookupEnumerable<TKey, TItem> ToLookup<TKey>(Func<TItem, TKey> keySelector)
-        => ToLookup(keySelector, _ => _, null);
+        public LookupDefaultEnumerable<TKey, TItem> ToLookup<TKey>(Func<TItem, TKey> keySelector)
+        => CommonImplementation.ToLookup<TItem, TKey, TEnumerable, TEnumerator>(RefThis(), keySelector);
 
-        public LookupEnumerable<TKey, TItem> ToLookup<TKey>(Func<TItem, TKey> keySelector, IEqualityComparer<TKey> comparer)
-        => ToLookup(keySelector, _ => _, comparer);
+        public LookupSpecificEnumerable<TKey, TItem> ToLookup<TKey>(Func<TItem, TKey> keySelector, IEqualityComparer<TKey> comparer)
+        => CommonImplementation.ToLookup<TItem, TKey, TEnumerable, TEnumerator>(RefThis(), keySelector, comparer);
 
-        public LookupEnumerable<TKey, TElement> ToLookup<TKey, TElement>(Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector)
-        => ToLookup(keySelector, elementSelector, null);
+        public LookupDefaultEnumerable<TKey, TElement> ToLookup<TKey, TElement>(Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector)
+        => CommonImplementation.ToLookup<TItem, TKey, TElement, TEnumerable, TEnumerator>(RefThis(), keySelector, elementSelector);
 
-        public LookupEnumerable<TKey, TElement> ToLookup<TKey, TElement>(Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector, IEqualityComparer<TKey> comparer)
+        public LookupSpecificEnumerable<TKey, TElement> ToLookup<TKey, TElement>(Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector, IEqualityComparer<TKey> comparer)
         => CommonImplementation.ToLookup<TItem, TKey, TElement, TEnumerable, TEnumerator>(RefThis(), keySelector, elementSelector, comparer);
     }
 }

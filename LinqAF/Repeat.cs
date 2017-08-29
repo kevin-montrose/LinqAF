@@ -1,5 +1,6 @@
 ﻿namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct RepeatEnumerator<TItem>: IStructEnumerator<TItem>
     {
         byte Sigil;
@@ -38,11 +39,17 @@
         public void Reset()
         {
             Index = 0;
+            Current = default(TItem);
         }
 
-        public void Dispose() { }
+        public void Dispose()
+        {
+            Item = default(TItem);
+        }
+
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct RepeatEnumerable<TItem>: IStructEnumerable<TItem, RepeatEnumerator<TItem>>
     {
         byte Sigil;

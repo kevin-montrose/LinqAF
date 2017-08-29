@@ -8,8 +8,8 @@ namespace LinqAF.Impl
             where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
             where TInnerEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SelectImpl<TInItem, TOutItem, TInnerEnumerable, TInnerEnumerator>(ref source, selector);
         }
@@ -25,8 +25,8 @@ namespace LinqAF.Impl
             where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
             where TInnerEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SelectImpl<TInItem, TOutItem, TInnerEnumerable, TInnerEnumerator>(ref source, selector);
         }

@@ -88,6 +88,13 @@ namespace LinqAF.Tests
             }
         }
 
+        class _IntComparer : IEqualityComparer<int>
+        {
+            public bool Equals(int x, int y) => x == y;
+
+            public int GetHashCode(int obj) => obj;
+        }
+
         [TestMethod]
         public void Chaining_Weird()
         {
@@ -95,7 +102,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -108,7 +116,8 @@ namespace LinqAF.Tests
             Assert.IsTrue(emptyOrdered.ToArray().SequenceEqual(new int[0]));
             Assert.IsTrue(groupByDefault.ToArray().SequenceEqual(new[] { groupByDefault.ElementAt(0), groupByDefault.ElementAt(1), groupByDefault.ElementAt(2) }, new _GroupingComparer<int>()));
             Assert.IsTrue(groupBySpecific.ToArray().SequenceEqual(new[] { groupBySpecific.ElementAt(0), groupBySpecific.ElementAt(1), groupBySpecific.ElementAt(2) }, new _GroupingComparer<string>()));
-            Assert.IsTrue(lookup.ToArray().SequenceEqual(new[] { groupByDefault.ElementAt(0), groupByDefault.ElementAt(1), groupByDefault.ElementAt(2) }, new _GroupingComparer<int>()));
+            Assert.IsTrue(lookupDefault.ToArray().SequenceEqual(new[] { groupByDefault.ElementAt(0), groupByDefault.ElementAt(1), groupByDefault.ElementAt(2) }, new _GroupingComparer<int>()));
+            Assert.IsTrue(lookupSpecific.ToArray().SequenceEqual(new[] { groupByDefault.ElementAt(0), groupByDefault.ElementAt(1), groupByDefault.ElementAt(2) }, new _GroupingComparer<int>()));
             Assert.IsTrue(range.ToArray().SequenceEqual(new[] { 1, 2, 3, 4, 5 }));
             Assert.IsTrue(repeat.ToArray().SequenceEqual(new[] { "foo", "foo", "foo", "foo", "foo" }));
             Assert.IsTrue(reverseRange.ToArray().SequenceEqual(new[] { 5, 4, 3, 2, 1 }));
@@ -136,7 +145,8 @@ namespace LinqAF.Tests
                   }",
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
         }
 
@@ -147,7 +157,8 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -198,7 +209,17 @@ namespace LinqAF.Tests
 
             try
             {
-                lookup.ToArray();
+                lookupDefault.ToArray();
+                Assert.Fail();
+            }
+            catch (ArgumentException exc)
+            {
+                Assert.AreEqual("source", exc.ParamName);
+            }
+
+            try
+            {
+                lookupSpecific.ToArray();
                 Assert.Fail();
             }
             catch (ArgumentException exc)

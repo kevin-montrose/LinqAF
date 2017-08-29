@@ -2,6 +2,7 @@
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SkipEnumerator<TItem, TInnerEnumerator> : IStructEnumerator<TItem>
         where TInnerEnumerator : struct, IStructEnumerator<TItem>
     {
@@ -18,13 +19,7 @@ namespace LinqAF
             Current = default(TItem);
         }
 
-        public bool IsDefaultValue()
-        {
-            return 
-                Count == default(int) &&
-                Index == default(int) && 
-                Inner.IsDefaultValue();
-        }
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public void Dispose()
         {
@@ -51,6 +46,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct SkipEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> :
         IStructEnumerable<TItem, SkipEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable: struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -67,9 +63,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return 
-                SkipCount == default(int) &&
-                Inner.IsDefaultValue();
+            return Inner.IsDefaultValue();
         }
 
         public SkipEnumerator<TItem, TInnerEnumerator> GetEnumerator()
@@ -79,6 +73,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SkipWhileEnumerator<TItem, TInnerEnumerator>: IStructEnumerator<TItem>
         where TInnerEnumerator: struct, IStructEnumerator<TItem>
     {
@@ -98,16 +93,10 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate == null &&
-                Finished == default(bool) &&
-                Inner.IsDefaultValue();
+            return Predicate == null;
         }
 
-        public void Dispose()
-        {
-            Inner.Dispose();
-        }
+        public void Dispose() => Inner.Dispose();
 
         public bool MoveNext()
         {
@@ -144,6 +133,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct SkipWhileEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> :
         IStructEnumerable<TItem, SkipWhileEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -160,9 +150,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate == null &&
-                Inner.IsDefaultValue();
+            return Predicate == null;
         }
 
         public SkipWhileEnumerator<TItem, TInnerEnumerator> GetEnumerator()
@@ -172,6 +160,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SkipWhileIndexedEnumerator<TItem, TInnerEnumerator> : IStructEnumerator<TItem>
         where TInnerEnumerator : struct, IStructEnumerator<TItem>
     {
@@ -193,11 +182,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate == null &&
-                Finished == default(bool) &&
-                Index == default(int) &&
-                Inner.IsDefaultValue();
+            return Predicate == null;
         }
 
         public void Dispose()
@@ -242,6 +227,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct SkipWhileIndexedEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> :
         IStructEnumerable<TItem, SkipWhileIndexedEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -258,9 +244,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate == null &&
-                Inner.IsDefaultValue();
+            return Predicate == null;
         }
 
         public SkipWhileIndexedEnumerator<TItem, TInnerEnumerator> GetEnumerator()

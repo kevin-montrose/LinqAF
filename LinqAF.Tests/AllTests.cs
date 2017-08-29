@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using TestHelpers;
 
 namespace LinqAF.Tests
@@ -34,6 +35,13 @@ namespace LinqAF.Tests
             }
         }
 
+        class _IntComparer : IEqualityComparer<int>
+        {
+            public bool Equals(int x, int y) => x == y;
+
+            public int GetHashCode(int obj) => obj;
+        }
+
         [TestMethod]
         public void Chaining_Weird()
         {
@@ -41,7 +49,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -54,7 +63,8 @@ namespace LinqAF.Tests
             Assert.IsTrue(emptyOrdered.All(x => x == 0));
             Assert.IsTrue(groupByDefault.All(grp => grp.Count() == 2));
             Assert.IsTrue(groupBySpecific.All(grp => grp.Count() == 2));
-            Assert.IsTrue(lookup.All(grp => grp.Count() == 2));
+            Assert.IsTrue(lookupDefault.All(grp => grp.Count() == 2));
+            Assert.IsTrue(lookupSpecific.All(grp => grp.Count() == 2));
             Assert.IsTrue(range.All(r => r >= 1));
             Assert.IsTrue(repeat.All(r => r == "foo"));
             Assert.IsTrue(reverseRange.All(r => r >= 1));
@@ -99,7 +109,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -150,7 +161,17 @@ namespace LinqAF.Tests
 
             try
             {
-                lookup.All(default(Func<GroupingEnumerable<int, int>, bool>));
+                lookupDefault.All(default(Func<GroupingEnumerable<int, int>, bool>));
+                Assert.Fail();
+            }
+            catch (ArgumentNullException exc)
+            {
+                Assert.AreEqual("predicate", exc.ParamName);
+            }
+
+            try
+            {
+                lookupSpecific.All(default(Func<GroupingEnumerable<int, int>, bool>));
                 Assert.Fail();
             }
             catch (ArgumentNullException exc)
@@ -265,7 +286,8 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -316,7 +338,17 @@ namespace LinqAF.Tests
 
             try
             {
-                lookup.All(x => true);
+                lookupDefault.All(x => true);
+                Assert.Fail();
+            }
+            catch (ArgumentException exc)
+            {
+                Assert.AreEqual("source", exc.ParamName);
+            }
+
+            try
+            {
+                lookupSpecific.All(x => true);
                 Assert.Fail();
             }
             catch (ArgumentException exc)

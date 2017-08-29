@@ -7,7 +7,8 @@ namespace LinqAF
         TOutItem Project(TInItem item);
         bool IsDefaultValue();
     }
-    
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SingleProjection<TOutItem, TInItem> : IStructProjection<TOutItem, TInItem>
     {
         Func<TInItem, TOutItem> Projection;
@@ -21,13 +22,15 @@ namespace LinqAF
         public TOutItem Project(TInItem item) => Projection(item);
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ChainedProjection<TOutItem, TInItem, TMiddleItem, TRightProjection, TLeftProjection>: 
         IStructProjection<TOutItem, TInItem>
         where TLeftProjection : struct, IStructProjection<TMiddleItem, TInItem>
         where TRightProjection: struct, IStructProjection<TOutItem, TMiddleItem>
     {
-        TRightProjection Right;
         TLeftProjection Left;
+        TRightProjection Right;
+        
         internal ChainedProjection(ref TLeftProjection left, ref TRightProjection right)
         {
             Left = left;
@@ -36,6 +39,6 @@ namespace LinqAF
 
         public TOutItem Project(TInItem item) => Right.Project(Left.Project(item));
 
-        public bool IsDefaultValue() => Right.IsDefaultValue() || Left.IsDefaultValue();
+        public bool IsDefaultValue() => Left.IsDefaultValue();
     }
 }

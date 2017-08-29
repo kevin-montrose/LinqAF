@@ -54,6 +54,13 @@ namespace LinqAF.Tests
             }
         }
 
+        class _IntComparer : IEqualityComparer<int>
+        {
+            public bool Equals(int x, int y) => x == y;
+
+            public int GetHashCode(int obj) => obj;
+        }
+
         [TestMethod]
         public void Chaining_Weird()
         {
@@ -61,7 +68,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -76,7 +84,8 @@ namespace LinqAF.Tests
                 Assert.IsFalse(emptyOrdered.Any());
                 Assert.IsTrue(groupByDefault.Any());
                 Assert.IsTrue(groupBySpecific.Any());
-                Assert.IsTrue(lookup.Any());
+                Assert.IsTrue(lookupDefault.Any());
+                Assert.IsTrue(lookupSpecific.Any());
                 Assert.IsTrue(range.Any());
                 Assert.IsTrue(repeat.Any());
                 Assert.IsTrue(reverseRange.Any());
@@ -92,7 +101,8 @@ namespace LinqAF.Tests
                 Assert.IsFalse(emptyOrdered.Any(x => true));
                 Assert.IsTrue(groupByDefault.Any(x => true));
                 Assert.IsTrue(groupBySpecific.Any(x => true));
-                Assert.IsTrue(lookup.Any(x => true));
+                Assert.IsTrue(lookupDefault.Any(x => true));
+                Assert.IsTrue(lookupSpecific.Any(x => true));
                 Assert.IsTrue(range.Any(x => true));
                 Assert.IsTrue(repeat.Any(x => true));
                 Assert.IsTrue(reverseRange.Any(x => true));
@@ -140,7 +150,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -193,7 +204,17 @@ namespace LinqAF.Tests
 
                 try
                 {
-                    lookup.Any(default(Func<GroupingEnumerable<int, int>, bool>));
+                    lookupDefault.Any(default(Func<GroupingEnumerable<int, int>, bool>));
+                    Assert.Fail();
+                }
+                catch (ArgumentNullException exc)
+                {
+                    Assert.AreEqual("predicate", exc.ParamName);
+                }
+
+                try
+                {
+                    lookupSpecific.Any(default(Func<GroupingEnumerable<int, int>, bool>));
                     Assert.Fail();
                 }
                 catch (ArgumentNullException exc)
@@ -319,7 +340,8 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -372,7 +394,17 @@ namespace LinqAF.Tests
 
                 try
                 {
-                    lookup.Any();
+                    lookupDefault.Any();
+                    Assert.Fail();
+                }
+                catch (ArgumentException exc)
+                {
+                    Assert.AreEqual("source", exc.ParamName);
+                }
+
+                try
+                {
+                    lookupSpecific.Any();
                     Assert.Fail();
                 }
                 catch (ArgumentException exc)
@@ -495,7 +527,17 @@ namespace LinqAF.Tests
 
                 try
                 {
-                    lookup.Any(x => true);
+                    lookupDefault.Any(x => true);
+                    Assert.Fail();
+                }
+                catch (ArgumentException exc)
+                {
+                    Assert.AreEqual("source", exc.ParamName);
+                }
+
+                try
+                {
+                    lookupSpecific.Any(x => true);
                     Assert.Fail();
                 }
                 catch (ArgumentException exc)

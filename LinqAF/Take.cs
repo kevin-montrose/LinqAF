@@ -2,6 +2,7 @@
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct TakeEnumerator<TItem, TInnerEnumerator>: IStructEnumerator<TItem>
         where TInnerEnumerator: struct, IStructEnumerator<TItem>
     {
@@ -17,14 +18,8 @@ namespace LinqAF
             Inner = inner;
             Current = default(TItem);
         }
-        
-        public bool IsDefaultValue()
-        {
-            return
-                Count == default(int) &&
-                Index == default(int) &&
-                Inner.IsDefaultValue();
-        }
+
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public void Dispose()
         {
@@ -51,6 +46,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct TakeEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> :
         IStructEnumerable<TItem, TakeEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -67,9 +63,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                TakeCount == default(int) &&
-                Inner.IsDefaultValue();
+            return Inner.IsDefaultValue();
         }
 
         public TakeEnumerator<TItem, TInnerEnumerator> GetEnumerator()
@@ -79,6 +73,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct TakeWhileEnumerator<TItem, TInnerEnumerator>:
         IStructEnumerator<TItem>
         where TInnerEnumerator: struct, IStructEnumerator<TItem>
@@ -99,10 +94,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate == null &&
-                Finished == default(bool) &&
-                Inner.IsDefaultValue();
+            return Predicate == null;
         }
 
         public bool MoveNext()
@@ -139,6 +131,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct TakeWhileEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> :
         IStructEnumerable<TItem, TakeWhileEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -155,9 +148,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate == null &&
-                Inner.IsDefaultValue();
+            return Predicate == null;
         }
 
         public TakeWhileEnumerator<TItem, TInnerEnumerator> GetEnumerator()
@@ -167,6 +158,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct TakeWhileIndexedEnumerator<TItem, TInnerEnumerator> :
         IStructEnumerator<TItem>
         where TInnerEnumerator : struct, IStructEnumerator<TItem>
@@ -189,11 +181,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate == null &&
-                Finished == default(bool) &&
-                Index == default(int) &&
-                Inner.IsDefaultValue();
+            return Predicate == null;
         }
 
         public bool MoveNext()
@@ -233,6 +221,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct TakeWhileIndexedEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> :
         IStructEnumerable<TItem, TakeWhileIndexedEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -249,9 +238,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Predicate == null &&
-                Inner.IsDefaultValue();
+            return Predicate == null;
         }
 
         public TakeWhileIndexedEnumerator<TItem, TInnerEnumerator> GetEnumerator()

@@ -207,11 +207,9 @@ namespace LinqAF.Generator
             }
 
             // change methods to be extension methods, and replace placeholders
-            while (true)
+            var replaces = new Dictionary<SyntaxNode, SyntaxNode>();
+            foreach(var workingMtd in updatedDecl.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>().Where(m => !m.HasAnnotation(METHOD_REWRITTEN)))
             {
-                var workingMtd = updatedDecl.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>().Where(m => !m.HasAnnotation(METHOD_REWRITTEN)).FirstOrDefault();
-                if (workingMtd == null) break;
-
                 // grab the type we need for the enumerable and enumerator
                 var outTypeAnnotation = workingMtd.GetAnnotations(OUT_TYPE_ANNOTATION).SingleOrDefault();
 
@@ -220,16 +218,16 @@ namespace LinqAF.Generator
                 {
                     var skipped = workingMtd.WithAdditionalAnnotations(METHOD_REWRITTEN);
 
-                    updatedDecl = updatedDecl.ReplaceNode(workingMtd, skipped.WithTriviaFrom(workingMtd));
+                    replaces[workingMtd] = skipped.WithTriviaFrom(workingMtd);
                     continue;
                 }
 
                 var workingOutTypeStr = outTypeAnnotation.Data;
                 var outType = SyntaxFactory.ParseTypeName(workingOutTypeStr);
-                
+
                 TypeSyntax enumerable, enumerator;
                 BindEnumerableAndEnumerator(builtIn, outType, out enumerable, out enumerator);
-                
+
                 // make the method an extension method
                 var extension = MakeExtensionMethod(workingMtd);
 
@@ -250,8 +248,57 @@ namespace LinqAF.Generator
 
                 parameterized = parameterized.WithAdditionalAnnotations(METHOD_REWRITTEN);
 
-                updatedDecl = updatedDecl.ReplaceNode(workingMtd, parameterized.WithTriviaFrom(workingMtd));
+                replaces[workingMtd] = parameterized.WithTriviaFrom(workingMtd);
             }
+
+            updatedDecl = updatedDecl.ReplaceNodes(replaces.Keys, (old, _) => replaces[old]);
+
+            // change methods to be extension methods, and replace placeholders
+            //while (true)
+            //{
+            //    var workingMtd = updatedDecl.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>().Where(m => !m.HasAnnotation(METHOD_REWRITTEN)).FirstOrDefault();
+            //    if (workingMtd == null) break;
+
+            //    // grab the type we need for the enumerable and enumerator
+            //    var outTypeAnnotation = workingMtd.GetAnnotations(OUT_TYPE_ANNOTATION).SingleOrDefault();
+
+            //    // did we already handle this elsewhere?
+            //    if (outTypeAnnotation == null)
+            //    {
+            //        var skipped = workingMtd.WithAdditionalAnnotations(METHOD_REWRITTEN);
+
+            //        updatedDecl = updatedDecl.ReplaceNode(workingMtd, skipped.WithTriviaFrom(workingMtd));
+            //        continue;
+            //    }
+
+            //    var workingOutTypeStr = outTypeAnnotation.Data;
+            //    var outType = SyntaxFactory.ParseTypeName(workingOutTypeStr);
+                
+            //    TypeSyntax enumerable, enumerator;
+            //    BindEnumerableAndEnumerator(builtIn, outType, out enumerable, out enumerator);
+                
+            //    // make the method an extension method
+            //    var extension = MakeExtensionMethod(workingMtd);
+
+            //    // make the dynamic bridge calls call CommonImplementation.Bridge
+            //    var bridged = ReplaceBridgeCalls(extension);
+
+            //    // slap the appropriate enumerable and enumerator into the various CommonImplementation calls
+
+            //    MethodDeclarationSyntax parameterized;
+            //    if (!bridged.HasAnnotation(DO_NOT_PARAMETERIZE))
+            //    {
+            //        parameterized = InjectIdentityAndEnumerator(bridged, enumerable, enumerator);
+            //    }
+            //    else
+            //    {
+            //        parameterized = bridged;
+            //    }
+
+            //    parameterized = parameterized.WithAdditionalAnnotations(METHOD_REWRITTEN);
+
+            //    updatedDecl = updatedDecl.ReplaceNode(workingMtd, parameterized.WithTriviaFrom(workingMtd));
+            //}
         }
 
         static MethodDeclarationSyntax ExpandConstrainedBuiltIns(MethodDeclarationSyntax mtd, EnumerableDetails builtIn, string outTypeStr)
@@ -701,6 +748,21 @@ namespace LinqAF.Generator
             return updated;
         }
 
+        const string FORBIDDEN_CALL_NAME = "ForbiddenCall";
+        const string UNEXPECTED_PATH_NAME = "UnexpectedPath";
+        const string UNINITIALIZED_NAME = "Uninitialized";
+        const string ARGUMENT_NULL_NAME = "ArgumentNull";
+        const string SEQUENCE_EMPTY_NAME = "SequenceEmpty";
+        const string OUT_OF_RANGE_NAME = "OutOfRange";
+        const string NO_ITEMS_MATCHED_NAME = "NoItemsMatched";
+        const string MULTIPLE_MATCHING_ELEMENTS_NAME = "MultipleMatchingElements";
+        const string MULTIPLE_ELEMENTS_NAME = "MultipleElements";
+        const string UNINITIALIZED_PROJECTION_NAME = "UninitializedProjection";
+        const string UNEXPECTED_STATE_NAME = "UnexpectedState";
+        const string NOT_IMPLEMENTED_NAME = "NotImplemented";
+        const string INNER_UNINITIALIZED_NAME = "InnerUninitialized";
+        const string INVALID_OPERATION_NAME = "InvalidOperation";
+
         static MethodDeclarationSyntax InjectIdentityAndEnumerator(MethodDeclarationSyntax mtd, TypeSyntax enumerable, TypeSyntax enumerator)
         {
             var updated = mtd;
@@ -716,6 +778,20 @@ namespace LinqAF.Generator
                 .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Expression is IdentifierNameSyntax)
                 .Where(o => ((IdentifierNameSyntax)((MemberAccessExpressionSyntax)o.Expression).Expression).Identifier.ValueText == COMMON_IMPLEMENTATION_NAME)
                 .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != BRIDGE_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != FORBIDDEN_CALL_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != UNEXPECTED_PATH_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != UNINITIALIZED_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != ARGUMENT_NULL_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != SEQUENCE_EMPTY_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != OUT_OF_RANGE_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != NO_ITEMS_MATCHED_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != MULTIPLE_MATCHING_ELEMENTS_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != MULTIPLE_ELEMENTS_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != UNINITIALIZED_PROJECTION_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != UNEXPECTED_STATE_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != NOT_IMPLEMENTED_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != INNER_UNINITIALIZED_NAME)
+                .Where(o => ((MemberAccessExpressionSyntax)o.Expression).Name.Identifier.ValueText != INVALID_OPERATION_NAME)
                 .ToList();
 
             var replacements = new Dictionary<InvocationExpressionSyntax, InvocationExpressionSyntax>();

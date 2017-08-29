@@ -10,58 +10,58 @@ namespace LinqAF
         where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
         where TEnumerator : struct, IStructEnumerator<TItem>
     {
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Intersect(IEnumerable<TItem> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Intersect(IEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
         }
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Intersect(LinkedList<TItem> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Intersect(LinkedList<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
         }
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Intersect(HashSet<TItem> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Intersect(HashSet<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
         }
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Intersect(Stack<TItem> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Intersect(Stack<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
         }
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Intersect(SortedSet<TItem> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Intersect(SortedSet<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
         }
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Intersect(Queue<TItem> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Intersect(Queue<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
         }
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Intersect(List<TItem> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Intersect(List<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
         }
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Intersect(TItem[] second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Intersect(TItem[] second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
         }
@@ -77,16 +77,16 @@ namespace LinqAF
 
         public EmptyEnumerable<TItem> Intersect(EmptyOrderedEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return EmptyCache<TItem>.Empty;
         }
 
         public EmptyEnumerable<TItem> Intersect(EmptyEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return EmptyCache<TItem>.Empty;
         }
@@ -99,39 +99,39 @@ namespace LinqAF
 
         public EmptyEnumerable<TItem> Intersect(EmptyOrderedEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return EmptyCache<TItem>.Empty;
         }
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Intersect(LinkedList<TItem> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Intersect(LinkedList<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
         }
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Intersect(HashSet<TItem> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Intersect(HashSet<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
         }
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Intersect(IEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Intersect(IEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
         }
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Intersect(Stack<TItem> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Intersect(Stack<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
@@ -145,39 +145,39 @@ namespace LinqAF
 
         public EmptyEnumerable<TItem> Intersect(EmptyEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if(second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if(second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return EmptyCache<TItem>.Empty;
         }
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Intersect(TItem[] second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Intersect(TItem[] second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
         }
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Intersect(SortedSet<TItem> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Intersect(SortedSet<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
         }
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Intersect(Queue<TItem> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Intersect(Queue<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
         }
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Intersect(List<TItem> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Intersect(List<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
@@ -186,25 +186,25 @@ namespace LinqAF
         public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, BoxedEnumerable<TItem>, BoxedEnumerator<TItem>> Intersect(BoxedEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TIntersect_DictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>> Intersect<TIntersect_DictionaryKey>(Dictionary<TIntersect_DictionaryKey, TItem>.ValueCollection second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TIntersect_DictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TIntersect_DictionaryKey, TItem>, DictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>> Intersect<TIntersect_DictionaryKey>(Dictionary<TIntersect_DictionaryKey, TItem>.ValueCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
         }
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TIntersect_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>> Intersect<TIntersect_DictionaryKey>(SortedDictionary<TIntersect_DictionaryKey, TItem>.ValueCollection second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TIntersect_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TIntersect_DictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>> Intersect<TIntersect_DictionaryKey>(SortedDictionary<TIntersect_DictionaryKey, TItem>.ValueCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
         }
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TIntersect_DictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TIntersect_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TIntersect_DictionaryValue>> Intersect<TIntersect_DictionaryValue>(SortedDictionary<TItem, TIntersect_DictionaryValue>.KeyCollection second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TIntersect_DictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TIntersect_DictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TIntersect_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TIntersect_DictionaryValue>> Intersect<TIntersect_DictionaryValue>(SortedDictionary<TItem, TIntersect_DictionaryValue>.KeyCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
@@ -216,9 +216,9 @@ namespace LinqAF
         public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, GroupedEnumerable<TGroupedKey, TItem>, GroupedEnumerator<TItem>> Intersect<TGroupedKey>(GroupedEnumerable<TGroupedKey, TItem> second)
         => CommonImplementation.Intersect(RefThis(), ref second);
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Intersect<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Intersect<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge);
@@ -227,25 +227,25 @@ namespace LinqAF
         public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, GroupedEnumerable<TGroupedKey, TItem>, GroupedEnumerator<TItem>> Intersect<TGroupedKey>(GroupedEnumerable<TGroupedKey, TItem> second, IEqualityComparer<TItem> comparer)
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TIntersect_DictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>> Intersect<TIntersect_DictionaryKey>(Dictionary<TIntersect_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TIntersect_DictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TIntersect_DictionaryKey, TItem>, DictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>> Intersect<TIntersect_DictionaryKey>(Dictionary<TIntersect_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
         }
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TIntersect_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>> Intersect<TIntersect_DictionaryKey>(SortedDictionary<TIntersect_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TIntersect_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TIntersect_DictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TIntersect_DictionaryKey, TItem>> Intersect<TIntersect_DictionaryKey>(SortedDictionary<TIntersect_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
         }
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TIntersect_DictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TIntersect_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TIntersect_DictionaryValue>> Intersect<TIntersect_DictionaryValue>(SortedDictionary<TItem, TIntersect_DictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TIntersect_DictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TIntersect_DictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TIntersect_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TIntersect_DictionaryValue>> Intersect<TIntersect_DictionaryValue>(SortedDictionary<TItem, TIntersect_DictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
@@ -254,9 +254,9 @@ namespace LinqAF
         public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, GroupingEnumerable<TGroupedKey, TItem>, GroupingEnumerator<TItem>> Intersect<TGroupedKey>(GroupingEnumerable<TGroupedKey, TItem> second, IEqualityComparer<TItem> comparer)
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Intersect<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Intersect<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.IntersectImpl(RefThis(), ref bridge, comparer);
@@ -327,9 +327,10 @@ namespace LinqAF
             where TIntersect_InnerEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Intersect(RefThis(), ref second);
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIntersect_IdentityBridgeType, TIntersect_IdentityEnumerator>, TIntersect_IdentityEnumerator> Intersect<TIntersect_IdentityBridgeType, TIntersect_IdentityEnumerator>(IdentityEnumerable<TItem, TIntersect_IdentityBridgeType, TIntersect_IdentityEnumerator> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIntersect_IdentityBridgeType, TIntersect_IdentityBridger, TIntersect_IdentityEnumerator>, TIntersect_IdentityEnumerator> Intersect<TIntersect_IdentityBridgeType, TIntersect_IdentityBridger, TIntersect_IdentityEnumerator>(IdentityEnumerable<TItem, TIntersect_IdentityBridgeType, TIntersect_IdentityBridger, TIntersect_IdentityEnumerator> second)
             where TIntersect_IdentityBridgeType : class
             where TIntersect_IdentityEnumerator : struct, IStructEnumerator<TItem>
+            where TIntersect_IdentityBridger: struct, IStructBridger<TItem, TIntersect_IdentityBridgeType, TIntersect_IdentityEnumerator>
         => CommonImplementation.Intersect(RefThis(), ref second);
 
         public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, WhereEnumerable<TItem, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator>, WhereEnumerator<TItem, TIntersect_InnerEnumerator>> Intersect<TIntersect_InnerEnumerable, TIntersect_InnerEnumerator>(WhereEnumerable<TItem, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator> second, IEqualityComparer<TItem> comparer)
@@ -397,9 +398,10 @@ namespace LinqAF
             where TInnerEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIntersect_IdentityBridgeType, TIntersect_IdentityEnumerator>, TIntersect_IdentityEnumerator> Intersect<TIntersect_IdentityBridgeType, TIntersect_IdentityEnumerator>(IdentityEnumerable<TItem, TIntersect_IdentityBridgeType, TIntersect_IdentityEnumerator> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIntersect_IdentityBridgeType, TIntersect_IdentityBridger, TIntersect_IdentityEnumerator>, TIntersect_IdentityEnumerator> Intersect<TIntersect_IdentityBridgeType, TIntersect_IdentityBridger, TIntersect_IdentityEnumerator>(IdentityEnumerable<TItem, TIntersect_IdentityBridgeType, TIntersect_IdentityBridger, TIntersect_IdentityEnumerator> second, IEqualityComparer<TItem> comparer)
             where TIntersect_IdentityBridgeType : class
             where TIntersect_IdentityEnumerator : struct, IStructEnumerator<TItem>
+            where TIntersect_IdentityBridger: struct, IStructBridger<TItem, TIntersect_IdentityBridgeType, TIntersect_IdentityEnumerator>
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
         public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>, OrderByEnumerator<TItem, TOrderByKey, TOrderByEnumerator, TOrderByComparer>> Intersect<TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
@@ -597,11 +599,12 @@ namespace LinqAF
             where TIntersect_WhereProjection : struct, IStructProjection<TItem, TIntersect_WhereInnerItem>
         => CommonImplementation.Intersect(RefThis(), ref second);
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second)
             where TIntersect_SelectManyBridgeType : class
             where TIntersect_SelectManyInnerEnumerable : struct, IStructEnumerable<TIntersect_SelectManyInItem, TIntersect_SelectManyInnerEnumerator>
             where TIntersect_SelectManyInnerEnumerator : struct, IStructEnumerator<TIntersect_SelectManyInItem>
             where TIntersect_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TIntersect_SelectManyBridger: struct, IStructBridger<TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyProjectedEnumerator>
         => CommonImplementation.Intersect(RefThis(), ref second);
 
         public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectWhereEnumerable<TItem, TIntersect_SelectInnerItem, TIntersect_SelectInnerEnumerable, TIntersect_SelectInnerEnumerator, TIntersect_SelectProjection, TIntersect_SelectPredicate>, SelectWhereEnumerator<TItem, TIntersect_SelectInnerItem, TIntersect_SelectInnerEnumerator, TIntersect_SelectProjection, TIntersect_SelectPredicate>> Intersect<TIntersect_SelectInnerItem, TIntersect_SelectInnerEnumerable, TIntersect_SelectInnerEnumerator, TIntersect_SelectProjection, TIntersect_SelectPredicate>(SelectWhereEnumerable<TItem, TIntersect_SelectInnerItem, TIntersect_SelectInnerEnumerable, TIntersect_SelectInnerEnumerator, TIntersect_SelectProjection, TIntersect_SelectPredicate> second)
@@ -621,18 +624,20 @@ namespace LinqAF
             where TGroupByEnumerator : struct, IStructEnumerator<TGroupByInItem>
         => CommonImplementation.Intersect(RefThis(), ref second);
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>, SelectManyBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_BridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>(SelectManyBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TIntersect_Bridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>, SelectManyBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TIntersect_Bridger, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_BridgeType, TIntersect_Bridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>(SelectManyBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TIntersect_Bridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator> second)
             where TIntersect_BridgeType : class
             where TIntersect_InnerEnumerable : struct, IStructEnumerable<TIntersect_SelectManyInItem, TIntersect_InnerEnumerator>
             where TIntersect_InnerEnumerator : struct, IStructEnumerator<TIntersect_SelectManyInItem>
             where TIntersect_ProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TIntersect_Bridger: struct, IStructBridger<TItem, TIntersect_BridgeType, TIntersect_ProjectedEnumerator>
         => CommonImplementation.Intersect(RefThis(), ref second);
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TIntersect_SelectManyBridgeType : class
             where TIntersect_SelectManyInnerEnumerable : struct, IStructEnumerable<TIntersect_SelectManyInItem, TIntersect_SelectManyInnerEnumerator>
             where TIntersect_SelectManyInnerEnumerator : struct, IStructEnumerator<TIntersect_SelectManyInItem>
             where TIntersect_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TIntersect_SelectManyBridger: struct, IStructBridger<TItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyProjectedEnumerator>
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
         public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator>, SelectManyIndexedEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator>(SelectManyIndexedEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
@@ -673,18 +678,20 @@ namespace LinqAF
             where TIntersect_ProjectedEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>, SelectManyBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_BridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>(SelectManyBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TInteresect_Bridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>, SelectManyBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TInteresect_Bridger, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_BridgeType, TInteresect_Bridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator>(SelectManyBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_BridgeType, TInteresect_Bridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TIntersect_BridgeType : class
             where TIntersect_InnerEnumerable : struct, IStructEnumerable<TIntersect_SelectManyInItem, TIntersect_InnerEnumerator>
             where TIntersect_InnerEnumerator : struct, IStructEnumerator<TIntersect_SelectManyInItem>
             where TIntersect_ProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TInteresect_Bridger: struct, IStructBridger<TItem, TIntersect_BridgeType, TIntersect_ProjectedEnumerator>
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second)
             where TIntersect_SelectManyBridgeType : class
             where TIntersect_SelectManyInnerEnumerable : struct, IStructEnumerable<TIntersect_SelectManyInItem, TIntersect_SelectManyInnerEnumerator>
             where TIntersect_SelectManyInnerEnumerator : struct, IStructEnumerator<TIntersect_SelectManyInItem>
             where TIntersect_SelectManyProjectedEnumerator : struct, IStructEnumerator<TIntersect_CollectionItem>
+            where TIntersect_SelectManyBridger: struct, IStructBridger<TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyProjectedEnumerator>
         => CommonImplementation.Intersect(RefThis(), ref second);
 
         public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_CollectionItem, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator> second)
@@ -708,11 +715,12 @@ namespace LinqAF
             where TIntersect_ProjectedEnumerator : struct, IStructEnumerator<TIntersect_CollectionItem>
         => CommonImplementation.Intersect(RefThis(), ref second);
 
-        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second)
+        public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second)
             where TIntersect_SelectManyBridgeType : class
             where TIntersect_InnerEnumerable : struct, IStructEnumerable<TIntersect_SelectManyInItem, TIntersect_InnerEnumerator>
             where TIntersect_InnerEnumerator : struct, IStructEnumerator<TIntersect_SelectManyInItem>
             where TIntersect_SelectManyProjectedEnumerator : struct, IStructEnumerator<TIntersect_CollectionItem>
+            where TIntersect_SelectManyBridger: struct, IStructBridger<TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyProjectedEnumerator>
         => CommonImplementation.Intersect(RefThis(), ref second);
 
         public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_CollectionItem, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerable, TIntersect_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
@@ -736,18 +744,20 @@ namespace LinqAF
             where TIntersect_ProjectedEnumerator : struct, IStructEnumerator<TIntersect_CollectionItem>
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_SelectManyInnerEnumerable, TIntersect_SelectManyInnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TIntersect_SelectManyBridgeType : class
             where TIntersect_SelectManyInnerEnumerable : struct, IStructEnumerable<TIntersect_SelectManyInItem, TIntersect_SelectManyInnerEnumerator>
             where TIntersect_SelectManyInnerEnumerator : struct, IStructEnumerator<TIntersect_SelectManyInItem>
             where TIntersect_SelectManyProjectedEnumerator : struct, IStructEnumerator<TIntersect_CollectionItem>
+            where TIntersect_SelectManyBridger: struct, IStructBridger<TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyProjectedEnumerator>
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
-        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public IntersectSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>> Intersect<TIntersect_SelectManyInItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TIntersect_SelectManyInItem, TItem, TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyBridger, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator, TIntersect_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TIntersect_SelectManyBridgeType : class
             where TIntersect_InnerEnumerable : struct, IStructEnumerable<TIntersect_SelectManyInItem, TIntersect_InnerEnumerator>
             where TIntersect_InnerEnumerator : struct, IStructEnumerator<TIntersect_SelectManyInItem>
             where TIntersect_SelectManyProjectedEnumerator : struct, IStructEnumerator<TIntersect_CollectionItem>
+            where TIntersect_SelectManyBridger: struct, IStructBridger<TIntersect_CollectionItem, TIntersect_SelectManyBridgeType, TIntersect_SelectManyProjectedEnumerator>
         => CommonImplementation.Intersect(RefThis(), ref second, comparer);
 
         public IntersectDefaultEnumerable<TItem, TEnumerable, TEnumerator, GroupJoinSpecificEnumerable<TItem, TGroupJoinKeyItem, TGroupJoinLeftItem, TGroupJoinLeftEnumerable, TGroupJoinLeftEnumerator, TGroupJoinRightItem, TGroupJoinRightEnumerable, TGroupJoinRightEnumerator>, GroupJoinSpecificEnumerator<TItem, TGroupJoinKeyItem, TGroupJoinLeftItem, TGroupJoinLeftEnumerator, TGroupJoinRightItem, TGroupJoinRightEnumerator>> Intersect<TGroupJoinKeyItem, TGroupJoinLeftItem, TGroupJoinLeftEnumerable, TGroupJoinLeftEnumerator, TGroupJoinRightItem, TGroupJoinRightEnumerable, TGroupJoinRightEnumerator>(GroupJoinSpecificEnumerable<TItem, TGroupJoinKeyItem, TGroupJoinLeftItem, TGroupJoinLeftEnumerable, TGroupJoinLeftEnumerator, TGroupJoinRightItem, TGroupJoinRightEnumerable, TGroupJoinRightEnumerator> second)

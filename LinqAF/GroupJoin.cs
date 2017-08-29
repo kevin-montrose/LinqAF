@@ -4,6 +4,7 @@ using LinqAF.Impl;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct GroupJoinDefaultEnumerator<TOutItem, TKeyItem, TLeftItem, TLeftEnumerator, TRightItem, TRightEnumerator> :
         IStructEnumerator<TOutItem>
         where TLeftEnumerator : struct, IStructEnumerator<TLeftItem>
@@ -14,7 +15,7 @@ namespace LinqAF
         TLeftEnumerator Left;
         TRightEnumerator Right;
         
-        Dictionary<TKeyItem, GroupingEnumerable<TKeyItem, TRightItem>> InnerLookup;
+        LookupDefaultEnumerable<TKeyItem, TRightItem> InnerLookup;
 
         Func<TLeftItem, TKeyItem> LeftKeySelector;
         Func<TRightItem, TKeyItem> RightKeySelector;
@@ -33,47 +34,21 @@ namespace LinqAF
             LeftKeySelector = leftKeySelector;
             RightKeySelector = rightKeySelector;
             ResultSelector = resultSelector;
-            InnerLookup = null;
+            InnerLookup = default(LookupDefaultEnumerable<TKeyItem, TRightItem>);
             Current = default(TOutItem);
 
         }
 
         public bool IsDefaultValue()
         {
-            return
-                LeftKeySelector == null &&
-                RightKeySelector == null &&
-                ResultSelector == null &&
-                InnerLookup == null &&
-                Left.IsDefaultValue() &&
-                Right.IsDefaultValue();
+            return LeftKeySelector == null;
         }
 
         public bool MoveNext()
         {
-            if (InnerLookup == null)
+            if (InnerLookup.IsDefaultValue())
             {
-                InnerLookup = new Dictionary<TKeyItem, GroupingEnumerable<TKeyItem, TRightItem>>(EqualityComparer<TKeyItem>.Default);
-                while (Right.MoveNext())
-                {
-                    var cur = Right.Current;
-                    var curKey = RightKeySelector(cur);
-
-                    if (curKey == null)
-                    {
-                        continue;
-                    }
-
-                    GroupingEnumerable<TKeyItem, TRightItem> forKey;
-                    if (!InnerLookup.TryGetValue(curKey, out forKey))
-                    {
-                        InnerLookup[curKey] = forKey = new GroupingEnumerable<TKeyItem, TRightItem>(curKey, new List<TRightItem>());
-                    }
-                    // note: DANGER ZONE
-                    //   this only works because Inner is a reference type, but any other modification
-                    ///  to forKey will be lost
-                    forKey.Inner.Add(cur);
-                }
+                InnerLookup = CommonImplementation.ToLookupImpl(ref Right, RightKeySelector);
             }
 
             while (Left.MoveNext())
@@ -83,24 +58,15 @@ namespace LinqAF
 
                 if (curKey == null)
                 {
-                    var nullGroup = EmptyCache<TKeyItem, TRightItem>.EmptyGrouping;
-                    Current = ResultSelector(cur, new GroupedEnumerable<TKeyItem, TRightItem>(ref nullGroup));
+                    Current = ResultSelector(cur, EmptyCache<TKeyItem, TRightItem>.EmptyGrouped);
                     return true;
                 }
 
-                GroupingEnumerable<TKeyItem, TRightItem> forKey;
-                if (InnerLookup.TryGetValue(curKey, out forKey))
-                {
-                    var asGrouped = new GroupedEnumerable<TKeyItem, TRightItem>(ref forKey);
-                    Current = ResultSelector(cur, asGrouped);
-                    return true;
-                }
-                else
-                {
-                    var emptyGrouping = new GroupingEnumerable<TKeyItem, TRightItem>(curKey, EmptyCache<TRightItem>.List);
-                    Current = ResultSelector(cur, new GroupedEnumerable<TKeyItem, TRightItem>(ref emptyGrouping));
-                    return true;
-                }
+                var forKey = InnerLookup[curKey];
+                
+                var asGrouped = new GroupedEnumerable<TKeyItem, TRightItem>(ref forKey);
+                Current = ResultSelector(cur, asGrouped);
+                return true;
             }
 
             return false;
@@ -110,17 +76,18 @@ namespace LinqAF
         {
             Left.Reset();
             Right.Reset();
-            InnerLookup = null;
+            InnerLookup = default(LookupDefaultEnumerable<TKeyItem, TRightItem>);
         }
 
         public void Dispose()
         {
             Left.Dispose();
             Right.Dispose();
-            InnerLookup = null;
+            InnerLookup = default(LookupDefaultEnumerable<TKeyItem, TRightItem>);
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, TRightEnumerable, TRightEnumerator>:
         IStructEnumerable<TOutItem, GroupJoinDefaultEnumerator<TOutItem, TKeyItem, TLeftItem, TLeftEnumerator, TRightItem, TRightEnumerator>>
         where TLeftEnumerable : struct, IStructEnumerable<TLeftItem, TLeftEnumerator>
@@ -144,12 +111,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                LeftKeySelector == null &&
-                RightKeySelector == null &&
-                ResultSelector == null &&
-                Left.IsDefaultValue() &&
-                Right.IsDefaultValue();
+            return LeftKeySelector == null;
         }
 
         public GroupJoinDefaultEnumerator<TOutItem, TKeyItem, TLeftItem, TLeftEnumerator, TRightItem, TRightEnumerator> GetEnumerator()
@@ -161,6 +123,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct GroupJoinSpecificEnumerator<TOutItem, TKeyItem, TLeftItem, TLeftEnumerator, TRightItem, TRightEnumerator> :
         IStructEnumerator<TOutItem>
         where TLeftEnumerator : struct, IStructEnumerator<TLeftItem>
@@ -171,7 +134,7 @@ namespace LinqAF
         TLeftEnumerator Left;
         TRightEnumerator Right;
         
-        Dictionary<TKeyItem, GroupingEnumerable<TKeyItem, TRightItem>> InnerLookup;
+        LookupSpecificEnumerable<TKeyItem, TRightItem> InnerLookup;
 
         Func<TLeftItem, TKeyItem> LeftKeySelector;
         Func<TRightItem, TKeyItem> RightKeySelector;
@@ -192,48 +155,21 @@ namespace LinqAF
             LeftKeySelector = leftKeySelector;
             RightKeySelector = rightKeySelector;
             ResultSelector = resultSelector;
-            InnerLookup = null;
+            InnerLookup = default(LookupSpecificEnumerable<TKeyItem, TRightItem>);
             Current = default(TOutItem);
             Comparer = comparer;
         }
 
         public bool IsDefaultValue()
         {
-            return
-                LeftKeySelector == null &&
-                RightKeySelector == null &&
-                ResultSelector == null &&
-                InnerLookup == null &&
-                Comparer == null &&
-                Left.IsDefaultValue() &&
-                Right.IsDefaultValue();
+            return LeftKeySelector == null;
         }
 
         public bool MoveNext()
         {
-            if (InnerLookup == null)
+            if (InnerLookup.IsDefaultValue())
             {
-                InnerLookup = new Dictionary<TKeyItem, GroupingEnumerable<TKeyItem, TRightItem>>(Comparer);
-                while (Right.MoveNext())
-                {
-                    var cur = Right.Current;
-                    var curKey = RightKeySelector(cur);
-
-                    if (curKey == null)
-                    {
-                        continue;
-                    }
-
-                    GroupingEnumerable<TKeyItem, TRightItem> forKey;
-                    if (!InnerLookup.TryGetValue(curKey, out forKey))
-                    {
-                        InnerLookup[curKey] = forKey = new GroupingEnumerable<TKeyItem, TRightItem>(curKey, new List<TRightItem>());
-                    }
-                    // note: DANGER ZONE
-                    //   this only works because Inner is a reference type, but any other modification
-                    ///  to forKey will be lost
-                    forKey.Inner.Add(cur);
-                }
+                InnerLookup = CommonImplementation.ToLookupImpl(ref Right, RightKeySelector, Comparer);
             }
 
             while (Left.MoveNext())
@@ -248,19 +184,11 @@ namespace LinqAF
                     return true;
                 }
 
-                GroupingEnumerable<TKeyItem, TRightItem> forKey;
-                if (InnerLookup.TryGetValue(curKey, out forKey))
-                {
-                    var asGrouped = new GroupedEnumerable<TKeyItem, TRightItem>(ref forKey);
-                    Current = ResultSelector(cur, asGrouped);
-                    return true;
-                }
-                else
-                {
-                    var emptyGrouping = new GroupingEnumerable<TKeyItem, TRightItem>(curKey, EmptyCache<TRightItem>.List);
-                    Current = ResultSelector(cur, new GroupedEnumerable<TKeyItem, TRightItem>(ref emptyGrouping));
-                    return true;
-                }
+                var forKey = InnerLookup[curKey];
+                
+                var asGrouped = new GroupedEnumerable<TKeyItem, TRightItem>(ref forKey);
+                Current = ResultSelector(cur, asGrouped);
+                return true;
             }
 
             return false;
@@ -270,17 +198,18 @@ namespace LinqAF
         {
             Left.Reset();
             Right.Reset();
-            InnerLookup = null;
+            InnerLookup = default(LookupSpecificEnumerable<TKeyItem, TRightItem>);
         }
 
         public void Dispose()
         {
             Left.Dispose();
             Right.Dispose();
-            InnerLookup = null;
+            InnerLookup = default(LookupSpecificEnumerable<TKeyItem, TRightItem>);
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, TRightEnumerable, TRightEnumerator> :
         IStructEnumerable<TOutItem, GroupJoinSpecificEnumerator<TOutItem, TKeyItem, TLeftItem, TLeftEnumerator, TRightItem, TRightEnumerator>>
         where TLeftEnumerable : struct, IStructEnumerable<TLeftItem, TLeftEnumerator>
@@ -306,13 +235,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                LeftKeySelector == null &&
-                RightKeySelector == null &&
-                ResultSelector == null &&
-                Comparer == null &&
-                Left.IsDefaultValue() &&
-                Right.IsDefaultValue();
+            return LeftKeySelector == null;
         }
 
         public GroupJoinSpecificEnumerator<TOutItem, TKeyItem, TLeftItem, TLeftEnumerator, TRightItem, TRightEnumerator> GetEnumerator()

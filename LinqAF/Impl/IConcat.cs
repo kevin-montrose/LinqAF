@@ -8,82 +8,82 @@ namespace LinqAF.Impl
     {
         ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, BoxedEnumerable<TItem>, BoxedEnumerator<TItem>> Concat(BoxedEnumerable<TItem> second);
 
-        ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Concat(IEnumerable<TItem> second);
+        ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Concat(IEnumerable<TItem> second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>,
+            IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>,
             DictionaryKeysEnumerator<TItem, TDictionaryValue>
         > Concat<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, Dictionary<TConcat_DictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TConcat_DictionaryKey, TItem>>,
+            IdentityEnumerable<TItem, Dictionary<TConcat_DictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TConcat_DictionaryKey, TItem>, DictionaryValuesEnumerator<TConcat_DictionaryKey, TItem>>,
             DictionaryValuesEnumerator<TConcat_DictionaryKey, TItem>
         > Concat<TConcat_DictionaryKey>(Dictionary<TConcat_DictionaryKey, TItem>.ValueCollection second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>,
+            IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>,
             HashSetEnumerator<TItem>
         > Concat(HashSet<TItem> second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>,
+            IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>,
             LinkedListEnumerator<TItem>
         > Concat(LinkedList<TItem> second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>,
+            IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>,
             ListEnumerator<TItem>
         > Concat(List<TItem> second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>,
+            IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>,
             QueueEnumerator<TItem>
         > Concat(Queue<TItem> second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, SortedDictionary<TItem, TConcat_DictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TConcat_DictionaryValue>>,
+            IdentityEnumerable<TItem, SortedDictionary<TItem, TConcat_DictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TConcat_DictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TConcat_DictionaryValue>>,
             SortedDictionaryKeysEnumerator<TItem, TConcat_DictionaryValue>
         > Concat<TConcat_DictionaryValue>(SortedDictionary<TItem, TConcat_DictionaryValue>.KeyCollection second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, SortedDictionary<TConcat_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TConcat_DictionaryKey, TItem>>,
+            IdentityEnumerable<TItem, SortedDictionary<TConcat_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TConcat_DictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TConcat_DictionaryKey, TItem>>,
             SortedDictionaryValuesEnumerator<TConcat_DictionaryKey, TItem>
         > Concat<TConcat_DictionaryKey>(SortedDictionary<TConcat_DictionaryKey, TItem>.ValueCollection second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>,
+            IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>,
             SortedSetEnumerator<TItem>
         > Concat(SortedSet<TItem> second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>,
+            IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>,
             StackEnumerator<TItem>
         > Concat(Stack<TItem> second);
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>,
+            IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>,
             ArrayEnumerator<TItem>
         > Concat(TItem[] second);
 
@@ -91,10 +91,11 @@ namespace LinqAF.Impl
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            IdentityEnumerable<TItem, TConcat_IdentityBridgeType, TConcat_IdentityEnumerator>,
+            IdentityEnumerable<TItem, TConcat_IdentityBridgeType, TConcat_IdentityBridger, TConcat_IdentityEnumerator>,
             TConcat_IdentityEnumerator
-        > Concat<TConcat_IdentityBridgeType, TConcat_IdentityEnumerator>(IdentityEnumerable<TItem, TConcat_IdentityBridgeType, TConcat_IdentityEnumerator> second)
+        > Concat<TConcat_IdentityBridgeType, TConcat_IdentityBridger, TConcat_IdentityEnumerator>(IdentityEnumerable<TItem, TConcat_IdentityBridgeType, TConcat_IdentityBridger, TConcat_IdentityEnumerator> second)
             where TConcat_IdentityEnumerator: struct, IStructEnumerator<TItem>
+            where TConcat_IdentityBridger: struct, IStructBridger<TItem, TConcat_IdentityBridgeType, TConcat_IdentityEnumerator>
             where TConcat_IdentityBridgeType : class;
 
         ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ConcatEnumerable<TItem, TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator>, ConcatEnumerator<TItem, TInnerLeftEnumerator, TInnerRightEnumerator>> Concat<TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator>(ConcatEnumerable<TItem, TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator> second)
@@ -117,44 +118,48 @@ namespace LinqAF.Impl
            where TConcat_InnerEnumerable : struct, IStructEnumerable<TConcat_SelectInItem, TConcat_InnerEnumerator>
            where TConcat_InnerEnumerator : struct, IStructEnumerator<TConcat_SelectInItem>;
 
-        ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator>, SelectManyBridgeEnumerator<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator>> Concat<TConcat_SelectManyInItem, TConcat_BridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator>(SelectManyBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator> second)
+        ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_Bridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator>, SelectManyBridgeEnumerator<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_Bridger, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator>> Concat<TConcat_SelectManyInItem, TConcat_BridgeType, TConcat_Bridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator>(SelectManyBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_Bridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator> second)
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TConcat_SelectManyInItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TConcat_SelectManyInItem>
             where TConcat_ProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TConcat_Bridger: struct, IStructBridger<TItem, TConcat_BridgeType, TConcat_ProjectedEnumerator>
             where TConcat_BridgeType : class;
 
-        ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TConcat_SelectManyInItem, TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>> Concat<TConcat_SelectManyInItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> second)
+        ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TConcat_SelectManyInItem, TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>> Concat<TConcat_SelectManyInItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> second)
             where TConcat_SelectManyInnerEnumerable : struct, IStructEnumerable<TConcat_SelectManyInItem, TConcat_SelectManyInnerEnumerator>
             where TConcat_SelectManyInnerEnumerator : struct, IStructEnumerator<TConcat_SelectManyInItem>
             where TConcat_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TConcat_SelectManyBridger: struct, IStructBridger<TItem, TConcat_SelectManyBridgeType, TConcat_SelectManyProjectedEnumerator>
             where TConcat_SelectManyBridgeType : class;
 
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            SelectManyCollectionBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator>,
-            SelectManyCollectionBridgeEnumerator<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator>
-        > Concat<TConcat_SelectManyInItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator>(
-            SelectManyCollectionBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator> second
+            SelectManyCollectionBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator>,
+            SelectManyCollectionBridgeEnumerator<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator>
+        > Concat<TConcat_SelectManyInItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator>(
+            SelectManyCollectionBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_SelectManyProjectedEnumerator> second
         )
             where TConcat_InnerEnumerable : struct, IStructEnumerable<TConcat_SelectManyInItem, TConcat_InnerEnumerator>
             where TConcat_InnerEnumerator : struct, IStructEnumerator<TConcat_SelectManyInItem>
             where TConcat_SelectManyProjectedEnumerator : struct, IStructEnumerator<TConcat_CollectionItem>
+            where TConcat_SelectManyBridger: struct, IStructBridger<TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyProjectedEnumerator>
             where TConcat_SelectManyBridgeType : class;
 
         ConcatEnumerable<
             TItem,
             TLeftEnumerable,
             TLeftEnumerator,
-            SelectManyCollectionIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>,
-            SelectManyCollectionIndexedBridgeEnumerator<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>
-        > Concat<TConcat_SelectManyInItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>(
-            SelectManyCollectionIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> second
+            SelectManyCollectionIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>,
+            SelectManyCollectionIndexedBridgeEnumerator<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>
+        > Concat<TConcat_SelectManyInItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator>(
+            SelectManyCollectionIndexedBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyBridger, TConcat_SelectManyInnerEnumerable, TConcat_SelectManyInnerEnumerator, TConcat_SelectManyProjectedEnumerator> second
         )
             where TConcat_SelectManyInnerEnumerable : struct, IStructEnumerable<TConcat_SelectManyInItem, TConcat_SelectManyInnerEnumerator>
             where TConcat_SelectManyInnerEnumerator : struct, IStructEnumerator<TConcat_SelectManyInItem>
             where TConcat_SelectManyProjectedEnumerator : struct, IStructEnumerator<TConcat_CollectionItem>
+            where TConcat_SelectManyBridger : struct, IStructBridger<TConcat_CollectionItem, TConcat_SelectManyBridgeType, TConcat_SelectManyProjectedEnumerator>
             where TConcat_SelectManyBridgeType : class;
 
         ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyEnumerable<TConcat_SelectManyInItem, TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerable, TConcat_ProjectedEnumerator>, SelectManyEnumerator<TConcat_SelectManyInItem, TItem, TConcat_InnerEnumerator, TConcat_ProjectedEnumerable, TConcat_ProjectedEnumerator>> Concat<TConcat_SelectManyInItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerable, TConcat_ProjectedEnumerator>(SelectManyEnumerable<TConcat_SelectManyInItem, TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerable, TConcat_ProjectedEnumerator> second)

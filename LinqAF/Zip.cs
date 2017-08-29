@@ -2,6 +2,7 @@
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ZipEnumerator<TOutItem, TFirstItem, TSecondItem, TFirstEnumerator, TSecondEnumerator>:
         IStructEnumerator<TOutItem>
         where TFirstEnumerator: struct, IStructEnumerator<TFirstItem>
@@ -23,10 +24,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                ResultSelector == null &&
-                FirstEnumerator.IsDefaultValue() &&
-                SecondEnumerator.IsDefaultValue();
+            return ResultSelector == null;
         }
 
         public bool MoveNext()
@@ -56,6 +54,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator> :
         IStructEnumerable<TOutItem, ZipEnumerator<TOutItem, TFirstItem, TSecondItem, TFirstEnumerator, TSecondEnumerator>>
         where TFirstEnumerable: struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
@@ -75,10 +74,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                ResultSelector == null &&
-                FirstEnumerable.IsDefaultValue() &&
-                SecondEnumerable.IsDefaultValue();
+            return ResultSelector == null;
         }
 
         public ZipEnumerator<TOutItem, TFirstItem, TSecondItem, TFirstEnumerator, TSecondEnumerator> GetEnumerator()

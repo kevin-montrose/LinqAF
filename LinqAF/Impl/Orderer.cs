@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LinqAF.Config;
+using System;
 
 namespace LinqAF.Impl
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     struct Orderer<TItem, TKey, TEnumerator, TComparer> :
         IDisposable
         where TEnumerator : struct, IStructEnumerator<TItem>
         where TComparer : struct, IStructComparer<TItem, TKey>
     {
         const int DEFAULT_SIZE = 8;
-        const int SLAB_SIZE = 4096;
 
         public int SortedUpTo { get; private set; }
 
+        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
         struct Part
         {
             public int Left;
@@ -27,15 +28,13 @@ namespace LinqAF.Impl
 
         public int Length;
         OrderBySortItem<TItem, TKey>[] Items;
-        TComparer Comparer;
-        Stack<Part> Stack;
+        StructStack<Part> Stack;
 
         public Orderer(ref TEnumerator e, ref TComparer comparer)
         {
             SortedUpTo = -1;
-            Comparer = comparer;
             Length = -1;
-            Stack = null;
+            Stack = default(StructStack<Part>);
             Items = null;
 
             Buffer(ref e, ref comparer);
@@ -43,25 +42,20 @@ namespace LinqAF.Impl
 
         public bool IsDefaultValue()
         {
-            return
-                Stack == null &&
-                Items == null &&
-                Length == default(int) &&
-                Comparer.IsDefaultValue();
+            return Items == null;
         }
 
         public TItem ElementAt(int ix)
         {
-            if (ix < 0 || ix >= Length) throw new ArgumentOutOfRangeException($"Internal error, Orderer accessed out of range 0 <= {ix} < {Length}", nameof(ix));
+            if (ix < 0 || ix >= Length) throw CommonImplementation.OutOfRange(nameof(ix));
 
             return Items[ix].Item;
         }
 
-        public void Advance()
+        public void Advance(ref TComparer comparer)
         {
-            if (Stack == null)
+            if (Stack.IsDefaultValue())
             {
-                Stack = new Stack<Part>();
                 Stack.Push(new Part(0, Length - 1));
             }
 
@@ -74,7 +68,7 @@ namespace LinqAF.Impl
                 if (upperInclusiveIx > lowerInclusiveIx)
                 {
                     var pivot = lowerInclusiveIx + (upperInclusiveIx - lowerInclusiveIx) / 2;
-                    var pivotPosition = Partition(Items, ref Comparer, lowerInclusiveIx, upperInclusiveIx);
+                    var pivotPosition = Partition(Items, ref comparer, lowerInclusiveIx, upperInclusiveIx);
                     Stack.Push(new Part(pivotPosition + 1, upperInclusiveIx));
                     Stack.Push(new Part(lowerInclusiveIx, pivotPosition - 1));
                 }
@@ -121,7 +115,7 @@ namespace LinqAF.Impl
 
         void Buffer(ref TEnumerator e, ref TComparer comparer)
         {
-            Items = new OrderBySortItem<TItem, TKey>[DEFAULT_SIZE];
+            Items = Allocator.Current.GetArray<OrderBySortItem<TItem, TKey>>(DEFAULT_SIZE);
             Length = 0;
 
             while (e.MoveNext())
@@ -130,8 +124,8 @@ namespace LinqAF.Impl
 
                 if (Length >= Items.Length)
                 {
-                    var nextSize = NextBufferSize(Items.Length);
-                    Array.Resize(ref Items, nextSize);
+                    var nextSize = CommonImplementation.NextSize(Items.Length);
+                    Allocator.Current.ResizeArray(ref Items, nextSize);
                 }
 
                 Items[Length] = new OrderBySortItem<TItem, TKey> { Item = item, Key = comparer.MakeKey(item), Index = Length };
@@ -139,23 +133,10 @@ namespace LinqAF.Impl
             }
         }
 
-        static int NextBufferSize(int currentSize)
-        {
-            if (currentSize >= SLAB_SIZE)
-            {
-                var slabs = currentSize / SLAB_SIZE;
-                slabs++;
-
-                return slabs * SLAB_SIZE;
-            }
-
-            return currentSize * 2;
-        }
-
         public void Dispose()
         {
-            this.Items = null;
-            this.Stack = null;
+            Items = null;
+            Stack.Dispose();
         }
     }
 }

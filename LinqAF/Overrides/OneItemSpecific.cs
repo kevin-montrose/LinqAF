@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LinqAF.Config;
+using LinqAF.Impl;
+using System;
 using System.Collections.Generic;
 
 namespace LinqAF
@@ -7,29 +9,29 @@ namespace LinqAF
     {
         public bool All(Func<TItem, bool> predicate)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return predicate(Item);
         }
 
         public bool Any()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return true;
         }
 
         public bool Contains(TItem value)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return EqualityComparer<TItem>.Default.Equals(Item, value);
         }
 
         public bool Contains(TItem value, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if(comparer == null)
             {
@@ -42,59 +44,59 @@ namespace LinqAF
 
         public int Count()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return 1;
         }
 
         public int Count(Func<TItem, bool> predicate)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return predicate(Item) ? 1 : 0;
         }
 
         public long LongCount()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return 1;
         }
 
         public long LongCount(Func<TItem, bool> predicate)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return predicate(Item) ? 1 : 0;
         }
 
         public OneItemSpecificEnumerable<TItem> DefaultIfEmpty()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return this;
         }
 
         public OneItemSpecificEnumerable<TItem> DefaultIfEmpty(TItem item)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return this;
         }
 
         public TItem ElementAt(int index)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (index < 0 || index > 1) throw new ArgumentOutOfRangeException(nameof(index));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (index < 0 || index > 1) throw CommonImplementation.OutOfRange(nameof(index));
 
             return Item;
         }
 
         public TItem ElementAtOrDefault(int index)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (index == 0) return Item;
 
@@ -103,31 +105,31 @@ namespace LinqAF
 
         public TItem First()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return Item;
         }
 
         public TItem First(Func<TItem, bool> predicate)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
-            if (!predicate(Item)) throw new InvalidOperationException($"No items matched {nameof(predicate)}");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
+            if (!predicate(Item)) throw CommonImplementation.NoItemsMatched(nameof(predicate));
 
             return Item;
         }
 
         public TItem FirstOrDefault()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return Item;
         }
 
         public TItem FirstOrDefault(Func<TItem, bool> predicate)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             if (predicate(Item)) return Item;
 
@@ -136,31 +138,31 @@ namespace LinqAF
 
         public TItem Last()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return Item;
         }
 
         public TItem Last(Func<TItem, bool> predicate)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
-            if (!predicate(Item)) throw new InvalidOperationException($"No items matched {nameof(predicate)}");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
+            if (!predicate(Item)) throw CommonImplementation.NoItemsMatched(nameof(predicate));
 
             return Item;
         }
 
         public TItem LastOrDefault()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return Item;
         }
 
         public TItem LastOrDefault(Func<TItem, bool> predicate)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             if (predicate(Item)) return Item;
 
@@ -169,39 +171,39 @@ namespace LinqAF
 
         public OneItemSpecificEnumerable<TItem> Reverse()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return this;
         }
 
         public TItem Single()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return Item;
         }
 
         public TItem Single(Func<TItem, bool> predicate)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
-            if (!predicate(Item)) throw new InvalidOperationException($"No items matched {nameof(predicate)}");
+            if (!predicate(Item)) throw CommonImplementation.NoItemsMatched(nameof(predicate));
 
             return Item;
         }
 
         public TItem SingleOrDefault()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return Item;
         }
 
         public TItem SingleOrDefault(Func<TItem, bool> predicate)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             if (predicate(Item)) return Item;
 
@@ -210,96 +212,92 @@ namespace LinqAF
 
         public TItem[] ToArray()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
-            return new TItem[] { Item };
+            var ret = Allocator.Current.GetArray<TItem>(1);
+            ret[0] = Item;
+            return ret;
         }
 
         public Dictionary<TToDictionary_Key, TItem> ToDictionary<TToDictionary_Key>(Func<TItem, TToDictionary_Key> keySelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            return
-                new Dictionary<TToDictionary_Key, TItem>(1)
-                {
-                    [keySelector(Item)] = Item
-                };
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TItem>(1, null);
+            ret.Add(keySelector(Item), Item);
+            return ret;
         }
 
         public Dictionary<TToDictionary_Key, TItem> ToDictionary<TToDictionary_Key>(Func<TItem, TToDictionary_Key> keySelector, IEqualityComparer<TToDictionary_Key> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            return
-                new Dictionary<TToDictionary_Key, TItem>(1, comparer)
-                {
-                    [keySelector(Item)] = Item
-                };
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TItem>(1, comparer);
+            ret.Add(keySelector(Item), Item);
+            return ret;
         }
 
         public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<TItem, TToDictionary_Key> keySelector, Func<TItem, TToDictionary_Value> elementSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
-            return
-                new Dictionary<TToDictionary_Key, TToDictionary_Value>(1)
-                {
-                    [keySelector(Item)] = elementSelector(Item)
-                };
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TToDictionary_Value>(1, null);
+            ret.Add(keySelector(Item), elementSelector(Item));
+            return ret;
         }
 
         public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<TItem, TToDictionary_Key> keySelector, Func<TItem, TToDictionary_Value> elementSelector, IEqualityComparer<TToDictionary_Key> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
-            return
-                new Dictionary<TToDictionary_Key, TToDictionary_Value>(1, comparer)
-                {
-                    [keySelector(Item)] = elementSelector(Item)
-                };
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TToDictionary_Value>(1, comparer);
+            ret.Add(keySelector(Item), elementSelector(Item));
+            return ret;
         }
 
         public List<TItem> ToList()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
-            return new List<TItem>(1) { Item };
+            var ret = Allocator.Current.GetEmptyList<TItem>(1);
+            ret.Add(Item);
+            return ret;
         }
 
         public OneItemSpecificOrderedEnumerable<TItem> OrderBy<TOrderBy_Key>(Func<TItem, TOrderBy_Key> keySelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return new OneItemSpecificOrderedEnumerable<TItem>(Enumerable.OneItemSigil, Item);
         }
 
         public OneItemSpecificOrderedEnumerable<TItem> OrderBy<TOrderBy_Key>(Func<TItem, TOrderBy_Key> keySelector, IComparer<TOrderBy_Key> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return new OneItemSpecificOrderedEnumerable<TItem>(Enumerable.OneItemSigil, Item);
         }
 
         public OneItemSpecificOrderedEnumerable<TItem> OrderByDescending<TOrderBy_Key>(Func<TItem, TOrderBy_Key> keySelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return new OneItemSpecificOrderedEnumerable<TItem>(Enumerable.OneItemSigil, Item);
         }
 
         public OneItemSpecificOrderedEnumerable<TItem> OrderByDescending<TOrderBy_Key>(Func<TItem, TOrderBy_Key> keySelector, IComparer<TOrderBy_Key> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return new OneItemSpecificOrderedEnumerable<TItem>(Enumerable.OneItemSigil, Item);
         }

@@ -9,7 +9,7 @@ namespace LinqAF.Impl
             where TEnumerable: struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator: struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return ReverseImpl<TItem, TEnumerable, TEnumerator>(ref source);
         }
@@ -23,7 +23,7 @@ namespace LinqAF.Impl
 
         public static ReverseRangeEnumerable<TItem> ReverseRange<TItem>(ref RangeEnumerable<TItem> source)
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             var newStart = Operator.Subtract(Operator.Add(source.Start, Operator.Convert<int, TItem>(source.InnerCount)), RangeEnumerator<TItem>.One);
 
@@ -32,7 +32,7 @@ namespace LinqAF.Impl
 
         public static RangeEnumerable<TItem> ReverseReverseRange<TItem>(ref ReverseRangeEnumerable<TItem> source)
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             // Range(start, count)
             // ReverseRange(start, count)

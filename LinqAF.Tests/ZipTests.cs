@@ -81,13 +81,15 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                   )",
                 typeof(EmptyEnumerable<>),
                 typeof(EmptyOrderedEnumerable<>),
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
         }
 
@@ -169,7 +171,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -203,7 +206,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -242,7 +246,8 @@ namespace LinqAF.Tests
                     typeof(DefaultIfEmptySpecificEnumerable<,,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -281,10 +286,11 @@ namespace LinqAF.Tests
                     typeof(DefaultIfEmptySpecificEnumerable<,,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
-            
+
             // lookup
             {
                 Assert.IsFalse(lookup.Zip(empty, (a, b) => a).Any());
@@ -320,7 +326,8 @@ namespace LinqAF.Tests
                     typeof(DefaultIfEmptySpecificEnumerable<,,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -359,7 +366,8 @@ namespace LinqAF.Tests
                     typeof(DefaultIfEmptySpecificEnumerable<,,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -398,7 +406,8 @@ namespace LinqAF.Tests
                     typeof(DefaultIfEmptySpecificEnumerable<,,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -437,10 +446,11 @@ namespace LinqAF.Tests
                     typeof(DefaultIfEmptySpecificEnumerable<,,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
-            
+
             // oneItemDefault
             {
                 Assert.IsFalse(oneItemDefault.Zip(empty, (a, b) => a).Any());
@@ -476,7 +486,8 @@ namespace LinqAF.Tests
                     typeof(DefaultIfEmptySpecificEnumerable<,,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -515,7 +526,8 @@ namespace LinqAF.Tests
                     typeof(DefaultIfEmptySpecificEnumerable<,,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -554,7 +566,8 @@ namespace LinqAF.Tests
                     typeof(DefaultIfEmptySpecificEnumerable<,,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -593,7 +606,8 @@ namespace LinqAF.Tests
                     typeof(DefaultIfEmptySpecificEnumerable<,,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -624,11 +638,13 @@ namespace LinqAF.Tests
                        }"",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                   )",
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
             );
         }
 
@@ -684,7 +700,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -723,7 +740,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -762,7 +780,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -801,7 +820,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -840,7 +860,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -879,7 +900,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -918,7 +940,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -957,7 +980,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -996,7 +1020,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1035,7 +1060,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1074,7 +1100,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1113,7 +1140,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -1143,11 +1171,13 @@ namespace LinqAF.Tests
                        }"",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                   )",
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
         }
 
@@ -1176,11 +1206,13 @@ namespace LinqAF.Tests
                        }"",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                   )",
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
         }
 
@@ -1191,7 +1223,7 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookup = new LookupDefaultEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -1252,7 +1284,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1308,7 +1341,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1364,7 +1398,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1420,7 +1455,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1476,7 +1512,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1532,7 +1569,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1588,7 +1626,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1644,7 +1683,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1700,7 +1740,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1756,7 +1797,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1812,7 +1854,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1868,7 +1911,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -1883,7 +1927,7 @@ namespace LinqAF.Tests
             Assert.IsTrue(asZip.GetType().IsValueType);
 
             var res = new List<int>();
-            foreach(var item in asZip)
+            foreach (var item in asZip)
             {
                 res.Add(item);
             }

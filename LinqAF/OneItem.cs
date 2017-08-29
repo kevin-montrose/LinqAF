@@ -1,5 +1,6 @@
 ﻿namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct OneItemDefaultEnumerator<TItem> :
         IStructEnumerator<TItem>
     {
@@ -36,6 +37,7 @@
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct OneItemDefaultEnumerable<TItem>:
         IStructEnumerable<TItem, OneItemDefaultEnumerator<TItem>>
     {
@@ -55,6 +57,7 @@
         public OneItemDefaultEnumerator<TItem> GetEnumerator() => new OneItemDefaultEnumerator<TItem>(Enumerable.OneItemSigil);
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct OneItemSpecificEnumerator<TItem> :
         IStructEnumerator<TItem>
     {
@@ -97,6 +100,7 @@
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct OneItemSpecificEnumerable<TItem> :
         IStructEnumerable<TItem, OneItemSpecificEnumerator<TItem>>
     {

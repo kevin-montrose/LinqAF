@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct GroupedEnumerator<TOutItem> :
         IStructEnumerator<TOutItem>
     {
-        public TOutItem Current { get; private set; }
+        public TOutItem Current => Inner.Current;
 
         GroupingEnumerator<TOutItem> Inner;
         internal GroupedEnumerator(ref GroupingEnumerator<TOutItem> inner)
         {
             Inner = inner;
-            Current = default(TOutItem);
         }
 
         public bool IsDefaultValue()
@@ -29,7 +29,6 @@ namespace LinqAF
         {
             if (Inner.MoveNext())
             {
-                Current = Inner.Current;
                 return true;
             }
 
@@ -39,10 +38,10 @@ namespace LinqAF
         public void Reset()
         {
             Inner.Reset();
-            Current = default(TOutItem);
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct GroupedEnumerable<TKey, TOutItem>:
         IStructEnumerable<TOutItem, GroupedEnumerator<TOutItem>>
     {
@@ -52,10 +51,7 @@ namespace LinqAF
             Inner = inner;
         }
 
-        public bool IsDefaultValue()
-        {
-            return Inner.IsDefaultValue();
-        }
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public GroupedEnumerator<TOutItem> GetEnumerator()
         {
@@ -64,18 +60,17 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct GroupByDefaultEnumerator<TInItem, TKey, TElement, TEnumerator>:
         IStructEnumerator<GroupingEnumerable<TKey, TElement>>
         where TEnumerator: struct, IStructEnumerator<TInItem>
     {
-        public GroupingEnumerable<TKey, TElement> Current { get; private set; }
+        public GroupingEnumerable<TKey, TElement> Current => Inner.Current;
 
-        LookupEnumerator<TKey, TElement> Inner;
-        
-        internal GroupByDefaultEnumerator(ref LookupEnumerator<TKey, TElement> inner)
+        LookupDefaultEnumerator<TKey, TElement> Inner;
+        internal GroupByDefaultEnumerator(ref LookupDefaultEnumerator<TKey, TElement> inner)
         {
             Inner = inner;
-            Current = default(GroupingEnumerable<TKey, TElement>);
         }
 
         public bool IsDefaultValue()
@@ -92,7 +87,6 @@ namespace LinqAF
         {
             if (Inner.MoveNext())
             {
-                Current = Inner.Current;
                 return true;
             }
 
@@ -102,10 +96,10 @@ namespace LinqAF
         public void Reset()
         {
             Inner.Reset();
-            Current = default(GroupingEnumerable<TKey, TElement>);
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct GroupByDefaultEnumerable<TInItem, TKey, TElement, TEnumerable, TEnumerator> :
         IStructEnumerable<GroupingEnumerable<TKey, TElement>, GroupByDefaultEnumerator<TInItem, TKey, TElement, TEnumerator>>
         where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
@@ -123,32 +117,29 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                KeySelector == null &&
-                ElementSelector == null &&
-                Inner.IsDefaultValue();
+            return KeySelector == null;
         }
 
         public GroupByDefaultEnumerator<TInItem, TKey, TElement, TEnumerator> GetEnumerator()
         {
-            var lookup = Impl.CommonImplementation.ToLookupImpl<TInItem, TKey, TElement, TEnumerable, TEnumerator>(ref Inner, KeySelector, ElementSelector, null);
+            var lookup = Impl.CommonImplementation.ToLookupImpl<TInItem, TKey, TElement, TEnumerable, TEnumerator>(ref Inner, KeySelector, ElementSelector);
             var inner = lookup.GetEnumerator();
             return new GroupByDefaultEnumerator<TInItem, TKey, TElement, TEnumerator>(ref inner);
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct GroupBySpecificEnumerator<TInItem, TKey, TElement, TEnumerator> :
         IStructEnumerator<GroupingEnumerable<TKey, TElement>>
         where TEnumerator : struct, IStructEnumerator<TInItem>
     {
-        public GroupingEnumerable<TKey, TElement> Current { get; private set; }
+        public GroupingEnumerable<TKey, TElement> Current => Inner.Current;
 
-        LookupEnumerator<TKey, TElement> Inner;
+        LookupSpecificEnumerator<TKey, TElement> Inner;
 
-        internal GroupBySpecificEnumerator(ref LookupEnumerator<TKey, TElement> inner)
+        internal GroupBySpecificEnumerator(ref LookupSpecificEnumerator<TKey, TElement> inner)
         {
             Inner = inner;
-            Current = default(GroupingEnumerable<TKey, TElement>);
         }
 
         public bool IsDefaultValue()
@@ -165,7 +156,6 @@ namespace LinqAF
         {
             if (Inner.MoveNext())
             {
-                Current = Inner.Current;
                 return true;
             }
 
@@ -175,10 +165,10 @@ namespace LinqAF
         public void Reset()
         {
             Inner.Reset();
-            Current = default(GroupingEnumerable<TKey, TElement>);
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct GroupBySpecificEnumerable<TInItem, TKey, TElement, TEnumerable, TEnumerator>:
         IStructEnumerable<GroupingEnumerable<TKey, TElement>, GroupBySpecificEnumerator<TInItem, TKey, TElement, TEnumerator>>
         where TEnumerable: struct, IStructEnumerable<TInItem, TEnumerator>
@@ -198,11 +188,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                KeySelector == null &&
-                ElementSelector == null &&
-                Comparer == null &&
-                Inner.IsDefaultValue();
+            return KeySelector == null;
         }
 
         public GroupBySpecificEnumerator<TInItem, TKey, TElement, TEnumerator> GetEnumerator()
@@ -213,6 +199,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct GroupByCollectionDefaultEnumerator<TInItem, TKey, TElement, TResult, TEnumerator> :
         IStructEnumerator<TResult>
         where TEnumerator : struct, IStructEnumerator<TInItem>
@@ -230,9 +217,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return 
-                ResultSelector == null &&
-                Inner.IsDefaultValue();
+            return ResultSelector == null;
         }
 
         public void Dispose()
@@ -259,6 +244,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct GroupByCollectionDefaultEnumerable<TInItem, TKey, TElement, TResult, TEnumerable, TEnumerator> :
         IStructEnumerable<TResult, GroupByCollectionDefaultEnumerator<TInItem, TKey, TElement, TResult, TEnumerator>>
         where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
@@ -279,11 +265,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                KeySelector == null &&
-                ElementSelector == null &&
-                ResultSelector == null &&
-                Inner.IsDefaultValue();
+            return KeySelector == null;
         }
 
         public GroupByCollectionDefaultEnumerator<TInItem, TKey, TElement, TResult, TEnumerator> GetEnumerator()
@@ -295,6 +277,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct GroupByCollectionSpecificEnumerator<TInItem, TKey, TElement, TResult, TEnumerator> :
         IStructEnumerator<TResult>
         where TEnumerator : struct, IStructEnumerator<TInItem>
@@ -312,9 +295,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                ResultSelector == null &&
-                Inner.IsDefaultValue();
+            return ResultSelector == null;
         }
 
         public void Dispose()
@@ -341,6 +322,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct GroupByCollectionSpecificEnumerable<TInItem, TKey, TElement, TResult, TEnumerable, TEnumerator>:
         IStructEnumerable<TResult, GroupByCollectionSpecificEnumerator<TInItem, TKey, TElement, TResult, TEnumerator>>
         where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
@@ -363,11 +345,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                KeySelector == null &&
-                ElementSelector == null &&
-                ResultSelector == null &&
-                Inner.IsDefaultValue();
+            return KeySelector == null;
         }
 
         public GroupByCollectionSpecificEnumerator<TInItem, TKey, TElement, TResult, TEnumerator> GetEnumerator()

@@ -21,8 +21,8 @@ namespace LinqAF.Impl
             where TRightEnumerable: struct, IStructEnumerable<TItem, TRightEnumerator>
             where TRightEnumerator: struct, IStructEnumerator<TItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 ExceptImpl<TItem, TLeftEnumerable, TLeftEnumerator, TRightEnumerable, TRightEnumerator>(
@@ -67,8 +67,8 @@ namespace LinqAF.Impl
             where TRightEnumerable : struct, IStructEnumerable<TItem, TRightEnumerator>
             where TRightEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 ExceptImpl<TItem, TLeftEnumerable, TLeftEnumerator, TRightEnumerable, TRightEnumerator>(
@@ -95,6 +95,8 @@ namespace LinqAF.Impl
             where TRightEnumerable : struct, IStructEnumerable<TItem, TRightEnumerator>
             where TRightEnumerator : struct, IStructEnumerator<TItem>
         {
+            comparer = comparer ?? EqualityComparer<TItem>.Default;
+
             return new ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, TRightEnumerable, TRightEnumerator>(ref first, ref second, comparer);
         }
     }

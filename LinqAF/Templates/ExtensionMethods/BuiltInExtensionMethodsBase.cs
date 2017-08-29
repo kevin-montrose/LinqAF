@@ -1,4 +1,5 @@
-﻿using LinqAF.Impl;
+﻿using LinqAF.Config;
+using LinqAF.Impl;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace LinqAF
         public TItem Aggregate<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, TItem, TItem> func)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
 
             return CommonImplementation.AggregateImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), func);
         }
@@ -19,7 +20,7 @@ namespace LinqAF
         public TItemOut Aggregate<TItem, TItemOut>(BuiltInEnumerable<TItem> source, TItemOut seed, Func<TItemOut, TItem, TItemOut> func)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
 
             return CommonImplementation.AggregateImpl<TItem, TItemOut, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), seed, func);
         }
@@ -27,8 +28,8 @@ namespace LinqAF
         public TItemOut Aggregate<TItem, TItemMid, TItemOut>(BuiltInEnumerable<TItem> source, TItemMid seed, Func<TItemMid, TItem, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.AggregateImpl<TItem, TItemMid, TItemOut, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), seed, func, resultSelector);
         }
@@ -37,7 +38,7 @@ namespace LinqAF
         public bool All<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.AllImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -53,7 +54,7 @@ namespace LinqAF
         public bool Any<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.AnyImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -103,7 +104,7 @@ namespace LinqAF
         public int Count<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.CountImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -118,7 +119,7 @@ namespace LinqAF
         public long LongCount<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.LongCountImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -159,7 +160,7 @@ namespace LinqAF
             var asIList = source as IList<TItem>;
             if(asIList != null)
             {
-                if(index < 0 || index >= asIList.Count) throw new ArgumentOutOfRangeException(nameof(index));
+                if(index < 0 || index >= asIList.Count) throw CommonImplementation.OutOfRange(nameof(index));
 
                 return asIList[index];
             }
@@ -195,7 +196,7 @@ namespace LinqAF
         public TItem First<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.FirstImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -210,7 +211,7 @@ namespace LinqAF
         public TItem FirstOrDefault<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.FirstOrDefaultImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -219,7 +220,7 @@ namespace LinqAF
         public GroupByDefaultEnumerable<TItem, TKey, TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> GroupBy<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
             Func<TItem, TItem> elementSelector = _ => _;
 
             return CommonImplementation.GroupByImpl<TItem, TKey, TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector);
@@ -228,7 +229,7 @@ namespace LinqAF
         public GroupBySpecificEnumerable<TItem, TKey, TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> GroupBy<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, IEqualityComparer<TKey> comparer)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
             Func<TItem, TItem> elementSelector = _ => _;
 
             return CommonImplementation.GroupByImpl<TItem, TKey, TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, comparer);
@@ -237,8 +238,8 @@ namespace LinqAF
         public GroupByDefaultEnumerable<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> GroupBy<TItem, TKey, TElement>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
             return CommonImplementation.GroupByImpl<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector);
         }
@@ -246,8 +247,8 @@ namespace LinqAF
         public GroupBySpecificEnumerable<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> GroupBy<TItem, TKey, TElement>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector, IEqualityComparer<TKey> comparer)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
             return CommonImplementation.GroupByImpl<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, comparer);
         }
@@ -255,8 +256,8 @@ namespace LinqAF
         public GroupByCollectionDefaultEnumerable<TItem, TKey, TItem, TResult, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> GroupBy<TItem, TKey, TResult>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TKey, GroupedEnumerable<TKey, TItem>, TResult> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
             Func<TItem, TItem> elementSelector = _ => _;
 
 
@@ -266,8 +267,8 @@ namespace LinqAF
         public GroupByCollectionSpecificEnumerable<TItem, TKey, TItem, TResult, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> GroupBy<TItem, TKey, TResult>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TKey, GroupedEnumerable<TKey, TItem>, TResult> resultSelector, IEqualityComparer<TKey> comparer)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
             Func<TItem, TItem> elementSelector = _ => _;
 
 
@@ -277,9 +278,9 @@ namespace LinqAF
         public GroupByCollectionDefaultEnumerable<TItem, TKey, TElement, TResult, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> GroupBy<TItem, TKey, TElement, TResult>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector, Func<TKey, GroupedEnumerable<TKey, TElement>, TResult> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupByImpl<TItem, TKey, TElement, TResult, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, resultSelector);
         }
@@ -287,9 +288,9 @@ namespace LinqAF
         public GroupByCollectionSpecificEnumerable<TItem, TKey, TElement, TResult, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> GroupBy<TItem, TKey, TElement, TResult>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector, Func<TKey, GroupedEnumerable<TKey, TElement>, TResult> resultSelector, IEqualityComparer<TKey> comparer)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupByImpl<TItem, TKey, TElement, TResult, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, resultSelector, comparer);
         }
@@ -302,7 +303,7 @@ namespace LinqAF
             {
                 if (asIList.Count == 0)
                 {
-                    throw new InvalidOperationException("Sequence was empty");
+                    throw CommonImplementation.SequenceEmpty();
                 }
 
                 return asIList[asIList.Count - 1];
@@ -316,7 +317,7 @@ namespace LinqAF
         public TItem Last<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.LastImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -342,12 +343,73 @@ namespace LinqAF
         public TItem LastOrDefault<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.LastOrDefaultImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
 
         // Max
+        
+        public double Max(BuiltInEnumerable<int> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MaxIntImpl<BuiltInEnumerable<int>, BuiltInEnumerator<int>>(RefLocal(bridge));
+        }
+
+        public double? Max(BuiltInEnumerable<int?> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MaxNullableIntImpl<BuiltInEnumerable<int?>, BuiltInEnumerator<int?>>(RefLocal(bridge));
+        }
+
+        public double Max(BuiltInEnumerable<long> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MaxLongImpl<BuiltInEnumerable<long>, BuiltInEnumerator<long>>(RefLocal(bridge));
+        }
+
+        public double? Max(BuiltInEnumerable<long?> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MaxNullableLongImpl<BuiltInEnumerable<long?>, BuiltInEnumerator<long?>>(RefLocal(bridge));
+        }
+
+        public float Max(BuiltInEnumerable<float> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MaxFloatImpl<BuiltInEnumerable<float>, BuiltInEnumerator<float>>(RefLocal(bridge));
+        }
+
+        public float? Max(BuiltInEnumerable<float?> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MaxNullableFloatImpl<BuiltInEnumerable<float?>, BuiltInEnumerator<float?>>(RefLocal(bridge));
+        }
+
+        public double Max(BuiltInEnumerable<double> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MaxDoubleImpl<BuiltInEnumerable<double>, BuiltInEnumerator<double>>(RefLocal(bridge));
+        }
+
+        public double? Max(BuiltInEnumerable<double?> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MaxNullableDoubleImpl<BuiltInEnumerable<double?>, BuiltInEnumerator<double?>>(RefLocal(bridge));
+        }
+
+        public decimal Max(BuiltInEnumerable<decimal> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MaxDecimalImpl<BuiltInEnumerable<decimal>, BuiltInEnumerator<decimal>>(RefLocal(bridge));
+        }
+
+        public decimal? Max(BuiltInEnumerable<decimal?> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MaxNullableDecimalImpl<BuiltInEnumerable<decimal?>, BuiltInEnumerator<decimal?>>(RefLocal(bridge));
+        }
+
         public TItem Max<TItem>(BuiltInEnumerable<TItem> source)
         {
             var bridge = Bridge(source, nameof(source));
@@ -358,7 +420,7 @@ namespace LinqAF
         public long Max<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, long> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -366,7 +428,7 @@ namespace LinqAF
         public float Max<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, float> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -374,7 +436,7 @@ namespace LinqAF
         public double Max<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, double> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -382,7 +444,7 @@ namespace LinqAF
         public decimal Max<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, decimal> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -390,7 +452,7 @@ namespace LinqAF
         public decimal? Max<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, decimal?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -398,7 +460,7 @@ namespace LinqAF
         public double? Max<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, double?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -406,7 +468,7 @@ namespace LinqAF
         public float? Max<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, float?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -414,7 +476,7 @@ namespace LinqAF
         public long? Max<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, long?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -422,7 +484,7 @@ namespace LinqAF
         public int? Max<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -430,7 +492,7 @@ namespace LinqAF
         public int Max<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -438,12 +500,73 @@ namespace LinqAF
         public TResult Max<TItem, TResult>(BuiltInEnumerable<TItem> source, Func<TItem, TResult> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MaxProjectedComparableImpl<TItem, TResult, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
 
         // Min
+
+        public double Min(BuiltInEnumerable<int> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MinIntImpl<BuiltInEnumerable<int>, BuiltInEnumerator<int>>(RefLocal(bridge));
+        }
+
+        public double? Min(BuiltInEnumerable<int?> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MinNullableIntImpl<BuiltInEnumerable<int?>, BuiltInEnumerator<int?>>(RefLocal(bridge));
+        }
+
+        public double Min(BuiltInEnumerable<long> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MinLongImpl<BuiltInEnumerable<long>, BuiltInEnumerator<long>>(RefLocal(bridge));
+        }
+
+        public double? Min(BuiltInEnumerable<long?> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MinNullableLongImpl<BuiltInEnumerable<long?>, BuiltInEnumerator<long?>>(RefLocal(bridge));
+        }
+
+        public float Min(BuiltInEnumerable<float> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MinFloatImpl<BuiltInEnumerable<float>, BuiltInEnumerator<float>>(RefLocal(bridge));
+        }
+
+        public float? Min(BuiltInEnumerable<float?> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MinNullableFloatImpl<BuiltInEnumerable<float?>, BuiltInEnumerator<float?>>(RefLocal(bridge));
+        }
+
+        public double Min(BuiltInEnumerable<double> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MinDoubleImpl<BuiltInEnumerable<double>, BuiltInEnumerator<double>>(RefLocal(bridge));
+        }
+
+        public double? Min(BuiltInEnumerable<double?> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MinNullableDoubleImpl<BuiltInEnumerable<double?>, BuiltInEnumerator<double?>>(RefLocal(bridge));
+        }
+
+        public decimal Min(BuiltInEnumerable<decimal> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MinDecimalImpl<BuiltInEnumerable<decimal>, BuiltInEnumerator<decimal>>(RefLocal(bridge));
+        }
+
+        public decimal? Min(BuiltInEnumerable<decimal?> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.MinNullableDecimalImpl<BuiltInEnumerable<decimal?>, BuiltInEnumerator<decimal?>>(RefLocal(bridge));
+        }
+
         public TItem Min<TItem>(BuiltInEnumerable<TItem> source)
         {
             var bridge = Bridge(source, nameof(source));
@@ -454,7 +577,7 @@ namespace LinqAF
         public long Min<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, long> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -462,7 +585,7 @@ namespace LinqAF
         public float Min<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, float> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -470,7 +593,7 @@ namespace LinqAF
         public double Min<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, double> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -478,7 +601,7 @@ namespace LinqAF
         public decimal Min<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, decimal> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -486,7 +609,7 @@ namespace LinqAF
         public decimal? Min<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, decimal?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -494,7 +617,7 @@ namespace LinqAF
         public double? Min<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, double?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -502,7 +625,7 @@ namespace LinqAF
         public float? Min<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, float?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -510,7 +633,7 @@ namespace LinqAF
         public long? Min<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, long?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -518,7 +641,7 @@ namespace LinqAF
         public int? Min<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -526,7 +649,7 @@ namespace LinqAF
         public int Min<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -534,7 +657,7 @@ namespace LinqAF
         public TResult Min<TItem, TResult>(BuiltInEnumerable<TItem> source, Func<TItem, TResult> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.MinProjectedComparableImpl<TItem, TResult, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -544,7 +667,7 @@ namespace LinqAF
         public OrderByEnumerable<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>, DefaultAscending<TItem, TKey>> OrderBy<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return CommonImplementation.OrderBy<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector);
         }
@@ -552,7 +675,7 @@ namespace LinqAF
         public OrderByEnumerable<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>, SingleComparerAscending<TItem, TKey>> OrderBy<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, IComparer<TKey> comparer)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return CommonImplementation.OrderBy<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, comparer);
         }
@@ -560,7 +683,7 @@ namespace LinqAF
         public OrderByEnumerable<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>, DefaultDescending<TItem, TKey>> OrderByDescending<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return CommonImplementation.OrderByDescending<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector);
         }
@@ -568,7 +691,7 @@ namespace LinqAF
         public OrderByEnumerable<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>, SingleComparerDescending<TItem, TKey>> OrderByDescending<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, IComparer<TKey> comparer)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return CommonImplementation.OrderByDescending<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, comparer);
         }
@@ -587,7 +710,7 @@ namespace LinqAF
         public SelectIndexedEnumerable<TItem, TOutItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> Select<TItem, TOutItem>(BuiltInEnumerable<TItem> source, Func<TItem, int, TOutItem> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.SelectImpl<TItem, TOutItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -595,7 +718,7 @@ namespace LinqAF
         public SelectEnumerable<TItem, TOutItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> Select<TItem, TOutItem>(BuiltInEnumerable<TItem> source, Func<TItem, TOutItem> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.SelectImpl<TItem, TOutItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -612,7 +735,7 @@ namespace LinqAF
         public TItem Single<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.SingleImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -627,7 +750,7 @@ namespace LinqAF
         public TItem SingleOrDefault<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.SingleOrDefaultImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -644,7 +767,7 @@ namespace LinqAF
         public SkipWhileIndexedEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> SkipWhile<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.SkipWhileImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -652,93 +775,11 @@ namespace LinqAF
         public SkipWhileEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> SkipWhile<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.SkipWhileImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
-
-        // Sum
-
-        public long Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, long> selector)
-        {
-            var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
-        }
-
-        public float Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, float> selector)
-        {
-            var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
-        }
-
-        public double Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, double> selector)
-        {
-            var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
-        }
-
-        public decimal Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, decimal> selector)
-        {
-            var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
-        }
-
-        public decimal? Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, decimal?> selector)
-        {
-            var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
-        }
-
-        public double? Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, double?> selector)
-        {
-            var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
-        }
-
-        public float? Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, float?> selector)
-        {
-            var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
-        }
-
-        public long? Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, long?> selector)
-        {
-            var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
-        }
-
-        public int? Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int?> selector)
-        {
-            var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
-        }
-
-        public int Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int> selector)
-        {
-            var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
-        }
-
+        
         // Take
 
         public TakeEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> Take<TItem>(BuiltInEnumerable<TItem> source, int count)
@@ -751,7 +792,7 @@ namespace LinqAF
         public TakeWhileIndexedEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> TakeWhile<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.TakeWhileImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -759,7 +800,7 @@ namespace LinqAF
         public TakeWhileEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> TakeWhile<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.TakeWhileImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -770,7 +811,7 @@ namespace LinqAF
             var asICollection = source as ICollection<TItem>;
             if (asICollection != null)
             {
-                var ret = new TItem[asICollection.Count];
+                var ret = Allocator.Current.GetArray<TItem>(asICollection.Count);
                 asICollection.CopyTo(ret, 0);
                 return ret;
             }
@@ -785,17 +826,34 @@ namespace LinqAF
         public Dictionary<TKey, TItem> ToDictionary<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            Func<TItem, TItem> elementSelector = _ => _;
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            return CommonImplementation.ToDictionaryImpl<TItem, TKey, TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, null);
+            var asList = source as IList<TItem>;
+            if (asList != null)
+            {
+                var size = asList.Count;
+                var ret = Allocator.Current.GetEmptyDictionary<TKey, TItem>(size, null);
+                CommonImplementation.ToDictionaryLoopImpl<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), ret, keySelector);
+                return ret;
+            }
+
+            return CommonImplementation.ToDictionaryImpl<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector);
         }
 
         public Dictionary<TKey, TElement> ToDictionary<TItem, TKey, TElement>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
+
+            var asList = source as IList<TItem>;
+            if (asList != null)
+            {
+                var size = asList.Count;
+                var ret = Allocator.Current.GetEmptyDictionary<TKey, TElement>(size, null);
+                CommonImplementation.ToDictionaryLoopImpl<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), ret, keySelector, elementSelector);
+                return ret;
+            }
 
             return CommonImplementation.ToDictionaryImpl<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, null);
         }
@@ -803,17 +861,34 @@ namespace LinqAF
         public Dictionary<TKey, TItem> ToDictionary<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, IEqualityComparer<TKey> comparer)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            Func<TItem, TItem> elementSelector = _ => _;
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            return CommonImplementation.ToDictionaryImpl<TItem, TKey, TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, comparer);
+            var asList = source as IList<TItem>;
+            if (asList != null)
+            {
+                var size = asList.Count;
+                var ret = Allocator.Current.GetEmptyDictionary<TKey, TItem>(size, comparer);
+                CommonImplementation.ToDictionaryLoopImpl<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), ret, keySelector);
+                return ret;
+            }
+
+            return CommonImplementation.ToDictionaryImpl<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, comparer);
         }
 
         public Dictionary<TKey, TElement> ToDictionary<TItem, TKey, TElement>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector, IEqualityComparer<TKey> comparer)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
+
+            var asList = source as IList<TItem>;
+            if (asList != null)
+            {
+                var size = asList.Count;
+                var ret = Allocator.Current.GetEmptyDictionary<TKey, TElement>(size, comparer);
+                CommonImplementation.ToDictionaryLoopImpl<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), ret, keySelector, elementSelector);
+                return ret;
+            }
 
             return CommonImplementation.ToDictionaryImpl<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, comparer);
         }
@@ -825,7 +900,7 @@ namespace LinqAF
             var asIEnumerable = source as IEnumerable<TItem>;
             if (asIEnumerable != null)
             {
-                return new List<TItem>(asIEnumerable);
+                return Allocator.Current.GetPopulatedList(asIEnumerable);
             }
 
             var bridge = Bridge(source, nameof(source));
@@ -834,38 +909,36 @@ namespace LinqAF
         }
 
         // ToLookup
-        public LookupEnumerable<TKey, TItem> ToLookup<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector)
+        public LookupDefaultEnumerable<TKey, TItem> ToLookup<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            Func<TItem, TItem> elementSelector = _ => _;
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            return CommonImplementation.ToLookupImpl<TItem, TKey, TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, null);
+            return CommonImplementation.ToLookupImpl<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector);
         }
 
-        public LookupEnumerable<TKey, TItem> ToLookup<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, IEqualityComparer<TKey> comparer)
+        public LookupSpecificEnumerable<TKey, TItem> ToLookup<TItem, TKey>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, IEqualityComparer<TKey> comparer)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            Func<TItem, TItem> elementSelector = _ => _;
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            return CommonImplementation.ToLookupImpl<TItem, TKey, TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, comparer);
+            return CommonImplementation.ToLookupImpl<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, comparer);
         }
 
-        public LookupEnumerable<TKey, TElement> ToLookup<TItem, TKey, TElement>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector)
+        public LookupDefaultEnumerable<TKey, TElement> ToLookup<TItem, TKey, TElement>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
-            return CommonImplementation.ToLookupImpl<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, null);
+            return CommonImplementation.ToLookupImpl<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector);
         }
 
-        public LookupEnumerable<TKey, TElement> ToLookup<TItem, TKey, TElement>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector, IEqualityComparer<TKey> comparer)
+        public LookupSpecificEnumerable<TKey, TElement> ToLookup<TItem, TKey, TElement>(BuiltInEnumerable<TItem> source, Func<TItem, TKey> keySelector, Func<TItem, TElement> elementSelector, IEqualityComparer<TKey> comparer)
         {
             var bridge = Bridge(source, nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
             return CommonImplementation.ToLookupImpl<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, comparer);
         }
@@ -875,7 +948,7 @@ namespace LinqAF
         public WhereIndexedEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> Where<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.WhereImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
@@ -883,7 +956,7 @@ namespace LinqAF
         public WhereEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> Where<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.WhereImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }

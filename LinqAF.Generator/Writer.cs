@@ -23,6 +23,7 @@ namespace LinqAF.Generator
         const string PREDICATE_INTERFACE_NAME = "IStructPredicate";
         const string PROJECTION_INTERFACE_NAME = "IStructProjection";
         const string COMPARER_INTERFACE_NAME = "IStructComparer";
+        const string BRIDGER_INTERFACE_NAME = "IStructBridger";
         const string COMPOUND_KEY_STRUCT_NAME = "CompoundKey";
         const string FAKE_ENUMERABLE_NAME = "FakeEnumerable";
 
@@ -38,6 +39,7 @@ namespace LinqAF
         const string ENUMERABLE_PREAMBLE =
 @"using System;
 using LinqAF.Impl;
+using LinqAF.Config;
 using System.Collections.Generic;
 
 namespace LinqAF
@@ -47,6 +49,7 @@ namespace LinqAF
         const string ENUMERATOR_PREAMBLE =
 @"using System;
 using LinqAF.Impl;
+using LinqAF.Config;
 using System.Collections.Generic;
 using MiscUtil;
 
@@ -60,6 +63,7 @@ namespace LinqAF
         const string PREDICATES_FILE_NAME = "Predicates.cs";
         const string PROJECTIONS_FILE_NAME = "Projections.cs";
         const string COMPARERS_FILE_NAME = "Comparers.cs";
+        const string BRIDGERS_FILE_NAME = "Bridgers.cs";
         const string COMPOUND_KEY_FILE_NAME = "CompoundKey.cs";
 
 
@@ -101,6 +105,7 @@ namespace LinqAF
             ops.Add(Task(CopyPublicInterfaces));
             ops.Add(Task(CopyEnumerable));
             ops.Add(Task(CopyImplementation));
+            ops.Add(Task(CopyConfiguration));
             ops.Add(Task(CopyEnumerables));
             ops.Add(Task(RemoveUnallowedMethods));
             ops.Add(Task(RemoveUnallowedInterfaces));
@@ -110,6 +115,7 @@ namespace LinqAF
             ops.Add(Task(CopyPredicates));
             ops.Add(Task(CopyProjections));
             ops.Add(Task(CopyComparers));
+            ops.Add(Task(CopyBridgers));
             ops.Add(Task(CopyCompoundKey));
             ops.Add(Task(CopyLookupExtensionMethods));
 
@@ -182,6 +188,7 @@ namespace LinqAF
 
             // format!
             ops.Add(Task(FormatCode));
+            
 
             for (var i = 0; i < ops.Count; i++)
             {
@@ -196,6 +203,39 @@ namespace LinqAF
                 log(" (Took: " + sw.ElapsedMilliseconds + "ms)");
                 log(Environment.NewLine);
             }
+
+            log("Gathering stats...");
+
+            // quick stats
+            var numEnumerables = projects.EnumerableDocuments.Count();
+            var mostMethods =
+                projects.EnumerableDocuments
+                    .Select(
+                        d =>
+                        {
+                            var root = d.GetSyntaxRootAsync().Result;
+                            var structDef = root.DescendantNodesAndSelf().OfType<StructDeclarationSyntax>().Single();
+                            var name = structDef.Identifier.ValueText;
+
+                            var allDefs = projects.Output.Documents.SelectMany(x => x.GetSyntaxRootAsync().Result.DescendantNodesAndSelf().OfType<StructDeclarationSyntax>()).Where(s => s.Identifier.ValueText == name);
+
+                            var numMethods = allDefs.SelectMany(s => s.Members.Where(m => m is MethodDeclarationSyntax)).Count();
+
+                            return
+                                new
+                                {
+                                    StructName = name,
+                                    Methods = numMethods
+                                };
+                        }
+                    )
+                    .ToList();
+            log("Done");
+            log(Environment.NewLine);
+            log($"Files: {numEnumerables}");
+            log(Environment.NewLine);
+            log($"Most methods: {mostMethods[0].StructName} with {mostMethods[0].Methods:N0} methods");
+            log(Environment.NewLine);
         }
 
         static void FormatCode(Projects projects)
@@ -495,6 +535,7 @@ namespace LinqAF
             var ipredicate = allInterfaces.Single(i => i.Identifier.ValueText == PREDICATE_INTERFACE_NAME);
             var iprojection = allInterfaces.Single(i => i.Identifier.ValueText == PROJECTION_INTERFACE_NAME);
             var icomparer = allInterfaces.Single(i => i.Identifier.ValueText == COMPARER_INTERFACE_NAME);
+            var ibridger = allInterfaces.Single(i => i.Identifier.ValueText == BRIDGER_INTERFACE_NAME);
 
             {
                 var ienumerableDoc = projects.Output.AddDocument(ENUMERABLE_INTERFACE_NAME + ".cs", INTERFACE_PREABLE);
@@ -549,6 +590,17 @@ namespace LinqAF
 
                 projects.ModifyOutput(p => editor.GetChangedDocument().Project);
             }
+
+            {
+                var ibridgerDoc = projects.Output.AddDocument(BRIDGER_INTERFACE_NAME + ".cs", INTERFACE_PREABLE);
+
+                var ns = ibridgerDoc.GetSyntaxRootAsync().Result.DescendantNodes().OfType<NamespaceDeclarationSyntax>().Single();
+                var newNs = ns.AddMembers(ibridger);
+                var editor = DocumentEditor.CreateAsync(ibridgerDoc).Result;
+                editor.ReplaceNode(ns, newNs);
+
+                projects.ModifyOutput(p => editor.GetChangedDocument().Project);
+            }
         }
 
         /// <summary>
@@ -571,6 +623,16 @@ namespace LinqAF
             foreach (var impl in implsToCopy)
             {
                 Copier.Copy(impl, "Impl", projects);
+            }
+        }
+
+        static void CopyConfiguration(Projects projects)
+        {
+            var implsToCopy = projects.Template.Documents.Where(d => d.Folders.LastOrDefault() == "Config").ToList();
+
+            foreach (var impl in implsToCopy)
+            {
+                Copier.Copy(impl, "Config", projects);
             }
         }
 
@@ -903,6 +965,33 @@ namespace LinqAF
                     var ns = root.DescendantNodesAndSelf().OfType<NamespaceDeclarationSyntax>().Single();
                     var newNs = ns.AddMembers(comparerImpls);
                     
+                    editor.ReplaceNode(ns, newNs);
+                    var updatedDoc = editor.GetChangedDocument();
+
+                    return updatedDoc.Project;
+                }
+            );
+        }
+
+        /// <summary>
+        /// Move structs that implement IStructBridger.
+        /// </summary>
+        static void CopyBridgers(Projects projects)
+        {
+            var allStructs = projects.Template.Documents.SelectMany(d => d.GetSyntaxRootAsync().Result.DescendantNodesAndSelf().OfType<StructDeclarationSyntax>());
+
+            var comparerImpls = allStructs.Where(s => s.BaseList != null && s.BaseList.Types.Any(t => (t.Type as GenericNameSyntax)?.Identifier.ValueText == BRIDGER_INTERFACE_NAME)).ToArray();
+
+            projects.ModifyOutput(
+                p =>
+                {
+                    var newDoc = p.AddDocument(BRIDGERS_FILE_NAME, ENUMERABLE_PREAMBLE);
+                    var editor = DocumentEditor.CreateAsync(newDoc).Result;
+
+                    var root = newDoc.GetSyntaxRootAsync().Result;
+                    var ns = root.DescendantNodesAndSelf().OfType<NamespaceDeclarationSyntax>().Single();
+                    var newNs = ns.AddMembers(comparerImpls);
+
                     editor.ReplaceNode(ns, newNs);
                     var updatedDoc = editor.GetChangedDocument();
 

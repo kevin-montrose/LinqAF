@@ -5,10 +5,10 @@ namespace LinqAF.Impl
 {
     static partial class CommonImplementation
     {
-        public static bool All<TItem, TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection source, Func<TItem, bool> predicate)
+        /*public static bool All<TItem, TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<
                 TItem,
@@ -24,7 +24,7 @@ namespace LinqAF.Impl
         public static bool All<TItem, TDictionaryKey>(Dictionary<TDictionaryKey, TItem>.ValueCollection source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<
                 TItem,
@@ -40,7 +40,7 @@ namespace LinqAF.Impl
         public static bool All<TItem>(HashSet<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<
                 TItem,
@@ -56,7 +56,7 @@ namespace LinqAF.Impl
         public static bool All<TItem>(LinkedList<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<
                 TItem,
@@ -72,7 +72,7 @@ namespace LinqAF.Impl
         public static bool All<TItem>(List<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<
                 TItem,
@@ -88,7 +88,7 @@ namespace LinqAF.Impl
         public static bool All<TItem>(Queue<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<
                 TItem,
@@ -104,7 +104,7 @@ namespace LinqAF.Impl
         public static bool All<TItem, TDictionaryValue>(SortedDictionary<TItem, TDictionaryValue>.KeyCollection source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<
                 TItem,
@@ -120,7 +120,7 @@ namespace LinqAF.Impl
         public static bool All<TItem, TDictionaryKey>(SortedDictionary<TDictionaryKey, TItem>.ValueCollection source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<
                 TItem,
@@ -136,7 +136,7 @@ namespace LinqAF.Impl
         public static bool All<TItem>(SortedSet<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<
                 TItem,
@@ -152,7 +152,7 @@ namespace LinqAF.Impl
         public static bool All<TItem>(Stack<TItem> source, Func<TItem, bool> predicate)
         {
             var bridge = Bridge(source, nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<
                 TItem,
@@ -163,14 +163,14 @@ namespace LinqAF.Impl
                 >,
                 StackEnumerator<TItem>
             >(ref bridge, predicate);
-        }
+        }*/
 
         public static bool All<TItem, TEnumerable, TEnumerator>(ref TEnumerable source, Func<TItem, bool> predicate)
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return AllImpl<TItem, TEnumerable, TEnumerator>(ref source, predicate);
         }

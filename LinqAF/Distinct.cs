@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using LinqAF.Config;
+using LinqAF.Impl;
+using System.Collections.Generic;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct DistinctDefaultEnumerator<TItem, TInnerEnumerator>:
         IStructEnumerator<TItem>
         where TInnerEnumerator: struct, IStructEnumerator<TItem>
@@ -9,37 +12,39 @@ namespace LinqAF
         public TItem Current { get; private set; }
 
         TInnerEnumerator Inner;
-        HashSet<TItem> PreviouslyYielded;
+        IndexedItemContainer<TItem> Container;
+        CompactSet<TItem> PreviouslyYielded;
 
         internal DistinctDefaultEnumerator(ref TInnerEnumerator inner)
         {
             Inner = inner;
-            PreviouslyYielded = null;
+            PreviouslyYielded = new CompactSet<TItem>();
+            Container = new IndexedItemContainer<TItem>();
             Current = default(TItem);
         }
 
-        public bool IsDefaultValue()
-        {
-            return
-                PreviouslyYielded == null &&    // if non-null then it's not default, but _could_ be null prior to iteration
-                Inner.IsDefaultValue();
-        }
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public void Dispose()
         {
             Inner.Dispose();
-            PreviouslyYielded = null;
+            PreviouslyYielded.Dispose();
+            Container.Dispose();
             Current = default(TItem);
         }
 
         public bool MoveNext()
         {
-            var previouslyYield = PreviouslyYielded ?? (PreviouslyYielded = new HashSet<TItem>(EqualityComparer<TItem>.Default));
-
+            if (PreviouslyYielded.IsDefaultValue())
+            {
+                PreviouslyYielded.Initialize();
+                Container.Initialize();
+            }
+            
             while (Inner.MoveNext())
             {
                 var cur = Inner.Current;
-                if (previouslyYield.Add(cur))
+                if (PreviouslyYielded.Add(cur, ref Container))
                 {
                     Current = cur;
                     return true;
@@ -52,10 +57,12 @@ namespace LinqAF
         public void Reset()
         {
             Inner.Reset();
-            PreviouslyYielded = null;
+            PreviouslyYielded.Reset();
+            Container.Reset();
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct DistinctDefaultEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>:
         IStructEnumerable<TItem, DistinctDefaultEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable: struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -67,10 +74,7 @@ namespace LinqAF
             Inner = inner;
         }
 
-        public bool IsDefaultValue()
-        {
-            return Inner.IsDefaultValue();
-        }
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public DistinctDefaultEnumerator<TItem, TInnerEnumerator> GetEnumerator()
         {
@@ -79,6 +83,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct DistinctSpecificEnumerator<TItem, TInnerEnumerator> :
         IStructEnumerator<TItem>
         where TInnerEnumerator: struct, IStructEnumerator<TItem>
@@ -87,34 +92,35 @@ namespace LinqAF
 
         TInnerEnumerator Inner;
         IEqualityComparer<TItem> Comparer;
-        HashSet<TItem> PreviouslyYielded;
+        IndexedItemContainer<TItem> Container;
+        CompactSet<TItem> PreviouslyYielded;
 
         internal DistinctSpecificEnumerator(ref TInnerEnumerator inner, IEqualityComparer<TItem> comparer)
         {
             Inner = inner;
             Comparer = comparer;
-            PreviouslyYielded = null;
+            PreviouslyYielded = new CompactSet<TItem>();
+            Container = new IndexedItemContainer<TItem>();
             Current = default(TItem);
         }
 
         public bool IsDefaultValue()
         {
-            return
-                Comparer == null ||
-                (
-                    PreviouslyYielded == null &&    // if non-null then it's not default, but _could_ be null prior to iteration
-                    Inner.IsDefaultValue()
-                );
+            return Comparer == null;
         }
 
         public bool MoveNext()
         {
-            var previouslyYield = PreviouslyYielded ?? (PreviouslyYielded = new HashSet<TItem>(Comparer));
+            if (PreviouslyYielded.IsDefaultValue())
+            {
+                PreviouslyYielded.Initialize();
+                Container.Initialize();
+            }
 
             while (Inner.MoveNext())
             {
                 var cur = Inner.Current;
-                if (previouslyYield.Add(cur))
+                if (PreviouslyYielded.Add(cur, ref Container, Comparer))
                 {
                     Current = cur;
                     return true;
@@ -127,17 +133,20 @@ namespace LinqAF
         public void Reset()
         {
             Inner.Reset();
-            PreviouslyYielded = null;
+            PreviouslyYielded.Reset();
+            Container.Reset();
         }
 
         public void Dispose()
         {
             Inner.Dispose();
-            PreviouslyYielded = null;
+            PreviouslyYielded.Dispose();
+            Container.Dispose();
             Comparer = null;
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct DistinctSpecificEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>:
         IStructEnumerable<TItem, DistinctSpecificEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable: struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -154,9 +163,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Comparer == null ||
-                Inner.IsDefaultValue();
+            return Comparer == null;
         }
 
         public DistinctSpecificEnumerator<TItem, TInnerEnumerator> GetEnumerator()

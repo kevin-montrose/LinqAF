@@ -1,14 +1,16 @@
-﻿using System;
+﻿using LinqAF.Impl;
+using System;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct EmptyEnumerator<TItem> : IStructEnumerator<TItem>
     {
         public TItem Current
         {
             get
             {
-                throw new InvalidOperationException($"Called {nameof(Current)} on {nameof(EmptyEnumerator<TItem>)}");
+                throw CommonImplementation.ForbiddenCall(nameof(Current), nameof(EmptyEnumerator<TItem>));
             }
         }
 
@@ -31,6 +33,7 @@ namespace LinqAF
         public void Reset() { }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct EmptyEnumerable<TItem> : IStructEnumerable<TItem, EmptyEnumerator<TItem>>
     {
         // Sigil is necessary to distinguish instances from default(EmptyEnumerable)
