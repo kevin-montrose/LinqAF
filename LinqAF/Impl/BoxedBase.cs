@@ -46,7 +46,7 @@ namespace LinqAF.Impl
         {
             if (Outer.IsDefaultValue())
             {
-                throw new InvalidOperationException("Inner enumerable is uninitialized");
+                throw CommonImplementation.InnerUninitialized();
             }
 
             var e = Outer.GetEnumerator();

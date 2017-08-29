@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using TestHelpers;
 
 namespace LinqAF.Tests
@@ -48,6 +49,13 @@ namespace LinqAF.Tests
             }
         }
 
+        class _IntComparer : IEqualityComparer<int>
+        {
+            public bool Equals(int x, int y) => x == y;
+
+            public int GetHashCode(int obj) => obj;
+        }
+
         [TestMethod]
         public void Chaining_Weird()
         {
@@ -55,7 +63,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -96,20 +105,28 @@ namespace LinqAF.Tests
                 try { groupBySpecific.SingleOrDefault(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.Single(); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple elements", exc.Message); }
-                try { lookup.Single(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
-                try { lookup.SingleOrDefault(); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple elements", exc.Message); }
-                try { lookup.SingleOrDefault(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
+                try { lookupDefault.Single(); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple elements", exc.Message); }
+                try { lookupDefault.Single(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
+                try { lookupDefault.SingleOrDefault(); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple elements", exc.Message); }
+                try { lookupDefault.SingleOrDefault(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.Single(); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple elements", exc.Message); }
+                try { lookupSpecific.Single(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
+                try { lookupSpecific.SingleOrDefault(); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple elements", exc.Message); }
+                try { lookupSpecific.SingleOrDefault(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
             }
 
             // lookup
             {
-                try { lookup.Single(); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple elements", exc.Message); }
-                try { lookup.Single(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
-                try { lookup.SingleOrDefault(); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple elements", exc.Message); }
-                try { lookup.SingleOrDefault(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
+                try { lookupDefault.Single(); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple elements", exc.Message); }
+                try { lookupDefault.Single(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
+                try { lookupDefault.SingleOrDefault(); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple elements", exc.Message); }
+                try { lookupDefault.SingleOrDefault(x => true); Assert.Fail(); } catch (InvalidOperationException exc) { Assert.AreEqual("Sequence contained multiple matching elements", exc.Message); }
             }
 
             // range
@@ -234,7 +251,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -267,10 +285,16 @@ namespace LinqAF.Tests
                 try { groupBySpecific.SingleOrDefault(default(Func<GroupingEnumerable<string, string>, bool>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("predicate", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.Single(default(Func<GroupingEnumerable<int, int>, bool>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("predicate", exc.ParamName); }
-                try { lookup.SingleOrDefault(default(Func<GroupingEnumerable<int, int>, bool>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("predicate", exc.ParamName); }
+                try { lookupDefault.Single(default(Func<GroupingEnumerable<int, int>, bool>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("predicate", exc.ParamName); }
+                try { lookupDefault.SingleOrDefault(default(Func<GroupingEnumerable<int, int>, bool>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("predicate", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.Single(default(Func<GroupingEnumerable<int, int>, bool>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("predicate", exc.ParamName); }
+                try { lookupSpecific.SingleOrDefault(default(Func<GroupingEnumerable<int, int>, bool>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("predicate", exc.ParamName); }
             }
 
             // range
@@ -372,7 +396,8 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -413,12 +438,20 @@ namespace LinqAF.Tests
                 try { groupBySpecific.SingleOrDefault(x => true); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.Single(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Single(x => true); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.SingleOrDefault(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.SingleOrDefault(x => true); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Single(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Single(x => true); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.SingleOrDefault(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.SingleOrDefault(x => true); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.Single(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Single(x => true); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.SingleOrDefault(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.SingleOrDefault(x => true); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
             // range

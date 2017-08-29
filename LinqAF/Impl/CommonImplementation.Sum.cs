@@ -11,8 +11,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SumSelectorImpl<TInItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -38,8 +38,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SumSelectorImpl<TInItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -65,8 +65,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SumSelectorImpl<TInItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -92,8 +92,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SumSelectorImpl<TInItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -119,8 +119,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SumSelectorImpl<TInItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -145,8 +145,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SumSelectorImpl<TInItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -172,8 +172,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SumSelectorImpl<TInItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -198,8 +198,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SumSelectorImpl<TInItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -225,8 +225,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SumSelectorImpl<TInItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -250,8 +250,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TInItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TInItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return SumSelectorImpl<TInItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -277,7 +277,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<int, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<int>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SumIntImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -302,7 +302,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<int?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<int?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SumNullableIntImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -329,7 +329,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<long, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<long>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SumLongImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -354,7 +354,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<long?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<long?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SumNullableLongImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -381,7 +381,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<float, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<float>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SumFloatImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -409,7 +409,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<float?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<float?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SumNullableFloatImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -440,7 +440,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<double, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<double>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SumDoubleImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -468,7 +468,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<double?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<double?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SumNullableDoubleImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -499,7 +499,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<decimal, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<decimal>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SumDecimalImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -521,7 +521,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<decimal?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<decimal?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SumNullableDecimalImpl<TEnumerable, TEnumerator>(ref source);
         }

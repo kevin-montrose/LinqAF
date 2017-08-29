@@ -2,23 +2,25 @@
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ReverseEnumerator<TItem> : IStructEnumerator<TItem>
     {
         public TItem Current { get; private set; }
 
         TItem[] Inner;
         int Index;
-        internal ReverseEnumerator(TItem[] inner)
+        int StartIndex;
+        internal ReverseEnumerator(TItem[] inner, int startIndex)
         {
             Inner = inner;
-            Index = inner.Length - 1;
+            StartIndex = startIndex;
+            Index = StartIndex;
             Current = default(TItem);
         }
 
         public bool IsDefaultValue()
         {
-            return
-                Inner == null;
+            return Inner == null;
         }
 
         public void Dispose()
@@ -40,11 +42,12 @@ namespace LinqAF
 
         public void Reset()
         {
-            Index = Inner.Length - 1;
+            Index = StartIndex;
             Current = default(TItem);
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct ReverseEnumerable<TItem, TEnumerable, TEnumerator>:
         IStructEnumerable<TItem, ReverseEnumerator<TItem>>
         where TEnumerable: struct, IStructEnumerable<TItem, TEnumerator>
@@ -56,16 +59,14 @@ namespace LinqAF
             Inner = inner;
         }
 
-        public bool IsDefaultValue()
-        {
-            return Inner.IsDefaultValue();
-        }
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public ReverseEnumerator<TItem> GetEnumerator()
         {
             // we _have_ to buffer this, but not until the enumerator is actually called
-            var arr = Impl.CommonImplementation.ToArrayImpl<TItem, TEnumerable, TEnumerator>(ref Inner);
-            return new ReverseEnumerator<TItem>(arr);
+            int count;
+            var arr = Impl.CommonImplementation.Buffer<TItem, TEnumerable, TEnumerator>(ref Inner, out count);
+            return new ReverseEnumerator<TItem>(arr, count - 1);
         }
     }
 }

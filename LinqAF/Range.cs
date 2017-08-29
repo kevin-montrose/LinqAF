@@ -2,6 +2,7 @@
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct RangeEnumerator<TItem>: IStructEnumerator<TItem>
         // TItem is _always_ int, but we need an unconstrained generic param for chaining elsewhere
     {
@@ -92,6 +93,7 @@ namespace LinqAF
     }
 
     // soooo, really this should be RangeEnumerator<int> but life is hard
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct RangeEnumerable<TItem>: IStructEnumerable<TItem, RangeEnumerator<TItem>>
     {
         byte Sigil;
@@ -112,6 +114,7 @@ namespace LinqAF
         public RangeEnumerator<TItem> GetEnumerator() => new RangeEnumerator<TItem>(Sigil, Start, InnerCount);
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ReverseRangeEnumerator<TItem>: IStructEnumerator<TItem>
     {
         public TItem Current { get; private set; }
@@ -157,6 +160,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct ReverseRangeEnumerable<TItem>: IStructEnumerable<TItem, ReverseRangeEnumerator<TItem>>
     {
         byte Sigil;

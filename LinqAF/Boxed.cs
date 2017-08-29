@@ -2,6 +2,7 @@
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct BoxedEnumerator<TItem> : IStructEnumerator<TItem>
     {
         public TItem Current { get; private set; }
@@ -38,6 +39,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct BoxedEnumerable<TItem>: IStructEnumerable<TItem, BoxedEnumerator<TItem>>
     {
         IBoxedEnumerable<TItem> Inner;

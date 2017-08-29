@@ -3,6 +3,7 @@ using System;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct EmptyOrderedEnumerator<TItem> :
         IStructEnumerator<TItem>
     {
@@ -10,7 +11,7 @@ namespace LinqAF
         {
             get
             {
-                throw new InvalidOperationException($"Called {nameof(Current)} on {nameof(EmptyOrderedEnumerator<TItem>)}");
+                throw CommonImplementation.ForbiddenCall(nameof(Current), nameof(EmptyOrderedEnumerator<TItem>));
             }
         }
 
@@ -32,6 +33,7 @@ namespace LinqAF
         public void Reset() { }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct EmptyOrderedEnumerable<TItem> :
         IStructEnumerable<TItem, EmptyOrderedEnumerator<TItem>>,
         IHasComparer<TItem, object, EmptyComparer<TItem>, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>>

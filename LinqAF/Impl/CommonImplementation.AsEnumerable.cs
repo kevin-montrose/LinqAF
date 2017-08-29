@@ -6,6 +6,7 @@ namespace LinqAF.Impl
 {
     static partial class CommonImplementation
     {
+        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
         struct IEnumeratorBridge<TItem, TEnumerator>:
             IEnumerator<TItem>
             where TEnumerator: struct, IStructEnumerator<TItem>
@@ -43,6 +44,7 @@ namespace LinqAF.Impl
             }
         }
 
+        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
         struct IEnumerableBridge<TItem, TEnumerable, TEnumerator>: 
             IEnumerable<TItem>
             where TEnumerable: struct, IStructEnumerable<TItem, TEnumerator>
@@ -68,7 +70,7 @@ namespace LinqAF.Impl
             where TEnumerable: struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator: struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return new IEnumerableBridge<TItem, TEnumerable, TEnumerator>(ref source);
         }

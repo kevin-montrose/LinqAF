@@ -11,47 +11,27 @@ namespace LinqAF.Tests
         [TestMethod]
         public void Chaining()
         {
-            Helper.ForEachEnumerableNoRetExpression(
-                new[] { 1, 2, 3 },
-                @"a =>
-                  {
-                    var res1 = new List<int>();
-                    var res2 = new List<int>();
-                    using(var e = a.GetEnumerator())
+            foreach (var a in Helper.GetEnumerables(new[] { 1, 2, 3 }))
+            {
+                var res1 = new List<int>();
+                var res2 = new List<int>();
+                using (var e = a.GetEnumerator())
+                {
+                    while (e.MoveNext())
                     {
-                        while(e.MoveNext())
-                        {
-                            res1.Add(e.Current);
-                        }
-    
-                        e.Reset();
-
-                        while(e.MoveNext())
-                        {
-                            res2.Add(e.Current);
-                        }
+                        res1.Add(e.Current);
                     }
 
-                    Assert.IsTrue(res1.SequenceEqual(res2));
-                  }",
-                typeof(int[]),
-                typeof(IEnumerable<>),
-                typeof(List<>),
-                typeof(LinkedList<>),
-                typeof(HashSet<>),
-                typeof(Dictionary<,>.KeyCollection),
-                typeof(Dictionary<,>.ValueCollection),
-                typeof(SortedDictionary<,>.KeyCollection),
-                typeof(SortedDictionary<,>.ValueCollection),
-                typeof(SortedSet<>),
-                typeof(Stack<>),
-                typeof(Queue<>),
-                typeof(EmptyEnumerable<>),
-                typeof(EmptyOrderedEnumerable<>),
-                typeof(GroupByDefaultEnumerable<,,,,>),
-                typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
-            );
+                    e.Reset();
+
+                    while (e.MoveNext())
+                    {
+                        res2.Add(e.Current);
+                    }
+                }
+
+                Assert.IsTrue(res1.SequenceEqual(res2));
+            }
         }
 
         class _GroupingComparer<T> : IEqualityComparer<GroupingEnumerable<T, T>>
@@ -86,6 +66,13 @@ namespace LinqAF.Tests
             }
         }
 
+        class _IntComparer : IEqualityComparer<int>
+        {
+            public bool Equals(int x, int y) => x == y;
+
+            public int GetHashCode(int obj) => obj;
+        }
+
         [TestMethod]
         public void Chaining_Weird()
         {
@@ -93,7 +80,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -190,11 +178,33 @@ namespace LinqAF.Tests
                 Assert.IsTrue(res1.SequenceEqual(res2, new _GroupingComparer<string>()));
             }
 
-            // lookup
+            // lookupDefault
             {
                 var res1 = new List<GroupingEnumerable<int, int>>();
                 var res2 = new List<GroupingEnumerable<int, int>>();
-                using (var e = lookup.GetEnumerator())
+                using (var e = lookupDefault.GetEnumerator())
+                {
+                    while (e.MoveNext())
+                    {
+                        res1.Add(e.Current);
+                    }
+
+                    e.Reset();
+
+                    while (e.MoveNext())
+                    {
+                        res2.Add(e.Current);
+                    }
+                }
+
+                Assert.IsTrue(res1.SequenceEqual(res2, new _GroupingComparer<int>()));
+            }
+
+            // lookupSpecific
+            {
+                var res1 = new List<GroupingEnumerable<int, int>>();
+                var res2 = new List<GroupingEnumerable<int, int>>();
+                using (var e = lookupSpecific.GetEnumerator())
                 {
                     while (e.MoveNext())
                     {

@@ -98,7 +98,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(ExceptDefaultEnumerable<,,,,>),
                     typeof(ExceptSpecificEnumerable<,,,,>),
                     typeof(UnionDefaultEnumerable<,,,,>),
@@ -122,7 +123,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -173,7 +175,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -206,12 +209,18 @@ namespace LinqAF.Tests
                 Assert.IsTrue(groupBySpecific.Distinct(new _GroupingComparer<string>()).SequenceEqual(new[] { groupBySpecific.ElementAt(0), groupBySpecific.ElementAt(1), groupBySpecific.ElementAt(2) }, new _GroupingComparer<string>()));
             }
 
-            // lookup
+            // lookupDefault
             {
-                Assert.IsTrue(lookup.Distinct().SequenceEqual(new[] { lookup.ElementAt(0), lookup.ElementAt(1), lookup.ElementAt(2) }, new _GroupingComparer<int>()));
-                Assert.IsTrue(lookup.Distinct(new _GroupingComparer<int>()).SequenceEqual(new[] { lookup.ElementAt(0), lookup.ElementAt(1), lookup.ElementAt(2) }, new _GroupingComparer<int>()));
+                Assert.IsTrue(lookupDefault.Distinct().SequenceEqual(new[] { lookupDefault.ElementAt(0), lookupDefault.ElementAt(1), lookupDefault.ElementAt(2) }, new _GroupingComparer<int>()));
+                Assert.IsTrue(lookupDefault.Distinct(new _GroupingComparer<int>()).SequenceEqual(new[] { lookupDefault.ElementAt(0), lookupDefault.ElementAt(1), lookupDefault.ElementAt(2) }, new _GroupingComparer<int>()));
             }
-            
+
+            // lookupSpecific
+            {
+                Assert.IsTrue(lookupSpecific.Distinct().SequenceEqual(new[] { lookupSpecific.ElementAt(0), lookupSpecific.ElementAt(1), lookupSpecific.ElementAt(2) }, new _GroupingComparer<int>()));
+                Assert.IsTrue(lookupSpecific.Distinct(new _GroupingComparer<int>()).SequenceEqual(new[] { lookupSpecific.ElementAt(0), lookupSpecific.ElementAt(1), lookupSpecific.ElementAt(2) }, new _GroupingComparer<int>()));
+            }
+
             // range
             {
                 Assert.IsTrue(range.Distinct().SequenceEqual(new[] { 1, 2, 3, 4, 5 }));
@@ -285,7 +294,8 @@ namespace LinqAF.Tests
                   }",
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
 
             Helper.ForEachMalformedEnumerableExpression<string>(
@@ -303,7 +313,8 @@ namespace LinqAF.Tests
                   }",
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
         }
 
@@ -314,7 +325,8 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -347,10 +359,16 @@ namespace LinqAF.Tests
                 try { groupBySpecific.Distinct(new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.Distinct(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Distinct(new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Distinct(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Distinct(new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.Distinct(); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Distinct(new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
             // range

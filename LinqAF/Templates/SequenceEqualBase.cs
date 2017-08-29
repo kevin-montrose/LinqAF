@@ -88,16 +88,18 @@ namespace LinqAF
         public bool SequenceEqual(BoxedEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, BoxedEnumerable<TItem>, BoxedEnumerator<TItem>>(RefThis(), ref second, comparer);
 
-        public bool SequenceEqual<TIdentityBridgeType, TIdentityEnumerator>(IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityEnumerator> second)
+        public bool SequenceEqual<TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>(IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator> second)
             where TIdentityBridgeType : class
             where TIdentityEnumerator : struct, IStructEnumerator<TItem>
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityEnumerator>, TIdentityEnumerator>(RefThis(), ref second, null);
+            where TIdentityBridger: struct, IStructBridger<TItem, TIdentityBridgeType, TIdentityEnumerator>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>, TIdentityEnumerator>(RefThis(), ref second, null);
 
 
-        public bool SequenceEqual<TIdentityBridgeType, TIdentityEnumerator>(IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityEnumerator> second, IEqualityComparer<TItem> comparer)
+        public bool SequenceEqual<TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>(IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator> second, IEqualityComparer<TItem> comparer)
             where TIdentityBridgeType : class
             where TIdentityEnumerator : struct, IStructEnumerator<TItem>
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityEnumerator>, TIdentityEnumerator>(RefThis(), ref second, comparer);
+            where TIdentityBridger : struct, IStructBridger<TItem, TIdentityBridgeType, TIdentityEnumerator>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>, TIdentityEnumerator>(RefThis(), ref second, comparer);
 
         public bool SequenceEqual<TCastInItem, TCastInnerEnumerable, TCastInnerEnumerator>(CastEnumerable<TCastInItem, TItem, TCastInnerEnumerable, TCastInnerEnumerator> second)
             where TCastInnerEnumerable : struct, IStructEnumerable<TCastInItem, TCastInnerEnumerator>
@@ -191,33 +193,37 @@ namespace LinqAF
             where TSelectInnerEnumerator : struct, IStructEnumerator<TSelectInItem>
         => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectIndexedEnumerable<TSelectInItem, TItem, TSelectInnerEnumerable, TSelectInnerEnumerator>, SelectIndexedEnumerator<TSelectInItem, TItem, TSelectInnerEnumerator>>(RefThis(), ref second, comparer);
 
-        public bool SequenceEqual<TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
+        public bool SequenceEqual<TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, null);
+            where TSelectManyBridger: struct, IStructBridger<TItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, null);
 
-        public bool SequenceEqual<TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public bool SequenceEqual<TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, comparer);
+            where TSelectManyBridger: struct, IStructBridger<TItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, comparer);
 
-        public bool SequenceEqual<TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
+        public bool SequenceEqual<TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, null);
+            where TSelectManyBridger: struct, IStructBridger<TItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, null);
 
-        public bool SequenceEqual<TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public bool SequenceEqual<TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, comparer);
+            where TSelectManyBridger: struct, IStructBridger<TItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, comparer);
 
         public bool SequenceEqual<TSelectManyInItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>(SelectManyEnumerable<TSelectManyInItem, TItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator> second)
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
@@ -247,33 +253,37 @@ namespace LinqAF
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyIndexedEnumerable<TSelectManyInItem, TItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>, SelectManyIndexedEnumerator<TSelectManyInItem, TItem, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>>(RefThis(), ref second, comparer);
 
-        public bool SequenceEqual<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
+        public bool SequenceEqual<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, null);
+            where TSelectManyBridger: struct, IStructBridger<TCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, null);
 
-        public bool SequenceEqual<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public bool SequenceEqual<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, comparer);
+            where TSelectManyBridger: struct, IStructBridger<TCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, comparer);
 
-        public bool SequenceEqual<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
+        public bool SequenceEqual<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, null);
+            where TSelectManyBridger: struct, IStructBridger<TCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, null);
 
-        public bool SequenceEqual<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public bool SequenceEqual<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, comparer);
+            where TSelectManyBridger: struct, IStructBridger<TCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second, comparer);
 
         public bool SequenceEqual<TSelectManyInItem, TCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>(SelectManyCollectionEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator> second)
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>

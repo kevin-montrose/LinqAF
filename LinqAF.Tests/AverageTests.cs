@@ -37,7 +37,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -47,7 +48,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -62,7 +64,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -72,7 +75,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -87,7 +91,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -97,7 +102,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -112,7 +118,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -122,7 +129,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -137,7 +145,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
                 Helper.ForEachEnumerableNoRetExpression(
@@ -147,7 +156,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -319,7 +329,7 @@ namespace LinqAF.Tests
                 Assert.AreEqual((decimal?)decimalAns, groupBySpecific.Average(g_nDecimalProj));
             }
 
-            // lookup
+            // lookupDefault
             {
                 Func<GroupingEnumerable<int, int>, int> g_intProj = x => (int)x.Key;
                 Func<GroupingEnumerable<int, int>, int?> g_nIntProj = x => (int?)x.Key;
@@ -333,22 +343,54 @@ namespace LinqAF.Tests
                 Func<GroupingEnumerable<int, int>, decimal?> g_nDecimalProj = x => (decimal?)x.Key;
 
                 // non-projection Average makes no sense
-                var lookup = new[] { 1, 2, 3, 4, 5 }.ToLookup(x => x);
+                var lookupDefault = new[] { 1, 2, 3, 4, 5 }.ToLookup(x => x);
 
                 double doubleAns = (1.0 + 2.0 + 3.0 + 4.0 + 5.0) / 5.0;
                 double floatAns = (1f + 2f + 3f + 4f + 5f) / 5f;
                 decimal decimalAns = (1m + 2m + 3m + 4m + 5m) / 5m;
 
-                Assert.AreEqual(doubleAns, lookup.Average(g_intProj));
-                Assert.AreEqual((double?)doubleAns, lookup.Average(g_nIntProj));
-                Assert.AreEqual(doubleAns, lookup.Average(g_longProj));
-                Assert.AreEqual((double?)doubleAns, lookup.Average(g_nLongProj));
-                Assert.AreEqual(floatAns, lookup.Average(g_floatProj));
-                Assert.AreEqual((float?)floatAns, lookup.Average(g_nFloatProj));
-                Assert.AreEqual(doubleAns, lookup.Average(g_doubleProj));
-                Assert.AreEqual((double?)doubleAns, lookup.Average(g_doubleProj));
-                Assert.AreEqual(decimalAns, lookup.Average(g_nDecimalProj));
-                Assert.AreEqual((decimal?)decimalAns, lookup.Average(g_nDecimalProj));
+                Assert.AreEqual(doubleAns, lookupDefault.Average(g_intProj));
+                Assert.AreEqual((double?)doubleAns, lookupDefault.Average(g_nIntProj));
+                Assert.AreEqual(doubleAns, lookupDefault.Average(g_longProj));
+                Assert.AreEqual((double?)doubleAns, lookupDefault.Average(g_nLongProj));
+                Assert.AreEqual(floatAns, lookupDefault.Average(g_floatProj));
+                Assert.AreEqual((float?)floatAns, lookupDefault.Average(g_nFloatProj));
+                Assert.AreEqual(doubleAns, lookupDefault.Average(g_doubleProj));
+                Assert.AreEqual((double?)doubleAns, lookupDefault.Average(g_doubleProj));
+                Assert.AreEqual(decimalAns, lookupDefault.Average(g_nDecimalProj));
+                Assert.AreEqual((decimal?)decimalAns, lookupDefault.Average(g_nDecimalProj));
+            }
+
+            // lookupSpecific
+            {
+                Func<GroupingEnumerable<int, int>, int> g_intProj = x => (int)x.Key;
+                Func<GroupingEnumerable<int, int>, int?> g_nIntProj = x => (int?)x.Key;
+                Func<GroupingEnumerable<int, int>, long> g_longProj = x => (long)x.Key;
+                Func<GroupingEnumerable<int, int>, long?> g_nLongProj = x => (long?)x.Key;
+                Func<GroupingEnumerable<int, int>, float> g_floatProj = x => (float)x.Key;
+                Func<GroupingEnumerable<int, int>, float?> g_nFloatProj = x => (float?)x.Key;
+                Func<GroupingEnumerable<int, int>, double> g_doubleProj = x => (double)x.Key;
+                Func<GroupingEnumerable<int, int>, double?> g_nDoubleProj = x => (double?)x.Key;
+                Func<GroupingEnumerable<int, int>, decimal> g_decimalProj = x => (decimal)x.Key;
+                Func<GroupingEnumerable<int, int>, decimal?> g_nDecimalProj = x => (decimal?)x.Key;
+
+                // non-projection Average makes no sense
+                var lookupSpecific = new[] { 1, 2, 3, 4, 5 }.ToLookup(x => x, new _IntComparer());
+
+                double doubleAns = (1.0 + 2.0 + 3.0 + 4.0 + 5.0) / 5.0;
+                double floatAns = (1f + 2f + 3f + 4f + 5f) / 5f;
+                decimal decimalAns = (1m + 2m + 3m + 4m + 5m) / 5m;
+
+                Assert.AreEqual(doubleAns, lookupSpecific.Average(g_intProj));
+                Assert.AreEqual((double?)doubleAns, lookupSpecific.Average(g_nIntProj));
+                Assert.AreEqual(doubleAns, lookupSpecific.Average(g_longProj));
+                Assert.AreEqual((double?)doubleAns, lookupSpecific.Average(g_nLongProj));
+                Assert.AreEqual(floatAns, lookupSpecific.Average(g_floatProj));
+                Assert.AreEqual((float?)floatAns, lookupSpecific.Average(g_nFloatProj));
+                Assert.AreEqual(doubleAns, lookupSpecific.Average(g_doubleProj));
+                Assert.AreEqual((double?)doubleAns, lookupSpecific.Average(g_doubleProj));
+                Assert.AreEqual(decimalAns, lookupSpecific.Average(g_nDecimalProj));
+                Assert.AreEqual((decimal?)decimalAns, lookupSpecific.Average(g_nDecimalProj));
             }
 
             // range
@@ -669,7 +711,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Average(default(Func<string, int>)); Assert.Fail(); } catch (ArgumentNullException e) { Assert.AreEqual(""selector"", e.ParamName); } }",
                    typeof(GroupByDefaultEnumerable<,,,,>),
                    typeof(GroupBySpecificEnumerable<,,,,>),
-                   typeof(LookupEnumerable<,>)
+                   typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -680,7 +723,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Average(default(Func<string, int?>)); Assert.Fail(); } catch (ArgumentNullException e) { Assert.AreEqual(""selector"", e.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -691,7 +735,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Average(default(Func<string, long>)); Assert.Fail(); } catch (ArgumentNullException e) { Assert.AreEqual(""selector"", e.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -702,7 +747,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Average(default(Func<string, long?>)); Assert.Fail(); } catch (ArgumentNullException e) { Assert.AreEqual(""selector"", e.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -713,7 +759,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Average(default(Func<string, float>)); Assert.Fail(); } catch (ArgumentNullException e) { Assert.AreEqual(""selector"", e.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -724,7 +771,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Average(default(Func<string, float?>)); Assert.Fail(); } catch (ArgumentNullException e) { Assert.AreEqual(""selector"", e.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -735,7 +783,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Average(default(Func<string, double>)); Assert.Fail(); } catch (ArgumentNullException e) { Assert.AreEqual(""selector"", e.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -746,7 +795,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Average(default(Func<string, double?>)); Assert.Fail(); } catch (ArgumentNullException e) { Assert.AreEqual(""selector"", e.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -757,7 +807,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Average(default(Func<string, decimal>)); Assert.Fail(); } catch (ArgumentNullException e) { Assert.AreEqual(""selector"", e.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -768,7 +819,8 @@ namespace LinqAF.Tests
                     @"a => { try { a.Average(default(Func<string, decimal?>)); Assert.Fail(); } catch (ArgumentNullException e) { Assert.AreEqual(""selector"", e.ParamName); } }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -780,7 +832,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -845,18 +898,32 @@ namespace LinqAF.Tests
                 try { groupBySpecific.Average(default(Func<GroupingEnumerable<string, string>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.Average(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Average(default(Func<GroupingEnumerable<int, int>, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Average(default(Func<GroupingEnumerable<int, int>, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Average(default(Func<GroupingEnumerable<int, int>, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Average(default(Func<GroupingEnumerable<int, int>, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Average(default(Func<GroupingEnumerable<int, int>, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Average(default(Func<GroupingEnumerable<int, int>, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Average(default(Func<GroupingEnumerable<int, int>, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Average(default(Func<GroupingEnumerable<int, int>, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Average(default(Func<GroupingEnumerable<int, int>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Average(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Average(default(Func<GroupingEnumerable<int, int>, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Average(default(Func<GroupingEnumerable<int, int>, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Average(default(Func<GroupingEnumerable<int, int>, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Average(default(Func<GroupingEnumerable<int, int>, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Average(default(Func<GroupingEnumerable<int, int>, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Average(default(Func<GroupingEnumerable<int, int>, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Average(default(Func<GroupingEnumerable<int, int>, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Average(default(Func<GroupingEnumerable<int, int>, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Average(default(Func<GroupingEnumerable<int, int>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.Average(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Average(default(Func<GroupingEnumerable<int, int>, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Average(default(Func<GroupingEnumerable<int, int>, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Average(default(Func<GroupingEnumerable<int, int>, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Average(default(Func<GroupingEnumerable<int, int>, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Average(default(Func<GroupingEnumerable<int, int>, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Average(default(Func<GroupingEnumerable<int, int>, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Average(default(Func<GroupingEnumerable<int, int>, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Average(default(Func<GroupingEnumerable<int, int>, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Average(default(Func<GroupingEnumerable<int, int>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
             }
 
             // range
@@ -978,7 +1045,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -999,7 +1067,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1020,7 +1089,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1041,7 +1111,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1062,7 +1133,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1083,7 +1155,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1104,7 +1177,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1125,7 +1199,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1146,7 +1221,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1167,7 +1243,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                   typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1310,7 +1387,8 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -1440,7 +1518,7 @@ namespace LinqAF.Tests
                 try { groupBySpecific.Average(g_nDecimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
                 // non-projection Average makes no sense
 
@@ -1457,16 +1535,45 @@ namespace LinqAF.Tests
                 Func<GroupingEnumerable<int, int>, DateTime> g_dtProj = x => new DateTime(2017, 08, 01, 0, 0, 0, DateTimeKind.Utc);
                 Func<GroupingEnumerable<int, int>, DateTime?> g_nDtProj = x => (DateTime?)new DateTime(2017, 08, 01, 0, 0, 0, DateTimeKind.Utc);
 
-                try { lookup.Average(g_intProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Average(g_nIntProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Average(g_longProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Average(g_nLongProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Average(g_floatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Average(g_nFloatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Average(g_doubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Average(g_nDoubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Average(g_decimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Average(g_nDecimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Average(g_intProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Average(g_nIntProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Average(g_longProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Average(g_nLongProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Average(g_floatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Average(g_nFloatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Average(g_doubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Average(g_nDoubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Average(g_decimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Average(g_nDecimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                // non-projection Average makes no sense
+
+                Func<GroupingEnumerable<int, int>, int> g_intProj = x => (int)x.Key;
+                Func<GroupingEnumerable<int, int>, int?> g_nIntProj = x => (int?)x.Key;
+                Func<GroupingEnumerable<int, int>, long> g_longProj = x => (long)x.Key;
+                Func<GroupingEnumerable<int, int>, long?> g_nLongProj = x => (long?)x.Key;
+                Func<GroupingEnumerable<int, int>, float> g_floatProj = x => (float)x.Key;
+                Func<GroupingEnumerable<int, int>, float?> g_nFloatProj = x => (float?)x.Key;
+                Func<GroupingEnumerable<int, int>, double> g_doubleProj = x => (double)x.Key;
+                Func<GroupingEnumerable<int, int>, double?> g_nDoubleProj = x => (double?)x.Key;
+                Func<GroupingEnumerable<int, int>, decimal> g_decimalProj = x => (decimal)x.Key;
+                Func<GroupingEnumerable<int, int>, decimal?> g_nDecimalProj = x => (decimal?)x.Key;
+                Func<GroupingEnumerable<int, int>, DateTime> g_dtProj = x => new DateTime(2017, 08, 01, 0, 0, 0, DateTimeKind.Utc);
+                Func<GroupingEnumerable<int, int>, DateTime?> g_nDtProj = x => (DateTime?)new DateTime(2017, 08, 01, 0, 0, 0, DateTimeKind.Utc);
+
+                try { lookupSpecific.Average(g_intProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Average(g_nIntProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Average(g_longProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Average(g_nLongProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Average(g_floatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Average(g_nFloatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Average(g_doubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Average(g_nDoubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Average(g_decimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Average(g_nDecimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
             // range

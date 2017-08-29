@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LinqAF.Config;
+using LinqAF.Impl;
+using System;
 using System.Collections.Generic;
 
 namespace LinqAF
@@ -7,7 +9,7 @@ namespace LinqAF
     {
         public TakeEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> Take(int count)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (count < 0)
             {
@@ -21,9 +23,9 @@ namespace LinqAF
 
         public List<TItem> ToList()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
-            var ret = new List<TItem>(this.TakeCount);
+            var ret = Allocator.Current.GetEmptyList<TItem>(this.TakeCount);
             foreach(var item in this)
             {
                 ret.Add(item);
@@ -34,9 +36,9 @@ namespace LinqAF
 
         public TItem[] ToArray()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
-            var ret = new TItem[this.TakeCount];
+            var ret = Allocator.Current.GetArray<TItem>(this.TakeCount);
             var ix = 0;
             foreach(var item in this)
             {
@@ -46,7 +48,7 @@ namespace LinqAF
 
             if(ix != ret.Length)
             {
-                Array.Resize(ref ret, ix);
+                Allocator.Current.ResizeArray(ref ret, ix);
             }
 
             return ret;
@@ -54,10 +56,10 @@ namespace LinqAF
 
         public Dictionary<TToDictionary_Key, TItem> ToDictionary<TToDictionary_Key>(Func<TItem, TToDictionary_Key> keySelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            var ret = new Dictionary<TToDictionary_Key, TItem>(this.TakeCount);
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TItem>(this.TakeCount, null);
             foreach (var item in this)
             {
                 ret.Add(keySelector(item), item);
@@ -67,11 +69,11 @@ namespace LinqAF
 
         public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<TItem, TToDictionary_Key> keySelector, Func<TItem, TToDictionary_Value> elementSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
-            var ret = new Dictionary<TToDictionary_Key, TToDictionary_Value>(this.TakeCount);
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TToDictionary_Value>(this.TakeCount, null);
             foreach (var item in this)
             {
                 ret.Add(keySelector(item), elementSelector(item));
@@ -81,10 +83,10 @@ namespace LinqAF
 
         public Dictionary<TToDictionary_Key, TItem> ToDictionary<TToDictionary_Key>(Func<TItem, TToDictionary_Key> keySelector, IEqualityComparer<TToDictionary_Key> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            var ret = new Dictionary<TToDictionary_Key, TItem>(this.TakeCount, comparer);
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TItem>(this.TakeCount, comparer);
             foreach (var item in this)
             {
                 ret.Add(keySelector(item), item);
@@ -94,11 +96,11 @@ namespace LinqAF
 
         public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<TItem, TToDictionary_Key> keySelector, Func<TItem, TToDictionary_Value> elementSelector, IEqualityComparer<TToDictionary_Key> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
-            var ret = new Dictionary<TToDictionary_Key, TToDictionary_Value>(this.TakeCount, comparer);
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TToDictionary_Value>(this.TakeCount, comparer);
             foreach (var item in this)
             {
                 ret.Add(keySelector(item), elementSelector(item));

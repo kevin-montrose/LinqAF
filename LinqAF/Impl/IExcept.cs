@@ -7,93 +7,94 @@ namespace LinqAF.Impl
         where TLeftEnumerator : struct, IStructEnumerator<TItem>
     {
         ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, BoxedEnumerable<TItem>, BoxedEnumerator<TItem>> Except(BoxedEnumerable<TItem> second);
-        ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Except(IEnumerable<TItem> second);
+        ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Except(IEnumerable<TItem> second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>,
+                    IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>,
                     DictionaryKeysEnumerator<TItem, TDictionaryValue>
                 > Except<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>,
+                    IdentityEnumerable<TItem, Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TExcept_DictionaryKey, TItem>, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>,
                     DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>
                 > Except<TExcept_DictionaryKey>(Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>,
                     HashSetEnumerator<TItem>
                 > Except(HashSet<TItem> second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>,
                     LinkedListEnumerator<TItem>
                 > Except(LinkedList<TItem> second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>,
                     ListEnumerator<TItem>
                 > Except(List<TItem> second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>,
                     QueueEnumerator<TItem>
                 > Except(Queue<TItem> second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>>,
+                    IdentityEnumerable<TItem, SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TExcept_DictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>>,
                     SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>
                 > Except<TExcept_DictionaryValue>(SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>,
+                    IdentityEnumerable<TItem, SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TExcept_DictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>,
                     SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>
                 > Except<TExcept_DictionaryKey>(SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>,
                     SortedSetEnumerator<TItem>
                 > Except(SortedSet<TItem> second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>,
                     StackEnumerator<TItem>
                 > Except(Stack<TItem> second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>,
                     ArrayEnumerator<TItem>
                 > Except(TItem[] second);
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>,
+                    IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator>,
                     TExcept_IdentityEnumerator
-                > Except<TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>(IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator> second)
+                > Except<TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator>(IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator> second)
                     where TExcept_IdentityEnumerator : struct, IStructEnumerator<TItem>
-                    where TExcept_IdentityBridgeType : class;
+                    where TExcept_IdentityBridgeType : class
+                    where TExcept_IdentityBridger: struct, IStructBridger<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>;
         ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ConcatEnumerable<TItem, TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator>, ConcatEnumerator<TItem, TInnerLeftEnumerator, TInnerRightEnumerator>> Except<TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator>(ConcatEnumerable<TItem, TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator> second)
                     where TInnerLeftEnumerable : struct, IStructEnumerable<TItem, TInnerLeftEnumerator>
                     where TInnerLeftEnumerator : struct, IStructEnumerator<TItem>
@@ -108,41 +109,45 @@ namespace LinqAF.Impl
         ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectIndexedEnumerable<TExcept_SelectInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator>, SelectIndexedEnumerator<TExcept_SelectInItem, TItem, TExcept_InnerEnumerator>> Except<TExcept_SelectInItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator>(SelectIndexedEnumerable<TExcept_SelectInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator> second)
                    where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectInItem, TExcept_InnerEnumerator>
                    where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectInItem>;
-        ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>, SelectManyBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>(SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator> second)
+        ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>, SelectManyBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>(SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator> second)
                     where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_InnerEnumerator>
                     where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
                     where TExcept_ProjectedEnumerator : struct, IStructEnumerator<TItem>
+                    where TExcept_Bridger: struct, IStructBridger<TItem, TExcept_BridgeType, TExcept_ProjectedEnumerator>
                     where TExcept_BridgeType : class;
-        ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second)
+        ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second)
                     where TExcept_SelectManyInnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_SelectManyInnerEnumerator>
                     where TExcept_SelectManyInnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
                     where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
+                    where TExcept_Bridger: struct, IStructBridger<TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
                     where TExcept_SelectManyBridgeType : class;
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>,
-                    SelectManyCollectionBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>
-                > Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>(
-                    SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator> second
+                    SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>,
+                    SelectManyCollectionBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>
+                > Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>(
+                    SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator> second
                 )
                     where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_InnerEnumerator>
                     where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
                     where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TExcept_CollectionItem>
+                    where TExcept_Bridger: struct, IStructBridger<TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
                     where TExcept_SelectManyBridgeType : class;
         ExceptDefaultEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>,
-                    SelectManyCollectionIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>
-                > Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(
-                    SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second
+                    SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>,
+                    SelectManyCollectionIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>
+                > Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(
+                    SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second
                 )
                     where TExcept_SelectManyInnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_SelectManyInnerEnumerator>
                     where TExcept_SelectManyInnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
                     where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TExcept_CollectionItem>
+            where TExcept_Bridger : struct, IStructBridger<TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
                     where TExcept_SelectManyBridgeType : class;
         ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyEnumerable<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>, SelectManyEnumerator<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>(SelectManyEnumerable<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator> second)
                     where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_InnerEnumerator>
@@ -345,93 +350,94 @@ namespace LinqAF.Impl
                     where TJoinRightEnumerable : struct, IStructEnumerable<TJoinRightItem, TJoinRightEnumerator>
                     where TJoinRightEnumerator : struct, IStructEnumerator<TJoinRightItem>;
         ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, BoxedEnumerable<TItem>, BoxedEnumerator<TItem>> Except(BoxedEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
-        ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Except(IEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
+        ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Except(IEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>,
+                    IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>,
                     DictionaryKeysEnumerator<TItem, TDictionaryValue>
                 > Except<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>,
+                    IdentityEnumerable<TItem, Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TExcept_DictionaryKey, TItem>, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>,
                     DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>
                 > Except<TExcept_DictionaryKey>(Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>,
                     HashSetEnumerator<TItem>
                 > Except(HashSet<TItem> second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>,
                     LinkedListEnumerator<TItem>
                 > Except(LinkedList<TItem> second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>,
                     ListEnumerator<TItem>
                 > Except(List<TItem> second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>,
                     QueueEnumerator<TItem>
                 > Except(Queue<TItem> second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>>,
+                    IdentityEnumerable<TItem, SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TExcept_DictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>>,
                     SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>
                 > Except<TExcept_DictionaryValue>(SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>,
+                    IdentityEnumerable<TItem, SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TExcept_DictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>,
                     SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>
                 > Except<TExcept_DictionaryKey>(SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>,
                     SortedSetEnumerator<TItem>
                 > Except(SortedSet<TItem> second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>,
                     StackEnumerator<TItem>
                 > Except(Stack<TItem> second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>,
+                    IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>,
                     ArrayEnumerator<TItem>
                 > Except(TItem[] second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>,
+                    IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator>,
                     TExcept_IdentityEnumerator
-                > Except<TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>(IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator> second, IEqualityComparer<TItem> comparer)
+                > Except<TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator>(IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator> second, IEqualityComparer<TItem> comparer)
                     where TExcept_IdentityEnumerator : struct, IStructEnumerator<TItem>
-                    where TExcept_IdentityBridgeType : class;
+                    where TExcept_IdentityBridgeType : class
+                    where TExcept_IdentityBridger: struct, IStructBridger<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>;
         ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ConcatEnumerable<TItem, TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator>, ConcatEnumerator<TItem, TInnerLeftEnumerator, TInnerRightEnumerator>> Except<TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator>(ConcatEnumerable<TItem, TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator> second, IEqualityComparer<TItem> comparer)
                     where TInnerLeftEnumerable : struct, IStructEnumerable<TItem, TInnerLeftEnumerator>
                     where TInnerLeftEnumerator : struct, IStructEnumerator<TItem>
@@ -446,43 +452,47 @@ namespace LinqAF.Impl
         ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectIndexedEnumerable<TExcept_SelectInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator>, SelectIndexedEnumerator<TExcept_SelectInItem, TItem, TExcept_InnerEnumerator>> Except<TExcept_SelectInItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator>(SelectIndexedEnumerable<TExcept_SelectInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator> second, IEqualityComparer<TItem> comparer)
                    where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectInItem, TExcept_InnerEnumerator>
                    where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectInItem>;
-        ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>, SelectManyBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>(SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>, SelectManyBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>(SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
                     where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_InnerEnumerator>
                     where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
                     where TExcept_ProjectedEnumerator : struct, IStructEnumerator<TItem>
+                    where TExcept_Bridger: struct, IStructBridger<TItem, TExcept_BridgeType, TExcept_ProjectedEnumerator>
                     where TExcept_BridgeType : class;
-        ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
                     where TExcept_SelectManyInnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_SelectManyInnerEnumerator>
                     where TExcept_SelectManyInnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
                     where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
+                    where TExcept_Bridger: struct, IStructBridger<TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
                     where TExcept_SelectManyBridgeType : class;
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>,
-                    SelectManyCollectionBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>
-                > Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>(
-                    SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator> second,
+                    SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>,
+                    SelectManyCollectionBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>
+                > Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>(
+                    SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator> second,
                     IEqualityComparer<TItem> comparer
                 )
                     where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_InnerEnumerator>
                     where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
                     where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TExcept_CollectionItem>
+                    where TExcept_Bridger: struct, IStructBridger<TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
                     where TExcept_SelectManyBridgeType : class;
         ExceptSpecificEnumerable<
                     TItem,
                     TLeftEnumerable,
                     TLeftEnumerator,
-                    SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>,
-                    SelectManyCollectionIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>
-                > Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(
-                    SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second,
+                    SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>,
+                    SelectManyCollectionIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>
+                > Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(
+                    SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second,
                     IEqualityComparer<TItem> comparer
                 )
                     where TExcept_SelectManyInnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_SelectManyInnerEnumerator>
                     where TExcept_SelectManyInnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
                     where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TExcept_CollectionItem>
+                    where TExcept_Bridger : struct, IStructBridger<TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
                     where TExcept_SelectManyBridgeType : class;
         ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectManyEnumerable<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>, SelectManyEnumerator<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>(SelectManyEnumerable<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
                     where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_InnerEnumerator>

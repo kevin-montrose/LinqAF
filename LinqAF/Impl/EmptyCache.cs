@@ -13,13 +13,15 @@ namespace LinqAF.Impl
 
         public static EmptyComparer<TItem> EmptyComparer = new EmptyComparer<TItem>(Enumerable.EmptyComparerSigil);
 
+        // intentionally not using Allocator.Current since this is to never be modified or released
         public static List<TItem> List = new List<TItem>(0);
+        public static TItem[] Array = new TItem[0];
 
         class BadBoxedEmptyImpl : IBoxedEnumerable<TItem>
         {
             public IBoxedEnumerator<TItem> GetEnumerator()
             {
-                throw new InvalidOperationException("Inner enumerable is uninitialized");
+                throw CommonImplementation.InnerUninitialized();
             }
 
             public bool IsDefaultValue() => true;
@@ -50,7 +52,13 @@ namespace LinqAF.Impl
 
     static class EmptyCache<TItem1, TItem2>
     {
-        public static LookupEnumerable<TItem1, TItem2> EmptyLookup = new LookupEnumerable<TItem1, TItem2>(new List<TItem1>(0), new Dictionary<TItem1, GroupingEnumerable<TItem1, TItem2>>(0), null);
-        public static GroupingEnumerable<TItem1, TItem2> EmptyGrouping = new GroupingEnumerable<TItem1, TItem2>(default(TItem1), new List<TItem2>(0));
+        // intentionally not using Allocator.Current since these are never to be modified or released
+        static IndexedItemContainer<TItem2> EmptyContainer = new IndexedItemContainer<TItem2>(0, new TItem2[0]);
+        static LookupHashtable<TItem1, TItem2> EmptyLookupHashtable = new LookupHashtable<TItem1, TItem2>(0, new SlimGrouping<TItem1, TItem2>[0], new LookupBucket<TItem1, TItem2>[0]);
+
+        public static LookupDefaultEnumerable<TItem1, TItem2> EmptyLookupDefault = new LookupDefaultEnumerable<TItem1, TItem2>(ref EmptyLookupHashtable);
+        public static LookupSpecificEnumerable<TItem1, TItem2> EmptyLookupSpecific = new LookupSpecificEnumerable<TItem1, TItem2>(ref EmptyLookupHashtable, EqualityComparer<TItem1>.Default);
+        public static GroupingEnumerable<TItem1, TItem2> EmptyGrouping = new GroupingEnumerable<TItem1, TItem2>(default(TItem1), 0, new int[0], ref EmptyContainer);
+        public static GroupedEnumerable<TItem1, TItem2> EmptyGrouped = new GroupedEnumerable<TItem1, TItem2>(ref EmptyGrouping);
     }
 }

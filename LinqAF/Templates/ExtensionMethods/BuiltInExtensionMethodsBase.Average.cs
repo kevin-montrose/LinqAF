@@ -9,7 +9,7 @@ namespace LinqAF
         public double Average<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, long> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.AverageSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -17,7 +17,7 @@ namespace LinqAF
         public float Average<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, float> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.AverageSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -25,7 +25,7 @@ namespace LinqAF
         public double Average<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, double> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.AverageSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -33,7 +33,7 @@ namespace LinqAF
         public decimal Average<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, decimal> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.AverageSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -41,7 +41,7 @@ namespace LinqAF
         public decimal? Average<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, decimal?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.AverageSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -49,7 +49,7 @@ namespace LinqAF
         public double? Average<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, double?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.AverageSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -57,7 +57,7 @@ namespace LinqAF
         public float? Average<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, float?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.AverageSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -65,7 +65,7 @@ namespace LinqAF
         public double? Average<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, long?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.AverageSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -73,7 +73,7 @@ namespace LinqAF
         public double? Average<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int?> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.AverageSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }
@@ -81,7 +81,7 @@ namespace LinqAF
         public double Average<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return CommonImplementation.AverageSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
         }

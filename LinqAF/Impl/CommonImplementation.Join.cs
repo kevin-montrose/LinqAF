@@ -27,11 +27,11 @@ namespace LinqAF.Impl
             where TRightEnumerable : struct, IStructEnumerable<TRightItem, TRightEnumerator>
             where TRightEnumerator : struct, IStructEnumerator<TRightItem>
         {
-            if (outer.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(outer));
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outer.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 JoinImpl<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, TRightEnumerable, TRightEnumerator>(
@@ -91,12 +91,12 @@ namespace LinqAF.Impl
             where TRightEnumerable : struct, IStructEnumerable<TRightItem, TRightEnumerator>
             where TRightEnumerator : struct, IStructEnumerator<TRightItem>
         {
-            if (outer.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(outer));
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
-
+            if (outer.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+            
             return
                 JoinImpl<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, TRightEnumerable, TRightEnumerator>(
                     ref outer,
@@ -131,6 +131,8 @@ namespace LinqAF.Impl
             where TRightEnumerable : struct, IStructEnumerable<TRightItem, TRightEnumerator>
             where TRightEnumerator : struct, IStructEnumerator<TRightItem>
         {
+            comparer = comparer ?? EqualityComparer<TKeyItem>.Default;
+
             return new JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, TRightEnumerable, TRightEnumerator>(ref outer, ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
     }

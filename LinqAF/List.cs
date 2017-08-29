@@ -1,9 +1,9 @@
 ﻿using LinqAF.Impl;
-using System;
 using System.Collections.Generic;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ListEnumerator<TItem>: IStructEnumerator<TItem>
     {
         public TItem Current { get; private set; }

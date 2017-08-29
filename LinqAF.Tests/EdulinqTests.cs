@@ -843,7 +843,7 @@ namespace LinqAF.Tests
             Assert.AreEqual(3, Enumerable.Range(2, 5).Count(x => x % 2 == 0));
         }
 
-        [TestMethod]
+        /*[TestMethod]
         //[Ignore("Takes an enormous amount of time!")]
         public void Count_Overflow()
         {
@@ -859,7 +859,7 @@ namespace LinqAF.Tests
             var largeSequence = Enumerable.Range(0, int.MaxValue)
                                           .Concat(Enumerable.Range(0, 1));
             Helper.Throws<OverflowException>(() => largeSequence.Count(x => x >= 0));
-        }
+        }*/
 
         // DefaultIfEmpty
         [TestMethod]
@@ -2140,7 +2140,7 @@ namespace LinqAF.Tests
             Assert.AreEqual(3, Enumerable.Range(2, 5).LongCount(x => x % 2 == 0));
         }
 
-        [TestMethod]
+        /*[TestMethod]
         //[Ignore("Takes an enormous amount of time!")]
         public void LongCount_CollectionBiggerThanMaxInt32CanBeCountedWithLongCount()
         {
@@ -2154,7 +2154,7 @@ namespace LinqAF.Tests
         {
             var hugeCollection = Enumerable.Range(0, int.MaxValue).Concat(Enumerable.Range(0, 1));
             Assert.AreEqual(int.MaxValue + 1L, hugeCollection.LongCount(x => x >= 0));
-        }
+        }*/
 
         // Max
         #region Int32 tests

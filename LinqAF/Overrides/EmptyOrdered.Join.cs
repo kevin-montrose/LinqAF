@@ -9,549 +9,572 @@ namespace LinqAF
     {
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(OneItemDefaultOrderedEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(OneItemDefaultOrderedEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(OneItemSpecificOrderedEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(OneItemSpecificOrderedEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem>(IEnumerable inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<object, TJoin_KeyItem> innerKeySelector, Func<TItem, object, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem>(IEnumerable inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<object, TJoin_KeyItem> innerKeySelector, Func<TItem, object, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_RightItem, TJoin_KeyItem>(EmptyOrderedEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_RightItem, TJoin_KeyItem>(EmptyEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(IEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(LinkedList<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(Queue<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(ReverseRangeEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(Stack<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(SortedSet<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(RepeatEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(RangeEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(List<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(TJoin_RightItem[] inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(BoxedEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(IEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(ReverseRangeEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(LinkedList<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(TJoin_RightItem[] inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_RightItem, TJoin_KeyItem>(EmptyOrderedEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(Stack<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(Queue<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(RepeatEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(RangeEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(SortedSet<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(List<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_RightItem, TJoin_KeyItem>(EmptyEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(BoxedEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_DictionaryValue>(Dictionary<TJoin_RightItem, TJoin_DictionaryValue>.KeyCollection inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_GroupedKey>(GroupingEnumerable<TJoin_GroupedKey, TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_DictionaryKey>(Dictionary<TJoin_DictionaryKey, TJoin_RightItem>.ValueCollection inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_DictionaryValue>(SortedDictionary<TJoin_RightItem, TJoin_DictionaryValue>.KeyCollection inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_LookupKey, TJoin_LookupElement>(LookupEnumerable<TJoin_LookupKey, TJoin_LookupElement> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_KeyItem> innerKeySelector, Func<TItem, GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_OutItem> resultSelector)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_LookupKey, TJoin_LookupElement>(LookupDefaultEnumerable<TJoin_LookupKey, TJoin_LookupElement> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_KeyItem> innerKeySelector, Func<TItem, GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return EmptyCache<TJoin_OutItem>.Empty;
+        }
+
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_LookupKey, TJoin_LookupElement>(LookupSpecificEnumerable<TJoin_LookupKey, TJoin_LookupElement> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_KeyItem> innerKeySelector, Func<TItem, GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_OutItem> resultSelector)
+        {
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_DictionaryKey>(SortedDictionary<TJoin_DictionaryKey, TJoin_RightItem>.ValueCollection inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_DictionaryKey, TJoin_DictionaryValue>(SortedDictionary<TJoin_DictionaryKey, TJoin_DictionaryValue> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<KeyValuePair<TJoin_DictionaryKey, TJoin_DictionaryValue>, TJoin_KeyItem> innerKeySelector, Func<TItem, KeyValuePair<TJoin_DictionaryKey, TJoin_DictionaryValue>, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_DictionaryKey, TJoin_DictionaryValue>(Dictionary<TJoin_DictionaryKey, TJoin_DictionaryValue> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<KeyValuePair<TJoin_DictionaryKey, TJoin_DictionaryValue>, TJoin_KeyItem> innerKeySelector, Func<TItem, KeyValuePair<TJoin_DictionaryKey, TJoin_DictionaryValue>, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_GroupedKey>(GroupedEnumerable<TJoin_GroupedKey, TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_DictionaryValue>(Dictionary<TJoin_RightItem, TJoin_DictionaryValue>.KeyCollection inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_DictionaryKey, TJoin_DictionaryValue>(Dictionary<TJoin_DictionaryKey, TJoin_DictionaryValue> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<KeyValuePair<TJoin_DictionaryKey, TJoin_DictionaryValue>, TJoin_KeyItem> innerKeySelector, Func<TItem, KeyValuePair<TJoin_DictionaryKey, TJoin_DictionaryValue>, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_DictionaryKey>(SortedDictionary<TJoin_DictionaryKey, TJoin_RightItem>.ValueCollection inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_DictionaryValue>(SortedDictionary<TJoin_RightItem, TJoin_DictionaryValue>.KeyCollection inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_GroupedKey>(GroupingEnumerable<TJoin_GroupedKey, TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_DictionaryKey>(Dictionary<TJoin_DictionaryKey, TJoin_RightItem>.ValueCollection inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_LookupKey, TJoin_LookupElement>(LookupEnumerable<TJoin_LookupKey, TJoin_LookupElement> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_KeyItem> innerKeySelector, Func<TItem, GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_LookupKey, TJoin_LookupElement>(LookupDefaultEnumerable<TJoin_LookupKey, TJoin_LookupElement> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_KeyItem> innerKeySelector, Func<TItem, GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
+
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_LookupKey, TJoin_LookupElement>(LookupSpecificEnumerable<TJoin_LookupKey, TJoin_LookupElement> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_KeyItem> innerKeySelector, Func<TItem, GroupingEnumerable<TJoin_LookupKey, TJoin_LookupElement>, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
+        {
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return EmptyCache<TJoin_OutItem>.Empty;
+        }
+
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_DictionaryKey, TJoin_DictionaryValue>(SortedDictionary<TJoin_DictionaryKey, TJoin_DictionaryValue> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<KeyValuePair<TJoin_DictionaryKey, TJoin_DictionaryValue>, TJoin_KeyItem> innerKeySelector, Func<TItem, KeyValuePair<TJoin_DictionaryKey, TJoin_DictionaryValue>, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner == null) throw new ArgumentNullException(nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner == null) throw CommonImplementation.ArgumentNull(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_GroupedKey>(GroupedEnumerable<TJoin_GroupedKey, TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -560,11 +583,11 @@ namespace LinqAF
             where TJoin_TakeInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_TakeInnerEnumerator>
             where TJoin_TakeInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -573,11 +596,11 @@ namespace LinqAF
             where TJoin_DistinctInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_DistinctInnerEnumerator>
             where TJoin_DistinctInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -586,11 +609,11 @@ namespace LinqAF
             where TJoin_WhereInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_WhereInnerEnumerator>
             where TJoin_WhereInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -599,11 +622,11 @@ namespace LinqAF
             where TJoin_WhereInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_WhereInnerEnumerator>
             where TJoin_WhereInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -612,11 +635,11 @@ namespace LinqAF
             where TJoin_DistinctInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_DistinctInnerEnumerator>
             where TJoin_DistinctInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -625,24 +648,39 @@ namespace LinqAF
             where TJoin_ReverseInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_ReverseInnerEnumerator>
             where TJoin_ReverseInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_BridgeType, TJoin_IdentityEnumerator>(IdentityEnumerable<TJoin_RightItem, TJoin_BridgeType, TJoin_IdentityEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_BridgeType, TJoin_IdentityBridger, TJoin_IdentityEnumerator>(IdentityEnumerable<TJoin_RightItem, TJoin_BridgeType, TJoin_IdentityBridger, TJoin_IdentityEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
             where TJoin_BridgeType : class
             where TJoin_IdentityEnumerator : struct, IStructEnumerator<TJoin_RightItem>
+            where TJoin_IdentityBridger : struct, IStructBridger<TJoin_RightItem, TJoin_BridgeType, TJoin_IdentityEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return EmptyCache<TJoin_OutItem>.Empty;
+        }
+
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_BridgeType, TJoin_IdentityBridger, TJoin_IdentityEnumerator>(IdentityEnumerable<TJoin_RightItem, TJoin_BridgeType, TJoin_IdentityBridger, TJoin_IdentityEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
+            where TJoin_BridgeType : class
+            where TJoin_IdentityEnumerator : struct, IStructEnumerator<TJoin_RightItem>
+            where TJoin_IdentityBridger : struct, IStructBridger<TJoin_RightItem, TJoin_BridgeType, TJoin_IdentityEnumerator>
+        {
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -651,11 +689,11 @@ namespace LinqAF
             where TJoin_SkipInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_SkipInnerEnumerator>
             where TJoin_SkipInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -664,11 +702,11 @@ namespace LinqAF
             where TJoin_SkipInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_SkipInnerEnumerator>
             where TJoin_SkipInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -677,11 +715,11 @@ namespace LinqAF
             where TJoin_TakeInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_TakeInnerEnumerator>
             where TJoin_TakeInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -690,11 +728,11 @@ namespace LinqAF
             where TJoin_TakeInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_TakeInnerEnumerator>
             where TJoin_TakeInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -703,11 +741,11 @@ namespace LinqAF
             where TJoin_SkipInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_SkipInnerEnumerator>
             where TJoin_SkipInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -716,11 +754,11 @@ namespace LinqAF
             where TJoin_DefaultIfEmptyInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_DefaultIfEmptyInnerEnumerator>
             where TJoin_DefaultIfEmptyInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -729,11 +767,11 @@ namespace LinqAF
             where TJoin_DefaultIfEmptyInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_DefaultIfEmptyInnerEnumerator>
             where TJoin_DefaultIfEmptyInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -742,11 +780,11 @@ namespace LinqAF
             where TJoin_DistinctInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_DistinctInnerEnumerator>
             where TJoin_DistinctInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -755,11 +793,11 @@ namespace LinqAF
             where TJoin_SkipInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_SkipInnerEnumerator>
             where TJoin_SkipInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -768,11 +806,11 @@ namespace LinqAF
             where TJoin_DistinctInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_DistinctInnerEnumerator>
             where TJoin_DistinctInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -781,11 +819,11 @@ namespace LinqAF
             where TJoin_DefaultIfEmptyInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_DefaultIfEmptyInnerEnumerator>
             where TJoin_DefaultIfEmptyInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -794,11 +832,11 @@ namespace LinqAF
             where TJoin_ReverseInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_ReverseInnerEnumerator>
             where TJoin_ReverseInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -807,11 +845,11 @@ namespace LinqAF
             where TJoin_TakeInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_TakeInnerEnumerator>
             where TJoin_TakeInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -820,11 +858,11 @@ namespace LinqAF
             where TJoin_TakeInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_TakeInnerEnumerator>
             where TJoin_TakeInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -833,11 +871,11 @@ namespace LinqAF
             where TJoin_WhereInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_WhereInnerEnumerator>
             where TJoin_WhereInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -846,11 +884,11 @@ namespace LinqAF
             where TJoin_WhereInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_WhereInnerEnumerator>
             where TJoin_WhereInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -859,24 +897,11 @@ namespace LinqAF
             where TJoin_TakeInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_TakeInnerEnumerator>
             where TJoin_TakeInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
-
-            return EmptyCache<TJoin_OutItem>.Empty;
-        }
-
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_BridgeType, TJoin_IdentityEnumerator>(IdentityEnumerable<TJoin_RightItem, TJoin_BridgeType, TJoin_IdentityEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
-            where TJoin_BridgeType : class
-            where TJoin_IdentityEnumerator : struct, IStructEnumerator<TJoin_RightItem>
-        {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -885,11 +910,11 @@ namespace LinqAF
             where TJoin_SkipInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_SkipInnerEnumerator>
             where TJoin_SkipInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -898,11 +923,11 @@ namespace LinqAF
             where TJoin_SkipInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_SkipInnerEnumerator>
             where TJoin_SkipInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -911,11 +936,11 @@ namespace LinqAF
             where TJoin_DefaultIfEmptyInnerEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_DefaultIfEmptyInnerEnumerator>
             where TJoin_DefaultIfEmptyInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -924,11 +949,11 @@ namespace LinqAF
             where TJoin_SelectInnerEnumerable : struct, IStructEnumerable<TJoin_SelectInItem, TJoin_SelectInnerEnumerator>
             where TJoin_SelectInnerEnumerator : struct, IStructEnumerator<TJoin_SelectInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -938,11 +963,11 @@ namespace LinqAF
             where TJoin_OrderByInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
             where TJoin_OrderByComparer : struct, IStructComparer<TJoin_RightItem, TJoin_OrderByKey>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -951,11 +976,11 @@ namespace LinqAF
             where TJoin_SelectInnerEnumerable : struct, IStructEnumerable<TJoin_SelectInItem, TJoin_SelectInnerEnumerator>
             where TJoin_SelectInnerEnumerator : struct, IStructEnumerator<TJoin_SelectInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -965,11 +990,11 @@ namespace LinqAF
             where TJoin_WhereInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
             where TJoin_WherePredicate : struct, IStructPredicate<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -978,11 +1003,11 @@ namespace LinqAF
             where TJoin_OfTypeInnerEnumerable : struct, IStructEnumerable<TJoin_OfTypeInItem, TJoin_OfTypeInnerEnumerator>
             where TJoin_OfTypeInnerEnumerator : struct, IStructEnumerator<TJoin_OfTypeInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -991,11 +1016,11 @@ namespace LinqAF
             where TJoin_CastInnerEnumerable : struct, IStructEnumerable<TJoin_CastInItem, TJoin_CastInnerEnumerator>
             where TJoin_CastInnerEnumerator : struct, IStructEnumerator<TJoin_CastInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1005,11 +1030,11 @@ namespace LinqAF
             where TJoin_OrderByInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
             where TJoin_OrderByComparer : struct, IStructComparer<TJoin_RightItem, TJoin_OrderByKey>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1018,11 +1043,11 @@ namespace LinqAF
             where TJoin_SelectInnerEnumerable : struct, IStructEnumerable<TJoin_SelectInItem, TJoin_SelectInnerEnumerator>
             where TJoin_SelectInnerEnumerator : struct, IStructEnumerator<TJoin_SelectInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1032,11 +1057,11 @@ namespace LinqAF
             where TJoin_WhereInnerEnumerator : struct, IStructEnumerator<TJoin_RightItem>
             where TJoin_WherePredicate : struct, IStructPredicate<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1045,11 +1070,11 @@ namespace LinqAF
             where TJoin_SelectInnerEnumerable : struct, IStructEnumerable<TJoin_SelectInItem, TJoin_SelectInnerEnumerator>
             where TJoin_SelectInnerEnumerator : struct, IStructEnumerator<TJoin_SelectInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1058,11 +1083,11 @@ namespace LinqAF
             where TJoin_OfTypeInnerEnumerable : struct, IStructEnumerable<TJoin_OfTypeInItem, TJoin_OfTypeInnerEnumerator>
             where TJoin_OfTypeInnerEnumerator : struct, IStructEnumerator<TJoin_OfTypeInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1071,11 +1096,11 @@ namespace LinqAF
             where TJoin_CastInnerEnumerable : struct, IStructEnumerable<TJoin_CastInItem, TJoin_CastInnerEnumerator>
             where TJoin_CastInnerEnumerator : struct, IStructEnumerator<TJoin_CastInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1086,11 +1111,11 @@ namespace LinqAF
             where TJoin_UnionSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_UnionSecondEnumerator>
             where TJoin_UnionSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1101,11 +1126,11 @@ namespace LinqAF
             where TJoin_ExceptSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_ExceptSecondEnumerator>
             where TJoin_ExceptSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1115,11 +1140,11 @@ namespace LinqAF
             where TJoin_SelectInnerEnumerator : struct, IStructEnumerator<TJoin_SelectInnerItem>
             where TJoin_SelectProjection : struct, IStructProjection<TJoin_RightItem, TJoin_SelectInnerItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1130,11 +1155,11 @@ namespace LinqAF
             where TJoin_ExceptSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_ExceptSecondEnumerator>
             where TJoin_ExceptSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1143,11 +1168,11 @@ namespace LinqAF
             where TJoin_GroupByEnumerable : struct, IStructEnumerable<TJoin_GroupByInItem, TJoin_GroupByEnumerator>
             where TJoin_GroupByEnumerator : struct, IStructEnumerator<TJoin_GroupByInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1158,11 +1183,11 @@ namespace LinqAF
             where TJoin_IntersectSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_IntersectSecondEnumerator>
             where TJoin_IntersectSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1173,11 +1198,11 @@ namespace LinqAF
             where TJoin_IntersectSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_IntersectSecondEnumerator>
             where TJoin_IntersectSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1186,11 +1211,11 @@ namespace LinqAF
             where TJoin_GroupByEnumerable : struct, IStructEnumerable<TJoin_GroupByInItem, TJoin_GroupByEnumerator>
             where TJoin_GroupByEnumerator : struct, IStructEnumerator<TJoin_GroupByInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1201,11 +1226,11 @@ namespace LinqAF
             where TJoin_UnionSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_UnionSecondEnumerator>
             where TJoin_UnionSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1216,11 +1241,11 @@ namespace LinqAF
             where TJoin_ConcatSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_ConcatSecondEnumerator>
             where TJoin_ConcatSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1231,11 +1256,11 @@ namespace LinqAF
             where TJoin_ExceptSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_ExceptSecondEnumerator>
             where TJoin_ExceptSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1245,11 +1270,11 @@ namespace LinqAF
             where TJoin_SelectInnerEnumerator : struct, IStructEnumerator<TJoin_SelectInnerItem>
             where TJoin_SelectProjection : struct, IStructProjection<TJoin_RightItem, TJoin_SelectInnerItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1258,11 +1283,11 @@ namespace LinqAF
             where TJoin_GroupByEnumerable : struct, IStructEnumerable<TJoin_GroupByInItem, TJoin_GroupByEnumerator>
             where TJoin_GroupByEnumerator : struct, IStructEnumerator<TJoin_GroupByInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1273,11 +1298,11 @@ namespace LinqAF
             where TJoin_ExceptSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_ExceptSecondEnumerator>
             where TJoin_ExceptSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1288,11 +1313,11 @@ namespace LinqAF
             where TJoin_IntersectSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_IntersectSecondEnumerator>
             where TJoin_IntersectSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1303,11 +1328,11 @@ namespace LinqAF
             where TJoin_IntersectSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_IntersectSecondEnumerator>
             where TJoin_IntersectSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1316,11 +1341,11 @@ namespace LinqAF
             where TJoin_GroupByEnumerable : struct, IStructEnumerable<TJoin_GroupByInItem, TJoin_GroupByEnumerator>
             where TJoin_GroupByEnumerator : struct, IStructEnumerator<TJoin_GroupByInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1331,11 +1356,11 @@ namespace LinqAF
             where TJoin_UnionSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_UnionSecondEnumerator>
             where TJoin_UnionSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1346,11 +1371,11 @@ namespace LinqAF
             where TJoin_UnionSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_UnionSecondEnumerator>
             where TJoin_UnionSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1361,11 +1386,11 @@ namespace LinqAF
             where TJoin_ConcatSecondEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_ConcatSecondEnumerator>
             where TJoin_ConcatSecondEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1376,26 +1401,27 @@ namespace LinqAF
             where TJoin_SelectProjection : struct, IStructProjection<TJoin_RightItem, TJoin_SelectInnerItem>
             where TJoin_SelectPredicate : struct, IStructPredicate<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
             where TJoin_SelectManyBridgeType : class
             where TJoin_SelectManyInnerEnumerable : struct, IStructEnumerable<TJoin_SelectManyInItem, TJoin_SelectManyInnerEnumerator>
             where TJoin_SelectManyInnerEnumerator : struct, IStructEnumerator<TJoin_SelectManyInItem>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_RightItem>
+            where TJoin_SelectManyBridger : struct, IStructBridger<TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1406,11 +1432,11 @@ namespace LinqAF
             where TJoin_SelectManyProjectedEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_SelectManyProjectedEnumerator>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1421,11 +1447,11 @@ namespace LinqAF
             where TJoin_SelectManyProjectedEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_SelectManyProjectedEnumerator>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1434,11 +1460,11 @@ namespace LinqAF
             where TJoin_GroupByEnumerable : struct, IStructEnumerable<TJoin_GroupByInItem, TJoin_GroupByEnumerator>
             where TJoin_GroupByEnumerator : struct, IStructEnumerator<TJoin_GroupByInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1449,26 +1475,27 @@ namespace LinqAF
             where TJoin_WherePredicate : struct, IStructPredicate<TJoin_WhereInnerItem>
             where TJoin_WhereProjection : struct, IStructProjection<TJoin_RightItem, TJoin_WhereInnerItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
             where TJoin_SelectManyBridgeType : class
             where TJoin_SelectManyInnerEnumerable : struct, IStructEnumerable<TJoin_SelectManyInItem, TJoin_SelectManyInnerEnumerator>
             where TJoin_SelectManyInnerEnumerator : struct, IStructEnumerator<TJoin_SelectManyInItem>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_RightItem>
+            where TJoin_SelectManyBridger : struct, IStructBridger<TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1477,11 +1504,11 @@ namespace LinqAF
             where TJoin_GroupByEnumerable : struct, IStructEnumerable<TJoin_GroupByInItem, TJoin_GroupByEnumerator>
             where TJoin_GroupByEnumerator : struct, IStructEnumerator<TJoin_GroupByInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1490,11 +1517,11 @@ namespace LinqAF
             where TJoin_GroupByEnumerable : struct, IStructEnumerable<TJoin_GroupByInItem, TJoin_GroupByEnumerator>
             where TJoin_GroupByEnumerator : struct, IStructEnumerator<TJoin_GroupByInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1505,41 +1532,43 @@ namespace LinqAF
             where TJoin_SelectProjection : struct, IStructProjection<TJoin_RightItem, TJoin_SelectInnerItem>
             where TJoin_SelectPredicate : struct, IStructPredicate<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
             where TJoin_SelectManyBridgeType : class
             where TJoin_SelectManyInnerEnumerable : struct, IStructEnumerable<TJoin_SelectManyInItem, TJoin_SelectManyInnerEnumerator>
             where TJoin_SelectManyInnerEnumerator : struct, IStructEnumerator<TJoin_SelectManyInItem>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_RightItem>
+            where TJoin_SelectManyBridger : struct, IStructBridger<TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
             where TJoin_SelectManyBridgeType : class
             where TJoin_SelectManyInnerEnumerable : struct, IStructEnumerable<TJoin_SelectManyInItem, TJoin_SelectManyInnerEnumerator>
             where TJoin_SelectManyInnerEnumerator : struct, IStructEnumerator<TJoin_SelectManyInItem>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_RightItem>
+            where TJoin_SelectManyBridger : struct, IStructBridger<TJoin_RightItem, TJoin_SelectManyBridgeType, TJoin_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1550,11 +1579,11 @@ namespace LinqAF
             where TJoin_SelectManyProjectedEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_SelectManyProjectedEnumerator>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1565,11 +1594,11 @@ namespace LinqAF
             where TJoin_SelectManyProjectedEnumerable : struct, IStructEnumerable<TJoin_RightItem, TJoin_SelectManyProjectedEnumerator>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_RightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1580,11 +1609,11 @@ namespace LinqAF
             where TJoin_WherePredicate : struct, IStructPredicate<TJoin_WhereInnerItem>
             where TJoin_WhereProjection : struct, IStructProjection<TJoin_RightItem, TJoin_WhereInnerItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1593,11 +1622,11 @@ namespace LinqAF
             where TJoin_GroupByEnumerable : struct, IStructEnumerable<TJoin_GroupByInItem, TJoin_GroupByEnumerator>
             where TJoin_GroupByEnumerator : struct, IStructEnumerator<TJoin_GroupByInItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1608,11 +1637,11 @@ namespace LinqAF
             where TJoin_SelectManyProjectedEnumerable : struct, IStructEnumerable<TJoin_SelectManyCollectionItem, TJoin_SelectManyProjectedEnumerator>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_SelectManyCollectionItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1623,26 +1652,27 @@ namespace LinqAF
             where TJoin_SelectManyProjectedEnumerable : struct, IStructEnumerable<TJoin_SelectManyCollectionItem, TJoin_SelectManyProjectedEnumerator>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_SelectManyCollectionItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
             where TJoin_SelectManyBridgeType : class
             where TJoin_SelectManyInnerEnumerable : struct, IStructEnumerable<TJoin_SelectManyInItem, TJoin_SelectManyInnerEnumerator>
             where TJoin_SelectManyInnerEnumerator : struct, IStructEnumerator<TJoin_SelectManyInItem>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_SelectManyCollectionItem>
+            where TJoin_SelectManyBridger : struct, IStructBridger<TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1653,26 +1683,27 @@ namespace LinqAF
             where TJoin_ZipSecondEnumerable : struct, IStructEnumerable<TJoin_ZipSecondItem, TJoin_ZipSecondEnumerator>
             where TJoin_ZipSecondEnumerator : struct, IStructEnumerator<TJoin_ZipSecondItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
             where TJoin_SelectManyBridgeType : class
             where TJoin_SelectManyInnerEnumerable : struct, IStructEnumerable<TJoin_SelectManyInItem, TJoin_SelectManyInnerEnumerator>
             where TJoin_SelectManyInnerEnumerator : struct, IStructEnumerator<TJoin_SelectManyInItem>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_SelectManyCollectionItem>
+            where TJoin_SelectManyBridger : struct, IStructBridger<TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1683,11 +1714,11 @@ namespace LinqAF
             where TJoin_SelectManyProjectedEnumerable : struct, IStructEnumerable<TJoin_SelectManyCollectionItem, TJoin_SelectManyProjectedEnumerator>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_SelectManyCollectionItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1698,26 +1729,27 @@ namespace LinqAF
             where TJoin_SelectManyProjectedEnumerable : struct, IStructEnumerable<TJoin_SelectManyCollectionItem, TJoin_SelectManyProjectedEnumerator>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_SelectManyCollectionItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
             where TJoin_SelectManyBridgeType : class
             where TJoin_SelectManyInnerEnumerable : struct, IStructEnumerable<TJoin_SelectManyInItem, TJoin_SelectManyInnerEnumerator>
             where TJoin_SelectManyInnerEnumerator : struct, IStructEnumerator<TJoin_SelectManyInItem>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_SelectManyCollectionItem>
+            where TJoin_SelectManyBridger : struct, IStructBridger<TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1728,26 +1760,27 @@ namespace LinqAF
             where TJoin_ZipSecondEnumerable : struct, IStructEnumerable<TJoin_ZipSecondItem, TJoin_ZipSecondEnumerator>
             where TJoin_ZipSecondEnumerator : struct, IStructEnumerator<TJoin_ZipSecondItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyInItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TJoin_SelectManyInItem, TJoin_RightItem, TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyBridger, TJoin_SelectManyInnerEnumerable, TJoin_SelectManyInnerEnumerator, TJoin_SelectManyProjectedEnumerator> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
             where TJoin_SelectManyBridgeType : class
             where TJoin_SelectManyInnerEnumerable : struct, IStructEnumerable<TJoin_SelectManyInItem, TJoin_SelectManyInnerEnumerator>
             where TJoin_SelectManyInnerEnumerator : struct, IStructEnumerator<TJoin_SelectManyInItem>
             where TJoin_SelectManyProjectedEnumerator : struct, IStructEnumerator<TJoin_SelectManyCollectionItem>
+            where TJoin_SelectManyBridger : struct, IStructBridger<TJoin_SelectManyCollectionItem, TJoin_SelectManyBridgeType, TJoin_SelectManyProjectedEnumerator>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1758,11 +1791,11 @@ namespace LinqAF
             where TJoin_GroupJoinRightEnumerable : struct, IStructEnumerable<TJoin_GroupJoinRightItem, TJoin_GroupJoinRightEnumerator>
             where TJoin_GroupJoinRightEnumerator : struct, IStructEnumerator<TJoin_GroupJoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1773,11 +1806,11 @@ namespace LinqAF
             where TJoin_JoinRightEnumerable : struct, IStructEnumerable<TJoin_JoinRightItem, TJoin_JoinRightEnumerator>
             where TJoin_JoinRightEnumerator : struct, IStructEnumerator<TJoin_JoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1788,11 +1821,11 @@ namespace LinqAF
             where TJoin_JoinRightEnumerable : struct, IStructEnumerable<TJoin_JoinRightItem, TJoin_JoinRightEnumerator>
             where TJoin_JoinRightEnumerator : struct, IStructEnumerator<TJoin_JoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1803,11 +1836,11 @@ namespace LinqAF
             where TJoin_GroupJoinRightEnumerable : struct, IStructEnumerable<TJoin_GroupJoinRightItem, TJoin_GroupJoinRightEnumerator>
             where TJoin_GroupJoinRightEnumerator : struct, IStructEnumerator<TJoin_GroupJoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1818,11 +1851,11 @@ namespace LinqAF
             where TJoin_JoinRightEnumerable : struct, IStructEnumerable<TJoin_JoinRightItem, TJoin_JoinRightEnumerator>
             where TJoin_JoinRightEnumerator : struct, IStructEnumerator<TJoin_JoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1833,11 +1866,11 @@ namespace LinqAF
             where TJoin_JoinRightEnumerable : struct, IStructEnumerable<TJoin_JoinRightItem, TJoin_JoinRightEnumerator>
             where TJoin_JoinRightEnumerator : struct, IStructEnumerator<TJoin_JoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1848,11 +1881,11 @@ namespace LinqAF
             where TJoin_GroupJoinRightEnumerable : struct, IStructEnumerable<TJoin_GroupJoinRightItem, TJoin_GroupJoinRightEnumerator>
             where TJoin_GroupJoinRightEnumerator : struct, IStructEnumerator<TJoin_GroupJoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
@@ -1863,55 +1896,55 @@ namespace LinqAF
             where TJoin_GroupJoinRightEnumerable : struct, IStructEnumerable<TJoin_GroupJoinRightItem, TJoin_GroupJoinRightEnumerator>
             where TJoin_GroupJoinRightEnumerator : struct, IStructEnumerator<TJoin_GroupJoinRightItem>
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(OneItemDefaultEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(OneItemDefaultEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(OneItemSpecificEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
         public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(OneItemSpecificEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
-            if (inner.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TJoin_OutItem>.Empty;
         }

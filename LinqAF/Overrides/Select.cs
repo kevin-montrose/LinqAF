@@ -7,7 +7,7 @@ namespace LinqAF
     {
         public SelectSelectEnumerable<TSelect_OutItem, TInItem, TInnerEnumerable, TInnerEnumerator, ChainedProjection<TSelect_OutItem, TInItem, TOutItem, SingleProjection<TSelect_OutItem, TOutItem>, SingleProjection<TOutItem, TInItem>>> Select<TSelect_OutItem>(Func<TOutItem, TSelect_OutItem> selector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
             var bridge = CommonImplementation.Bridge(this.Mapper, selector, nameof(selector));
 
             return new SelectSelectEnumerable<TSelect_OutItem, TInItem, TInnerEnumerable, TInnerEnumerator, ChainedProjection<TSelect_OutItem, TInItem, TOutItem, SingleProjection<TSelect_OutItem, TOutItem>, SingleProjection<TOutItem, TInItem>>>(ref Inner, ref bridge);
@@ -15,7 +15,7 @@ namespace LinqAF
 
         public SelectWhereEnumerable<TOutItem, TInItem, TInnerEnumerable, TInnerEnumerator, SingleProjection<TOutItem, TInItem>, SinglePredicate<TOutItem>> Where(Func<TOutItem, bool> predicate)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
             var project = new SingleProjection<TOutItem, TInItem>(this.Mapper);
             var bridged = CommonImplementation.Bridge(predicate, nameof(predicate));
 

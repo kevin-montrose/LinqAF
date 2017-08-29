@@ -29,7 +29,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, IEnumerable<TInnerItem>, IdentityEnumerator<TInnerItem>>,
+            IdentityEnumerable<TInnerItem, IEnumerable<TInnerItem>, IEnumerableBridger<TInnerItem>, IdentityEnumerator<TInnerItem>>,
             IdentityEnumerator<TInnerItem>
         > Zip<TInnerItem, TOutItem>(
             IEnumerable<TInnerItem> second,
@@ -42,7 +42,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, Dictionary<TInnerItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TInnerItem, TDictionaryValue>>,
+            IdentityEnumerable<TInnerItem, Dictionary<TInnerItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TInnerItem, TDictionaryValue>, DictionaryKeysEnumerator<TInnerItem, TDictionaryValue>>,
             DictionaryKeysEnumerator<TInnerItem, TDictionaryValue>
         > Zip<TInnerItem, TOutItem, TDictionaryValue>(
             Dictionary<TInnerItem, TDictionaryValue>.KeyCollection second,
@@ -55,7 +55,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, Dictionary<TDictionaryKey, TInnerItem>.ValueCollection, DictionaryValuesEnumerator<TDictionaryKey, TInnerItem>>,
+            IdentityEnumerable<TInnerItem, Dictionary<TDictionaryKey, TInnerItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TInnerItem>, DictionaryValuesEnumerator<TDictionaryKey, TInnerItem>>,
             DictionaryValuesEnumerator<TDictionaryKey, TInnerItem>
         > Zip<TInnerItem, TOutItem, TDictionaryKey>(
             Dictionary<TDictionaryKey, TInnerItem>.ValueCollection second,
@@ -68,7 +68,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, HashSet<TInnerItem>, HashSetEnumerator<TInnerItem>>,
+            IdentityEnumerable<TInnerItem, HashSet<TInnerItem>, HashSetBridger<TInnerItem>, HashSetEnumerator<TInnerItem>>,
             HashSetEnumerator<TInnerItem>
         > Zip<TInnerItem, TOutItem>(
             HashSet<TInnerItem> second,
@@ -81,7 +81,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, LinkedList<TInnerItem>, LinkedListEnumerator<TInnerItem>>,
+            IdentityEnumerable<TInnerItem, LinkedList<TInnerItem>, LinkedListBridger<TInnerItem>, LinkedListEnumerator<TInnerItem>>,
             LinkedListEnumerator<TInnerItem>
         > Zip<TInnerItem, TOutItem>(
             LinkedList<TInnerItem> second,
@@ -94,7 +94,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, List<TInnerItem>, ListEnumerator<TInnerItem>>,
+            IdentityEnumerable<TInnerItem, List<TInnerItem>, ListBridger<TInnerItem>, ListEnumerator<TInnerItem>>,
             ListEnumerator<TInnerItem>
         > Zip<TInnerItem, TOutItem>(
             List<TInnerItem> second,
@@ -107,7 +107,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, Queue<TInnerItem>, QueueEnumerator<TInnerItem>>,
+            IdentityEnumerable<TInnerItem, Queue<TInnerItem>, QueueBridger<TInnerItem>, QueueEnumerator<TInnerItem>>,
             QueueEnumerator<TInnerItem>
         > Zip<TInnerItem, TOutItem>(
             Queue<TInnerItem> second,
@@ -120,7 +120,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, SortedDictionary<TInnerItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TInnerItem, TDictionaryValue>>,
+            IdentityEnumerable<TInnerItem, SortedDictionary<TInnerItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TInnerItem, TDictionaryValue>, SortedDictionaryKeysEnumerator<TInnerItem, TDictionaryValue>>,
             SortedDictionaryKeysEnumerator<TInnerItem, TDictionaryValue>
         > Zip<TInnerItem, TOutItem, TDictionaryValue>(
             SortedDictionary<TInnerItem, TDictionaryValue>.KeyCollection second,
@@ -133,7 +133,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, SortedDictionary<TDictionaryKey, TInnerItem>.ValueCollection, SortedDictionaryValuesEnumerator<TDictionaryKey, TInnerItem>>,
+            IdentityEnumerable<TInnerItem, SortedDictionary<TDictionaryKey, TInnerItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TInnerItem>, SortedDictionaryValuesEnumerator<TDictionaryKey, TInnerItem>>,
             SortedDictionaryValuesEnumerator<TDictionaryKey, TInnerItem>
         > Zip<TInnerItem, TOutItem, TDictionaryKey>(
             SortedDictionary<TDictionaryKey, TInnerItem>.ValueCollection second,
@@ -146,7 +146,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, SortedSet<TInnerItem>, SortedSetEnumerator<TInnerItem>>,
+            IdentityEnumerable<TInnerItem, SortedSet<TInnerItem>, SortedSetBridger<TInnerItem>, SortedSetEnumerator<TInnerItem>>,
             SortedSetEnumerator<TInnerItem>
         > Zip<TInnerItem, TOutItem>(
             SortedSet<TInnerItem> second,
@@ -159,7 +159,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, Stack<TInnerItem>, StackEnumerator<TInnerItem>>,
+            IdentityEnumerable<TInnerItem, Stack<TInnerItem>, StackBridger<TInnerItem>, StackEnumerator<TInnerItem>>,
             StackEnumerator<TInnerItem>
         > Zip<TInnerItem, TOutItem>(
             Stack<TInnerItem> second,
@@ -172,7 +172,7 @@ namespace LinqAF.Impl
             TInnerItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TInnerItem, TInnerItem[], ArrayEnumerator<TInnerItem>>,
+            IdentityEnumerable<TInnerItem, TInnerItem[], ArrayBridger<TInnerItem>, ArrayEnumerator<TInnerItem>>,
             ArrayEnumerator<TInnerItem>
         > Zip<TInnerItem, TOutItem>(
             TInnerItem[] second,
@@ -185,13 +185,14 @@ namespace LinqAF.Impl
             TIdentityItem,
             TThisEnumerable,
             TThisEnumerator,
-            IdentityEnumerable<TIdentityItem, TIdentityBridgeType, TIdentityEnumerator>,
+            IdentityEnumerable<TIdentityItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>,
             TIdentityEnumerator
-        > Zip<TOutItem, TIdentityItem, TIdentityBridgeType, TIdentityEnumerator>(
-            IdentityEnumerable<TIdentityItem, TIdentityBridgeType, TIdentityEnumerator> second,
+        > Zip<TOutItem, TIdentityItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>(
+            IdentityEnumerable<TIdentityItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator> second,
             Func<TThisItem, TIdentityItem, TOutItem> resultSelector
         )
             where TIdentityEnumerator : struct, IStructEnumerator<TIdentityItem>
+            where TIdentityBridger: struct, IStructBridger<TIdentityItem, TIdentityBridgeType, TIdentityEnumerator>
             where TIdentityBridgeType : class;
 
         ZipEnumerable<
@@ -329,15 +330,16 @@ namespace LinqAF.Impl
             TSelectManyOutItem,
             TThisEnumerable,
             TThisEnumerator,
-            SelectManyBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>,
-            SelectManyBridgeEnumerator<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>
-        > Zip<TOutItem, TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(
-            SelectManyBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second,
+            SelectManyBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>,
+            SelectManyBridgeEnumerator<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>
+        > Zip<TOutItem, TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(
+            SelectManyBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second,
             Func<TThisItem, TSelectManyOutItem, TOutItem> resultSelector
         )
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyOutItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyOutItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
             where TSelectManyBridgeType : class;
 
         ZipEnumerable<
@@ -346,15 +348,16 @@ namespace LinqAF.Impl
             TSelectManyOutItem,
             TThisEnumerable,
             TThisEnumerator,
-            SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>,
-            SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>
-        > Zip<TOutItem, TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(
-            SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second,
+            SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>,
+            SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>
+        > Zip<TOutItem, TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(
+            SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second,
             Func<TThisItem, TSelectManyOutItem, TOutItem> resultSelector
         )
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyOutItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyOutItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
             where TSelectManyBridgeType : class;
 
         ZipEnumerable<
@@ -397,15 +400,16 @@ namespace LinqAF.Impl
             TSelectManyOutItem,
             TThisEnumerable,
             TThisEnumerator,
-            SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>,
-            SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>
-        > Zip<TOutItem, TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(
-            SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second,
+            SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>,
+            SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>
+        > Zip<TOutItem, TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(
+            SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second,
             Func<TThisItem, TSelectManyOutItem, TOutItem> resultSelector
         )
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
             where TSelectManyBridgeType : class;
 
         ZipEnumerable<
@@ -414,15 +418,16 @@ namespace LinqAF.Impl
             TSelectManyOutItem,
             TThisEnumerable,
             TThisEnumerator,
-            SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>,
-            SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>
-        > Zip<TOutItem, TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(
-            SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second,
+            SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>,
+            SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>
+        > Zip<TOutItem, TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(
+            SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TSelectManyOutItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second,
             Func<TThisItem, TSelectManyOutItem, TOutItem> resultSelector
         )
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
             where TSelectManyBridgeType : class;
 
         ZipEnumerable<
@@ -832,10 +837,23 @@ namespace LinqAF.Impl
             GroupingEnumerable<TLookupKey, TLookupElement>,
             TThisEnumerable,
             TThisEnumerator,
-            LookupEnumerable<TLookupKey, TLookupElement>,
-            LookupEnumerator<TLookupKey, TLookupElement>
+            LookupDefaultEnumerable<TLookupKey, TLookupElement>,
+            LookupDefaultEnumerator<TLookupKey, TLookupElement>
         > Zip<TOutItem, TLookupKey, TLookupElement>(
-            LookupEnumerable<TLookupKey, TLookupElement> second,
+            LookupDefaultEnumerable<TLookupKey, TLookupElement> second,
+            Func<TThisItem, GroupingEnumerable<TLookupKey, TLookupElement>, TOutItem> resultSelector
+        );
+
+        ZipEnumerable<
+            TOutItem,
+            TThisItem,
+            GroupingEnumerable<TLookupKey, TLookupElement>,
+            TThisEnumerable,
+            TThisEnumerator,
+            LookupSpecificEnumerable<TLookupKey, TLookupElement>,
+            LookupSpecificEnumerator<TLookupKey, TLookupElement>
+        > Zip<TOutItem, TLookupKey, TLookupElement>(
+            LookupSpecificEnumerable<TLookupKey, TLookupElement> second,
             Func<TThisItem, GroupingEnumerable<TLookupKey, TLookupElement>, TOutItem> resultSelector
         );
 

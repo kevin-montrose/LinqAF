@@ -9,7 +9,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SingleImpl<TItem, TEnumerable, TEnumerator>(ref source);
         }
@@ -20,11 +20,11 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var ret = i.Current;
 
-                if (i.MoveNext()) throw new InvalidOperationException("Sequence contained multiple elements");
+                if (i.MoveNext()) throw CommonImplementation.MultipleElements();
 
                 return ret;
             }
@@ -35,8 +35,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return SingleImpl<TItem, TEnumerable, TEnumerator>(ref source, predicate);
         }
@@ -52,7 +52,7 @@ namespace LinqAF.Impl
             {
                 if (predicate(item))
                 {
-                    if (found) throw new InvalidOperationException("Sequence contained multiple matching elements");
+                    if (found) throw CommonImplementation.MultipleMatchingElements();
 
                     ret = item;
                     found = true;
@@ -61,7 +61,7 @@ namespace LinqAF.Impl
 
             if (!found)
             {
-                throw new InvalidOperationException($"No items matched {nameof(predicate)}");
+                throw CommonImplementation.NoItemsMatched(nameof(predicate));
             }
 
             return ret;
@@ -72,7 +72,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return SingleOrDefaultImpl<TItem, TEnumerable, TEnumerator>(ref source);
         }
@@ -87,7 +87,7 @@ namespace LinqAF.Impl
 
                 var ret = i.Current;
 
-                if (i.MoveNext()) throw new InvalidOperationException("Sequence contained multiple elements");
+                if (i.MoveNext()) throw CommonImplementation.MultipleElements();
 
                 return ret;
             }
@@ -98,8 +98,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return SingleOrDefaultImpl<TItem, TEnumerable, TEnumerator>(ref source, predicate);
         }
@@ -115,7 +115,7 @@ namespace LinqAF.Impl
             {
                 if (predicate(item))
                 {
-                    if (found) throw new InvalidOperationException("Sequence contained multiple matching elements");
+                    if (found) throw CommonImplementation.MultipleMatchingElements();
 
                     ret = item;
                     found = true;

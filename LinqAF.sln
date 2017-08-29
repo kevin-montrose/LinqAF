@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF", "LinqAF\LinqAF.csproj", "{6BE52B43-395D-44ED-8A86-F0733CC74D31}"
 EndProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF.TestRunner", "LinqAF.TestRunner\LinqAF.TestRunner.csproj", "{371389D1-75DB-44BE-A535-6999FFC211DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF.Benchmark", "LinqAF.Benchmark\LinqAF.Benchmark.csproj", "{CA5FBEF7-D1C3-4974-BB45-041B2AC08987}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,8 +46,15 @@ Global
 		{371389D1-75DB-44BE-A535-6999FFC211DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{371389D1-75DB-44BE-A535-6999FFC211DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{371389D1-75DB-44BE-A535-6999FFC211DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA5FBEF7-D1C3-4974-BB45-041B2AC08987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA5FBEF7-D1C3-4974-BB45-041B2AC08987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA5FBEF7-D1C3-4974-BB45-041B2AC08987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA5FBEF7-D1C3-4974-BB45-041B2AC08987}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {728577B5-9504-4C6D-A7D3-EFA87ECE07CB}
 	EndGlobalSection
 EndGlobal

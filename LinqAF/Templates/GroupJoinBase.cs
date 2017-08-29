@@ -197,266 +197,266 @@ namespace LinqAF
             where TIntersectSecondEnumerator : struct, IStructEnumerator<TRightItem>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, TRightItem[], ArrayEnumerator<TRightItem>>, ArrayEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(TRightItem[] inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, TRightItem[], ArrayBridger<TRightItem>, ArrayEnumerator<TRightItem>>, ArrayEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(TRightItem[] inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, TRightItem[], ArrayEnumerator<TRightItem>>, ArrayEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(TRightItem[] inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, TRightItem[], ArrayBridger<TRightItem>, ArrayEnumerator<TRightItem>>, ArrayEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(TRightItem[] inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Dictionary<TRightItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TRightItem, TDictionaryValue>>, DictionaryKeysEnumerator<TRightItem, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryValue>(Dictionary<TRightItem, TDictionaryValue>.KeyCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Dictionary<TRightItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TRightItem, TDictionaryValue>, DictionaryKeysEnumerator<TRightItem, TDictionaryValue>>, DictionaryKeysEnumerator<TRightItem, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryValue>(Dictionary<TRightItem, TDictionaryValue>.KeyCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Dictionary<TRightItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TRightItem, TDictionaryValue>>, DictionaryKeysEnumerator<TRightItem, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryValue>(Dictionary<TRightItem, TDictionaryValue>.KeyCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Dictionary<TRightItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TRightItem, TDictionaryValue>, DictionaryKeysEnumerator<TRightItem, TDictionaryValue>>, DictionaryKeysEnumerator<TRightItem, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryValue>(Dictionary<TRightItem, TDictionaryValue>.KeyCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Dictionary<TDictionaryKey, TRightItem>.ValueCollection, DictionaryValuesEnumerator<TDictionaryKey, TRightItem>>, DictionaryValuesEnumerator<TDictionaryKey, TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryKey>(Dictionary<TDictionaryKey, TRightItem>.ValueCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Dictionary<TDictionaryKey, TRightItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TRightItem>, DictionaryValuesEnumerator<TDictionaryKey, TRightItem>>, DictionaryValuesEnumerator<TDictionaryKey, TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryKey>(Dictionary<TDictionaryKey, TRightItem>.ValueCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Dictionary<TDictionaryKey, TRightItem>.ValueCollection, DictionaryValuesEnumerator<TDictionaryKey, TRightItem>>, DictionaryValuesEnumerator<TDictionaryKey, TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryKey>(Dictionary<TDictionaryKey, TRightItem>.ValueCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Dictionary<TDictionaryKey, TRightItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TRightItem>, DictionaryValuesEnumerator<TDictionaryKey, TRightItem>>, DictionaryValuesEnumerator<TDictionaryKey, TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryKey>(Dictionary<TDictionaryKey, TRightItem>.ValueCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, IEnumerable<TRightItem>, IdentityEnumerator<TRightItem>>, IdentityEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(IEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, IEnumerable<TRightItem>, IEnumerableBridger<TRightItem>, IdentityEnumerator<TRightItem>>, IdentityEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(IEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, IEnumerable<TRightItem>, IdentityEnumerator<TRightItem>>, IdentityEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(IEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, IEnumerable<TRightItem>, IEnumerableBridger<TRightItem>, IdentityEnumerator<TRightItem>>, IdentityEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(IEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, object, IdentityEnumerable<object, IEnumerable, IdentityEnumerator>, IdentityEnumerator> GroupJoin<TOutItem, TKeyItem>(IEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<object, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, object>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, object, IdentityEnumerable<object, IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator> GroupJoin<TOutItem, TKeyItem>(IEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<object, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, object>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, object, IdentityEnumerable<object, IEnumerable, IdentityEnumerator>, IdentityEnumerator> GroupJoin<TOutItem, TKeyItem>(IEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<object, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, object>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, object, IdentityEnumerable<object, IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator> GroupJoin<TOutItem, TKeyItem>(IEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<object, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, object>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, LinkedList<TRightItem>, LinkedListEnumerator<TRightItem>>, LinkedListEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(LinkedList<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, LinkedList<TRightItem>, LinkedListBridger<TRightItem>, LinkedListEnumerator<TRightItem>>, LinkedListEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(LinkedList<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, LinkedList<TRightItem>, LinkedListEnumerator<TRightItem>>, LinkedListEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(LinkedList<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, LinkedList<TRightItem>, LinkedListBridger<TRightItem>, LinkedListEnumerator<TRightItem>>, LinkedListEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(LinkedList<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, List<TRightItem>, ListEnumerator<TRightItem>>, ListEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(List<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, List<TRightItem>, ListBridger<TRightItem>, ListEnumerator<TRightItem>>, ListEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(List<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, List<TRightItem>, ListEnumerator<TRightItem>>, ListEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(List<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, List<TRightItem>, ListBridger<TRightItem>, ListEnumerator<TRightItem>>, ListEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(List<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Queue<TRightItem>, QueueEnumerator<TRightItem>>, QueueEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(Queue<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Queue<TRightItem>, QueueBridger<TRightItem>, QueueEnumerator<TRightItem>>, QueueEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(Queue<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Queue<TRightItem>, QueueEnumerator<TRightItem>>, QueueEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(Queue<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Queue<TRightItem>, QueueBridger<TRightItem>, QueueEnumerator<TRightItem>>, QueueEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(Queue<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedDictionary<TRightItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TRightItem, TDictionaryValue>>, SortedDictionaryKeysEnumerator<TRightItem, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryValue>(SortedDictionary<TRightItem, TDictionaryValue>.KeyCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedDictionary<TRightItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TRightItem, TDictionaryValue>, SortedDictionaryKeysEnumerator<TRightItem, TDictionaryValue>>, SortedDictionaryKeysEnumerator<TRightItem, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryValue>(SortedDictionary<TRightItem, TDictionaryValue>.KeyCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedDictionary<TRightItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TRightItem, TDictionaryValue>>, SortedDictionaryKeysEnumerator<TRightItem, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryValue>(SortedDictionary<TRightItem, TDictionaryValue>.KeyCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedDictionary<TRightItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TRightItem, TDictionaryValue>, SortedDictionaryKeysEnumerator<TRightItem, TDictionaryValue>>, SortedDictionaryKeysEnumerator<TRightItem, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryValue>(SortedDictionary<TRightItem, TDictionaryValue>.KeyCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedDictionary<TDictionaryKey, TRightItem>.ValueCollection, SortedDictionaryValuesEnumerator<TDictionaryKey, TRightItem>>, SortedDictionaryValuesEnumerator<TDictionaryKey, TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryKey>(SortedDictionary<TDictionaryKey, TRightItem>.ValueCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedDictionary<TDictionaryKey, TRightItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TRightItem>, SortedDictionaryValuesEnumerator<TDictionaryKey, TRightItem>>, SortedDictionaryValuesEnumerator<TDictionaryKey, TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryKey>(SortedDictionary<TDictionaryKey, TRightItem>.ValueCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedDictionary<TDictionaryKey, TRightItem>.ValueCollection, SortedDictionaryValuesEnumerator<TDictionaryKey, TRightItem>>, SortedDictionaryValuesEnumerator<TDictionaryKey, TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryKey>(SortedDictionary<TDictionaryKey, TRightItem>.ValueCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedDictionary<TDictionaryKey, TRightItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TRightItem>, SortedDictionaryValuesEnumerator<TDictionaryKey, TRightItem>>, SortedDictionaryValuesEnumerator<TDictionaryKey, TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem, TDictionaryKey>(SortedDictionary<TDictionaryKey, TRightItem>.ValueCollection inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedSet<TRightItem>, SortedSetEnumerator<TRightItem>>, SortedSetEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(SortedSet<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedSet<TRightItem>, SortedSetBridger<TRightItem>, SortedSetEnumerator<TRightItem>>, SortedSetEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(SortedSet<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedSet<TRightItem>, SortedSetEnumerator<TRightItem>>, SortedSetEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(SortedSet<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedSet<TRightItem>, SortedSetBridger<TRightItem>, SortedSetEnumerator<TRightItem>>, SortedSetEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(SortedSet<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Stack<TRightItem>, StackEnumerator<TRightItem>>, StackEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(Stack<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Stack<TRightItem>, StackBridger<TRightItem>, StackEnumerator<TRightItem>>, StackEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(Stack<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Stack<TRightItem>, StackEnumerator<TRightItem>>, StackEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(Stack<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Stack<TRightItem>, StackBridger<TRightItem>, StackEnumerator<TRightItem>>, StackEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(Stack<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
@@ -553,60 +553,68 @@ namespace LinqAF
             where TSelectInnerEnumerator : struct, IStructEnumerator<TSelectInItem>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TRightItem>
+            where TSelectManyBridger: struct, IStructBridger<TRightItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TRightItem>
+            where TSelectManyBridger: struct, IStructBridger<TRightItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TRightItem>
+            where TSelectManyBridger: struct, IStructBridger<TRightItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TRightItem>
+            where TSelectManyBridger: struct, IStructBridger<TRightItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyCollectionItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyCollectionItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyCollectionItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyCollectionItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyCollectionItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyCollectionItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyCollectionItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyCollectionItem, TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TRightItem, TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TSelectManyCollectionItem>
+            where TSelectManyBridger: struct, IStructBridger<TSelectManyCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
         public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SelectManyEnumerable<TSelectManyInItem, TRightItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>, SelectManyEnumerator<TSelectManyInItem, TRightItem, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>> GroupJoin<TOutItem, TKeyItem, TRightItem, TSelectManyInItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>(SelectManyEnumerable<TSelectManyInItem, TRightItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
@@ -839,14 +847,16 @@ namespace LinqAF
             where TZipSecondEnumerator : struct, IStructEnumerator<TZipSecondItem>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, TBridgeType, TIdentityEnumerator>, TIdentityEnumerator> GroupJoin<TOutItem, TKeyItem, TRightItem, TBridgeType, TIdentityEnumerator>(IdentityEnumerable<TRightItem, TBridgeType, TIdentityEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, TBridgeType, TIdentityBridger, TIdentityEnumerator>, TIdentityEnumerator> GroupJoin<TOutItem, TKeyItem, TRightItem, TBridgeType, TIdentityBridger, TIdentityEnumerator>(IdentityEnumerable<TRightItem, TBridgeType, TIdentityBridger, TIdentityEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
             where TBridgeType : class
             where TIdentityEnumerator : struct, IStructEnumerator<TRightItem>
+            where TIdentityBridger: struct, IStructBridger<TRightItem, TBridgeType, TIdentityEnumerator>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, TBridgeType, TIdentityEnumerator>, TIdentityEnumerator> GroupJoin<TOutItem, TKeyItem, TRightItem, TBridgeType, TIdentityEnumerator>(IdentityEnumerable<TRightItem, TBridgeType, TIdentityEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, TBridgeType, TIdentityBridger, TIdentityEnumerator>, TIdentityEnumerator> GroupJoin<TOutItem, TKeyItem, TRightItem, TBridgeType, TIdentityBridger, TIdentityEnumerator>(IdentityEnumerable<TRightItem, TBridgeType, TIdentityBridger, TIdentityEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
             where TBridgeType : class
             where TIdentityEnumerator : struct, IStructEnumerator<TRightItem>
+            where TIdentityBridger : struct, IStructBridger<TRightItem, TBridgeType, TIdentityEnumerator>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
         public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, ReverseRangeEnumerable<TRightItem>, ReverseRangeEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(ReverseRangeEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
@@ -875,54 +885,60 @@ namespace LinqAF
             where TGroupByEnumerator : struct, IStructEnumerator<TGroupByInItem>
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, KeyValuePair<TDictionaryKey, TDictionaryValue>, IdentityEnumerable<KeyValuePair<TDictionaryKey, TDictionaryValue>, Dictionary<TDictionaryKey, TDictionaryValue>, DictionaryEnumerator<TDictionaryKey, TDictionaryValue>>, DictionaryEnumerator<TDictionaryKey, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TDictionaryKey, TDictionaryValue>(Dictionary<TDictionaryKey, TDictionaryValue> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<KeyValuePair<TDictionaryKey, TDictionaryValue>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, KeyValuePair<TDictionaryKey, TDictionaryValue>>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, KeyValuePair<TDictionaryKey, TDictionaryValue>, IdentityEnumerable<KeyValuePair<TDictionaryKey, TDictionaryValue>, Dictionary<TDictionaryKey, TDictionaryValue>, DictionaryBridger<TDictionaryKey, TDictionaryValue>, DictionaryEnumerator<TDictionaryKey, TDictionaryValue>>, DictionaryEnumerator<TDictionaryKey, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TDictionaryKey, TDictionaryValue>(Dictionary<TDictionaryKey, TDictionaryValue> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<KeyValuePair<TDictionaryKey, TDictionaryValue>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, KeyValuePair<TDictionaryKey, TDictionaryValue>>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, KeyValuePair<TDictionaryKey, TDictionaryValue>, IdentityEnumerable<KeyValuePair<TDictionaryKey, TDictionaryValue>, Dictionary<TDictionaryKey, TDictionaryValue>, DictionaryEnumerator<TDictionaryKey, TDictionaryValue>>, DictionaryEnumerator<TDictionaryKey, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TDictionaryKey, TDictionaryValue>(Dictionary<TDictionaryKey, TDictionaryValue> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<KeyValuePair<TDictionaryKey, TDictionaryValue>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, KeyValuePair<TDictionaryKey, TDictionaryValue>>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, KeyValuePair<TDictionaryKey, TDictionaryValue>, IdentityEnumerable<KeyValuePair<TDictionaryKey, TDictionaryValue>, Dictionary<TDictionaryKey, TDictionaryValue>, DictionaryBridger<TDictionaryKey, TDictionaryValue>, DictionaryEnumerator<TDictionaryKey, TDictionaryValue>>, DictionaryEnumerator<TDictionaryKey, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TDictionaryKey, TDictionaryValue>(Dictionary<TDictionaryKey, TDictionaryValue> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<KeyValuePair<TDictionaryKey, TDictionaryValue>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, KeyValuePair<TDictionaryKey, TDictionaryValue>>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, KeyValuePair<TDictionaryKey, TDictionaryValue>, IdentityEnumerable<KeyValuePair<TDictionaryKey, TDictionaryValue>, SortedDictionary<TDictionaryKey, TDictionaryValue>, SortedDictionaryEnumerator<TDictionaryKey, TDictionaryValue>>, SortedDictionaryEnumerator<TDictionaryKey, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TDictionaryKey, TDictionaryValue>(SortedDictionary<TDictionaryKey, TDictionaryValue> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<KeyValuePair<TDictionaryKey, TDictionaryValue>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, KeyValuePair<TDictionaryKey, TDictionaryValue>>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, KeyValuePair<TDictionaryKey, TDictionaryValue>, IdentityEnumerable<KeyValuePair<TDictionaryKey, TDictionaryValue>, SortedDictionary<TDictionaryKey, TDictionaryValue>, SortedDictionaryBridger<TDictionaryKey, TDictionaryValue>, SortedDictionaryEnumerator<TDictionaryKey, TDictionaryValue>>, SortedDictionaryEnumerator<TDictionaryKey, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TDictionaryKey, TDictionaryValue>(SortedDictionary<TDictionaryKey, TDictionaryValue> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<KeyValuePair<TDictionaryKey, TDictionaryValue>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, KeyValuePair<TDictionaryKey, TDictionaryValue>>, TOutItem> resultSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, KeyValuePair<TDictionaryKey, TDictionaryValue>, IdentityEnumerable<KeyValuePair<TDictionaryKey, TDictionaryValue>, SortedDictionary<TDictionaryKey, TDictionaryValue>, SortedDictionaryEnumerator<TDictionaryKey, TDictionaryValue>>, SortedDictionaryEnumerator<TDictionaryKey, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TDictionaryKey, TDictionaryValue>(SortedDictionary<TDictionaryKey, TDictionaryValue> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<KeyValuePair<TDictionaryKey, TDictionaryValue>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, KeyValuePair<TDictionaryKey, TDictionaryValue>>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, KeyValuePair<TDictionaryKey, TDictionaryValue>, IdentityEnumerable<KeyValuePair<TDictionaryKey, TDictionaryValue>, SortedDictionary<TDictionaryKey, TDictionaryValue>, SortedDictionaryBridger<TDictionaryKey, TDictionaryValue>, SortedDictionaryEnumerator<TDictionaryKey, TDictionaryValue>>, SortedDictionaryEnumerator<TDictionaryKey, TDictionaryValue>> GroupJoin<TOutItem, TKeyItem, TDictionaryKey, TDictionaryValue>(SortedDictionary<TDictionaryKey, TDictionaryValue> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<KeyValuePair<TDictionaryKey, TDictionaryValue>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, KeyValuePair<TDictionaryKey, TDictionaryValue>>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "outer");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             var bridge = CommonImplementation.Bridge(inner, nameof(inner));
-            if (outerKeySelector == null) throw new ArgumentNullException(nameof(outerKeySelector));
-            if (innerKeySelector == null) throw new ArgumentNullException(nameof(innerKeySelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return CommonImplementation.GroupJoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, GroupingEnumerable<TLookupKey, TLookupElement>, LookupEnumerable<TLookupKey, TLookupElement>, LookupEnumerator<TLookupKey, TLookupElement>> GroupJoin<TOutItem, TKeyItem, TLookupKey, TLookupElement>(LookupEnumerable<TLookupKey, TLookupElement> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<GroupingEnumerable<TLookupKey, TLookupElement>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, GroupingEnumerable<TLookupKey, TLookupElement>>, TOutItem> resultSelector)
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, GroupingEnumerable<TLookupKey, TLookupElement>, LookupDefaultEnumerable<TLookupKey, TLookupElement>, LookupDefaultEnumerator<TLookupKey, TLookupElement>> GroupJoin<TOutItem, TKeyItem, TLookupKey, TLookupElement>(LookupDefaultEnumerable<TLookupKey, TLookupElement> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<GroupingEnumerable<TLookupKey, TLookupElement>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, GroupingEnumerable<TLookupKey, TLookupElement>>, TOutItem> resultSelector)
+        => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
+
+        public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, GroupingEnumerable<TLookupKey, TLookupElement>, LookupSpecificEnumerable<TLookupKey, TLookupElement>, LookupSpecificEnumerator<TLookupKey, TLookupElement>> GroupJoin<TOutItem, TKeyItem, TLookupKey, TLookupElement>(LookupSpecificEnumerable<TLookupKey, TLookupElement> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<GroupingEnumerable<TLookupKey, TLookupElement>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, GroupingEnumerable<TLookupKey, TLookupElement>>, TOutItem> resultSelector)
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
         
-        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, GroupingEnumerable<TLookupKey, TLookupElement>, LookupEnumerable<TLookupKey, TLookupElement>, LookupEnumerator<TLookupKey, TLookupElement>> GroupJoin<TOutItem, TKeyItem, TLookupKey, TLookupElement>(LookupEnumerable<TLookupKey, TLookupElement> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<GroupingEnumerable<TLookupKey, TLookupElement>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, GroupingEnumerable<TLookupKey, TLookupElement>>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, GroupingEnumerable<TLookupKey, TLookupElement>, LookupDefaultEnumerable<TLookupKey, TLookupElement>, LookupDefaultEnumerator<TLookupKey, TLookupElement>> GroupJoin<TOutItem, TKeyItem, TLookupKey, TLookupElement>(LookupDefaultEnumerable<TLookupKey, TLookupElement> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<GroupingEnumerable<TLookupKey, TLookupElement>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, GroupingEnumerable<TLookupKey, TLookupElement>>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+
+        public GroupJoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, GroupingEnumerable<TLookupKey, TLookupElement>, LookupSpecificEnumerable<TLookupKey, TLookupElement>, LookupSpecificEnumerator<TLookupKey, TLookupElement>> GroupJoin<TOutItem, TKeyItem, TLookupKey, TLookupElement>(LookupSpecificEnumerable<TLookupKey, TLookupElement> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<GroupingEnumerable<TLookupKey, TLookupElement>, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, GroupingEnumerable<TLookupKey, TLookupElement>>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         => CommonImplementation.GroupJoin(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
         public GroupJoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, OneItemDefaultEnumerable<TRightItem>, OneItemDefaultEnumerator<TRightItem>> GroupJoin<TOutItem, TKeyItem, TRightItem>(OneItemDefaultEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)

@@ -1,5 +1,6 @@
 ﻿namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct DefaultIfEmptyDefaultEnumerator<TItem, TInnerEnumerator>: IStructEnumerator<TItem>
         where TInnerEnumerator: struct, IStructEnumerator<TItem>
     {
@@ -14,12 +15,7 @@
             WasEmpty = null;
         }
 
-        public bool IsDefaultValue()
-        {
-            return
-                WasEmpty == default(bool?) &&
-                Inner.IsDefaultValue();
-        }
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public void Dispose()
         {
@@ -64,6 +60,7 @@
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct DefaultIfEmptyDefaultEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>:
         IStructEnumerable<TItem, DefaultIfEmptyDefaultEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable: struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -75,10 +72,7 @@
             Inner = inner;
         }
 
-        public bool IsDefaultValue()
-        {
-            return Inner.IsDefaultValue();
-        }
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public DefaultIfEmptyDefaultEnumerator<TItem, TInnerEnumerator> GetEnumerator()
         {
@@ -87,6 +81,7 @@
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct DefaultIfEmptySpecificEnumerator<TItem, TInnerEnumerator> : IStructEnumerator<TItem>
         where TInnerEnumerator : struct, IStructEnumerator<TItem>
     {
@@ -103,12 +98,7 @@
             Default = @default;
         }
 
-        public bool IsDefaultValue()
-        {
-            return
-                WasEmpty == default(bool?) &&
-                Inner.IsDefaultValue();
-        }
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public void Dispose()
         {
@@ -153,6 +143,7 @@
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct DefaultIfEmptySpecificEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>: 
         IStructEnumerable<TItem, DefaultIfEmptySpecificEnumerator<TItem, TInnerEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
@@ -166,10 +157,7 @@
             Default = @default;
         }
 
-        public bool IsDefaultValue()
-        {
-            return Inner.IsDefaultValue();
-        }
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public DefaultIfEmptySpecificEnumerator<TItem, TInnerEnumerator> GetEnumerator()
         {

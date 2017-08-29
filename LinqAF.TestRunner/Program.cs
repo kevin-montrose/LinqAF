@@ -130,7 +130,7 @@ namespace LinqAF.TestRunner
                 if (kv.Value.ErrorMessage != null)
                 {
                     Console.WriteLine($"Failed: {kv.Key}");
-                    Console.WriteLine(kv.Value);
+                    Console.WriteLine(kv.Value.ErrorMessage);
                 }
             }
 
@@ -180,6 +180,9 @@ namespace LinqAF.TestRunner
             {
                 Left.Write(value);
                 Right.Write(value);
+
+                Left.Flush();
+                Right.Flush();
             }
 
             protected override void Dispose(bool disposing)
@@ -217,11 +220,11 @@ namespace LinqAF.TestRunner
             return ret;
 
             // PARTIAL BLAST
-            //ret /= 2;
-            //ret--;
-            //if (ret < 0) ret = 1;
+            /*ret /= 2;
+            ret--;
+            if (ret < 0) ret = 1;
 
-            //return ret;
+            return ret;*/
         }
 
         static async Task<List<Covered>> CollectCoverageAsync(string test)

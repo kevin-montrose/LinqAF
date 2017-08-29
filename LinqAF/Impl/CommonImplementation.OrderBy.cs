@@ -9,8 +9,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return OrderByImpl<TItem, TKey, TEnumerable, TEnumerator>(ref source, keySelector);
         }
@@ -28,8 +28,8 @@ namespace LinqAF.Impl
             where TEnumerable: struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator: struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return OrderByImpl<TItem, TKey, TEnumerable, TEnumerator>(ref source, keySelector, comparer);
         }
@@ -48,8 +48,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return OrderByDescendingImpl<TItem, TKey, TEnumerable, TEnumerator>(ref source, keySelector);
         }
@@ -67,8 +67,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return OrderByDescendingImpl<TItem, TKey, TEnumerable, TEnumerator>(ref source, keySelector, comparer);
         }

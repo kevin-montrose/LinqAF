@@ -147,6 +147,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AggregateTests.cs" />
+    <Compile Include="AllocatorTests.cs" />
     <Compile Include="AnyTests.cs" />
     <Compile Include="AllTests.cs" />
     <Compile Include="AsEnumerableTests.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="SelectManyTests.cs" />
     <Compile Include="SelectTests.cs" />
     <Compile Include="SkipTests.cs" />
+    <Compile Include="StructLayoutTests.cs" />
     <Compile Include="SumTests.cs" />
     <Compile Include="TakeTests.cs" />
     <Compile Include="ThenByTests.cs" />

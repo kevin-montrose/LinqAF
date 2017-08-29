@@ -10,8 +10,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (index < 0) throw new ArgumentOutOfRangeException(nameof(index));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (index < 0) throw CommonImplementation.OutOfRange(nameof(index));
 
             return ElementAtImpl<TItem, TEnumerable, TEnumerator>(ref source, index);
         }
@@ -27,7 +27,7 @@ namespace LinqAF.Impl
                 curIndex++;
             }
 
-            throw new ArgumentOutOfRangeException(nameof(index));
+            throw CommonImplementation.OutOfRange(nameof(index));
         }
 
 
@@ -36,7 +36,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
             if (index < 0) return default(TItem);
 
             return ElementAtOrDefaultImpl<TItem, TEnumerable, TEnumerator>(ref source, index);

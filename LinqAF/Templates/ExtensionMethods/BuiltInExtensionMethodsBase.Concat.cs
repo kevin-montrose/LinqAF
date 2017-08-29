@@ -25,7 +25,7 @@ namespace LinqAF
         public ConcatEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>, PlaceholderEnumerable<TItem>, PlaceholderEnumerator<TItem>> Concat<TItem>(BuiltInEnumerable<TItem> first, PlaceholderEnumerable<TItem> second)
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.ConcatImpl<
@@ -54,7 +54,7 @@ namespace LinqAF
             where TGenGroupByEnumerator: struct, IStructEnumerator<TGenGroupByInItem>
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.ConcatImpl<
@@ -81,7 +81,7 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.ConcatImpl<
@@ -92,29 +92,56 @@ namespace LinqAF
                     GroupBySpecificEnumerator<TGenGroupByInItem, TGenGroupByKey, TGenGroupByElement, TGenGroupByEnumerator>
                 >(RefLocal(firstBridge), ref second);
         }
+
         [DoNotInject]
         public
             ConcatEnumerable<
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 BuiltInEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
                 BuiltInEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Concat<TGenLookupKey, TGenLookupElement>(
                 BuiltInEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> first,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> second
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second
             )
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return
                 CommonImplementation.ConcatImpl<
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     BuiltInEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
                     BuiltInEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(RefLocal(firstBridge), ref second);
+        }
+
+        [DoNotInject]
+        public
+            ConcatEnumerable<
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                BuiltInEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                BuiltInEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Concat<TGenLookupKey, TGenLookupElement>(
+                BuiltInEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return
+                CommonImplementation.ConcatImpl<
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    BuiltInEnumerable<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                    BuiltInEnumerator<GroupingEnumerable<TGenLookupKey, TGenLookupElement>>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(firstBridge), ref second);
         }
     }

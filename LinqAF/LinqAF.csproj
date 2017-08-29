@@ -43,10 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Array.cs" />
+    <Compile Include="Bridgers.cs" />
     <Compile Include="Cast.cs" />
     <Compile Include="CastBridgeExtensionMethods.cs" />
     <Compile Include="Comparers.cs" />
     <Compile Include="Concat.cs" />
+    <Compile Include="Config\Allocator.cs" />
     <Compile Include="DefaultIfEmpty.cs" />
     <Compile Include="Dictionary.cs" />
     <Compile Include="Boxed.cs" />
@@ -54,6 +56,15 @@
     <Compile Include="Impl\CommonImplementation.Reset.cs">
       <DependentUpon>CommonImplementation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Impl\CommonImplementation.Throws.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\DefaultAllocator.cs" />
+    <Compile Include="Impl\CompactSet.cs" />
+    <Compile Include="Impl\IndexedItemContainer.cs" />
+    <Compile Include="Impl\LookupHashtable.cs" />
+    <Compile Include="Impl\StructStack.cs" />
+    <Compile Include="IStructBridger.cs" />
     <Compile Include="OneItemOrdered.cs" />
     <Compile Include="EmptyOrdered.cs" />
     <Compile Include="Enumerable.cs" />
@@ -200,7 +211,6 @@
     <Compile Include="Impl\IContains.cs" />
     <Compile Include="Impl\ICount.cs" />
     <Compile Include="Impl\IDefaultIfEmpty.cs" />
-    <Compile Include="Impl\IdentityMaps.cs" />
     <Compile Include="Impl\IDistinct.cs" />
     <Compile Include="Impl\IElementAt.cs" />
     <Compile Include="Impl\IExcept.cs" />

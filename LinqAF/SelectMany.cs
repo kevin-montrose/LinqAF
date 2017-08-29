@@ -1,33 +1,31 @@
-﻿using System;
+﻿using LinqAF.Impl;
+using System;
 
 namespace LinqAF
 {
-    public struct SelectManyBridgeEnumerator<TInItem, TOutItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator> : IStructEnumerator<TOutItem>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct SelectManyBridgeEnumerator<TInItem, TOutItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator> : IStructEnumerator<TOutItem>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
         where TProjectedEnumerator: struct, IStructEnumerator<TOutItem>
+        where TBridger: struct, IStructBridger<TOutItem, TBridgeType, TProjectedEnumerator>
         where TBridgeType: class
     {
         public TOutItem Current { get; private set; }
 
         TInnerEnumerator Inner;
         Func<TInItem, TBridgeType> Project;
-        Func<TBridgeType, TProjectedEnumerator> Bridge;
         TProjectedEnumerator CurrentEnumerator;
-        internal SelectManyBridgeEnumerator(ref TInnerEnumerator inner, Func<TInItem, TBridgeType> project, Func<TBridgeType, TProjectedEnumerator> bridge)
+        internal SelectManyBridgeEnumerator(ref TInnerEnumerator inner, Func<TInItem, TBridgeType> project)
         {
             Inner = inner;
             Project = project;
             Current = default(TOutItem);
-            Bridge = bridge;
             CurrentEnumerator = default(TProjectedEnumerator);
         }
 
         public bool IsDefaultValue()
         {
-            return
-                Project == null &&
-                CurrentEnumerator.IsDefaultValue() &&
-                Inner.IsDefaultValue();
+            return Project == null;
         }
 
         public void Dispose()
@@ -60,7 +58,7 @@ namespace LinqAF
             {
                 var toProject = Inner.Current;
                 var projected = Project(toProject);
-                CurrentEnumerator = Bridge(projected);
+                CurrentEnumerator = default(TBridger).Bridge(projected);
                 goto Start;
             }
 
@@ -78,42 +76,42 @@ namespace LinqAF
             Inner.Reset();
         }
     }
-    
-    public partial struct SelectManyBridgeEnumerable<TInItem, TOutItem, TBridgeType, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator> :
-        IStructEnumerable<TOutItem, SelectManyBridgeEnumerator<TInItem, TOutItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator>>
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct SelectManyBridgeEnumerable<TInItem, TOutItem, TBridgeType, TBridger, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator> :
+        IStructEnumerable<TOutItem, SelectManyBridgeEnumerator<TInItem, TOutItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
         where TProjectedEnumerator: struct, IStructEnumerator<TOutItem>
+        where TBridger: struct, IStructBridger<TOutItem, TBridgeType, TProjectedEnumerator>
         where TBridgeType: class
     {
 
         TInnerEnumerable Inner;
         Func<TInItem, TBridgeType> Project;
-        Func<TBridgeType, TProjectedEnumerator> Bridge;
-        internal SelectManyBridgeEnumerable(ref TInnerEnumerable inner, Func<TInItem, TBridgeType> project, Func<TBridgeType, TProjectedEnumerator> bridge)
+        internal SelectManyBridgeEnumerable(ref TInnerEnumerable inner, Func<TInItem, TBridgeType> project)
         {
             Inner = inner;
             Project = project;
-            Bridge = bridge;
         }
 
         public bool IsDefaultValue()
         {
-            return
-                Project == null &&
-                Inner.IsDefaultValue();
+            return Project == null;
         }
 
-        public SelectManyBridgeEnumerator<TInItem, TOutItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator> GetEnumerator()
+        public SelectManyBridgeEnumerator<TInItem, TOutItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator> GetEnumerator()
         {
             var inner = Inner.GetEnumerator();
-            return new SelectManyBridgeEnumerator<TInItem, TOutItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator>(ref inner, Project, Bridge);
+            return new SelectManyBridgeEnumerator<TInItem, TOutItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator>(ref inner, Project);
         }
     }
 
-    public struct SelectManyIndexedBridgeEnumerator<TInItem, TOutItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator> : IStructEnumerator<TOutItem>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct SelectManyIndexedBridgeEnumerator<TInItem, TOutItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator> : IStructEnumerator<TOutItem>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
         where TProjectedEnumerator: struct, IStructEnumerator<TOutItem>
+        where TBridger : struct, IStructBridger<TOutItem, TBridgeType, TProjectedEnumerator>
         where TBridgeType: class
     {
         public TOutItem Current { get; private set; }
@@ -121,25 +119,19 @@ namespace LinqAF
         TInnerEnumerator Inner;
         int Index;
         Func<TInItem, int, TBridgeType> Project;
-        Func<TBridgeType, TProjectedEnumerator> Bridge;
         TProjectedEnumerator CurrentEnumerator;
-        internal SelectManyIndexedBridgeEnumerator(ref TInnerEnumerator inner, Func<TInItem, int, TBridgeType> project, Func<TBridgeType, TProjectedEnumerator> bridge)
+        internal SelectManyIndexedBridgeEnumerator(ref TInnerEnumerator inner, Func<TInItem, int, TBridgeType> project)
         {
             Inner = inner;
             Index = 0;
             Project = project;
-            Bridge = bridge;
             Current = default(TOutItem);
             CurrentEnumerator = default(TProjectedEnumerator);
         }
 
         public bool IsDefaultValue()
         {
-            return
-                Project == null &&
-                Index == default(int) &&
-                CurrentEnumerator.IsDefaultValue() &&
-                Inner.IsDefaultValue();
+            return Project == null;
         }
 
         public void Dispose()
@@ -172,7 +164,7 @@ namespace LinqAF
             {
                 var toProject = Inner.Current;
                 var projected = Project(toProject, Index);
-                CurrentEnumerator = Bridge(projected);
+                CurrentEnumerator = default(TBridger).Bridge(projected);
                 Index++;
                 goto Start;
             }
@@ -193,37 +185,36 @@ namespace LinqAF
         }
     }
 
-    public partial struct SelectManyIndexedBridgeEnumerable<TInItem, TOutItem, TBridgeType, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator> :
-        IStructEnumerable<TOutItem, SelectManyIndexedBridgeEnumerator<TInItem, TOutItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator>>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct SelectManyIndexedBridgeEnumerable<TInItem, TOutItem, TBridgeType, TBridger, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator> :
+        IStructEnumerable<TOutItem, SelectManyIndexedBridgeEnumerator<TInItem, TOutItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
         where TProjectedEnumerator: struct, IStructEnumerator<TOutItem>
+        where TBridger: struct, IStructBridger<TOutItem, TBridgeType, TProjectedEnumerator>
         where TBridgeType: class
     {
         TInnerEnumerable Inner;
         Func<TInItem, int, TBridgeType> Project;
-        Func<TBridgeType, TProjectedEnumerator> Bridge;
-        internal SelectManyIndexedBridgeEnumerable(ref TInnerEnumerable inner, Func<TInItem, int, TBridgeType> project, Func<TBridgeType, TProjectedEnumerator> bridge)
+        internal SelectManyIndexedBridgeEnumerable(ref TInnerEnumerable inner, Func<TInItem, int, TBridgeType> project)
         {
             Inner = inner;
             Project = project;
-            Bridge = bridge;
         }
 
         public bool IsDefaultValue()
         {
-            return
-                Project == null &&
-                Inner.IsDefaultValue();
+            return Project == null;
         }
         
-        public SelectManyIndexedBridgeEnumerator<TInItem, TOutItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator> GetEnumerator()
+        public SelectManyIndexedBridgeEnumerator<TInItem, TOutItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator> GetEnumerator()
         {
             var inner = Inner.GetEnumerator();
-            return new SelectManyIndexedBridgeEnumerator<TInItem, TOutItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator>(ref inner, Project, Bridge);
+            return new SelectManyIndexedBridgeEnumerator<TInItem, TOutItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator>(ref inner, Project);
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SelectManyEnumerator<TInItem, TOutItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> :
         IStructEnumerator<TOutItem>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
@@ -245,10 +236,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Project == null &&
-                Inner.IsDefaultValue() &&
-                CurrentEnumerator.IsDefaultValue();
+            return Project == null;
         }
 
         public void Dispose()
@@ -283,7 +271,7 @@ namespace LinqAF
                 var projected = Project(toProject);
                 if (projected.IsDefaultValue())
                 {
-                    throw new InvalidOperationException("Uninitialized enumerable returned by projection");
+                    throw CommonImplementation.UninitializedProjection();
                 }
 
                 CurrentEnumerator = projected.GetEnumerator();
@@ -305,6 +293,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct SelectManyEnumerable<TInItem, TOutItem, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> :
         IStructEnumerable<TOutItem, SelectManyEnumerator<TInItem, TOutItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
@@ -322,9 +311,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Project == null &&
-                Inner.IsDefaultValue();
+            return Project == null;
         }
 
         public SelectManyEnumerator<TInItem, TOutItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> GetEnumerator()
@@ -334,6 +321,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SelectManyIndexedEnumerator<TInItem, TOutItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> :
         IStructEnumerator<TOutItem>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
@@ -357,11 +345,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Project == null &&
-                Index == default(int) &&
-                Inner.IsDefaultValue() &&
-                CurrentEnumerator.IsDefaultValue();
+            return Project == null;
         }
 
         public void Dispose()
@@ -396,7 +380,7 @@ namespace LinqAF
                 var projected = Project(toProject, Index);
                 if (projected.IsDefaultValue())
                 {
-                    throw new InvalidOperationException("Uninitialized enumerable returned by projection");
+                    throw CommonImplementation.UninitializedProjection();
                 }
 
                 CurrentEnumerator = projected.GetEnumerator();
@@ -420,6 +404,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct SelectManyIndexedEnumerable<TInItem, TOutItem, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> :
         IStructEnumerable<TOutItem, SelectManyIndexedEnumerator<TInItem, TOutItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
@@ -437,9 +422,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Project == null &&
-                Inner.IsDefaultValue();
+            return Project == null;
         }
         
         public SelectManyIndexedEnumerator<TInItem, TOutItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> GetEnumerator()
@@ -449,15 +432,16 @@ namespace LinqAF
         }
     }
 
-    public struct SelectManyCollectionBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator> :
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct SelectManyCollectionBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator> :
         IStructEnumerator<TOutItem>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
         where TProjectedEnumerator: struct, IStructEnumerator<TCollectionItem>
+        where TBridger: struct, IStructBridger<TCollectionItem, TBridgeType, TProjectedEnumerator>
         where TBridgeType: class
     {
         TInnerEnumerator Inner;
         Func<TInItem, TBridgeType> CollectionSelector;
-        Func<TBridgeType, TProjectedEnumerator> Bridge;
         Func<TInItem, TCollectionItem, TOutItem> ResultSelector;
 
         public TOutItem Current { get; private set; }
@@ -465,11 +449,10 @@ namespace LinqAF
 
         TProjectedEnumerator CurrentCollection;
 
-        internal SelectManyCollectionBridgeEnumerator(ref TInnerEnumerator inner, Func<TInItem, TBridgeType> collectionSelector, Func<TBridgeType, TProjectedEnumerator> bridge, Func<TInItem, TCollectionItem, TOutItem> resultSelector)
+        internal SelectManyCollectionBridgeEnumerator(ref TInnerEnumerator inner, Func<TInItem, TBridgeType> collectionSelector, Func<TInItem, TCollectionItem, TOutItem> resultSelector)
         {
             Inner = inner;
             CollectionSelector = collectionSelector;
-            Bridge = bridge;
             ResultSelector = resultSelector;
             Current = default(TOutItem);
             CurrentIn = default(TInItem);
@@ -478,11 +461,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                CollectionSelector == null &&
-                ResultSelector == null &&
-                CurrentCollection.IsDefaultValue() &&
-                Inner.IsDefaultValue();
+            return CollectionSelector == null;
         }
 
         public bool MoveNext()
@@ -504,7 +483,7 @@ namespace LinqAF
             {
                 CurrentIn = Inner.Current;
                 var e = CollectionSelector(CurrentIn);
-                CurrentCollection = Bridge(e);
+                CurrentCollection = default(TBridger).Bridge(e);
                 goto advanceInCollection;
             }
 
@@ -533,50 +512,48 @@ namespace LinqAF
         }
     }
 
-    public partial struct SelectManyCollectionBridgeEnumerable<TInItem, TOutItem, TCollectionItem, TBridgeType, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator> :
-        IStructEnumerable<TOutItem, SelectManyCollectionBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator>>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct SelectManyCollectionBridgeEnumerable<TInItem, TOutItem, TCollectionItem, TBridgeType, TBridger, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator> :
+        IStructEnumerable<TOutItem, SelectManyCollectionBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
         where TProjectedEnumerator: struct, IStructEnumerator<TCollectionItem>
+        where TBridger: struct, IStructBridger<TCollectionItem, TBridgeType, TProjectedEnumerator>
         where TBridgeType: class
     {
         TInnerEnumerable Inner;
         Func<TInItem, TBridgeType> CollectionSelector;
-        Func<TBridgeType, TProjectedEnumerator> Bridge;
         Func<TInItem, TCollectionItem, TOutItem> ResultSelector;
 
-        internal SelectManyCollectionBridgeEnumerable(ref TInnerEnumerable inner, Func<TInItem, TBridgeType> collectionSelector, Func<TBridgeType, TProjectedEnumerator> bridge, Func<TInItem, TCollectionItem, TOutItem> resultSelector)
+        internal SelectManyCollectionBridgeEnumerable(ref TInnerEnumerable inner, Func<TInItem, TBridgeType> collectionSelector, Func<TInItem, TCollectionItem, TOutItem> resultSelector)
         {
             Inner = inner;
             CollectionSelector = collectionSelector;
-            Bridge = bridge;
             ResultSelector = resultSelector;
         }
 
         public bool IsDefaultValue()
         {
-            return
-                CollectionSelector == null &&
-                ResultSelector == null &&
-                Inner.IsDefaultValue();
+            return CollectionSelector == null;
         }
 
-        public SelectManyCollectionBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator> GetEnumerator()
+        public SelectManyCollectionBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator> GetEnumerator()
         {
             var inner = Inner.GetEnumerator();
-            return new SelectManyCollectionBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator>(ref inner, CollectionSelector, Bridge, ResultSelector);
+            return new SelectManyCollectionBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator>(ref inner, CollectionSelector, ResultSelector);
         }
     }
 
-    public struct SelectManyCollectionIndexedBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator> :
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct SelectManyCollectionIndexedBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator> :
         IStructEnumerator<TOutItem>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
         where TProjectedEnumerator: struct, IStructEnumerator<TCollectionItem>
+        where TBridger: struct, IStructBridger<TCollectionItem, TBridgeType, TProjectedEnumerator>
         where TBridgeType: class
     {
         TInnerEnumerator Inner;
         Func<TInItem, int, TBridgeType> CollectionSelector;
-        Func<TBridgeType, TProjectedEnumerator> Bridge;
         Func<TInItem, TCollectionItem, TOutItem> ResultSelector;
 
         public TOutItem Current { get; private set; }
@@ -585,11 +562,10 @@ namespace LinqAF
         TProjectedEnumerator CurrentCollection;
         int CurrentIndex;
 
-        internal SelectManyCollectionIndexedBridgeEnumerator(ref TInnerEnumerator inner, Func<TInItem, int, TBridgeType> collectionSelector, Func<TBridgeType, TProjectedEnumerator> bridge, Func<TInItem, TCollectionItem, TOutItem> resultSelector)
+        internal SelectManyCollectionIndexedBridgeEnumerator(ref TInnerEnumerator inner, Func<TInItem, int, TBridgeType> collectionSelector, Func<TInItem, TCollectionItem, TOutItem> resultSelector)
         {
             Inner = inner;
             CollectionSelector = collectionSelector;
-            Bridge = bridge;
             ResultSelector = resultSelector;
             Current = default(TOutItem);
             CurrentIn = default(TInItem);
@@ -599,11 +575,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                CollectionSelector == null &&
-                ResultSelector == null &&
-                CurrentCollection.IsDefaultValue() &&
-                Inner.IsDefaultValue();
+            return CollectionSelector == null;
         }
 
         public bool MoveNext()
@@ -626,7 +598,7 @@ namespace LinqAF
                 CurrentIn = Inner.Current;
                 var e = CollectionSelector(CurrentIn, CurrentIndex);
                 CurrentIndex++;
-                CurrentCollection = Bridge(e);
+                CurrentCollection = default(TBridger).Bridge(e);
                 goto advanceInCollection;
             }
 
@@ -656,41 +628,39 @@ namespace LinqAF
         }
     }
 
-    public partial struct SelectManyCollectionIndexedBridgeEnumerable<TInItem, TOutItem, TCollectionItem, TBridgeType, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator> :
-        IStructEnumerable<TOutItem, SelectManyCollectionIndexedBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator>>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct SelectManyCollectionIndexedBridgeEnumerable<TInItem, TOutItem, TCollectionItem, TBridgeType, TBridger, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator> :
+        IStructEnumerable<TOutItem, SelectManyCollectionIndexedBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
         where TProjectedEnumerator: struct, IStructEnumerator<TCollectionItem>
+        where TBridger: struct, IStructBridger<TCollectionItem, TBridgeType, TProjectedEnumerator>
         where TBridgeType: class
     {
         TInnerEnumerable Inner;
         Func<TInItem, int, TBridgeType> CollectionSelector;
-        Func<TBridgeType, TProjectedEnumerator> Bridge;
         Func<TInItem, TCollectionItem, TOutItem> ResultSelector;
 
-        internal SelectManyCollectionIndexedBridgeEnumerable(ref TInnerEnumerable inner, Func<TInItem, int, TBridgeType> collectionSelector, Func<TBridgeType, TProjectedEnumerator> bridge, Func<TInItem, TCollectionItem, TOutItem> resultSelector)
+        internal SelectManyCollectionIndexedBridgeEnumerable(ref TInnerEnumerable inner, Func<TInItem, int, TBridgeType> collectionSelector, Func<TInItem, TCollectionItem, TOutItem> resultSelector)
         {
             Inner = inner;
             CollectionSelector = collectionSelector;
-            Bridge = bridge;
             ResultSelector = resultSelector;
         }
 
         public bool IsDefaultValue()
         {
-            return
-                CollectionSelector == null &&
-                ResultSelector == null &&
-                Inner.IsDefaultValue();
+            return CollectionSelector == null;
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator> GetEnumerator()
+        public SelectManyCollectionIndexedBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator> GetEnumerator()
         {
             var inner = Inner.GetEnumerator();
-            return new SelectManyCollectionIndexedBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator>(ref inner, CollectionSelector, Bridge, ResultSelector);
+            return new SelectManyCollectionIndexedBridgeEnumerator<TInItem, TOutItem, TCollectionItem, TBridgeType, TBridger, TInnerEnumerator, TProjectedEnumerator>(ref inner, CollectionSelector, ResultSelector);
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SelectManyCollectionEnumerator<TInItem, TOutItem, TCollectionItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> :
         IStructEnumerator<TOutItem>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
@@ -718,10 +688,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                CollectionSelector == null &&
-                ResultSelector == null &&
-                Inner.IsDefaultValue();
+            return CollectionSelector == null;
         }
 
         public bool MoveNext()
@@ -745,7 +712,7 @@ namespace LinqAF
                 var e = CollectionSelector(CurrentIn);
                 if (e.IsDefaultValue())
                 {
-                    throw new InvalidOperationException("Uninitialized enumerable returned by projection");
+                    throw CommonImplementation.UninitializedProjection();
                 }
 
                 CurrentCollection = e.GetEnumerator();
@@ -777,6 +744,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct SelectManyCollectionEnumerable<TInItem, TOutItem, TCollectionItem, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> :
         IStructEnumerable<TOutItem, SelectManyCollectionEnumerator<TInItem, TOutItem, TCollectionItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator>>
         where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
@@ -797,10 +765,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                CollectionSelector == null &&
-                ResultSelector == null &
-                Inner.IsDefaultValue();
+            return CollectionSelector == null;
         }
 
         public SelectManyCollectionEnumerator<TInItem, TOutItem, TCollectionItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> GetEnumerator()
@@ -810,6 +775,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SelectManyCollectionIndexedEnumerator<TInItem, TOutItem, TCollectionItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> :
         IStructEnumerator<TOutItem>
         where TInnerEnumerator : struct, IStructEnumerator<TInItem>
@@ -839,10 +805,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                CollectionSelector == null &&
-                ResultSelector == null &&
-                Inner.IsDefaultValue();
+            return CollectionSelector == null;
         }
 
         public bool MoveNext()
@@ -866,7 +829,7 @@ namespace LinqAF
                 var e = CollectionSelector(CurrentIn, CurrentIndex);
                 if (e.IsDefaultValue())
                 {
-                    throw new InvalidOperationException("Uninitialized enumerable returned by projection");
+                    throw CommonImplementation.UninitializedProjection();
                 }
 
                 CurrentIndex++;
@@ -900,6 +863,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct SelectManyCollectionIndexedEnumerable<TInItem, TOutItem, TCollectionItem, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> :
         IStructEnumerable<TOutItem, SelectManyCollectionIndexedEnumerator<TInItem, TOutItem, TCollectionItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator>>
        where TInnerEnumerable : struct, IStructEnumerable<TInItem, TInnerEnumerator>
@@ -920,10 +884,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                CollectionSelector == null &&
-                ResultSelector == null &
-                Inner.IsDefaultValue();
+            return CollectionSelector == null;
         }
 
         public SelectManyCollectionIndexedEnumerator<TInItem, TOutItem, TCollectionItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> GetEnumerator()
