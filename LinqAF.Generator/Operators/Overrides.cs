@@ -90,7 +90,7 @@ namespace LinqAF.Generator
                         )
                         .ToList();
 
-                if (inFiles.Count == 0) throw new InvalidOperationException($"Couldn't find file with method to override");
+                if (inFiles.Count == 0) throw new InvalidOperationException($"Couldn't find file with method {overrideName} & {numParams} params to override");
                 if (inFiles.Count > 1) throw new InvalidOperationException($"Found too many override candidates");
 
                 var inFile = inFiles.Single();

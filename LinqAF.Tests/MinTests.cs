@@ -41,7 +41,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(1, a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -51,7 +52,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(1, a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -61,7 +63,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(3, a.Min(s => (int)s.Length))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -71,7 +74,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(4, a.Min(s => s.Length != 3 ? (int?)s.Length : null))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -84,7 +88,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(1, a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -94,7 +99,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(1, a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -104,7 +110,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(3, a.Min(s => (long)s.Length))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -114,7 +121,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(4, a.Min(s => s.Length != 3 ? (long?)s.Length : null))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -127,7 +135,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(1, a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -137,7 +146,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(1, a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -147,7 +157,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(3, a.Min(s => (float)s.Length))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -157,7 +168,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(4, a.Min(s => s.Length != 3 ? (float?)s.Length : null))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -170,7 +182,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(1, a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -180,7 +193,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(1, a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -190,7 +204,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(3, a.Min(s => (double)s.Length))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -200,7 +215,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(4, a.Min(s => s.Length != 3 ? (double?)s.Length : null))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -213,7 +229,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(1, a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -223,7 +240,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(1, a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -233,7 +251,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(3, a.Min(s => (decimal)s.Length))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -243,7 +262,8 @@ namespace LinqAF.Tests
                     "a => Assert.AreEqual(4, a.Min(s => s.Length != 3 ? (decimal?)s.Length : null))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -256,7 +276,8 @@ namespace LinqAF.Tests
                     @"a => Assert.AreEqual(""123"", a.Min())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -269,7 +290,8 @@ namespace LinqAF.Tests
                     @"a => Assert.AreEqual(""321"", a.Min((Func<string, string>)MinTests._Chaining_Rev))",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -423,7 +445,7 @@ namespace LinqAF.Tests
                 Assert.AreEqual((DateTime?)dt, groupBySpecific.Min(g_nDtProj));
             }
 
-            // lookup
+            // lookupDefault
             {
                 Func<GroupingEnumerable<int, int>, int> g_intProj = x => (int)x.Key;
                 Func<GroupingEnumerable<int, int>, int?> g_nIntProj = x => (int?)x.Key;
@@ -439,20 +461,52 @@ namespace LinqAF.Tests
                 Func<GroupingEnumerable<int, int>, DateTime?> g_nDtProj = x => (DateTime?)dt;
 
                 // non-projection Max makes no sense
-                var lookup = new[] { 1, 2, 3 }.ToLookup(x => x);
+                var lookupDefault = new[] { 1, 2, 3 }.ToLookup(x => x);
 
-                Assert.AreEqual((int)1, lookup.Min(g_intProj));
-                Assert.AreEqual((int?)1, lookup.Min(g_nIntProj));
-                Assert.AreEqual((long)1, lookup.Min(g_longProj));
-                Assert.AreEqual((long?)1, lookup.Min(g_nLongProj));
-                Assert.AreEqual((float)1, lookup.Min(g_floatProj));
-                Assert.AreEqual((float?)1, lookup.Min(g_nFloatProj));
-                Assert.AreEqual((double)1, lookup.Min(g_doubleProj));
-                Assert.AreEqual((double?)1, lookup.Min(g_nDoubleProj));
-                Assert.AreEqual((decimal)1, lookup.Min(g_decimalProj));
-                Assert.AreEqual((decimal?)1, lookup.Min(g_nDecimalProj));
-                Assert.AreEqual(dt, lookup.Min(g_dtProj));
-                Assert.AreEqual((DateTime?)dt, lookup.Min(g_nDtProj));
+                Assert.AreEqual((int)1, lookupDefault.Min(g_intProj));
+                Assert.AreEqual((int?)1, lookupDefault.Min(g_nIntProj));
+                Assert.AreEqual((long)1, lookupDefault.Min(g_longProj));
+                Assert.AreEqual((long?)1, lookupDefault.Min(g_nLongProj));
+                Assert.AreEqual((float)1, lookupDefault.Min(g_floatProj));
+                Assert.AreEqual((float?)1, lookupDefault.Min(g_nFloatProj));
+                Assert.AreEqual((double)1, lookupDefault.Min(g_doubleProj));
+                Assert.AreEqual((double?)1, lookupDefault.Min(g_nDoubleProj));
+                Assert.AreEqual((decimal)1, lookupDefault.Min(g_decimalProj));
+                Assert.AreEqual((decimal?)1, lookupDefault.Min(g_nDecimalProj));
+                Assert.AreEqual(dt, lookupDefault.Min(g_dtProj));
+                Assert.AreEqual((DateTime?)dt, lookupDefault.Min(g_nDtProj));
+            }
+
+            // lookupSpecific
+            {
+                Func<GroupingEnumerable<int, int>, int> g_intProj = x => (int)x.Key;
+                Func<GroupingEnumerable<int, int>, int?> g_nIntProj = x => (int?)x.Key;
+                Func<GroupingEnumerable<int, int>, long> g_longProj = x => (long)x.Key;
+                Func<GroupingEnumerable<int, int>, long?> g_nLongProj = x => (long?)x.Key;
+                Func<GroupingEnumerable<int, int>, float> g_floatProj = x => (float)x.Key;
+                Func<GroupingEnumerable<int, int>, float?> g_nFloatProj = x => (float?)x.Key;
+                Func<GroupingEnumerable<int, int>, double> g_doubleProj = x => (double)x.Key;
+                Func<GroupingEnumerable<int, int>, double?> g_nDoubleProj = x => (double?)x.Key;
+                Func<GroupingEnumerable<int, int>, decimal> g_decimalProj = x => (decimal)x.Key;
+                Func<GroupingEnumerable<int, int>, decimal?> g_nDecimalProj = x => (decimal?)x.Key;
+                Func<GroupingEnumerable<int, int>, DateTime> g_dtProj = x => dt;
+                Func<GroupingEnumerable<int, int>, DateTime?> g_nDtProj = x => (DateTime?)dt;
+
+                // non-projection Max makes no sense
+                var lookupSpecific = new[] { 1, 2, 3 }.ToLookup(x => x, new _IntComparer());
+
+                Assert.AreEqual((int)1, lookupSpecific.Min(g_intProj));
+                Assert.AreEqual((int?)1, lookupSpecific.Min(g_nIntProj));
+                Assert.AreEqual((long)1, lookupSpecific.Min(g_longProj));
+                Assert.AreEqual((long?)1, lookupSpecific.Min(g_nLongProj));
+                Assert.AreEqual((float)1, lookupSpecific.Min(g_floatProj));
+                Assert.AreEqual((float?)1, lookupSpecific.Min(g_nFloatProj));
+                Assert.AreEqual((double)1, lookupSpecific.Min(g_doubleProj));
+                Assert.AreEqual((double?)1, lookupSpecific.Min(g_nDoubleProj));
+                Assert.AreEqual((decimal)1, lookupSpecific.Min(g_decimalProj));
+                Assert.AreEqual((decimal?)1, lookupSpecific.Min(g_nDecimalProj));
+                Assert.AreEqual(dt, lookupSpecific.Min(g_dtProj));
+                Assert.AreEqual((DateTime?)dt, lookupSpecific.Min(g_nDtProj));
             }
 
             // range
@@ -718,7 +772,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -726,7 +781,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -737,7 +793,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -745,7 +802,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -756,7 +814,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -764,7 +823,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -775,7 +835,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -783,7 +844,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -794,7 +856,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -802,7 +865,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -813,7 +877,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, Guid>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -821,7 +886,8 @@ namespace LinqAF.Tests
                 Helper.ForEachEnumerableNoRetExpression(
                     new[] { "hello" },
                     @"a => { try { a.Min(default(Func<string, Guid?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual(""selector"", exc.ParamName); } }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -835,7 +901,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -908,20 +975,36 @@ namespace LinqAF.Tests
                 try { groupBySpecific.Min(default(Func<GroupingEnumerable<string, string>, DateTime?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, DateTime>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
-                try { lookup.Min(default(Func<GroupingEnumerable<int, int>, DateTime?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, DateTime>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupDefault.Min(default(Func<GroupingEnumerable<int, int>, DateTime?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, int?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, long>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, long?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, float>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, float?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, double>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, double?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, decimal>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, decimal?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, DateTime>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
+                try { lookupSpecific.Min(default(Func<GroupingEnumerable<int, int>, DateTime?>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("selector", exc.ParamName); }
             }
 
             // range
@@ -1057,7 +1140,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1078,7 +1162,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1099,7 +1184,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1120,7 +1206,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1141,7 +1228,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1162,7 +1250,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1183,7 +1272,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1204,7 +1294,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1225,7 +1316,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1246,7 +1338,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1280,7 +1373,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -1292,7 +1386,8 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -1434,7 +1529,7 @@ namespace LinqAF.Tests
                 try { groupBySpecific.Min(g_nDtProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
                 // non-projection Max makes no sense
 
@@ -1451,18 +1546,49 @@ namespace LinqAF.Tests
                 Func<GroupingEnumerable<int, int>, DateTime> g_dtProj = x => new DateTime(2017, 08, 01, 0, 0, 0, DateTimeKind.Utc);
                 Func<GroupingEnumerable<int, int>, DateTime?> g_nDtProj = x => (DateTime?)new DateTime(2017, 08, 01, 0, 0, 0, DateTimeKind.Utc);
 
-                try { lookup.Min(g_intProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_nIntProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_longProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_nLongProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_floatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_nFloatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_doubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_nDoubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_decimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_nDecimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_dtProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.Min(g_nDtProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_intProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_nIntProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_longProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_nLongProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_floatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_nFloatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_doubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_nDoubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_decimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_nDecimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_dtProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.Min(g_nDtProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                // non-projection Max makes no sense
+
+                Func<GroupingEnumerable<int, int>, int> g_intProj = x => (int)x.Key;
+                Func<GroupingEnumerable<int, int>, int?> g_nIntProj = x => (int?)x.Key;
+                Func<GroupingEnumerable<int, int>, long> g_longProj = x => (long)x.Key;
+                Func<GroupingEnumerable<int, int>, long?> g_nLongProj = x => (long?)x.Key;
+                Func<GroupingEnumerable<int, int>, float> g_floatProj = x => (float)x.Key;
+                Func<GroupingEnumerable<int, int>, float?> g_nFloatProj = x => (float?)x.Key;
+                Func<GroupingEnumerable<int, int>, double> g_doubleProj = x => (double)x.Key;
+                Func<GroupingEnumerable<int, int>, double?> g_nDoubleProj = x => (double?)x.Key;
+                Func<GroupingEnumerable<int, int>, decimal> g_decimalProj = x => (decimal)x.Key;
+                Func<GroupingEnumerable<int, int>, decimal?> g_nDecimalProj = x => (decimal?)x.Key;
+                Func<GroupingEnumerable<int, int>, DateTime> g_dtProj = x => new DateTime(2017, 08, 01, 0, 0, 0, DateTimeKind.Utc);
+                Func<GroupingEnumerable<int, int>, DateTime?> g_nDtProj = x => (DateTime?)new DateTime(2017, 08, 01, 0, 0, 0, DateTimeKind.Utc);
+
+                try { lookupSpecific.Min(g_intProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_nIntProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_longProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_nLongProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_floatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_nFloatProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_doubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_nDoubleProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_decimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_nDecimalProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_dtProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.Min(g_nDtProj); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
             // range

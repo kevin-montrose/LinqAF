@@ -25,7 +25,7 @@ namespace LinqAF
         public ExceptDefaultEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>, PlaceholderEnumerable<TItem>, PlaceholderEnumerator<TItem>> Except<TItem>(BuiltInEnumerable<TItem> first, PlaceholderEnumerable<TItem> second)
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return CommonImplementation.ExceptImpl<
                 TItem,
@@ -55,7 +55,7 @@ namespace LinqAF
         public ExceptSpecificEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>, PlaceholderEnumerable<TItem>, PlaceholderEnumerator<TItem>> Except<TItem>(BuiltInEnumerable<TItem> first, PlaceholderEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return CommonImplementation.ExceptImpl<
                 TItem,
@@ -82,7 +82,7 @@ namespace LinqAF
             where TGenGroupByEnumerator: struct, IStructEnumerator<TGenGroupByInItem>
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return CommonImplementation.ExceptImpl<
                 GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
@@ -108,7 +108,7 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return CommonImplementation.ExceptImpl<
                 GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
@@ -124,22 +124,46 @@ namespace LinqAF
             GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
             BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
             BuiltInEnumerator<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
-            LookupEnumerable<TGenGroupByKey, TGenGroupByElement>,
-            LookupEnumerator<TGenGroupByKey, TGenGroupByElement>
+            LookupDefaultEnumerable<TGenGroupByKey, TGenGroupByElement>,
+            LookupDefaultEnumerator<TGenGroupByKey, TGenGroupByElement>
             > Except<TGenGroupByKey, TGenGroupByElement>(
                 BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>> first,
-                LookupEnumerable<TGenGroupByKey, TGenGroupByElement> second
+                LookupDefaultEnumerable<TGenGroupByKey, TGenGroupByElement> second
             )
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return CommonImplementation.ExceptImpl<
                 GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
                 BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
                 BuiltInEnumerator<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
-                LookupEnumerable<TGenGroupByKey, TGenGroupByElement>,
-                LookupEnumerator<TGenGroupByKey, TGenGroupByElement>
+                LookupDefaultEnumerable<TGenGroupByKey, TGenGroupByElement>,
+                LookupDefaultEnumerator<TGenGroupByKey, TGenGroupByElement>
+            >(RefLocal(firstBridge), ref second);
+        }
+
+        [DoNotInject]
+        public ExceptDefaultEnumerable<
+            GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
+            BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
+            BuiltInEnumerator<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
+            LookupSpecificEnumerable<TGenGroupByKey, TGenGroupByElement>,
+            LookupSpecificEnumerator<TGenGroupByKey, TGenGroupByElement>
+            > Except<TGenGroupByKey, TGenGroupByElement>(
+                BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>> first,
+                LookupSpecificEnumerable<TGenGroupByKey, TGenGroupByElement> second
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return CommonImplementation.ExceptImpl<
+                GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
+                BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
+                BuiltInEnumerator<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
+                LookupSpecificEnumerable<TGenGroupByKey, TGenGroupByElement>,
+                LookupSpecificEnumerator<TGenGroupByKey, TGenGroupByElement>
             >(RefLocal(firstBridge), ref second);
         }
 
@@ -160,7 +184,7 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return CommonImplementation.ExceptImpl<
                 GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
@@ -187,7 +211,7 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return CommonImplementation.ExceptImpl<
                 GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
@@ -203,23 +227,48 @@ namespace LinqAF
             GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
             BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
             BuiltInEnumerator<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
-            LookupEnumerable<TGenGroupByKey, TGenGroupByElement>,
-            LookupEnumerator<TGenGroupByKey, TGenGroupByElement>
+            LookupDefaultEnumerable<TGenGroupByKey, TGenGroupByElement>,
+            LookupDefaultEnumerator<TGenGroupByKey, TGenGroupByElement>
             > Except<TGenGroupByKey, TGenGroupByElement>(
                 BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>> first,
-                LookupEnumerable<TGenGroupByKey, TGenGroupByElement> second,
+                LookupDefaultEnumerable<TGenGroupByKey, TGenGroupByElement> second,
                 IEqualityComparer<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>> comparer
             )
         {
             var firstBridge = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return CommonImplementation.ExceptImpl<
                 GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
                 BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
                 BuiltInEnumerator<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
-                LookupEnumerable<TGenGroupByKey, TGenGroupByElement>,
-                LookupEnumerator<TGenGroupByKey, TGenGroupByElement>
+                LookupDefaultEnumerable<TGenGroupByKey, TGenGroupByElement>,
+                LookupDefaultEnumerator<TGenGroupByKey, TGenGroupByElement>
+            >(RefLocal(firstBridge), ref second, comparer);
+        }
+
+        [DoNotInject]
+        public ExceptSpecificEnumerable<
+            GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
+            BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
+            BuiltInEnumerator<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
+            LookupSpecificEnumerable<TGenGroupByKey, TGenGroupByElement>,
+            LookupSpecificEnumerator<TGenGroupByKey, TGenGroupByElement>
+            > Except<TGenGroupByKey, TGenGroupByElement>(
+                BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>> first,
+                LookupSpecificEnumerable<TGenGroupByKey, TGenGroupByElement> second,
+                IEqualityComparer<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>> comparer
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return CommonImplementation.ExceptImpl<
+                GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
+                BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
+                BuiltInEnumerator<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
+                LookupSpecificEnumerable<TGenGroupByKey, TGenGroupByElement>,
+                LookupSpecificEnumerator<TGenGroupByKey, TGenGroupByElement>
             >(RefLocal(firstBridge), ref second, comparer);
         }
     }

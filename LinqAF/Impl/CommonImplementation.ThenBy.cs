@@ -28,8 +28,8 @@ namespace LinqAF.Impl
             where TInnerEnumerator : struct, IStructEnumerator<TItem>
             where TComparer : struct, IStructComparer<TItem, TFirstKey>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return ThenByImpl<TItem, TFirstKey, TComparer, TOuterEnumerable, TOuterEnumerator, TInnerEnumerable, TInnerEnumerator, TSecondKey>(ref source, keySelector);
         }
@@ -90,8 +90,8 @@ namespace LinqAF.Impl
             where TInnerEnumerator : struct, IStructEnumerator<TItem>
             where TComparer : struct, IStructComparer<TItem, TFirstKey>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return ThenByImpl<TItem, TFirstKey, TComparer, TOuterEnumerable, TOuterEnumerator, TInnerEnumerable, TInnerEnumerator, TSecondKey>(ref source, keySelector, comparer);
         }
@@ -152,8 +152,8 @@ namespace LinqAF.Impl
             where TInnerEnumerator : struct, IStructEnumerator<TItem>
             where TComparer : struct, IStructComparer<TItem, TFirstKey>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return ThenByDescendingImpl<TItem, TFirstKey, TComparer, TOuterEnumerable, TOuterEnumerator, TInnerEnumerable, TInnerEnumerator, TSecondKey>(ref source, keySelector);
         }
@@ -214,8 +214,8 @@ namespace LinqAF.Impl
             where TInnerEnumerator : struct, IStructEnumerator<TItem>
             where TComparer : struct, IStructComparer<TItem, TFirstKey>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
             return ThenByDescendingImpl<TItem, TFirstKey, TComparer, TOuterEnumerable, TOuterEnumerator, TInnerEnumerable, TInnerEnumerator, TSecondKey>(ref source, keySelector, comparer);
         }
@@ -251,6 +251,44 @@ namespace LinqAF.Impl
             var inner = source.GetInnerEnumerable();
 
             return new OrderByEnumerable<TItem, CompoundKey<TFirstKey, TSecondKey>, TInnerEnumerable, TInnerEnumerator, CompoundComparer<TItem, TFirstKey, TComparer, TSecondKey, SingleComparerDescending<TItem, TSecondKey>>>(ref inner, ref newComparer);
+        }
+
+        public static
+            OrderByEnumerable<
+                TItem, 
+                CompoundKey<TFirstKey, TSecondKey>, 
+                TInnerEnumerable, 
+                TInnerEnumerator, 
+                CompoundComparer<TItem, TFirstKey, TComparer, TSecondKey, ConfiguredComparer<TItem, TSecondKey>>
+            > CreateOrderedEnumerable<TItem, TFirstKey, TComparer, TOuterEnumerable, TOuterEnumerator, TInnerEnumerable, TInnerEnumerator, TSecondKey>(
+                ref TOuterEnumerable source,
+                Func<TItem, TSecondKey> keySelector, 
+                IComparer<TSecondKey> comparer, 
+                bool descending
+            )
+            where TOuterEnumerable : struct, IStructEnumerable<TItem, TOuterEnumerator>, IHasComparer<TItem, TFirstKey, TComparer, TInnerEnumerable, TInnerEnumerator>
+            where TOuterEnumerator : struct, IStructEnumerator<TItem>
+            where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
+            where TInnerEnumerator : struct, IStructEnumerator<TItem>
+            where TComparer : struct, IStructComparer<TItem, TFirstKey>
+        {
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+
+            comparer = comparer ?? Comparer<TSecondKey>.Default;
+
+            var configured = new ConfiguredComparer<TItem, TSecondKey>(keySelector, comparer, descending);
+            var first = source.GetComparer();
+            
+            var compound = new CompoundComparer<TItem, TFirstKey, TComparer, TSecondKey, ConfiguredComparer<TItem, TSecondKey>>(ref first, ref configured);
+
+            var inner = source.GetInnerEnumerable();
+
+            return
+                new OrderByEnumerable<TItem, CompoundKey<TFirstKey, TSecondKey>, TInnerEnumerable, TInnerEnumerator, CompoundComparer<TItem, TFirstKey, TComparer, TSecondKey, ConfiguredComparer<TItem, TSecondKey>>>(
+                    ref inner,
+                    ref compound
+                );
         }
     }
 }

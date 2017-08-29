@@ -8,6 +8,7 @@ namespace LinqAF
         bool IsDefaultValue();
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SinglePredicate<TItem>: IStructPredicate<TItem>
     {
         Func<TItem, bool> Predicate;
@@ -22,6 +23,7 @@ namespace LinqAF
         public bool IsMatch(TItem item) => Predicate(item);
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ChainedPredicate<TItem, THeadPredicate, TTailPredicate>: 
         IStructPredicate<TItem>
         where THeadPredicate: struct, IStructPredicate<TItem>
@@ -36,7 +38,7 @@ namespace LinqAF
             SecondPredicate = second;
         }
 
-        public bool IsDefaultValue() => FirstPredicate.IsDefaultValue() || SecondPredicate.IsDefaultValue();
+        public bool IsDefaultValue() => FirstPredicate.IsDefaultValue();
 
         public bool IsMatch(TItem item) => FirstPredicate.IsMatch(item) && SecondPredicate.IsMatch(item);
     }

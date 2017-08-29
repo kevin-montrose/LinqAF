@@ -31,7 +31,7 @@ namespace LinqAF.Tests
             Assert.IsTrue(e.GetType().IsValueType);
 
             var res = new List<int>();
-            foreach(var item in e)
+            foreach (var item in e)
             {
                 res.Add(item);
             }
@@ -87,13 +87,15 @@ namespace LinqAF.Tests
                         typeof(EmptyOrderedEnumerable<>),
                         typeof(GroupByDefaultEnumerable<,,,,>),
                         typeof(GroupBySpecificEnumerable<,,,,>),
-                        typeof(LookupEnumerable<,>)
+                        typeof(LookupDefaultEnumerable<,>),
+                        typeof(LookupSpecificEnumerable<,>)
                       )",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -119,13 +121,15 @@ namespace LinqAF.Tests
                         typeof(EmptyOrderedEnumerable<>),
                         typeof(GroupByDefaultEnumerable<,,,,>),
                         typeof(GroupBySpecificEnumerable<,,,,>),
-                        typeof(LookupEnumerable<,>)
+                        typeof(LookupDefaultEnumerable<,>),
+                        typeof(LookupSpecificEnumerable<,>)
                       )",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -184,7 +188,7 @@ namespace LinqAF.Tests
             var oneItemSpecific = Enumerable.Empty<int>().DefaultIfEmpty(4);
             var oneItemDefaultOrdered = oneItemDefault.OrderBy(x => x);
             var oneItemSpecificOrdered = oneItemSpecific.OrderBy(x => x);
-            
+
             // empty
             {
                 Assert.IsTrue(empty.Except(empty).SequenceEqual(new int[0]));
@@ -222,7 +226,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -263,7 +268,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -358,7 +364,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -395,10 +402,11 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
 
-                
+
             }
 
             // reverseRange
@@ -438,10 +446,11 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
-            
+
             // oneItemDefault
             {
                 Assert.IsTrue(oneItemDefault.Except(empty).SequenceEqual(oneItemDefault));
@@ -479,7 +488,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -520,7 +530,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -561,7 +572,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -602,11 +614,12 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
-        
+
         [TestMethod]
         public void Malformed_Default()
         {
@@ -644,15 +657,17 @@ namespace LinqAF.Tests
                            }"",
                         typeof(GroupByDefaultEnumerable<,,,,>),
                         typeof(GroupBySpecificEnumerable<,,,,>),
-                        typeof(LookupEnumerable<,>)
+                        typeof(LookupDefaultEnumerable<,>),
+                        typeof(LookupSpecificEnumerable<,>)
                       )",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
-        
+
         [TestMethod]
         public void Malformed_Specific()
         {
@@ -690,11 +705,13 @@ namespace LinqAF.Tests
                            }"",
                         typeof(GroupByDefaultEnumerable<,,,,>),
                         typeof(GroupBySpecificEnumerable<,,,,>),
-                        typeof(LookupEnumerable<,>)
+                        typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                       )",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -704,7 +721,8 @@ namespace LinqAF.Tests
         {
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -806,7 +824,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -899,51 +918,52 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
             // lookup
             {
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>(), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().Except(lookup); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().Except(lookup, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x).Except(lookup); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x).Except(lookup, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { lookup.Except((new[] { 1 }).GroupBy(x => x, new _IntComparer())); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { lookup.Except((new[] { 1 }).GroupBy(x => x, new _IntComparer()), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { (new[] { 1 }).GroupBy(x => x, new _IntComparer()).Except(lookup); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { (new[] { 1 }).GroupBy(x => x, new _IntComparer()).Except(lookup, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { lookup.Except((new[] { 1 }).ToLookup(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { lookup.Except((new[] { 1 }).ToLookup(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { (new[] { 1 }).ToLookup(x => x).Except(lookup); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { (new[] { 1 }).ToLookup(x => x).Except(lookup, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { lookup.Except(Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { lookup.Except(Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1).Except(lookup); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1).Except(lookup, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty(), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().Except(lookup); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().Except(lookup, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First())); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).Except(lookup); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).Except(lookup, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x).Except(lookup); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x).Except(lookup, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { lookup.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x).Except(lookup); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x).Except(lookup, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>(), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().Except(lookupDefault); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().Except(lookupDefault, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x).Except(lookupDefault); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x).Except(lookupDefault, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupDefault.Except((new[] { 1 }).GroupBy(x => x, new _IntComparer())); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupDefault.Except((new[] { 1 }).GroupBy(x => x, new _IntComparer()), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { (new[] { 1 }).GroupBy(x => x, new _IntComparer()).Except(lookupDefault); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { (new[] { 1 }).GroupBy(x => x, new _IntComparer()).Except(lookupDefault, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupDefault.Except((new[] { 1 }).ToLookup(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupDefault.Except((new[] { 1 }).ToLookup(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { (new[] { 1 }).ToLookup(x => x).Except(lookupDefault); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { (new[] { 1 }).ToLookup(x => x).Except(lookupDefault, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1).Except(lookupDefault); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1).Except(lookupDefault, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty(), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().Except(lookupDefault); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().Except(lookupDefault, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First())); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).Except(lookupDefault); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).Except(lookupDefault, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x).Except(lookupDefault); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x).Except(lookupDefault, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupDefault.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x).Except(lookupDefault); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x).Except(lookupDefault, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
 
                 Helper.ForEachEnumerableExpression(
-                    lookup,
+                    lookupDefault,
                     new GroupingEnumerable<int, int>[0],
                     res => { },
                     @"(a, b) =>
@@ -992,7 +1012,102 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
+                );
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>(), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().Except(lookupSpecific); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().Except(lookupSpecific, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x).Except(lookupSpecific); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().OrderBy(x => x).Except(lookupSpecific, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupSpecific.Except((new[] { 1 }).GroupBy(x => x, new _IntComparer())); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupSpecific.Except((new[] { 1 }).GroupBy(x => x, new _IntComparer()), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { (new[] { 1 }).GroupBy(x => x, new _IntComparer()).Except(lookupSpecific); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { (new[] { 1 }).GroupBy(x => x, new _IntComparer()).Except(lookupSpecific, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupSpecific.Except((new[] { 1 }).ToLookup(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupSpecific.Except((new[] { 1 }).ToLookup(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { (new[] { 1 }).ToLookup(x => x).Except(lookupSpecific); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { (new[] { 1 }).ToLookup(x => x).Except(lookupSpecific, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1).Except(lookupSpecific); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Repeat((new[] { 1 }).ToLookup(x => x).First(), 1).Except(lookupSpecific, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty(), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().Except(lookupSpecific); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().Except(lookupSpecific, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First())); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).Except(lookupSpecific); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).Except(lookupSpecific, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x).Except(lookupSpecific); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty().OrderBy(x => x).Except(lookupSpecific, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { lookupSpecific.Except(Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x).Except(lookupSpecific); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty((new[] { 1 }).ToLookup(x => x).First()).OrderBy(x => x).Except(lookupSpecific, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
+
+                Helper.ForEachEnumerableExpression(
+                    lookupSpecific,
+                    new GroupingEnumerable<int, int>[0],
+                    res => { },
+                    @"(a, b) =>
+                      {
+                        try
+                        {
+                            a.Except(b);
+                            Assert.Fail();
+                        }
+                        catch(ArgumentException exc)
+                        {
+                            Assert.AreEqual(""first"", exc.ParamName);
+                        }
+
+                        try
+                        {
+                            a.Except(b, new ExceptTests._GroupingComparer<int>());
+                            Assert.Fail();
+                        }
+                        catch(ArgumentException exc)
+                        {
+                            Assert.AreEqual(""first"", exc.ParamName);
+                        }
+
+                        try
+                        {
+                            b.Except(a);
+                            Assert.Fail();
+                        }
+                        catch(ArgumentException exc)
+                        {
+                            Assert.AreEqual(""second"", exc.ParamName);
+                        }
+
+                        try
+                        {
+                            b.Except(a, new ExceptTests._GroupingComparer<int>());
+                            Assert.Fail();
+                        }
+                        catch(ArgumentException exc)
+                        {
+                            Assert.AreEqual(""second"", exc.ParamName);
+                        }
+
+                        return Helper.NoCallValue;
+                      }",
+                    typeof(GroupByDefaultEnumerable<,,,,>),
+                    typeof(GroupBySpecificEnumerable<,,,,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1081,7 +1196,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1170,7 +1286,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1259,7 +1376,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1348,7 +1466,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1437,7 +1556,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1526,7 +1646,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -1615,7 +1736,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }

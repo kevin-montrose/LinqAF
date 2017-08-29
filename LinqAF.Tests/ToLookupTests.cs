@@ -46,6 +46,31 @@ namespace LinqAF.Tests
         }
 
         [TestMethod]
+        public void Grow()
+        {
+            var e = Enumerable.Range(0, 100).ToLookup(x => x, x => x.ToString());
+
+            Assert.IsTrue(e.GetType().IsValueType);
+
+            var res = new List<string[]>();
+            foreach (var group in e)
+            {
+                Assert.IsTrue(group.GetType().IsValueType);
+
+                res.Add(group.ToArray());
+            }
+
+            Assert.AreEqual(100, res.Count);
+            Assert.AreEqual(100, e.Count);
+            for(var i = 0; i < 100; i++)
+            {
+                var set = res[i];
+                Assert.AreEqual(1, set.Length);
+                Assert.AreEqual(i.ToString(), set[0]);
+            }
+        }
+
+        [TestMethod]
         public void Empty()
         {
             var e = new int[0].ToLookup(x => x, x => x.ToString());
@@ -60,7 +85,72 @@ namespace LinqAF.Tests
                 res.Add(group.ToArray());
             }
 
+            Assert.AreEqual(0, e.Count);
             Assert.AreEqual(0, res.Count);
+        }
+        
+        [TestMethod]
+        public void One()
+        {
+            var e = new[] { 1 }.ToLookup(x => x, x => x.ToString());
+
+            Assert.IsTrue(e.GetType().IsValueType);
+
+            var res = new List<string[]>();
+            foreach (var group in e)
+            {
+                Assert.IsTrue(group.GetType().IsValueType);
+
+                res.Add(group.ToArray());
+            }
+
+            Assert.AreEqual(1, e.Count);
+            Assert.AreEqual(1, res.Count);
+            Assert.IsTrue(new[] { "1" }.SequenceEqual(res[0]));
+        }
+
+        [TestMethod]
+        public void Two()
+        {
+            var e = new[] { 1, 2 }.ToLookup(x => x, x => x.ToString());
+
+            Assert.IsTrue(e.GetType().IsValueType);
+
+            var res = new List<string[]>();
+            foreach (var group in e)
+            {
+                Assert.IsTrue(group.GetType().IsValueType);
+
+                res.Add(group.ToArray());
+            }
+
+            Assert.AreEqual(2, e.Count);
+            Assert.AreEqual(2, res.Count);
+            Assert.IsTrue(new[] { "1" }.SequenceEqual(res[0]));
+            Assert.IsTrue(new[] { "2" }.SequenceEqual(res[1]));
+        }
+
+        [TestMethod]
+        public void NullKey()
+        {
+            var e = new[] { "hello", null }.ToLookup(p => p);
+
+            Assert.IsTrue(e.GetType().IsValueType);
+
+            var res = new List<string>();
+            foreach (var group in e)
+            {
+                Assert.IsTrue(group.GetType().IsValueType);
+
+                res.Add(group.Single());
+            }
+
+            Assert.AreEqual(2, res.Count);
+            Assert.AreEqual("hello", res[0]);
+            Assert.AreEqual(null, res[1]);
+
+            Assert.IsTrue(e["hello"].SequenceEqual(new[] { "hello" }));
+            Assert.IsTrue(e[null].SequenceEqual(new string[] { null }));
         }
 
         [TestMethod]
@@ -142,7 +232,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -193,7 +284,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -244,7 +336,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -295,7 +388,8 @@ namespace LinqAF.Tests
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -307,7 +401,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x, new _IntComparer());
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat(4, 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -318,35 +413,62 @@ namespace LinqAF.Tests
 
             // empty
             {
-                Func<LookupEnumerable<int, int>, bool> check =
+                Func<LookupDefaultEnumerable<int, int>, bool> checkDefault =
+                    e =>
+                    {
+                        return e.Count == 0;
+                    };
+                Func<LookupSpecificEnumerable<int, int>, bool> checkSpecific =
                     e =>
                     {
                         return e.Count == 0;
                     };
 
-                Assert.IsTrue(check(empty.ToLookup(x => x)));
-                Assert.IsTrue(check(empty.ToLookup(x => x, new _IntComparer())));
-                Assert.IsTrue(check(empty.ToLookup(x => x, x => x)));
-                Assert.IsTrue(check(empty.ToLookup(x => x, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(empty.ToLookup(x => x)));
+                Assert.IsTrue(checkDefault(empty.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(empty.ToLookup(x => x, x => x)));
+                Assert.IsTrue(checkDefault(empty.ToLookup(x => x, x => x, new _IntComparer())));
             }
 
             // emptyOrdered
             {
-                Func<LookupEnumerable<int, int>, bool> check =
+                Func<LookupDefaultEnumerable<int, int>, bool> checkDefault =
+                    e =>
+                    {
+                        return e.Count == 0;
+                    };
+                Func<LookupSpecificEnumerable<int, int>, bool> checkSpecific =
                     e =>
                     {
                         return e.Count == 0;
                     };
 
-                Assert.IsTrue(check(emptyOrdered.ToLookup(x => x)));
-                Assert.IsTrue(check(emptyOrdered.ToLookup(x => x, new _IntComparer())));
-                Assert.IsTrue(check(emptyOrdered.ToLookup(x => x, x => x)));
-                Assert.IsTrue(check(emptyOrdered.ToLookup(x => x, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(emptyOrdered.ToLookup(x => x)));
+                Assert.IsTrue(checkDefault(emptyOrdered.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(emptyOrdered.ToLookup(x => x, x => x)));
+                Assert.IsTrue(checkDefault(emptyOrdered.ToLookup(x => x, x => x, new _IntComparer())));
             }
 
             // groupByDefault
             {
-                Func<LookupEnumerable<int, GroupingEnumerable<int, int>>, bool> check =
+                Func<LookupDefaultEnumerable<int, GroupingEnumerable<int, int>>, bool> checkDefault =
+                    e =>
+                    {
+                        if (e.Count != 3) return false;
+
+                        if (e[1].Count() != 1) return false;
+                        if (e[1].Single().Count() != 2) return false;
+                        if (!e[1].Single().All(x => x == 1)) return false;
+                        if (e[2].Count() != 1) return false;
+                        if (e[2].Single().Count() != 2) return false;
+                        if (!e[2].Single().All(x => x == 2)) return false;
+                        if (e[3].Count() != 1) return false;
+                        if (e[3].Single().Count() != 2) return false;
+                        if (!e[3].Single().All(x => x == 3)) return false;
+
+                        return true;
+                    };
+                Func<LookupSpecificEnumerable<int, GroupingEnumerable<int, int>>, bool> checkSpecific =
                     e =>
                     {
                         if (e.Count != 3) return false;
@@ -364,15 +486,32 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(check(groupByDefault.ToLookup(x => x.Key)));
-                Assert.IsTrue(check(groupByDefault.ToLookup(x => x.Key, new _IntComparer())));
-                Assert.IsTrue(check(groupByDefault.ToLookup(x => x.Key, x => x)));
-                Assert.IsTrue(check(groupByDefault.ToLookup(x => x.Key, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(groupByDefault.ToLookup(x => x.Key)));
+                Assert.IsTrue(checkSpecific(groupByDefault.ToLookup(x => x.Key, new _IntComparer())));
+                Assert.IsTrue(checkDefault(groupByDefault.ToLookup(x => x.Key, x => x)));
+                Assert.IsTrue(checkSpecific(groupByDefault.ToLookup(x => x.Key, x => x, new _IntComparer())));
             }
 
             // groupBySpecific
             {
-                Func<LookupEnumerable<int, GroupingEnumerable<int, int>>, bool> check =
+                Func<LookupDefaultEnumerable<int, GroupingEnumerable<int, int>>, bool> checkDefault =
+                    e =>
+                    {
+                        if (e.Count != 3) return false;
+
+                        if (e[1].Count() != 1) return false;
+                        if (e[1].Single().Count() != 2) return false;
+                        if (!e[1].Single().All(x => x == 1)) return false;
+                        if (e[2].Count() != 1) return false;
+                        if (e[2].Single().Count() != 2) return false;
+                        if (!e[2].Single().All(x => x == 2)) return false;
+                        if (e[3].Count() != 1) return false;
+                        if (e[3].Single().Count() != 2) return false;
+                        if (!e[3].Single().All(x => x == 3)) return false;
+
+                        return true;
+                    };
+                Func<LookupSpecificEnumerable<int, GroupingEnumerable<int, int>>, bool> checkSpecific =
                     e =>
                     {
                         if (e.Count != 3) return false;
@@ -390,15 +529,32 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(check(groupBySpecific.ToLookup(x => x.Key)));
-                Assert.IsTrue(check(groupBySpecific.ToLookup(x => x.Key, new _IntComparer())));
-                Assert.IsTrue(check(groupBySpecific.ToLookup(x => x.Key, x => x)));
-                Assert.IsTrue(check(groupBySpecific.ToLookup(x => x.Key, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(groupBySpecific.ToLookup(x => x.Key)));
+                Assert.IsTrue(checkSpecific(groupBySpecific.ToLookup(x => x.Key, new _IntComparer())));
+                Assert.IsTrue(checkDefault(groupBySpecific.ToLookup(x => x.Key, x => x)));
+                Assert.IsTrue(checkSpecific(groupBySpecific.ToLookup(x => x.Key, x => x, new _IntComparer())));
             }
 
-            // lookup
+            // lookupDefault
             {
-                Func<LookupEnumerable<int, GroupingEnumerable<int, int>>, bool> check =
+                Func<LookupDefaultEnumerable<int, GroupingEnumerable<int, int>>, bool> checkDefault =
+                    e =>
+                    {
+                        if (e.Count != 3) return false;
+
+                        if (e[1].Count() != 1) return false;
+                        if (e[1].Single().Count() != 2) return false;
+                        if (!e[1].Single().All(x => x == 1)) return false;
+                        if (e[2].Count() != 1) return false;
+                        if (e[2].Single().Count() != 2) return false;
+                        if (!e[2].Single().All(x => x == 2)) return false;
+                        if (e[3].Count() != 1) return false;
+                        if (e[3].Single().Count() != 2) return false;
+                        if (!e[3].Single().All(x => x == 3)) return false;
+
+                        return true;
+                    };
+                Func<LookupSpecificEnumerable<int, GroupingEnumerable<int, int>>, bool> checkSpecific =
                     e =>
                     {
                         if (e.Count != 3) return false;
@@ -416,15 +572,58 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(check(lookup.ToLookup(x => x.Key)));
-                Assert.IsTrue(check(lookup.ToLookup(x => x.Key, new _IntComparer())));
-                Assert.IsTrue(check(lookup.ToLookup(x => x.Key, x => x)));
-                Assert.IsTrue(check(lookup.ToLookup(x => x.Key, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(lookupDefault.ToLookup(x => x.Key)));
+                Assert.IsTrue(checkSpecific(lookupDefault.ToLookup(x => x.Key, new _IntComparer())));
+                Assert.IsTrue(checkDefault(lookupDefault.ToLookup(x => x.Key, x => x)));
+                Assert.IsTrue(checkSpecific(lookupDefault.ToLookup(x => x.Key, x => x, new _IntComparer())));
+            }
+
+            // lookupSpecific
+            {
+                Func<LookupDefaultEnumerable<int, GroupingEnumerable<int, int>>, bool> checkDefault =
+                    e =>
+                    {
+                        if (e.Count != 3) return false;
+
+                        if (e[1].Count() != 1) return false;
+                        if (e[1].Single().Count() != 2) return false;
+                        if (!e[1].Single().All(x => x == 1)) return false;
+                        if (e[2].Count() != 1) return false;
+                        if (e[2].Single().Count() != 2) return false;
+                        if (!e[2].Single().All(x => x == 2)) return false;
+                        if (e[3].Count() != 1) return false;
+                        if (e[3].Single().Count() != 2) return false;
+                        if (!e[3].Single().All(x => x == 3)) return false;
+
+                        return true;
+                    };
+                Func<LookupSpecificEnumerable<int, GroupingEnumerable<int, int>>, bool> checkSpecific =
+                    e =>
+                    {
+                        if (e.Count != 3) return false;
+
+                        if (e[1].Count() != 1) return false;
+                        if (e[1].Single().Count() != 2) return false;
+                        if (!e[1].Single().All(x => x == 1)) return false;
+                        if (e[2].Count() != 1) return false;
+                        if (e[2].Single().Count() != 2) return false;
+                        if (!e[2].Single().All(x => x == 2)) return false;
+                        if (e[3].Count() != 1) return false;
+                        if (e[3].Single().Count() != 2) return false;
+                        if (!e[3].Single().All(x => x == 3)) return false;
+
+                        return true;
+                    };
+
+                Assert.IsTrue(checkDefault(lookupSpecific.ToLookup(x => x.Key)));
+                Assert.IsTrue(checkSpecific(lookupSpecific.ToLookup(x => x.Key, new _IntComparer())));
+                Assert.IsTrue(checkDefault(lookupSpecific.ToLookup(x => x.Key, x => x)));
+                Assert.IsTrue(checkSpecific(lookupSpecific.ToLookup(x => x.Key, x => x, new _IntComparer())));
             }
 
             // range
             {
-                Func<LookupEnumerable<int, int>, bool> check =
+                Func<LookupDefaultEnumerable<int, int>, bool> checkDefault =
                     e =>
                     {
                         if (e.Count != 5) return false;
@@ -443,15 +642,44 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(check(range.ToLookup(x => x)));
-                Assert.IsTrue(check(range.ToLookup(x => x, new _IntComparer())));
-                Assert.IsTrue(check(range.ToLookup(x => x, x => x)));
-                Assert.IsTrue(check(range.ToLookup(x => x, x => x, new _IntComparer())));
+                Func<LookupSpecificEnumerable<int, int>, bool> checkSpecific =
+                    e =>
+                    {
+                        if (e.Count != 5) return false;
+
+                        if (e[1].Count() != 1) return false;
+                        if (e[1].Single() != 1) return false;
+                        if (e[2].Count() != 1) return false;
+                        if (e[2].Single() != 2) return false;
+                        if (e[3].Count() != 1) return false;
+                        if (e[3].Single() != 3) return false;
+                        if (e[4].Count() != 1) return false;
+                        if (e[4].Single() != 4) return false;
+                        if (e[5].Count() != 1) return false;
+                        if (e[5].Single() != 5) return false;
+
+                        return true;
+                    };
+
+                Assert.IsTrue(checkDefault(range.ToLookup(x => x)));
+                Assert.IsTrue(checkSpecific(range.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(range.ToLookup(x => x, x => x)));
+                Assert.IsTrue(checkSpecific(range.ToLookup(x => x, x => x, new _IntComparer())));
             }
 
             // repeat
             {
-                Func<LookupEnumerable<int, int>, bool> check =
+                Func<LookupDefaultEnumerable<int, int>, bool> checkDefault =
+                    e =>
+                    {
+                        if (e.Count != 1) return false;
+
+                        if (e[4].Count() != 5) return false;
+                        if (!e[4].All(x => x == 4)) return false;
+
+                        return true;
+                    };
+                Func<LookupSpecificEnumerable<int, int>, bool> checkSpecific =
                     e =>
                     {
                         if (e.Count != 1) return false;
@@ -462,15 +690,33 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(check(repeat.ToLookup(x => x)));
-                Assert.IsTrue(check(repeat.ToLookup(x => x, new _IntComparer())));
-                Assert.IsTrue(check(repeat.ToLookup(x => x, x => x)));
-                Assert.IsTrue(check(repeat.ToLookup(x => x, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(repeat.ToLookup(x => x)));
+                Assert.IsTrue(checkSpecific(repeat.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(repeat.ToLookup(x => x, x => x)));
+                Assert.IsTrue(checkSpecific(repeat.ToLookup(x => x, x => x, new _IntComparer())));
             }
 
             // reverseRange
             {
-                Func<LookupEnumerable<int, int>, bool> check =
+                Func<LookupDefaultEnumerable<int, int>, bool> checkDefault =
+                    e =>
+                    {
+                        if (e.Count != 5) return false;
+
+                        if (e[1].Count() != 1) return false;
+                        if (e[1].Single() != 1) return false;
+                        if (e[2].Count() != 1) return false;
+                        if (e[2].Single() != 2) return false;
+                        if (e[3].Count() != 1) return false;
+                        if (e[3].Single() != 3) return false;
+                        if (e[4].Count() != 1) return false;
+                        if (e[4].Single() != 4) return false;
+                        if (e[5].Count() != 1) return false;
+                        if (e[5].Single() != 5) return false;
+
+                        return true;
+                    };
+                Func<LookupSpecificEnumerable<int, int>, bool> checkSpecific =
                     e =>
                     {
                         if (e.Count != 5) return false;
@@ -489,15 +735,25 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(check(reverseRange.ToLookup(x => x)));
-                Assert.IsTrue(check(reverseRange.ToLookup(x => x, new _IntComparer())));
-                Assert.IsTrue(check(reverseRange.ToLookup(x => x, x => x)));
-                Assert.IsTrue(check(reverseRange.ToLookup(x => x, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(reverseRange.ToLookup(x => x)));
+                Assert.IsTrue(checkSpecific(reverseRange.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(reverseRange.ToLookup(x => x, x => x)));
+                Assert.IsTrue(checkSpecific(reverseRange.ToLookup(x => x, x => x, new _IntComparer())));
             }
 
             // oneItemDefault
             {
-                Func<LookupEnumerable<int, int>, bool> check =
+                Func<LookupDefaultEnumerable<int, int>, bool> checkDefault =
+                    e =>
+                    {
+                        if (e.Count != 1) return false;
+
+                        if (e[0].Count() != 1) return false;
+                        if (e[0].Single() != 0) return false;
+
+                        return true;
+                    };
+                Func<LookupSpecificEnumerable<int, int>, bool> checkSpecific =
                     e =>
                     {
                         if (e.Count != 1) return false;
@@ -508,15 +764,25 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(check(oneItemDefault.ToLookup(x => x)));
-                Assert.IsTrue(check(oneItemDefault.ToLookup(x => x, new _IntComparer())));
-                Assert.IsTrue(check(oneItemDefault.ToLookup(x => x, x => x)));
-                Assert.IsTrue(check(oneItemDefault.ToLookup(x => x, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(oneItemDefault.ToLookup(x => x)));
+                Assert.IsTrue(checkSpecific(oneItemDefault.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(oneItemDefault.ToLookup(x => x, x => x)));
+                Assert.IsTrue(checkSpecific(oneItemDefault.ToLookup(x => x, x => x, new _IntComparer())));
             }
 
             // oneItemSpecific
             {
-                Func<LookupEnumerable<int, int>, bool> check =
+                Func<LookupDefaultEnumerable<int, int>, bool> checkDefault =
+                    e =>
+                    {
+                        if (e.Count != 1) return false;
+
+                        if (e[4].Count() != 1) return false;
+                        if (e[4].Single() != 4) return false;
+
+                        return true;
+                    };
+                Func<LookupSpecificEnumerable<int, int>, bool> checkSpecific =
                     e =>
                     {
                         if (e.Count != 1) return false;
@@ -527,15 +793,25 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(check(oneItemSpecific.ToLookup(x => x)));
-                Assert.IsTrue(check(oneItemSpecific.ToLookup(x => x, new _IntComparer())));
-                Assert.IsTrue(check(oneItemSpecific.ToLookup(x => x, x => x)));
-                Assert.IsTrue(check(oneItemSpecific.ToLookup(x => x, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(oneItemSpecific.ToLookup(x => x)));
+                Assert.IsTrue(checkSpecific(oneItemSpecific.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(oneItemSpecific.ToLookup(x => x, x => x)));
+                Assert.IsTrue(checkSpecific(oneItemSpecific.ToLookup(x => x, x => x, new _IntComparer())));
             }
 
             // oneItemDefaultOrdered
             {
-                Func<LookupEnumerable<int, int>, bool> check =
+                Func<LookupDefaultEnumerable<int, int>, bool> checkDefault =
+                    e =>
+                    {
+                        if (e.Count != 1) return false;
+
+                        if (e[0].Count() != 1) return false;
+                        if (e[0].Single() != 0) return false;
+
+                        return true;
+                    };
+                Func<LookupSpecificEnumerable<int, int>, bool> checkSpecific =
                     e =>
                     {
                         if (e.Count != 1) return false;
@@ -546,15 +822,25 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(check(oneItemDefaultOrdered.ToLookup(x => x)));
-                Assert.IsTrue(check(oneItemDefaultOrdered.ToLookup(x => x, new _IntComparer())));
-                Assert.IsTrue(check(oneItemDefaultOrdered.ToLookup(x => x, x => x)));
-                Assert.IsTrue(check(oneItemDefaultOrdered.ToLookup(x => x, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(oneItemDefaultOrdered.ToLookup(x => x)));
+                Assert.IsTrue(checkSpecific(oneItemDefaultOrdered.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(oneItemDefaultOrdered.ToLookup(x => x, x => x)));
+                Assert.IsTrue(checkSpecific(oneItemDefaultOrdered.ToLookup(x => x, x => x, new _IntComparer())));
             }
 
             // oneItemSpecificOrdered
             {
-                Func<LookupEnumerable<int, int>, bool> check =
+                Func<LookupDefaultEnumerable<int, int>, bool> checkDefault =
+                    e =>
+                    {
+                        if (e.Count != 1) return false;
+
+                        if (e[4].Count() != 1) return false;
+                        if (e[4].Single() != 4) return false;
+
+                        return true;
+                    };
+                Func<LookupSpecificEnumerable<int, int>, bool> checkSpecific =
                     e =>
                     {
                         if (e.Count != 1) return false;
@@ -565,10 +851,10 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(check(oneItemSpecificOrdered.ToLookup(x => x)));
-                Assert.IsTrue(check(oneItemSpecificOrdered.ToLookup(x => x, new _IntComparer())));
-                Assert.IsTrue(check(oneItemSpecificOrdered.ToLookup(x => x, x => x)));
-                Assert.IsTrue(check(oneItemSpecificOrdered.ToLookup(x => x, x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(oneItemSpecificOrdered.ToLookup(x => x)));
+                Assert.IsTrue(checkSpecific(oneItemSpecificOrdered.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkDefault(oneItemSpecificOrdered.ToLookup(x => x, x => x)));
+                Assert.IsTrue(checkSpecific(oneItemSpecificOrdered.ToLookup(x => x, x => x, new _IntComparer())));
             }
         }
 
@@ -586,7 +872,8 @@ namespace LinqAF.Tests
                 typeof(EmptyOrderedEnumerable<>),
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
 
             // specific
@@ -600,7 +887,8 @@ namespace LinqAF.Tests
                 typeof(EmptyOrderedEnumerable<>),
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
 
             // default, element
@@ -615,7 +903,8 @@ namespace LinqAF.Tests
                 typeof(EmptyOrderedEnumerable<>),
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
 
             // specific, element
@@ -630,7 +919,8 @@ namespace LinqAF.Tests
                 typeof(EmptyOrderedEnumerable<>),
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
         }
 
@@ -641,7 +931,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x, new _IntComparer());
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat(4, 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -690,14 +981,24 @@ namespace LinqAF.Tests
                 try { groupBySpecific.ToLookup(x => x.Key, default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.ToLookup(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
-                try { lookup.ToLookup(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
-                try { lookup.ToLookup(default(Func<GroupingEnumerable<int, int>, int>), x => x); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
-                try { lookup.ToLookup(default(Func<GroupingEnumerable<int, int>, int>), x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
-                try { lookup.ToLookup(x => x.Key, default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
-                try { lookup.ToLookup(x => x.Key, default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
+                try { lookupDefault.ToLookup(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupDefault.ToLookup(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupDefault.ToLookup(default(Func<GroupingEnumerable<int, int>, int>), x => x); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupDefault.ToLookup(default(Func<GroupingEnumerable<int, int>, int>), x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupDefault.ToLookup(x => x.Key, default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
+                try { lookupDefault.ToLookup(x => x.Key, default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.ToLookup(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupSpecific.ToLookup(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupSpecific.ToLookup(default(Func<GroupingEnumerable<int, int>, int>), x => x); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupSpecific.ToLookup(default(Func<GroupingEnumerable<int, int>, int>), x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupSpecific.ToLookup(x => x.Key, default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
+                try { lookupSpecific.ToLookup(x => x.Key, default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
             }
 
             // range
@@ -783,7 +1084,8 @@ namespace LinqAF.Tests
                 typeof(EmptyOrderedEnumerable<>),
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
 
             // specific
@@ -796,7 +1098,8 @@ namespace LinqAF.Tests
                 typeof(EmptyOrderedEnumerable<>),
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
 
             // default, element
@@ -809,7 +1112,8 @@ namespace LinqAF.Tests
                 typeof(EmptyOrderedEnumerable<>),
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
 
             // specific, element
@@ -822,7 +1126,8 @@ namespace LinqAF.Tests
                 typeof(EmptyOrderedEnumerable<>),
                 typeof(GroupByDefaultEnumerable<,,,,>),
                 typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupEnumerable<,>)
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
             );
         }
 
@@ -833,7 +1138,8 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -874,12 +1180,20 @@ namespace LinqAF.Tests
                 try { groupBySpecific.ToLookup(x => x.Key, x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.ToLookup(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.ToLookup(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.ToLookup(x => x, x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.ToLookup(x => x.Key, x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.ToLookup(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.ToLookup(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.ToLookup(x => x, x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.ToLookup(x => x.Key, x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.ToLookup(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.ToLookup(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.ToLookup(x => x, x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.ToLookup(x => x.Key, x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
             // range

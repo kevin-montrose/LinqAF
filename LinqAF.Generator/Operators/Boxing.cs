@@ -13,6 +13,7 @@ namespace LinqAF.Generator
         const string BoxTemplate =
 @"using System;
 using LinqAF.Impl;
+using LinqAF.Config;
 
 namespace LinqAF
 {
@@ -30,6 +31,8 @@ namespace LinqAF
                 return EmptyCache<{OutItem}>.BadBoxedEmpty;
             }
 
+            Allocator.Current.EnumerableBoxed<{Enumerator}>();
+            
             var box = new Boxed(ref e);
             return new BoxedEnumerable<{OutItem}>(box);
         }

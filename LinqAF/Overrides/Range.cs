@@ -1,4 +1,5 @@
-﻿using LinqAF.Impl;
+﻿using LinqAF.Config;
+using LinqAF.Impl;
 using MiscUtil;
 using System;
 using System.Collections.Generic;
@@ -9,32 +10,32 @@ namespace LinqAF
     {
         public int Count()
         {
-            if(IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if(IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return InnerCount;
         }
 
         public long LongCount()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return InnerCount;
         }
 
         public bool Any()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return InnerCount >= 0;
         }
 
         public TItem ElementAt(int index)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
             
             if(index >= InnerCount || index < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(index));
+                throw CommonImplementation.OutOfRange(nameof(index));
             }
 
             return Operator.Add(Start, Operator.Convert<int, TItem>(index));
@@ -42,7 +43,7 @@ namespace LinqAF
 
         public TItem ElementAtOrDefault(int index)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (index >= InnerCount || index < 0)
             {
@@ -54,7 +55,7 @@ namespace LinqAF
 
         public bool Contains(TItem value)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             var min = this.Start;
             var max = Operator.Add(min, Operator.Convert<int, TItem>(this.InnerCount));
@@ -66,11 +67,11 @@ namespace LinqAF
 
         public TItem First()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (this.InnerCount == 0)
             {
-                throw new InvalidOperationException("Sequence was empty");
+                throw CommonImplementation.SequenceEmpty();
             }
 
             return this.Start;
@@ -78,7 +79,7 @@ namespace LinqAF
 
         public TItem FirstOrDefault()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (this.InnerCount == 0)
             {
@@ -90,11 +91,11 @@ namespace LinqAF
         
         public TItem Last()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (this.InnerCount == 0)
             {
-                throw new InvalidOperationException("Sequence was empty");
+                throw CommonImplementation.SequenceEmpty();
             }
 
             var ret = Operator.Add(this.Start, Operator.Convert<int, TItem>(this.InnerCount - 1));
@@ -104,7 +105,7 @@ namespace LinqAF
 
         public TItem LastOrDefault()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (this.InnerCount == 0)
             {
@@ -126,8 +127,8 @@ namespace LinqAF
         
         public bool SequenceEqual(EmptyEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return this.InnerCount == 0;
         }
@@ -136,8 +137,8 @@ namespace LinqAF
 
         public bool SequenceEqual(RangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             if (!Operator.Equal(this.InnerCount, second.InnerCount)) return false;
 
@@ -150,8 +151,8 @@ namespace LinqAF
 
         public bool SequenceEqual(RepeatEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             if (this.InnerCount == 0 && second.InnerCount == 0)
             {
@@ -172,16 +173,16 @@ namespace LinqAF
         
         public TItem Single()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (this.InnerCount == 0)
             {
-                throw new InvalidOperationException("Sequence was empty");
+                throw CommonImplementation.SequenceEmpty();
             }
 
             if(this.InnerCount > 1)
             {
-                throw new InvalidOperationException("Sequence contained multiple elements");
+                throw CommonImplementation.MultipleElements();
             }
 
             return this.Start;
@@ -189,7 +190,7 @@ namespace LinqAF
 
         public TItem SingleOrDefault()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (this.InnerCount == 0)
             {
@@ -198,7 +199,7 @@ namespace LinqAF
 
             if (this.InnerCount > 1)
             {
-                throw new InvalidOperationException("Sequence contained multiple elements");
+                throw CommonImplementation.MultipleElements();
             }
 
             return this.Start;
@@ -206,7 +207,7 @@ namespace LinqAF
 
         public RangeEnumerable<TItem> Skip(int count)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (count < 0)
             {
@@ -228,7 +229,7 @@ namespace LinqAF
 
         public RangeEnumerable<TItem> Take(int count)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (count < 0)
             {
@@ -253,16 +254,16 @@ namespace LinqAF
 
         public RangeEnumerable<TItem> Distinct()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return this;
         }
 
         public List<TItem> ToList()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
-            var ret = new List<TItem>(this.InnerCount);
+            var ret = Allocator.Current.GetEmptyList<TItem>(this.InnerCount);
             foreach(var item in this)
             {
                 ret.Add(item);
@@ -273,9 +274,9 @@ namespace LinqAF
 
         public TItem[] ToArray()
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-
-            var ret = new TItem[this.InnerCount];
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            
+            var ret = Allocator.Current.GetArray<TItem>(this.InnerCount);
             var ix = 0;
             foreach(var item in this)
             {
@@ -288,10 +289,10 @@ namespace LinqAF
 
         public Dictionary<TToDictionary_Key, TItem> ToDictionary<TToDictionary_Key>(Func<TItem, TToDictionary_Key> keySelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            var ret = new Dictionary<TToDictionary_Key, TItem>(this.InnerCount);
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TItem>(this.InnerCount, null);
             foreach(var item in this)
             {
                 ret.Add(keySelector(item), item);
@@ -301,11 +302,11 @@ namespace LinqAF
 
         public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<TItem, TToDictionary_Key> keySelector, Func<TItem, TToDictionary_Value> elementSelector)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
-            var ret = new Dictionary<TToDictionary_Key, TToDictionary_Value>(this.InnerCount);
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TToDictionary_Value>(this.InnerCount, null);
             foreach (var item in this)
             {
                 ret.Add(keySelector(item), elementSelector(item));
@@ -315,10 +316,10 @@ namespace LinqAF
 
         public Dictionary<TToDictionary_Key, TItem> ToDictionary<TToDictionary_Key>(Func<TItem, TToDictionary_Key> keySelector, IEqualityComparer<TToDictionary_Key> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            var ret = new Dictionary<TToDictionary_Key, TItem>(this.InnerCount, comparer);
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TItem>(this.InnerCount, comparer);
             foreach (var item in this)
             {
                 ret.Add(keySelector(item), item);
@@ -328,11 +329,11 @@ namespace LinqAF
 
         public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<TItem, TToDictionary_Key> keySelector, Func<TItem, TToDictionary_Value> elementSelector, IEqualityComparer<TToDictionary_Key> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "source");
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
-            var ret = new Dictionary<TToDictionary_Key, TToDictionary_Value>(this.InnerCount, comparer);
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TToDictionary_Value>(this.InnerCount, comparer);
             foreach (var item in this)
             {
                 ret.Add(keySelector(item), elementSelector(item));

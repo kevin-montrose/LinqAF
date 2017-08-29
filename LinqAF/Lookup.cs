@@ -1,113 +1,135 @@
 ﻿using LinqAF.Impl;
-using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace LinqAF
 {
-    public struct LookupEnumerator<TKey, TElement>:
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct LookupSpecificEnumerator<TKey, TElement>:
         IStructEnumerator<GroupingEnumerable<TKey, TElement>>
     {
         public GroupingEnumerable<TKey, TElement> Current { get; private set; }
-
-        ListEnumerator<TKey> Keys;
-        GroupingEnumerable<TKey, TElement> NullValue;
-        Dictionary<TKey, GroupingEnumerable<TKey, TElement>> Lookup;
         
-        internal LookupEnumerator(ref ListEnumerator<TKey> keys, Dictionary<TKey, GroupingEnumerable<TKey, TElement>> lookup, ref GroupingEnumerable<TKey, TElement> nullValue)
+        int Index;
+        LookupHashtable<TKey, TElement> HashTable;
+        
+        internal LookupSpecificEnumerator(ref LookupHashtable<TKey, TElement> hashTable)
         {
-            Keys = keys;
-            Lookup = lookup;
             Current = default(GroupingEnumerable<TKey, TElement>);
-            NullValue = nullValue;
+            HashTable = hashTable;
+            Index = -1;
         }
 
-        public bool IsDefaultValue() => Lookup == null;
+        public bool IsDefaultValue() => HashTable.IsDefaultValue();
 
         public void Dispose()
         {
-            Keys.Dispose();
-            NullValue = default(GroupingEnumerable<TKey, TElement>);
-            Lookup = null;
+            HashTable = default(LookupHashtable<TKey, TElement>);
         }
 
         public bool MoveNext()
         {
-            if (!Keys.MoveNext())
-            {
-                return false;
-            }
+            Index++;
+            if (Index == HashTable.Count) return false;
 
-            var key = Keys.Current;
-            if(key == null)
-            {
-                Current = NullValue;
-                return true;
-            }
+            Current = HashTable.GetAtIndex(Index);
+            return true;
+        }
+        
+        public void Reset()
+        {
+            Index = -1;
+        }
+    }
 
-            Current = Lookup[key];
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct LookupSpecificEnumerable<TKey, TElement>:
+        IStructEnumerable<GroupingEnumerable<TKey, TElement>, LookupSpecificEnumerator<TKey, TElement>>
+    {
+        public int Count => HashTable.Count;
+
+        LookupHashtable<TKey, TElement> HashTable;
+        IEqualityComparer<TKey> Comparer;
+
+        public GroupingEnumerable<TKey, TElement> this[TKey key] => HashTable.GetGrouping(key, Comparer);
+
+        internal LookupSpecificEnumerable(ref LookupHashtable<TKey, TElement> hashTable, IEqualityComparer<TKey> comparer)
+        {
+            // Comparer is guaranteed to be non-null
+            HashTable = hashTable;
+            Comparer = comparer;
+        }
+
+        public bool IsDefaultValue() => Comparer == null;
+
+        public bool Contains(TKey key) => HashTable.Contains(key, Comparer);
+
+        public LookupSpecificEnumerator<TKey, TElement> GetEnumerator()
+        {
+            return new LookupSpecificEnumerator<TKey, TElement>(ref HashTable);
+        }
+    }
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct LookupDefaultEnumerator<TKey, TElement> :
+        IStructEnumerator<GroupingEnumerable<TKey, TElement>>
+    {
+        public GroupingEnumerable<TKey, TElement> Current { get; private set; }
+
+        int Index;
+        LookupHashtable<TKey, TElement> HashTable;
+
+        internal LookupDefaultEnumerator(ref LookupHashtable<TKey, TElement> hashTable)
+        {
+            Current = default(GroupingEnumerable<TKey, TElement>);
+            HashTable = hashTable;
+            Index = -1;
+        }
+
+        public bool IsDefaultValue() => HashTable.IsDefaultValue();
+
+        public void Dispose()
+        {
+            HashTable = default(LookupHashtable<TKey, TElement>);
+        }
+
+        public bool MoveNext()
+        {
+            Index++;
+            if (Index == HashTable.Count) return false;
+
+            Current = HashTable.GetAtIndex(Index);
             return true;
         }
 
         public void Reset()
         {
-            Keys.Reset();
-            Current = default(GroupingEnumerable<TKey, TElement>);
+            Index = -1;
         }
     }
 
-    public partial struct LookupEnumerable<TKey, TElement>:
-        IStructEnumerable<GroupingEnumerable<TKey, TElement>, LookupEnumerator<TKey, TElement>>
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct LookupDefaultEnumerable<TKey, TElement> :
+        IStructEnumerable<GroupingEnumerable<TKey, TElement>, LookupDefaultEnumerator<TKey, TElement>>
     {
-        public int Count => InnerLookup.Count + (NullPresent ? 1 : 0);
+        public int Count => HashTable.Count;
 
-        bool NullPresent;
-        GroupingEnumerable<TKey, TElement> NullValue;
-        List<TKey> Keys;
-        Dictionary<TKey, GroupingEnumerable<TKey, TElement>> InnerLookup;
+        LookupHashtable<TKey, TElement> HashTable;
 
-        public GroupingEnumerable<TKey, TElement> this[TKey key]
+        public GroupingEnumerable<TKey, TElement> this[TKey key] => HashTable.GetGrouping(key);
+
+        internal LookupDefaultEnumerable(ref LookupHashtable<TKey, TElement> hashTable)
         {
-            get
-            {
-                if (key == null)
-                {
-                    return NullValue;
-                }
-
-                GroupingEnumerable<TKey, TElement> ret;
-                if (!InnerLookup.TryGetValue(key, out ret))
-                {
-                    ret = EmptyCache<TKey, TElement>.EmptyGrouping;
-                }
-
-                return ret;
-            }
+            HashTable = hashTable;
         }
 
-        internal LookupEnumerable(List<TKey> keys, Dictionary<TKey, GroupingEnumerable<TKey, TElement>> lookup, GroupingEnumerable<TKey, TElement>? nullValue)
-        {
-            Keys = keys;
-            NullPresent = nullValue.HasValue;
-            InnerLookup = lookup;
-            NullValue = nullValue.HasValue ? nullValue.Value : EmptyCache<TKey, TElement>.EmptyGrouping;
-        }
+        public bool IsDefaultValue() => HashTable.IsDefaultValue();
 
-        public bool IsDefaultValue()
-        {
-            return InnerLookup == null;
-        }
+        public bool Contains(TKey key) => HashTable.Contains(key);
 
-        public bool Contains(TKey key)
+        public LookupDefaultEnumerator<TKey, TElement> GetEnumerator()
         {
-            if (key == null) return NullPresent;
-
-            return InnerLookup.ContainsKey(key);
-        }
-
-        public LookupEnumerator<TKey, TElement> GetEnumerator()
-        {
-            var k = new ListEnumerator<TKey>(Keys);
-            return new LookupEnumerator<TKey, TElement>(ref k, InnerLookup, ref NullValue);
+            return new LookupDefaultEnumerator<TKey, TElement>(ref HashTable);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SortedDictionaryEnumerator<TKey, TValue> : IStructEnumerator<KeyValuePair<TKey, TValue>>
     {
         public KeyValuePair<TKey, TValue> Current { get; private set; }
@@ -57,6 +58,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SortedDictionaryKeysEnumerator<TKey, TValue> : IStructEnumerator<TKey>
     {
         public TKey Current { get; private set; }
@@ -110,6 +112,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct SortedDictionaryValuesEnumerator<TKey, TValue> : IStructEnumerator<TValue>
     {
         public TValue Current { get; private set; }

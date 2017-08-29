@@ -11,7 +11,7 @@ namespace LinqAF
         {
             var firstBridged = Bridge(first, nameof(first));
             var secondBridged = Bridge(second, nameof(second));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.ZipImpl<
@@ -29,8 +29,8 @@ namespace LinqAF
         public ZipEnumerable<TGenOutItem, TGenFirstItem, TGenSecondItem, BuiltInEnumerable<TGenFirstItem>, BuiltInEnumerator<TGenFirstItem>, PlaceholderEnumerable<TGenSecondItem>, PlaceholderEnumerator<TGenSecondItem>> Zip<TGenOutItem, TGenFirstItem, TGenSecondItem>(BuiltInEnumerable<TGenFirstItem> first, PlaceholderEnumerable<TGenSecondItem> second, Func<TGenFirstItem, TGenSecondItem, TGenOutItem> resultSelector)
         {
             var firstBridged = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.ZipImpl<
@@ -65,8 +65,8 @@ namespace LinqAF
             where TGenGroupByEnumerator: struct, IStructEnumerator<TGenGroupByInItem>
         {
             var firstBridged = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.ZipImpl<
@@ -99,8 +99,8 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var firstBridged = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.ZipImpl<
@@ -122,17 +122,17 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 BuiltInEnumerable<TFirstItem>,
                 BuiltInEnumerator<TFirstItem>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > Zip<TOutItem, TFirstItem, TGenLookupKey, TGenLookupElement>(
                 BuiltInEnumerable<TFirstItem> first,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement> second,
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement> second,
                 Func<TFirstItem, GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TOutItem> resultSelector
             )
         {
             var firstBridged = Bridge(first, nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.ZipImpl<
@@ -141,8 +141,40 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     BuiltInEnumerable<TFirstItem>,
                     BuiltInEnumerator<TFirstItem>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(RefLocal(firstBridged), ref second, resultSelector);
+        }
+
+        [DoNotInject]
+        public
+            ZipEnumerable<
+                TOutItem,
+                TFirstItem,
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                BuiltInEnumerable<TFirstItem>,
+                BuiltInEnumerator<TFirstItem>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > Zip<TOutItem, TFirstItem, TGenLookupKey, TGenLookupElement>(
+                BuiltInEnumerable<TFirstItem> first,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement> second,
+                Func<TFirstItem, GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TOutItem> resultSelector
+            )
+        {
+            var firstBridged = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.ZipImpl<
+                    TOutItem,
+                    TFirstItem,
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    BuiltInEnumerable<TFirstItem>,
+                    BuiltInEnumerator<TFirstItem>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(firstBridged), ref second, resultSelector);
         }
     }

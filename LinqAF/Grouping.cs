@@ -1,70 +1,117 @@
-﻿using System.Collections.Generic;
+﻿using LinqAF.Impl;
+using System.Runtime.CompilerServices;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct GroupingEnumerator<TElement> :
         IStructEnumerator<TElement>
     {
         public TElement Current { get; private set; }
 
-        ListEnumerator<TElement> Inner;
+        TElement[] Elements;
+        int[] Indexes;
+        uint Count_SingleValue;
+        int Index;
 
-        internal GroupingEnumerator(ref ListEnumerator<TElement> inner)
+        internal GroupingEnumerator(TElement[] elements, int[] indexes, uint count)
         {
-            Inner = inner;
+            Index = 0;
+            Elements = elements;
+            Indexes = indexes;
+            Count_SingleValue = count;
             Current = default(TElement);
         }
 
-        public bool IsDefaultValue() => Inner.IsDefaultValue();
+        public bool IsDefaultValue() => Elements == null;
 
         public void Dispose()
         {
-            Inner.Dispose();
+            Elements = null;
+            Indexes = null;
+            Count_SingleValue = 0;
+            Current = default(TElement);
         }
 
         public bool MoveNext()
         {
-            if (Inner.MoveNext())
+            if(Indexes == null)
             {
-                Current = Inner.Current;
+                // handle the single value case
+                if (Index > 0) return false;
+
+                var ix = (int)(Count_SingleValue - 1);
+                Current = Elements[ix];
+                Index++;
                 return true;
             }
 
-            return false;
+            if (Index == Count_SingleValue)
+            {
+                return false;
+            }
+
+            var nextIndex = Indexes[Index];
+            Current = Elements[nextIndex];
+            Index++;
+
+            return true;
         }
 
         public void Reset()
         {
-            Inner.Reset();
+            Index = 0;
             Current = default(TElement);
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct GroupingEnumerable<TKey, TElement> :
         IStructEnumerable<TElement, GroupingEnumerator<TElement>>
     {
         public TKey Key { get; private set; }
 
-        internal List<TElement> Inner;
+        TElement[] Elements;
+        uint UsedIndexes_SingleIndex;
+        int[] ElementIndexes;
 
-        internal GroupingEnumerable(TKey key, List<TElement> inner)
+        internal GroupingEnumerable(TKey key, uint count_singleIndex, int[] indexes, ref IndexedItemContainer<TElement> container)
         {
             Key = key;
-            Inner = inner;
+            UsedIndexes_SingleIndex = count_singleIndex;
+            ElementIndexes = indexes;
+            Elements = container.Items;
         }
 
-        public bool IsDefaultValue()
-        {
-            return Inner == null;
-        }
+        public bool IsDefaultValue() => Elements == null;
 
         public GroupingEnumerator<TElement> GetEnumerator()
         {
-            var i = new ListEnumerator<TElement>(Inner);
-            return new GroupingEnumerator<TElement>(ref i);
+            return new GroupingEnumerator<TElement>(Elements, ElementIndexes, UsedIndexes_SingleIndex);
         }
 
         public override bool Equals(object obj) => false;
-        public override int GetHashCode() => Key.GetHashCode() * 17 + (Inner?.GetHashCode() ?? 0);
+        public override int GetHashCode()
+        {
+            var ret = 23 + Key.GetHashCode();
+            ret *= 17;
+            ret += (int)UsedIndexes_SingleIndex;
+
+            if (ElementIndexes == null)
+            {
+                ret *= 17;
+                ret += Elements[UsedIndexes_SingleIndex - 1].GetHashCode();
+            }
+            else
+            {
+                for(var i = 0; i < UsedIndexes_SingleIndex; i++)
+                {
+                    ret *= 17;
+                    ret += Elements[ElementIndexes[i]].GetHashCode();
+                }
+            }
+
+            return ret;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct CastEnumerator<TInItem, TOutItem, TInnerEnumerator>:
         IStructEnumerator<TOutItem>
         where TInnerEnumerator: struct, IStructEnumerator<TInItem>
@@ -13,10 +14,7 @@
             Current = default(TOutItem);
         }
 
-        public bool IsDefaultValue()
-        {
-            return Inner.IsDefaultValue();
-        }
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
 
         public void Dispose()
         {
@@ -41,6 +39,7 @@
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct CastEnumerable<TInItem, TOutItem, TInnerEnumerable, TInnerEnumerator>: 
         IStructEnumerable<TOutItem, CastEnumerator<TInItem, TOutItem, TInnerEnumerator>>
         where TInnerEnumerable: struct, IStructEnumerable<TInItem, TInnerEnumerator>

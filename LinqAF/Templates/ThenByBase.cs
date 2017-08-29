@@ -24,5 +24,8 @@ namespace LinqAF
 
         public OrderByEnumerable<TItem, CompoundKey<TKey, TSecondKey>, TInnerEnumerable, TInnerEnumerator, CompoundComparer<TItem, TKey, TComparer, TSecondKey, SingleComparerDescending<TItem, TSecondKey>>> ThenByDescending<TSecondKey>(Func<TItem, TSecondKey> keySelector, IComparer<TSecondKey> comparer)
         => CommonImplementation.ThenByDescending<TItem, TKey, TComparer, TSelfEnumerable, TSelfEnumerator, TInnerEnumerable, TInnerEnumerator, TSecondKey>(RefThis(), keySelector, comparer);
+
+        public OrderByEnumerable<TItem, CompoundKey<TKey, TSecondKey>, TInnerEnumerable, TInnerEnumerator, CompoundComparer<TItem, TKey, TComparer, TSecondKey, ConfiguredComparer<TItem, TSecondKey>>> CreateOrderedEnumerable<TSecondKey>(Func<TItem, TSecondKey> keySelector, IComparer<TSecondKey> comparer, bool descending)
+        => CommonImplementation.CreateOrderedEnumerable<TItem, TKey, TComparer, TSelfEnumerable, TSelfEnumerator, TInnerEnumerable, TInnerEnumerator, TSecondKey>(RefThis(), keySelector, comparer, descending);
     }
 }

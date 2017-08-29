@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using LinqAF.Config;
+using LinqAF.Impl;
+using System.Collections.Generic;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct IntersectDefaultEnumerator<TItem, TFirstEnumerator, TSecondEnumerator>:
         IStructEnumerator<TItem>
         where TFirstEnumerator: struct, IStructEnumerator<TItem>
@@ -11,50 +14,55 @@ namespace LinqAF
 
         TFirstEnumerator FirstInner;
         TSecondEnumerator SecondInner;
-        HashSet<TItem> AlreadyYielded;
-        HashSet<TItem> UniqueSecondItems;
+        IndexedItemContainer<TItem> Container;
+        CompactSet<TItem> AlreadyYielded;
+        CompactSet<TItem> UniqueSecondItems;
 
         internal IntersectDefaultEnumerator(ref TFirstEnumerator first, ref TSecondEnumerator second)
         {
             FirstInner = first;
             SecondInner = second;
-            AlreadyYielded = null;
-            UniqueSecondItems = null;
+            AlreadyYielded = new CompactSet<TItem>();
+            UniqueSecondItems = new CompactSet<TItem>();
+            Container = new IndexedItemContainer<TItem>();
             Current = default(TItem);
         }
 
         public bool IsDefaultValue()
         {
-            return UniqueSecondItems == null && AlreadyYielded == null && FirstInner.IsDefaultValue() && SecondInner.IsDefaultValue();
+            return FirstInner.IsDefaultValue();
         }
 
         public void Dispose()
         {
             FirstInner.Dispose();
             SecondInner.Dispose();
-            UniqueSecondItems = null;
-            AlreadyYielded = null;
+            UniqueSecondItems.Dispose();
+            AlreadyYielded.Dispose();
+            Container.Dispose();
         }
 
         public bool MoveNext()
         {
-            if (UniqueSecondItems == null)
+            if (UniqueSecondItems.IsDefaultValue())
             {
-                UniqueSecondItems = new HashSet<TItem>(EqualityComparer<TItem>.Default);
+                Container.Initialize();
+                UniqueSecondItems.Initialize();
                 while (SecondInner.MoveNext())
                 {
-                    UniqueSecondItems.Add(SecondInner.Current);
+                    UniqueSecondItems.Add(SecondInner.Current, ref Container);
                 }
 
-                AlreadyYielded = new HashSet<TItem>(EqualityComparer<TItem>.Default);
+                AlreadyYielded.Initialize();
             }
 
             while (FirstInner.MoveNext())
             {
                 var cur = FirstInner.Current;
-                if (UniqueSecondItems.Contains(cur))
+                int existingValueIndex;
+                if (UniqueSecondItems.Contains(cur, ref Container, out existingValueIndex))
                 {
-                    if (AlreadyYielded.Add(cur))
+                    if (AlreadyYielded.AddByIndex(existingValueIndex, ref Container))
                     {
                         Current = cur;
                         return true;
@@ -69,11 +77,13 @@ namespace LinqAF
         {
             FirstInner.Reset();
             SecondInner.Reset();
-            UniqueSecondItems = null;
-            AlreadyYielded = null;
+            UniqueSecondItems.Reset();
+            AlreadyYielded.Reset();
+            Container.Reset();
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct IntersectDefaultEnumerable<TItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator>:
         IStructEnumerable<TItem, IntersectDefaultEnumerator<TItem, TFirstEnumerator, TSecondEnumerator>>
         where TFirstEnumerable: struct, IStructEnumerable<TItem, TFirstEnumerator>
@@ -91,7 +101,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return FirstInner.IsDefaultValue() && SecondInner.IsDefaultValue();
+            return FirstInner.IsDefaultValue();
         }
 
         public IntersectDefaultEnumerator<TItem, TFirstEnumerator, TSecondEnumerator> GetEnumerator()
@@ -103,6 +113,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct IntersectSpecificEnumerator<TItem, TFirstEnumerator, TSecondEnumerator> :
         IStructEnumerator<TItem>
         where TFirstEnumerator : struct, IStructEnumerator<TItem>
@@ -112,52 +123,57 @@ namespace LinqAF
 
         TFirstEnumerator FirstInner;
         TSecondEnumerator SecondInner;
-        HashSet<TItem> UniqueSecondItems;
-        HashSet<TItem> AlreadyYielded;
+        IndexedItemContainer<TItem> Container;
+        CompactSet<TItem> AlreadyYielded;
+        CompactSet<TItem> UniqueSecondItems;
         IEqualityComparer<TItem> Comparer;
 
         internal IntersectSpecificEnumerator(ref TFirstEnumerator first, ref TSecondEnumerator second, IEqualityComparer<TItem> comparer)
         {
             FirstInner = first;
             SecondInner = second;
-            UniqueSecondItems = null;
-            AlreadyYielded = null;
+            UniqueSecondItems = new CompactSet<TItem>();
+            AlreadyYielded = new CompactSet<TItem>();
+            Container = new IndexedItemContainer<TItem>();
             Current = default(TItem);
             Comparer = comparer;
         }
 
         public bool IsDefaultValue()
         {
-            return UniqueSecondItems == null && AlreadyYielded == null && FirstInner.IsDefaultValue() && SecondInner.IsDefaultValue();
+            return Comparer == null;
         }
 
         public void Dispose()
         {
             FirstInner.Dispose();
             SecondInner.Dispose();
-            UniqueSecondItems = null;
-            AlreadyYielded = null;
+            UniqueSecondItems.Dispose();
+            AlreadyYielded.Dispose();
+            Container.Dispose();
         }
 
         public bool MoveNext()
         {
-            if (UniqueSecondItems == null)
+            if (UniqueSecondItems.IsDefaultValue())
             {
-                UniqueSecondItems = new HashSet<TItem>(Comparer);
+                UniqueSecondItems.Initialize();
+                Container.Initialize();
                 while (SecondInner.MoveNext())
                 {
-                    UniqueSecondItems.Add(SecondInner.Current);
+                    UniqueSecondItems.Add(SecondInner.Current, ref Container, Comparer);
                 }
 
-                AlreadyYielded = new HashSet<TItem>(Comparer);
+                AlreadyYielded.Initialize();
             }
 
             while (FirstInner.MoveNext())
             {
                 var cur = FirstInner.Current;
-                if (UniqueSecondItems.Contains(cur))
+                int existingValueIndex;
+                if (UniqueSecondItems.Contains(cur, ref Container, Comparer, out existingValueIndex))
                 {
-                    if (AlreadyYielded.Add(cur))
+                    if (AlreadyYielded.AddByIndex(existingValueIndex, ref Container, Comparer))
                     {
                         Current = cur;
                         return true;
@@ -172,11 +188,13 @@ namespace LinqAF
         {
             FirstInner.Reset();
             SecondInner.Reset();
-            UniqueSecondItems = null;
-            AlreadyYielded = null;
+            UniqueSecondItems.Reset();
+            AlreadyYielded.Reset();
+            Container.Reset();
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct IntersectSpecificEnumerable<TItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator> :
         IStructEnumerable<TItem, IntersectSpecificEnumerator<TItem, TFirstEnumerator, TSecondEnumerator>>
         where TFirstEnumerable : struct, IStructEnumerable<TItem, TFirstEnumerator>
@@ -196,7 +214,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return FirstInner.IsDefaultValue() && SecondInner.IsDefaultValue();
+            return Comparer == null;
         }
 
         public IntersectSpecificEnumerator<TItem, TFirstEnumerator, TSecondEnumerator> GetEnumerator()

@@ -16,7 +16,7 @@ namespace LinqAF.Generator
             var basic = base.SpecializeTemplate(enumerableName, enumerable, template);
 
             // LookupEnumerable implicitly implements ILookup, which itself has a Count property
-            if (enumerableName != "LookupEnumerable") return basic;
+            if (enumerableName != "LookupDefaultEnumerable" && enumerableName != "LookupSpecificEnumerable") return basic;
 
             var parsedTemplate = SyntaxFactory.ParseCompilationUnit(basic);
             var structImpl = parsedTemplate.DescendantNodesAndSelf().OfType<StructDeclarationSyntax>().Single(s => s.Identifier.ValueText == enumerableName);

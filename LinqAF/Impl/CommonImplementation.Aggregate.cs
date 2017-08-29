@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using LinqAF;
 
 namespace LinqAF.Impl
 {
@@ -12,8 +10,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
 
             return AggregateImpl<TItem, TEnumerable, TEnumerator>(ref source, func);
         }
@@ -24,7 +22,7 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var ret = i.Current;
 
@@ -43,8 +41,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItemIn, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItemIn>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
 
             return AggregateImpl<TItemIn, TItemOut, TEnumerable, TEnumerator>(ref source, seed, func);
         }
@@ -67,11 +65,11 @@ namespace LinqAF.Impl
         }
 
         // three items
-        public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut, TDictionaryValue>(Dictionary<TItemIn, TDictionaryValue>.KeyCollection source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
+        /*public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut, TDictionaryValue>(Dictionary<TItemIn, TDictionaryValue>.KeyCollection source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<
                 TItemIn,
@@ -89,8 +87,8 @@ namespace LinqAF.Impl
         public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut, TDictionaryKey>(Dictionary<TDictionaryKey, TItemIn>.ValueCollection source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<
                 TItemIn,
@@ -108,8 +106,8 @@ namespace LinqAF.Impl
         public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut>(HashSet<TItemIn> source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<
                 TItemIn,
@@ -127,8 +125,8 @@ namespace LinqAF.Impl
         public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut>(LinkedList<TItemIn> source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<
                 TItemIn,
@@ -146,8 +144,8 @@ namespace LinqAF.Impl
         public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut>(List<TItemIn> source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<
                 TItemIn,
@@ -165,8 +163,8 @@ namespace LinqAF.Impl
         public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut>(Queue<TItemIn> source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<
                 TItemIn,
@@ -184,8 +182,8 @@ namespace LinqAF.Impl
         public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut, TDictionaryValue>(SortedDictionary<TItemIn, TDictionaryValue>.KeyCollection source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<
                 TItemIn,
@@ -203,8 +201,8 @@ namespace LinqAF.Impl
         public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut, TDictionaryKey>(SortedDictionary<TDictionaryKey, TItemIn>.ValueCollection source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<
                 TItemIn,
@@ -222,8 +220,8 @@ namespace LinqAF.Impl
         public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut>(SortedSet<TItemIn> source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<
                 TItemIn,
@@ -241,8 +239,8 @@ namespace LinqAF.Impl
         public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut>(Stack<TItemIn> source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<
                 TItemIn,
@@ -255,15 +253,15 @@ namespace LinqAF.Impl
                 >,
                 StackEnumerator<TItemIn>
             >(ref bridge, seed, func, resultSelector);
-        }
+        }*/
 
         public static TItemOut Aggregate<TItemIn, TItemMid, TItemOut, TEnumerable, TEnumerator>(ref TEnumerable source, TItemMid seed, Func<TItemMid, TItemIn, TItemMid> func, Func<TItemMid, TItemOut> resultSelector)
             where TEnumerable : struct, IStructEnumerable<TItemIn, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItemIn>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (func == null) throw CommonImplementation.ArgumentNull(nameof(func));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return AggregateImpl<TItemIn, TItemMid, TItemOut, TEnumerable, TEnumerator>(ref source, seed, func, resultSelector);
         }

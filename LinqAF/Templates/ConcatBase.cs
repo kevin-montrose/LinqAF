@@ -16,49 +16,49 @@ namespace LinqAF
             where TOrderByComparer : struct, IStructComparer<TItem, TOrderByKey>
         => CommonImplementation.Concat(RefThis(), ref second);
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Concat(IEnumerable<TItem> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Concat(IEnumerable<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>>(RefThis(), ref bridge);
         }
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Concat(HashSet<TItem> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Concat(HashSet<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>>(RefThis(), ref bridge);
         }
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Concat(List<TItem> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Concat(List<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>>(RefThis(), ref bridge);
         }
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Concat(Queue<TItem> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Concat(Queue<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>>(RefThis(), ref bridge);
         }
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Concat(SortedSet<TItem> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Concat(SortedSet<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>>(RefThis(), ref bridge);
         }
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Concat(TItem[] second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Concat(TItem[] second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>>(RefThis(), ref bridge);
         }
 
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Concat(ReverseRangeEnumerable<TItem> second)
         => CommonImplementation.Concat(RefThis(), ref second);
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Concat(Stack<TItem> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Concat(Stack<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>>(RefThis(), ref bridge);
         }
 
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Concat(RepeatEnumerable<TItem> second)
@@ -69,22 +69,22 @@ namespace LinqAF
 
         public TEnumerable Concat(EmptyEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return This();
         }
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Concat(LinkedList<TItem> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Concat(LinkedList<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>>(RefThis(), ref bridge);
         }
 
         public TEnumerable Concat(EmptyOrderedEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return This();
         }
@@ -95,31 +95,31 @@ namespace LinqAF
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, GroupingEnumerable<TGroupedKey, TItem>, GroupingEnumerator<TItem>> Concat<TGroupedKey>(GroupingEnumerable<TGroupedKey, TItem> second)
         => CommonImplementation.Concat(RefThis(), ref second);
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TDictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TDictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TDictionaryKey, TItem>> Concat<TDictionaryKey>(SortedDictionary<TDictionaryKey, TItem>.ValueCollection second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TDictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TDictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TDictionaryKey, TItem>> Concat<TDictionaryKey>(SortedDictionary<TDictionaryKey, TItem>.ValueCollection second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TDictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TDictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TDictionaryKey, TItem>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TDictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TDictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TDictionaryKey, TItem>>(RefThis(), ref bridge);
         }
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TDictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TDictionaryValue>> Concat<TDictionaryValue>(SortedDictionary<TItem, TDictionaryValue>.KeyCollection second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TDictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TDictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TDictionaryValue>> Concat<TDictionaryValue>(SortedDictionary<TItem, TDictionaryValue>.KeyCollection second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TDictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TDictionaryValue>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TDictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TDictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TDictionaryValue>>(RefThis(), ref bridge);
         }
 
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, GroupedEnumerable<TGroupedKey, TItem>, GroupedEnumerator<TItem>> Concat<TGroupedKey>(GroupedEnumerable<TGroupedKey, TItem> second)
         => CommonImplementation.Concat(RefThis(), ref second);
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TDictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TDictionaryKey, TItem>>, DictionaryValuesEnumerator<TDictionaryKey, TItem>> Concat<TDictionaryKey>(Dictionary<TDictionaryKey, TItem>.ValueCollection second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TDictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TItem>, DictionaryValuesEnumerator<TDictionaryKey, TItem>>, DictionaryValuesEnumerator<TDictionaryKey, TItem>> Concat<TDictionaryKey>(Dictionary<TDictionaryKey, TItem>.ValueCollection second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TDictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TDictionaryKey, TItem>>, DictionaryValuesEnumerator<TDictionaryKey, TItem>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TDictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TItem>, DictionaryValuesEnumerator<TDictionaryKey, TItem>>, DictionaryValuesEnumerator<TDictionaryKey, TItem>>(RefThis(), ref bridge);
         }
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Concat<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Concat<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
-            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>(RefThis(), ref bridge);
+            return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>(RefThis(), ref bridge);
         }
 
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SkipWhileEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>, SkipWhileEnumerator<TItem, TInnerEnumerator>> Concat<TInnerEnumerable, TInnerEnumerator>(SkipWhileEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> second)
@@ -187,10 +187,11 @@ namespace LinqAF
             where TInnerEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, DefaultIfEmptySpecificEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>, DefaultIfEmptySpecificEnumerator<TItem, TInnerEnumerator>>(RefThis(), ref second);
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityEnumerator>, TIdentityEnumerator> Concat<TIdentityBridgeType, TIdentityEnumerator>(IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityEnumerator> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>, TIdentityEnumerator> Concat<TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>(IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator> second)
             where TIdentityBridgeType : class
             where TIdentityEnumerator : struct, IStructEnumerator<TItem>
-        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityEnumerator>, TIdentityEnumerator>(RefThis(), ref second);
+            where TIdentityBridger: struct, IStructBridger<TItem, TIdentityBridgeType, TIdentityEnumerator>
+        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TIdentityBridgeType, TIdentityBridger, TIdentityEnumerator>, TIdentityEnumerator>(RefThis(), ref second);
 
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectIndexedEnumerable<TSelectInItem, TItem, TInnerEnumerable, TInnerEnumerator>, SelectIndexedEnumerator<TSelectInItem, TItem, TInnerEnumerator>> Concat<TSelectInItem, TInnerEnumerable, TInnerEnumerator>(SelectIndexedEnumerable<TSelectInItem, TItem, TInnerEnumerable, TInnerEnumerator> second)
             where TInnerEnumerable : struct, IStructEnumerable<TSelectInItem, TInnerEnumerator>
@@ -287,12 +288,13 @@ namespace LinqAF
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, SelectManyIndexedEnumerable<TSelectManyInItem, TItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>, SelectManyIndexedEnumerator<TSelectManyInItem, TItem, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>>(RefThis(), ref second);
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> Concat<TSelectManyInItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> Concat<TSelectManyInItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
-        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second);
+            where TSelectManyBridger: struct, IStructBridger<TItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TSelectManyInItem, TItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second);
 
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectWhereEnumerable<TItem, TConcat_SelectInnerItem, TConcat_SelectInnerEnumerable, TConcat_SelectInnerEnumerator, TConcat_SelectProjection, TConcat_SelectPredicate>, SelectWhereEnumerator<TItem, TConcat_SelectInnerItem, TConcat_SelectInnerEnumerator, TConcat_SelectProjection, TConcat_SelectPredicate>> Concat<TConcat_SelectInnerItem, TConcat_SelectInnerEnumerable, TConcat_SelectInnerEnumerator, TConcat_SelectProjection, TConcat_SelectPredicate>(SelectWhereEnumerable<TItem, TConcat_SelectInnerItem, TConcat_SelectInnerEnumerable, TConcat_SelectInnerEnumerator, TConcat_SelectProjection, TConcat_SelectPredicate> second)
             where TConcat_SelectInnerEnumerable : struct, IStructEnumerable<TConcat_SelectInnerItem, TConcat_SelectInnerEnumerator>
@@ -318,12 +320,13 @@ namespace LinqAF
             where TGroupByEnumerator : struct, IStructEnumerator<TGroupByInItem>
         => CommonImplementation.Concat(RefThis(), ref second);
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TBridgeType, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator>> Concat<TSelectManyInItem, TBridgeType, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator>(SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TBridgeType, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TBridgeType, TSelectManyBridger, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TItem, TBridgeType, TSelectManyBridger, TInnerEnumerator, TProjectedEnumerator>> Concat<TSelectManyInItem, TBridgeType, TSelectManyBridger, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator>(SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TBridgeType, TSelectManyBridger, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator> second)
             where TBridgeType : class
             where TInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TInnerEnumerator>
             where TInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TProjectedEnumerator : struct, IStructEnumerator<TItem>
-        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TBridgeType, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TItem, TBridgeType, TInnerEnumerator, TProjectedEnumerator>>(RefThis(), ref second);
+            where TSelectManyBridger: struct, IStructBridger<TItem, TBridgeType, TProjectedEnumerator>
+        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TSelectManyInItem, TItem, TBridgeType, TSelectManyBridger, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerator>, SelectManyBridgeEnumerator<TSelectManyInItem, TItem, TBridgeType, TSelectManyBridger, TInnerEnumerator, TProjectedEnumerator>>(RefThis(), ref second);
 
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionEnumerable<TSelectManyInItem, TItem, TCollectionItem, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator>, SelectManyCollectionEnumerator<TSelectManyInItem, TItem, TCollectionItem, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator>> Concat<TSelectManyInItem, TCollectionItem, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator>(SelectManyCollectionEnumerable<TSelectManyInItem, TItem, TCollectionItem, TInnerEnumerable, TInnerEnumerator, TProjectedEnumerable, TProjectedEnumerator> second)
             where TInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TInnerEnumerator>
@@ -346,19 +349,21 @@ namespace LinqAF
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
         => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerable, TSelectManyProjectedEnumerator>>(RefThis(), ref second);
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> Concat<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>> Concat<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator> second)
             where TSelectManyBridgeType : class
             where TSelectManyInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TSelectManyInnerEnumerator>
             where TSelectManyInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
-        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second);
+            where TSelectManyBridger: struct, IStructBridger<TCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerable, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TSelectManyInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second);
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TInnerEnumerable, TInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TInnerEnumerator, TSelectManyProjectedEnumerator>> Concat<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TInnerEnumerable, TInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TInnerEnumerable, TInnerEnumerator, TSelectManyProjectedEnumerator> second)
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TInnerEnumerable, TInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TInnerEnumerator, TSelectManyProjectedEnumerator>> Concat<TSelectManyInItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TInnerEnumerable, TInnerEnumerator, TSelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TInnerEnumerable, TInnerEnumerator, TSelectManyProjectedEnumerator> second)
             where TSelectManyBridgeType : class
             where TInnerEnumerable : struct, IStructEnumerable<TSelectManyInItem, TInnerEnumerator>
             where TInnerEnumerator : struct, IStructEnumerator<TSelectManyInItem>
             where TSelectManyProjectedEnumerator : struct, IStructEnumerator<TCollectionItem>
-        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TInnerEnumerable, TInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second);
+            where  TSelectManyBridger: struct, IStructBridger<TCollectionItem, TSelectManyBridgeType, TSelectManyProjectedEnumerator>
+        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TInnerEnumerable, TInnerEnumerator, TSelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TSelectManyInItem, TItem, TCollectionItem, TSelectManyBridgeType, TSelectManyBridger, TInnerEnumerator, TSelectManyProjectedEnumerator>>(RefThis(), ref second);
 
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, JoinSpecificEnumerable<TItem, TJoinKeyItem, TJoinLeftItem, TJoinLeftEnumerable, TJoinLeftEnumerator, TJoinRightItem, TJoinRightEnumerable, TJoinRightEnumerator>, JoinSpecificEnumerator<TItem, TJoinKeyItem, TJoinLeftItem, TJoinLeftEnumerator, TJoinRightItem, TJoinRightEnumerator>> Concat<TJoinKeyItem, TJoinLeftItem, TJoinLeftEnumerable, TJoinLeftEnumerator, TJoinRightItem, TJoinRightEnumerable, TJoinRightEnumerator>(JoinSpecificEnumerable<TItem, TJoinKeyItem, TJoinLeftItem, TJoinLeftEnumerable, TJoinLeftEnumerator, TJoinRightItem, TJoinRightEnumerable, TJoinRightEnumerator> second)
             where TJoinLeftEnumerable : struct, IStructEnumerable<TJoinLeftItem, TJoinLeftEnumerator>

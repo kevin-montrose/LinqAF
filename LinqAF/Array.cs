@@ -1,5 +1,6 @@
 ﻿namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ArrayEnumerator<TItem> : IStructEnumerator<TItem>
     {
         public TItem Current { get; private set; }
@@ -16,9 +17,7 @@
 
         public bool IsDefaultValue()
         {
-            return
-                Inner == null &&
-                Index == 0;
+            return Inner == null;
         }
 
         public bool MoveNext()

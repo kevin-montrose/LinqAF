@@ -135,7 +135,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 1);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -206,7 +207,7 @@ namespace LinqAF.Tests
                 Assert.IsTrue(correct(groupBySpecific.ToDictionary(x => x.Key, x => x, StringComparer.OrdinalIgnoreCase)));
             }
 
-            // lookup
+            // lookupDefault
             {
                 Func<Dictionary<int, GroupingEnumerable<int, int>>, bool> correct =
                     dict =>
@@ -223,10 +224,33 @@ namespace LinqAF.Tests
                         return true;
                     };
 
-                Assert.IsTrue(correct(lookup.ToDictionary(x => x.Key)));
-                Assert.IsTrue(correct(lookup.ToDictionary(x => x.Key, new _IntComparer())));
-                Assert.IsTrue(correct(lookup.ToDictionary(x => x.Key, x => x)));
-                Assert.IsTrue(correct(lookup.ToDictionary(x => x.Key, x => x, new _IntComparer())));
+                Assert.IsTrue(correct(lookupDefault.ToDictionary(x => x.Key)));
+                Assert.IsTrue(correct(lookupDefault.ToDictionary(x => x.Key, new _IntComparer())));
+                Assert.IsTrue(correct(lookupDefault.ToDictionary(x => x.Key, x => x)));
+                Assert.IsTrue(correct(lookupDefault.ToDictionary(x => x.Key, x => x, new _IntComparer())));
+            }
+
+            // lookupSpecific
+            {
+                Func<Dictionary<int, GroupingEnumerable<int, int>>, bool> correct =
+                    dict =>
+                    {
+                        if (dict.Count != 3) return false;
+                        if (dict[1].Count() != 2) return false;
+                        if (dict[2].Count() != 2) return false;
+                        if (dict[3].Count() != 2) return false;
+
+                        if (!dict[1].SequenceEqual(new int[] { 1, 1 })) return false;
+                        if (!dict[2].SequenceEqual(new int[] { 2, 2 })) return false;
+                        if (!dict[3].SequenceEqual(new int[] { 3, 3 })) return false;
+
+                        return true;
+                    };
+
+                Assert.IsTrue(correct(lookupSpecific.ToDictionary(x => x.Key)));
+                Assert.IsTrue(correct(lookupSpecific.ToDictionary(x => x.Key, new _IntComparer())));
+                Assert.IsTrue(correct(lookupSpecific.ToDictionary(x => x.Key, x => x)));
+                Assert.IsTrue(correct(lookupSpecific.ToDictionary(x => x.Key, x => x, new _IntComparer())));
             }
 
             // range
@@ -451,7 +475,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 1);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -536,22 +561,42 @@ namespace LinqAF.Tests
                 }
             }
 
-            // lookup
+            // lookupDefault
             {
                 {
                     // no element, default
-                    try { lookup.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                    try { lookupDefault.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
                     // no element, specific
-                    try { lookup.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                    try { lookupDefault.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
                     // element, default
                     {
-                        try { lookup.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>), x => x); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
-                        try { lookup.ToDictionary(x => x, default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
+                        try { lookupDefault.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>), x => x); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                        try { lookupDefault.ToDictionary(x => x, default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
                     }
                     // element, specific
                     {
-                        try { lookup.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>), x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
-                        try { lookup.ToDictionary(x => x.Key, default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
+                        try { lookupDefault.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>), x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                        try { lookupDefault.ToDictionary(x => x.Key, default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
+                    }
+                }
+            }
+
+            // lookupSpecific
+            {
+                {
+                    // no element, default
+                    try { lookupSpecific.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                    // no element, specific
+                    try { lookupSpecific.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                    // element, default
+                    {
+                        try { lookupSpecific.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>), x => x); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                        try { lookupSpecific.ToDictionary(x => x, default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
+                    }
+                    // element, specific
+                    {
+                        try { lookupSpecific.ToDictionary(default(Func<GroupingEnumerable<int, int>, int>), x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                        try { lookupSpecific.ToDictionary(x => x.Key, default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("elementSelector", exc.ParamName); }
                     }
                 }
             }
@@ -703,7 +748,8 @@ namespace LinqAF.Tests
                   }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -724,7 +770,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
             
@@ -745,7 +792,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
 
@@ -766,7 +814,8 @@ namespace LinqAF.Tests
                       }",
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>),
-                    typeof(LookupEnumerable<,>)
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
                 );
             }
         }
@@ -778,7 +827,8 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -819,12 +869,20 @@ namespace LinqAF.Tests
                 try { groupBySpecific.ToDictionary(x => x.Key, x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.ToDictionary(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.ToDictionary(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.ToDictionary(x => x, x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.ToDictionary(x => x.Key, x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.ToDictionary(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.ToDictionary(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.ToDictionary(x => x, x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.ToDictionary(x => x.Key, x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.ToDictionary(x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.ToDictionary(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.ToDictionary(x => x, x => x); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.ToDictionary(x => x.Key, x => x, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
             // range

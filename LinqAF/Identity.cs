@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct IdentityEnumerator : IStructEnumerator<object>
     {
-        public object Current { get; private set; }
+        public object Current => InnerEnumerator.Current;
 
         System.Collections.IEnumerable InnerEnumerable;
         System.Collections.IEnumerator InnerEnumerator;
@@ -14,12 +15,11 @@ namespace LinqAF
         {
             InnerEnumerable = inner;
             InnerEnumerator = null;
-            Current = null;
         }
 
         public bool IsDefaultValue()
         {
-            return InnerEnumerable == null && InnerEnumerator == null;
+            return InnerEnumerable == null;
         }
 
         public void Dispose()
@@ -35,13 +35,7 @@ namespace LinqAF
                 InnerEnumerator = InnerEnumerable.GetEnumerator();
             }
 
-            if (InnerEnumerator.MoveNext())
-            {
-                Current = InnerEnumerator.Current;
-                return true;
-            }
-
-            return false;
+            return InnerEnumerator.MoveNext();
         }
 
         public void Reset()
@@ -50,11 +44,10 @@ namespace LinqAF
             {
                 InnerEnumerator.Reset();
             }
-
-            Current = null;
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct IdentityEnumerator<TItem> : IStructEnumerator<TItem>
     {
         public TItem Current => InnerEnumerator.Current;
@@ -102,26 +95,21 @@ namespace LinqAF
         }
     }
 
-    public partial struct IdentityEnumerable<TItem, TBridgeType, TEnumerator> :
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct IdentityEnumerable<TItem, TBridgeType, TBridger, TEnumerator> :
         IStructEnumerable<TItem, TEnumerator>
         where TEnumerator : struct, IStructEnumerator<TItem>
+        where TBridger: struct, IStructBridger<TItem, TBridgeType, TEnumerator>
         where TBridgeType : class
     {
         TBridgeType Inner;
-        Func<TBridgeType, TEnumerator> Bridge;
-        internal IdentityEnumerable(TBridgeType inner, Func<TBridgeType, TEnumerator> bridge)
+        internal IdentityEnumerable(TBridgeType inner)
         {
             Inner = inner;
-            Bridge = bridge;
         }
 
-        public bool IsDefaultValue()
-        {
-            return
-                Inner == null &&
-                Bridge == null;
-        }
+        public bool IsDefaultValue() => Inner == null;
 
-        public TEnumerator GetEnumerator() => Bridge(Inner);
+        public TEnumerator GetEnumerator() => default(TBridger).Bridge(Inner);
     }
 }

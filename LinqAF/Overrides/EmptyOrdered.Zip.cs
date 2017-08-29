@@ -6,12 +6,6 @@ namespace LinqAF
 {
     public partial struct EmptyOrderedEnumerable<TItem>
     {
-        public EmptyEnumerable<TZip_OutItem> Zip<TZip_InnerItem, TZip_OutItem>(OneItemDefaultOrderedEnumerable<TZip_InnerItem> second, Func<TItem, TZip_InnerItem, TZip_OutItem> resultSelector)
-        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_InnerItem, OneItemDefaultOrderedEnumerable<TZip_InnerItem>, OneItemDefaultOrderedEnumerator<TZip_InnerItem>>(ref this, ref second, resultSelector);
-
-        public EmptyEnumerable<TZip_OutItem> Zip<TZip_InnerItem, TZip_OutItem>(OneItemSpecificOrderedEnumerable<TZip_InnerItem> second, Func<TItem, TZip_InnerItem, TZip_OutItem> resultSelector)
-        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_InnerItem, OneItemSpecificOrderedEnumerable<TZip_InnerItem>, OneItemSpecificOrderedEnumerator<TZip_InnerItem>>(ref this, ref second, resultSelector);
-
         public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_ExceptOutItem, TZip_ExceptFirstEnumerable, TZip_ExceptFirstEnumerator, TZip_ExceptSecondEnumerable, TZip_ExceptSecondEnumerator>(ExceptDefaultEnumerable<TZip_ExceptOutItem, TZip_ExceptFirstEnumerable, TZip_ExceptFirstEnumerator, TZip_ExceptSecondEnumerable, TZip_ExceptSecondEnumerator> second, Func<TItem, TZip_ExceptOutItem, TZip_OutItem> resultSelector)
             where TZip_ExceptFirstEnumerable : struct, IStructEnumerable<TZip_ExceptOutItem, TZip_ExceptFirstEnumerator>
             where TZip_ExceptFirstEnumerator : struct, IStructEnumerator<TZip_ExceptOutItem>
@@ -122,8 +116,11 @@ namespace LinqAF
             where TZip_GroupByEnumerator : struct, IStructEnumerator<TZip_GroupByInItem>
         => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, GroupingEnumerable<TZip_GroupByKey, TZip_GroupByElement>, GroupBySpecificEnumerable<TZip_GroupByInItem, TZip_GroupByKey, TZip_GroupByElement, TZip_GroupByEnumerable, TZip_GroupByEnumerator>, GroupBySpecificEnumerator<TZip_GroupByInItem, TZip_GroupByKey, TZip_GroupByElement, TZip_GroupByEnumerator>>(ref this, ref second, resultSelector);
 
-        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_LookupKey, TZip_LookupElement>(LookupEnumerable<TZip_LookupKey, TZip_LookupElement> second, Func<TItem, GroupingEnumerable<TZip_LookupKey, TZip_LookupElement>, TZip_OutItem> resultSelector)
-        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, GroupingEnumerable<TZip_LookupKey, TZip_LookupElement>, LookupEnumerable<TZip_LookupKey, TZip_LookupElement>, LookupEnumerator<TZip_LookupKey, TZip_LookupElement>>(ref this, ref second, resultSelector);
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_LookupKey, TZip_LookupElement>(LookupDefaultEnumerable<TZip_LookupKey, TZip_LookupElement> second, Func<TItem, GroupingEnumerable<TZip_LookupKey, TZip_LookupElement>, TZip_OutItem> resultSelector)
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, GroupingEnumerable<TZip_LookupKey, TZip_LookupElement>, LookupDefaultEnumerable<TZip_LookupKey, TZip_LookupElement>, LookupDefaultEnumerator<TZip_LookupKey, TZip_LookupElement>>(ref this, ref second, resultSelector);
+
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_LookupKey, TZip_LookupElement>(LookupSpecificEnumerable<TZip_LookupKey, TZip_LookupElement> second, Func<TItem, GroupingEnumerable<TZip_LookupKey, TZip_LookupElement>, TZip_OutItem> resultSelector)
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, GroupingEnumerable<TZip_LookupKey, TZip_LookupElement>, LookupSpecificEnumerable<TZip_LookupKey, TZip_LookupElement>, LookupSpecificEnumerator<TZip_LookupKey, TZip_LookupElement>>(ref this, ref second, resultSelector);
 
         public EmptyEnumerable<TZip_OutItem> Zip<TZip_InnerItem, TZip_OutItem>(OneItemDefaultEnumerable<TZip_InnerItem> second, Func<TItem, TZip_InnerItem, TZip_OutItem> resultSelector)
         => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_InnerItem, OneItemDefaultEnumerable<TZip_InnerItem>, OneItemDefaultEnumerator<TZip_InnerItem>>(ref this, ref second, resultSelector);
@@ -189,7 +186,7 @@ namespace LinqAF
             where TZip_DefaultInnerEnumerable : struct, IStructEnumerable<TZip_DefaultItem, TZip_DefaultInnerEnumerator>
             where TZip_DefaultInnerEnumerator : struct, IStructEnumerator<TZip_DefaultItem>
         => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_DefaultItem, DefaultIfEmptyDefaultEnumerable<TZip_DefaultItem, TZip_DefaultInnerEnumerable, TZip_DefaultInnerEnumerator>, DefaultIfEmptyDefaultEnumerator<TZip_DefaultItem, TZip_DefaultInnerEnumerator>>(ref this, ref second, resultSelector);
-        
+
         public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_SelectInItem, TZip_SelectOutItem, TZip_SelectInnerEnumerable, TZip_SelectInnerEnumerator>(SelectEnumerable<TZip_SelectInItem, TZip_SelectOutItem, TZip_SelectInnerEnumerable, TZip_SelectInnerEnumerator> second, Func<TItem, TZip_SelectOutItem, TZip_OutItem> resultSelector)
             where TZip_SelectInnerEnumerable : struct, IStructEnumerable<TZip_SelectInItem, TZip_SelectInnerEnumerator>
             where TZip_SelectInnerEnumerator : struct, IStructEnumerator<TZip_SelectInItem>
@@ -199,7 +196,7 @@ namespace LinqAF
             where TZip_SelectInnerEnumerable : struct, IStructEnumerable<TZip_SelectInItem, TZip_SelectInnerEnumerator>
             where TZip_SelectInnerEnumerator : struct, IStructEnumerator<TZip_SelectInItem>
         => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_SelectOutItem, SelectIndexedEnumerable<TZip_SelectInItem, TZip_SelectOutItem, TZip_SelectInnerEnumerable, TZip_SelectInnerEnumerator>, SelectIndexedEnumerator<TZip_SelectInItem, TZip_SelectOutItem, TZip_SelectInnerEnumerator>>(ref this, ref second, resultSelector);
-        
+
         public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_OfTypeInItem, TZip_OfTypeOutItem, TZip_OfTypeInnerEnumerable, TZip_OfTypeInnerEnumerator>(OfTypeEnumerable<TZip_OfTypeInItem, TZip_OfTypeOutItem, TZip_OfTypeInnerEnumerable, TZip_OfTypeInnerEnumerator> second, Func<TItem, TZip_OfTypeOutItem, TZip_OutItem> resultSelector)
             where TZip_OfTypeInnerEnumerable : struct, IStructEnumerable<TZip_OfTypeInItem, TZip_OfTypeInnerEnumerator>
             where TZip_OfTypeInnerEnumerator : struct, IStructEnumerator<TZip_OfTypeInItem>
@@ -237,7 +234,7 @@ namespace LinqAF
             where TZip_ZipSecondEnumerable : struct, IStructEnumerable<TZip_ZipSecondItem, TZip_ZipSecondEnumerator>
             where TZip_ZipSecondEnumerator : struct, IStructEnumerator<TZip_ZipSecondItem>
         => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_ZipOutItem, ZipEnumerable<TZip_ZipOutItem, TZip_ZipFirstItem, TZip_ZipSecondItem, TZip_ZipFirstEnumerable, TZip_ZipFirstEnumerator, TZip_ZipSecondEnumerable, TZip_ZipSecondEnumerator>, ZipEnumerator<TZip_ZipOutItem, TZip_ZipFirstItem, TZip_ZipSecondItem, TZip_ZipFirstEnumerator, TZip_ZipSecondEnumerator>>(ref this, ref second, resultSelector);
-        
+
         public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerable, TZip_SelectManyProjectedEnumerator>(SelectManyCollectionEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerable, TZip_SelectManyProjectedEnumerator> second, Func<TItem, TZip_SelectManyOutItem, TZip_OutItem> resultSelector)
             where TZip_SelectManyInnerEnumerable : struct, IStructEnumerable<TZip_SelectManyInItem, TZip_SelectManyInnerEnumerator>
             where TZip_SelectManyInnerEnumerator : struct, IStructEnumerator<TZip_SelectManyInItem>
@@ -285,38 +282,43 @@ namespace LinqAF
         public EmptyEnumerable<TZip_OutItem> Zip<TZip_InnerItem, TZip_OutItem>(Stack<TZip_InnerItem> second, Func<TItem, TZip_InnerItem, TZip_OutItem> resultSelector)
         => CommonImplementation.EmptyZipBridge_Impl<TItem, TZip_OutItem, TZip_InnerItem, Stack<TZip_InnerItem>>(ref this, second, resultSelector);
 
-        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator> second, Func<TItem, TZip_SelectManyOutItem, TZip_OutItem> resultSelector)
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>(SelectManyBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator> second, Func<TItem, TZip_SelectManyOutItem, TZip_OutItem> resultSelector)
             where TZip_SelectManyBridgeType : class
             where TZip_SelectManyInnerEnumerable : struct, IStructEnumerable<TZip_SelectManyInItem, TZip_SelectManyInnerEnumerator>
             where TZip_SelectManyInnerEnumerator : struct, IStructEnumerator<TZip_SelectManyInItem>
             where TZip_SelectManyProjectedEnumerator : struct, IStructEnumerator<TZip_SelectManyOutItem>
-        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_SelectManyOutItem, SelectManyBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>>(ref this, ref second, resultSelector);
+            where TZip_SelectManyBridger : struct, IStructBridger<TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyProjectedEnumerator>
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_SelectManyOutItem, SelectManyBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>, SelectManyBridgeEnumerator<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>>(ref this, ref second, resultSelector);
 
-        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator> second, Func<TItem, TZip_SelectManyOutItem, TZip_OutItem> resultSelector)
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator> second, Func<TItem, TZip_SelectManyOutItem, TZip_OutItem> resultSelector)
             where TZip_SelectManyBridgeType : class
             where TZip_SelectManyInnerEnumerable : struct, IStructEnumerable<TZip_SelectManyInItem, TZip_SelectManyInnerEnumerator>
             where TZip_SelectManyInnerEnumerator : struct, IStructEnumerator<TZip_SelectManyInItem>
             where TZip_SelectManyProjectedEnumerator : struct, IStructEnumerator<TZip_SelectManyOutItem>
-        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_SelectManyOutItem, SelectManyIndexedBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>>(ref this, ref second, resultSelector);
+            where TZip_SelectManyBridger : struct, IStructBridger<TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyProjectedEnumerator>
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_SelectManyOutItem, SelectManyIndexedBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>>(ref this, ref second, resultSelector);
 
-        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator> second, Func<TItem, TZip_SelectManyOutItem, TZip_OutItem> resultSelector)
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator> second, Func<TItem, TZip_SelectManyOutItem, TZip_OutItem> resultSelector)
             where TZip_SelectManyBridgeType : class
             where TZip_SelectManyInnerEnumerable : struct, IStructEnumerable<TZip_SelectManyInItem, TZip_SelectManyInnerEnumerator>
             where TZip_SelectManyInnerEnumerator : struct, IStructEnumerator<TZip_SelectManyInItem>
             where TZip_SelectManyProjectedEnumerator : struct, IStructEnumerator<TZip_SelectManyCollectionItem>
-        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_SelectManyOutItem, SelectManyCollectionBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>>(ref this, ref second, resultSelector);
+            where TZip_SelectManyBridger : struct, IStructBridger<TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyProjectedEnumerator>
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_SelectManyOutItem, SelectManyCollectionBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>>(ref this, ref second, resultSelector);
 
-        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator> second, Func<TItem, TZip_SelectManyOutItem, TZip_OutItem> resultSelector)
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator> second, Func<TItem, TZip_SelectManyOutItem, TZip_OutItem> resultSelector)
             where TZip_SelectManyBridgeType : class
             where TZip_SelectManyInnerEnumerable : struct, IStructEnumerable<TZip_SelectManyInItem, TZip_SelectManyInnerEnumerator>
             where TZip_SelectManyInnerEnumerator : struct, IStructEnumerator<TZip_SelectManyInItem>
             where TZip_SelectManyProjectedEnumerator : struct, IStructEnumerator<TZip_SelectManyCollectionItem>
-        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_SelectManyOutItem, SelectManyCollectionIndexedBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>>(ref this, ref second, resultSelector);
+            where TZip_SelectManyBridger : struct, IStructBridger<TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyProjectedEnumerator>
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_SelectManyOutItem, SelectManyCollectionIndexedBridgeEnumerable<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerable, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TZip_SelectManyInItem, TZip_SelectManyOutItem, TZip_SelectManyCollectionItem, TZip_SelectManyBridgeType, TZip_SelectManyBridger, TZip_SelectManyInnerEnumerator, TZip_SelectManyProjectedEnumerator>>(ref this, ref second, resultSelector);
 
-        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_IdentityItem, TZip_IdentityBridgeType, TZip_IdentityEnumerator>(IdentityEnumerable<TZip_IdentityItem, TZip_IdentityBridgeType, TZip_IdentityEnumerator> second, Func<TItem, TZip_IdentityItem, TZip_OutItem> resultSelector)
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_IdentityItem, TZip_IdentityBridgeType, TZip_IdentityBridger, TZip_IdentityEnumerator>(IdentityEnumerable<TZip_IdentityItem, TZip_IdentityBridgeType, TZip_IdentityBridger, TZip_IdentityEnumerator> second, Func<TItem, TZip_IdentityItem, TZip_OutItem> resultSelector)
             where TZip_IdentityBridgeType : class
             where TZip_IdentityEnumerator : struct, IStructEnumerator<TZip_IdentityItem>
-        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_IdentityItem, IdentityEnumerable<TZip_IdentityItem, TZip_IdentityBridgeType, TZip_IdentityEnumerator>, TZip_IdentityEnumerator>(ref this, ref second, resultSelector);
+            where TZip_IdentityBridger : struct, IStructBridger<TZip_IdentityItem, TZip_IdentityBridgeType, TZip_IdentityEnumerator>
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_IdentityItem, IdentityEnumerable<TZip_IdentityItem, TZip_IdentityBridgeType, TZip_IdentityBridger, TZip_IdentityEnumerator>, TZip_IdentityEnumerator>(ref this, ref second, resultSelector);
 
         public EmptyEnumerable<TZip_OutItem> Zip<TZip_InnerItem, TZip_OutItem>(TZip_InnerItem[] second, Func<TItem, TZip_InnerItem, TZip_OutItem> resultSelector)
         => CommonImplementation.EmptyZipBridge_Impl<TItem, TZip_OutItem, TZip_InnerItem, TZip_InnerItem[]>(ref this, second, resultSelector);
@@ -359,5 +361,11 @@ namespace LinqAF
             where TZip_DistinctInnerEnumerable : struct, IStructEnumerable<TZip_DistinctOutItem, TZip_DistinctInnerEnumerator>
             where TZip_DistinctInnerEnumerator : struct, IStructEnumerator<TZip_DistinctOutItem>
         => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_DistinctOutItem, DistinctSpecificEnumerable<TZip_DistinctOutItem, TZip_DistinctInnerEnumerable, TZip_DistinctInnerEnumerator>, DistinctSpecificEnumerator<TZip_DistinctOutItem, TZip_DistinctInnerEnumerator>>(ref this, ref second, resultSelector);
+
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_InnerItem, TZip_OutItem>(OneItemDefaultOrderedEnumerable<TZip_InnerItem> second, Func<TItem, TZip_InnerItem, TZip_OutItem> resultSelector)
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_InnerItem, OneItemDefaultOrderedEnumerable<TZip_InnerItem>, OneItemDefaultOrderedEnumerator<TZip_InnerItem>>(ref this, ref second, resultSelector);
+
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_InnerItem, TZip_OutItem>(OneItemSpecificOrderedEnumerable<TZip_InnerItem> second, Func<TItem, TZip_InnerItem, TZip_OutItem> resultSelector)
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_InnerItem, OneItemSpecificOrderedEnumerable<TZip_InnerItem>, OneItemSpecificOrderedEnumerator<TZip_InnerItem>>(ref this, ref second, resultSelector);
     }
 }

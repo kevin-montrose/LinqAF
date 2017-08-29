@@ -10,8 +10,8 @@ namespace LinqAF.Impl
             where TSecondEnumerable : struct, IStructEnumerable<TItem, TSecondEnumerator>
             where TSecondEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(second));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             return ConcatImpl<TItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator>(ref first, ref second);
         }

@@ -12,7 +12,7 @@ namespace LinqAF
         public SelectManyEnumerable<TGenInItem, TGenOutItem, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, PlaceholderEnumerable<TGenOutItem>, PlaceholderEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, PlaceholderEnumerable<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
@@ -30,7 +30,7 @@ namespace LinqAF
         public SelectManyIndexedEnumerable<TGenInItem, TGenOutItem, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, PlaceholderEnumerable<TGenOutItem>, PlaceholderEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, PlaceholderEnumerable<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
@@ -48,8 +48,8 @@ namespace LinqAF
         public SelectManyCollectionEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, PlaceholderEnumerable<TGenCollectionItem>, PlaceholderEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, PlaceholderEnumerable<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -68,8 +68,8 @@ namespace LinqAF
         public SelectManyCollectionIndexedEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, PlaceholderEnumerable<TGenCollectionItem>, PlaceholderEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, PlaceholderEnumerable<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -85,399 +85,423 @@ namespace LinqAF
 
         // SelectMany (bridges)
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, TGenOutItem[], ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ArrayEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, TGenOutItem[]> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, TGenOutItem[], ArrayBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ArrayEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, TGenOutItem[]> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     TGenOutItem[],
+                    ArrayBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     ArrayEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.Array);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, IEnumerable<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, IdentityEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, IEnumerable<TGenOutItem>> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, IEnumerable<TGenOutItem>, IEnumerableBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, IdentityEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, IEnumerable<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     IEnumerable<TGenOutItem>,
+                    IEnumerableBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     IdentityEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.IEnumerable);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, Dictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Dictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, Dictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection, DictionaryKeysBridger<TGenOutItem, TGenDictionaryValue>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Dictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     Dictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection,
+                    DictionaryKeysBridger<TGenOutItem, TGenDictionaryValue>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     DictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem, TGenDictionaryValue>.DictionaryKeys);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, Dictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Dictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, Dictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection, DictionaryValuesBridger<TGenDictionaryKey, TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Dictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     Dictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection,
+                    DictionaryValuesBridger<TGenDictionaryKey, TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     DictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenDictionaryKey, TGenOutItem>.DictionaryValues);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, HashSet<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, HashSetEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, HashSet<TGenOutItem>> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, HashSet<TGenOutItem>, HashSetBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, HashSetEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, HashSet<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     HashSet<TGenOutItem>,
+                    HashSetBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     HashSetEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.HashSet);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, LinkedList<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, LinkedListEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, LinkedList<TGenOutItem>> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, LinkedList<TGenOutItem>, LinkedListBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, LinkedListEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, LinkedList<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     LinkedList<TGenOutItem>,
+                    LinkedListBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     LinkedListEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.LinkedList);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, List<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ListEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, List<TGenOutItem>> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, List<TGenOutItem>, ListBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ListEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, List<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     List<TGenOutItem>,
+                     ListBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     ListEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.List);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, Queue<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, QueueEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Queue<TGenOutItem>> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, Queue<TGenOutItem>, QueueBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, QueueEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Queue<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     Queue<TGenOutItem>,
+                     QueueBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     QueueEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.Queue);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, SortedDictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedDictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, SortedDictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TGenOutItem, TGenDictionaryValue>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedDictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     SortedDictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection,
+                    SortedDictionaryKeysBridger<TGenOutItem, TGenDictionaryValue>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedDictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem, TGenDictionaryValue>.SortedDictionaryKeys);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, SortedDictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedDictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, SortedDictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection, SortedDictionaryValuesBridger<TGenDictionaryKey, TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedDictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     SortedDictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection,
+                     SortedDictionaryValuesBridger<TGenDictionaryKey, TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenDictionaryKey, TGenOutItem>.SortedDictionaryValues);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, SortedSet<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedSetEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedSet<TGenOutItem>> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, SortedSet<TGenOutItem>, SortedSetBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedSetEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedSet<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     SortedSet<TGenOutItem>,
+                     SortedSetBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedSetEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.SortedSet);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, Stack<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, StackEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Stack<TGenOutItem>> selector)
+        public SelectManyBridgeEnumerable<TGenInItem, TGenOutItem, Stack<TGenOutItem>, StackBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, StackEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Stack<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     Stack<TGenOutItem>,
+                     StackBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     StackEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.Stack);
+                >(RefLocal(bridge), selector);
         }
 
         // SelectManyIndexed (bridges)
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenOutItem[], ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ArrayEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, TGenOutItem[]> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenOutItem[], ArrayBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ArrayEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, TGenOutItem[]> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     TGenOutItem[],
+                    ArrayBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     ArrayEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.Array);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, IEnumerable<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, IdentityEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, IEnumerable<TGenOutItem>> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, IEnumerable<TGenOutItem>, IEnumerableBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, IdentityEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, IEnumerable<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     IEnumerable<TGenOutItem>,
+                     IEnumerableBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     IdentityEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.IEnumerable);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, Dictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Dictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, Dictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection, DictionaryKeysBridger<TGenOutItem, TGenDictionaryValue>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Dictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     Dictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection,
+                     DictionaryKeysBridger<TGenOutItem, TGenDictionaryValue>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     DictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem, TGenDictionaryValue>.DictionaryKeys);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, Dictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Dictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, Dictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection, DictionaryValuesBridger<TGenDictionaryKey, TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Dictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     Dictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection,
+                    DictionaryValuesBridger<TGenDictionaryKey, TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     DictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenDictionaryKey, TGenOutItem>.DictionaryValues);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, HashSet<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, HashSetEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, HashSet<TGenOutItem>> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, HashSet<TGenOutItem>, HashSetBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, HashSetEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, HashSet<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     HashSet<TGenOutItem>,
+                     HashSetBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     HashSetEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.HashSet);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, LinkedList<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, LinkedListEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, LinkedList<TGenOutItem>> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, LinkedList<TGenOutItem>, LinkedListBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, LinkedListEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, LinkedList<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     LinkedList<TGenOutItem>,
+                    LinkedListBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     LinkedListEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.LinkedList);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, List<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ListEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, List<TGenOutItem>> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, List<TGenOutItem>, ListBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ListEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, List<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     List<TGenOutItem>,
+                     ListBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     ListEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.List);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, Queue<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, QueueEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Queue<TGenOutItem>> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, Queue<TGenOutItem>, QueueBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, QueueEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Queue<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     Queue<TGenOutItem>,
+                     QueueBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     QueueEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.Queue);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, SortedDictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedDictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, SortedDictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TGenOutItem, TGenDictionaryValue>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedDictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     SortedDictionary<TGenOutItem, TGenDictionaryValue>.KeyCollection,
+                    SortedDictionaryKeysBridger<TGenOutItem, TGenDictionaryValue>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedDictionaryKeysEnumerator<TGenOutItem, TGenDictionaryValue>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem, TGenDictionaryValue>.SortedDictionaryKeys);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, SortedDictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedDictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, SortedDictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection, SortedDictionaryValuesBridger<TGenDictionaryKey, TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>> SelectMany<TGenInItem, TGenOutItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedDictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     SortedDictionary<TGenDictionaryKey, TGenOutItem>.ValueCollection,
+                    SortedDictionaryValuesBridger<TGenDictionaryKey, TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenDictionaryKey, TGenOutItem>.SortedDictionaryValues);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, SortedSet<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedSetEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedSet<TGenOutItem>> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, SortedSet<TGenOutItem>, SortedSetBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedSetEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedSet<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     SortedSet<TGenOutItem>,
+                     SortedSetBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedSetEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.SortedSet);
+                >(RefLocal(bridge), selector);
         }
 
-        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, Stack<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, StackEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Stack<TGenOutItem>> selector)
+        public SelectManyIndexedBridgeEnumerable<TGenInItem, TGenOutItem, Stack<TGenOutItem>, StackBridger<TGenOutItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, StackEnumerator<TGenOutItem>> SelectMany<TGenInItem, TGenOutItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Stack<TGenOutItem>> selector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
                     TGenInItem,
                     TGenOutItem,
                     Stack<TGenOutItem>,
+                    StackBridger<TGenOutItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     StackEnumerator<TGenOutItem>
-                >(RefLocal(bridge), selector, IdentityMaps<TGenOutItem>.Stack);
+                >(RefLocal(bridge), selector);
         }
 
         // SelectManyCollection (bridges)
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, TGenCollectionItem[], ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ArrayEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, TGenCollectionItem[]> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, TGenCollectionItem[], ArrayBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ArrayEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, TGenCollectionItem[]> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -485,17 +509,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     TGenCollectionItem[],
+                    ArrayBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     ArrayEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.Array);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, IEnumerable<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, IdentityEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, IEnumerable<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, IEnumerable<TGenCollectionItem>, IEnumerableBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, IdentityEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, IEnumerable<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -503,17 +528,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     IEnumerable<TGenCollectionItem>,
+                     IEnumerableBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     IdentityEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.IEnumerable);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Dictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Dictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Dictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection, DictionaryKeysBridger<TGenCollectionItem, TGenDictionaryValue>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Dictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -521,17 +547,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     Dictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection,
+                     DictionaryKeysBridger<TGenCollectionItem, TGenDictionaryValue>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     DictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem, TGenDictionaryValue>.DictionaryKeys);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Dictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Dictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Dictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection, DictionaryValuesBridger<TGenDictionaryKey, TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Dictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -539,17 +566,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     Dictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection,
+                    DictionaryValuesBridger<TGenDictionaryKey, TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     DictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenDictionaryKey, TGenCollectionItem>.DictionaryValues);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, HashSet<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, HashSetEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, HashSet<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, HashSet<TGenCollectionItem>, HashSetBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, HashSetEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, HashSet<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -557,17 +585,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     HashSet<TGenCollectionItem>,
+                     HashSetBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     HashSetEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.HashSet);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, LinkedList<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, LinkedListEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, LinkedList<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, LinkedList<TGenCollectionItem>, LinkedListBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, LinkedListEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, LinkedList<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -575,17 +604,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     LinkedList<TGenCollectionItem>,
+                     LinkedListBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     LinkedListEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.LinkedList);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, List<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ListEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, List<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, List<TGenCollectionItem>, ListBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ListEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, List<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -593,17 +623,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     List<TGenCollectionItem>,
+                     ListBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     ListEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.List);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Queue<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, QueueEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Queue<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Queue<TGenCollectionItem>, QueueBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, QueueEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Queue<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -611,17 +642,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     Queue<TGenCollectionItem>,
+                     QueueBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     QueueEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.Queue);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedDictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedDictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedDictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TGenCollectionItem, TGenDictionaryValue>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedDictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -629,17 +661,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     SortedDictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection,
+                    SortedDictionaryKeysBridger<TGenCollectionItem, TGenDictionaryValue>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedDictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem, TGenDictionaryValue>.SortedDictionaryKeys);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedDictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedDictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedDictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection, SortedDictionaryValuesBridger<TGenDictionaryKey, TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedDictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -647,17 +680,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     SortedDictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection,
+                    SortedDictionaryValuesBridger<TGenDictionaryKey, TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenDictionaryKey, TGenCollectionItem>.SortedDictionaryValues);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedSet<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedSetEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedSet<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedSet<TGenCollectionItem>, SortedSetBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedSetEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, SortedSet<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -665,17 +699,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     SortedSet<TGenCollectionItem>,
+                     SortedSetBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedSetEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.SortedSet);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Stack<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, StackEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Stack<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Stack<TGenCollectionItem>, StackBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, StackEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, Stack<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -683,19 +718,20 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     Stack<TGenCollectionItem>,
+                     StackBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     StackEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.Stack);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
         // SelectManyCollectionIndexed (bridges)
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, TGenCollectionItem[], ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ArrayEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, TGenCollectionItem[]> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, TGenCollectionItem[], ArrayBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ArrayEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, TGenCollectionItem[]> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -703,17 +739,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     TGenCollectionItem[],
+                     ArrayBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     ArrayEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.Array);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, IEnumerable<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, IdentityEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, IEnumerable<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, IEnumerable<TGenCollectionItem>, IEnumerableBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, IdentityEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, IEnumerable<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -721,17 +758,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     IEnumerable<TGenCollectionItem>,
+                    IEnumerableBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     IdentityEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.IEnumerable);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Dictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Dictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Dictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection, DictionaryKeysBridger<TGenCollectionItem, TGenDictionaryValue>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Dictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -739,17 +777,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     Dictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection,
+                    DictionaryKeysBridger<TGenCollectionItem, TGenDictionaryValue>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     DictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem, TGenDictionaryValue>.DictionaryKeys);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Dictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Dictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Dictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection, DictionaryValuesBridger<TGenDictionaryKey, TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, DictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Dictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -757,17 +796,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     Dictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection,
+                    DictionaryValuesBridger<TGenDictionaryKey, TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     DictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenDictionaryKey, TGenCollectionItem>.DictionaryValues);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, HashSet<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, HashSetEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, HashSet<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, HashSet<TGenCollectionItem>, HashSetBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, HashSetEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, HashSet<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -775,17 +815,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     HashSet<TGenCollectionItem>,
+                     HashSetBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     HashSetEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.HashSet);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, LinkedList<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, LinkedListEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, LinkedList<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, LinkedList<TGenCollectionItem>, LinkedListBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, LinkedListEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, LinkedList<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -793,17 +834,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     LinkedList<TGenCollectionItem>,
+                     LinkedListBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     LinkedListEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.LinkedList);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, List<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ListEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, List<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, List<TGenCollectionItem>, ListBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, ListEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, List<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -811,17 +853,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     List<TGenCollectionItem>,
+                    ListBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     ListEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.List);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Queue<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, QueueEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Queue<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Queue<TGenCollectionItem>, QueueBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, QueueEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Queue<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -829,17 +872,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     Queue<TGenCollectionItem>,
+                     QueueBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     QueueEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.Queue);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedDictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedDictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedDictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TGenCollectionItem, TGenDictionaryValue>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryValue>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedDictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -847,17 +891,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     SortedDictionary<TGenCollectionItem, TGenDictionaryValue>.KeyCollection,
+                    SortedDictionaryKeysBridger<TGenCollectionItem, TGenDictionaryValue>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedDictionaryKeysEnumerator<TGenCollectionItem, TGenDictionaryValue>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem, TGenDictionaryValue>.SortedDictionaryKeys);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedDictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedDictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedDictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection, SortedDictionaryValuesBridger<TGenDictionaryKey, TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem, TGenDictionaryKey>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedDictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -865,17 +910,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     SortedDictionary<TGenDictionaryKey, TGenCollectionItem>.ValueCollection,
+                    SortedDictionaryValuesBridger<TGenDictionaryKey, TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedDictionaryValuesEnumerator<TGenDictionaryKey, TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenDictionaryKey, TGenCollectionItem>.SortedDictionaryValues);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedSet<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedSetEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedSet<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, SortedSet<TGenCollectionItem>, SortedSetBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, SortedSetEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, SortedSet<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -883,17 +929,18 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     SortedSet<TGenCollectionItem>,
+                     SortedSetBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     SortedSetEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.SortedSet);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
-        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Stack<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, StackEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Stack<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
+        public SelectManyCollectionIndexedBridgeEnumerable<TGenInItem, TGenOutItem, TGenCollectionItem, Stack<TGenCollectionItem>, StackBridger<TGenCollectionItem>, ConstrainedBuiltInEnumerable<TGenInItem>, ConstrainedBuiltInEnumerator<TGenInItem>, StackEnumerator<TGenCollectionItem>> SelectMany<TGenInItem, TGenOutItem, TGenCollectionItem>(BuiltInEnumerable<TGenInItem> source, Func<TGenInItem, int, Stack<TGenCollectionItem>> collectionSelector, Func<TGenInItem, TGenCollectionItem, TGenOutItem> resultSelector)
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -901,10 +948,11 @@ namespace LinqAF
                     TGenOutItem,
                     TGenCollectionItem,
                     Stack<TGenCollectionItem>,
+                     StackBridger<TGenCollectionItem>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
                     StackEnumerator<TGenCollectionItem>
-                >(RefLocal(bridge), collectionSelector, resultSelector, IdentityMaps<TGenCollectionItem>.Stack);
+                >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
         // SelectMany Weird
@@ -924,7 +972,7 @@ namespace LinqAF
             where TGenGroupByEnumerator: struct, IStructEnumerator<TGenGroupByInItem>
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
@@ -953,7 +1001,7 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
@@ -972,15 +1020,15 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 ConstrainedBuiltInEnumerable<TGenInItem>,
                 ConstrainedBuiltInEnumerator<TGenInItem>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > SelectMany<TGenInItem, TGenLookupKey, TGenLookupElement>(
                 BuiltInEnumerable<TGenInItem> source,
-                Func<TGenInItem, LookupEnumerable<TGenLookupKey, TGenLookupElement>> selector
+                Func<TGenInItem, LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>> selector
             )
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
@@ -988,8 +1036,35 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(RefLocal(bridge), selector);
+        }
+
+        public
+            SelectManyEnumerable<
+                TGenInItem,
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                ConstrainedBuiltInEnumerable<TGenInItem>,
+                ConstrainedBuiltInEnumerator<TGenInItem>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > SelectMany<TGenInItem, TGenLookupKey, TGenLookupElement>(
+                BuiltInEnumerable<TGenInItem> source,
+                Func<TGenInItem, LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>> selector
+            )
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return
+                CommonImplementation.SelectMany<
+                    TGenInItem,
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    ConstrainedBuiltInEnumerable<TGenInItem>,
+                    ConstrainedBuiltInEnumerator<TGenInItem>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(bridge), selector);
         }
 
@@ -1010,7 +1085,7 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
@@ -1039,7 +1114,7 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
@@ -1058,15 +1133,15 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 ConstrainedBuiltInEnumerable<TGenInItem>,
                 ConstrainedBuiltInEnumerator<TGenInItem>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > SelectMany<TGenInItem, TGenLookupKey, TGenLookupElement>(
                 BuiltInEnumerable<TGenInItem> source,
-                Func<TGenInItem, int, LookupEnumerable<TGenLookupKey, TGenLookupElement>> selector
+                Func<TGenInItem, int, LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>> selector
             )
         {
             var bridge = Bridge(source, nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return
                 CommonImplementation.SelectMany<
@@ -1074,8 +1149,35 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(RefLocal(bridge), selector);
+        }
+
+        public
+            SelectManyIndexedEnumerable<
+                TGenInItem,
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                ConstrainedBuiltInEnumerable<TGenInItem>,
+                ConstrainedBuiltInEnumerator<TGenInItem>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > SelectMany<TGenInItem, TGenLookupKey, TGenLookupElement>(
+                BuiltInEnumerable<TGenInItem> source,
+                Func<TGenInItem, int, LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>> selector
+            )
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return
+                CommonImplementation.SelectMany<
+                    TGenInItem,
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    ConstrainedBuiltInEnumerable<TGenInItem>,
+                    ConstrainedBuiltInEnumerator<TGenInItem>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(bridge), selector);
         }
 
@@ -1098,8 +1200,8 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -1131,8 +1233,8 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -1153,17 +1255,17 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 ConstrainedBuiltInEnumerable<TGenInItem>,
                 ConstrainedBuiltInEnumerator<TGenInItem>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > SelectMany<TGenInItem, TGenLookupKey, TGenLookupElement, TGenResultItem>(
                 BuiltInEnumerable<TGenInItem> source,
-                Func<TGenInItem, LookupEnumerable<TGenLookupKey, TGenLookupElement>> collectionSelector,
+                Func<TGenInItem, LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>> collectionSelector,
                 Func<TGenInItem, GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TGenResultItem> resultSelector
             )
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -1172,8 +1274,39 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(RefLocal(bridge), collectionSelector, resultSelector);
+        }
+
+        public
+            SelectManyCollectionEnumerable<
+                TGenInItem,
+                TGenResultItem,
+                GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                ConstrainedBuiltInEnumerable<TGenInItem>,
+                ConstrainedBuiltInEnumerator<TGenInItem>,
+                LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+            > SelectMany<TGenInItem, TGenLookupKey, TGenLookupElement, TGenResultItem>(
+                BuiltInEnumerable<TGenInItem> source,
+                Func<TGenInItem, LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>> collectionSelector,
+                Func<TGenInItem, GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TGenResultItem> resultSelector
+            )
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.SelectMany<
+                    TGenInItem,
+                    TGenResultItem,
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    ConstrainedBuiltInEnumerable<TGenInItem>,
+                    ConstrainedBuiltInEnumerator<TGenInItem>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(bridge), collectionSelector, resultSelector);
         }
 
@@ -1196,8 +1329,8 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -1229,8 +1362,8 @@ namespace LinqAF
             where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -1251,17 +1384,17 @@ namespace LinqAF
                 GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                 ConstrainedBuiltInEnumerable<TGenInItem>,
                 ConstrainedBuiltInEnumerator<TGenInItem>,
-                LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
             > SelectMany<TGenInItem, TGenLookupKey, TGenLookupElement, TGenResultItem>(
                 BuiltInEnumerable<TGenInItem> source,
-                Func<TGenInItem, int, LookupEnumerable<TGenLookupKey, TGenLookupElement>> collectionSelector,
+                Func<TGenInItem, int, LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>> collectionSelector,
                 Func<TGenInItem, GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TGenResultItem> resultSelector
             )
         {
             var bridge = Bridge(source, nameof(source));
-            if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return
                 CommonImplementation.SelectMany<
@@ -1270,8 +1403,39 @@ namespace LinqAF
                     GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
                     ConstrainedBuiltInEnumerable<TGenInItem>,
                     ConstrainedBuiltInEnumerator<TGenInItem>,
-                    LookupEnumerable<TGenLookupKey, TGenLookupElement>,
-                    LookupEnumerator<TGenLookupKey, TGenLookupElement>
+                    LookupDefaultEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupDefaultEnumerator<TGenLookupKey, TGenLookupElement>
+                >(RefLocal(bridge), collectionSelector, resultSelector);
+        }
+
+        public
+           SelectManyCollectionIndexedEnumerable<
+               TGenInItem,
+               TGenResultItem,
+               GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+               ConstrainedBuiltInEnumerable<TGenInItem>,
+               ConstrainedBuiltInEnumerator<TGenInItem>,
+               LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+               LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
+           > SelectMany<TGenInItem, TGenLookupKey, TGenLookupElement, TGenResultItem>(
+               BuiltInEnumerable<TGenInItem> source,
+               Func<TGenInItem, int, LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>> collectionSelector,
+               Func<TGenInItem, GroupingEnumerable<TGenLookupKey, TGenLookupElement>, TGenResultItem> resultSelector
+           )
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (collectionSelector == null) throw CommonImplementation.ArgumentNull(nameof(collectionSelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.SelectMany<
+                    TGenInItem,
+                    TGenResultItem,
+                    GroupingEnumerable<TGenLookupKey, TGenLookupElement>,
+                    ConstrainedBuiltInEnumerable<TGenInItem>,
+                    ConstrainedBuiltInEnumerator<TGenInItem>,
+                    LookupSpecificEnumerable<TGenLookupKey, TGenLookupElement>,
+                    LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(bridge), collectionSelector, resultSelector);
         }
     }

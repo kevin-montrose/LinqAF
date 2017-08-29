@@ -1,5 +1,6 @@
 ﻿namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct ConcatEnumerator<TItem, TFirstEnumerator, TSecondEnumerator>: IStructEnumerator<TItem>
         where TFirstEnumerator: struct, IStructEnumerator<TItem>
         where TSecondEnumerator: struct, IStructEnumerator<TItem>
@@ -19,10 +20,7 @@
 
         public bool IsDefaultValue()
         {
-            return
-                UseSecond == default(bool) &&
-                First.IsDefaultValue() &&
-                Second.IsDefaultValue();
+            return First.IsDefaultValue();
         }
 
         public void Dispose()
@@ -62,6 +60,7 @@
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct ConcatEnumerable<TItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator>: 
         IStructEnumerable<TItem, ConcatEnumerator<TItem, TFirstEnumerator, TSecondEnumerator>>
         where TFirstEnumerable: struct, IStructEnumerable<TItem, TFirstEnumerator>
@@ -79,9 +78,7 @@
 
         public bool IsDefaultValue()
         {
-            return
-                Left.IsDefaultValue() &&
-                Right.IsDefaultValue();
+            return Left.IsDefaultValue();
         }
 
         public ConcatEnumerator<TItem, TFirstEnumerator, TSecondEnumerator> GetEnumerator()

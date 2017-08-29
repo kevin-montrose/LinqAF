@@ -13,5 +13,11 @@ namespace LinqAF.Impl
 
         OrderByEnumerable<TItem, CompoundKey<TKey, TSecondKey>, TEnumerable, TEnumerator, CompoundComparer<TItem, TKey, TComparer, TSecondKey, DefaultDescending<TItem, TSecondKey>>> ThenByDescending<TSecondKey>(Func<TItem, TSecondKey> keySelector);
         OrderByEnumerable<TItem, CompoundKey<TKey, TSecondKey>, TEnumerable, TEnumerator, CompoundComparer<TItem, TKey, TComparer, TSecondKey, SingleComparerDescending<TItem, TSecondKey>>> ThenByDescending<TSecondKey>(Func<TItem, TSecondKey> keySelector, IComparer<TSecondKey> comparer);
+
+        OrderByEnumerable<TItem, CompoundKey<TKey, TSecondKey>, TEnumerable, TEnumerator, CompoundComparer<TItem, TKey, TComparer, TSecondKey, ConfiguredComparer<TItem, TSecondKey>>> CreateOrderedEnumerable<TSecondKey>(
+            Func<TItem, TSecondKey> keySelector,
+            IComparer<TSecondKey> comparer,
+            bool descending
+        );
     }
 }

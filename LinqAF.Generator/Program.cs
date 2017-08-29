@@ -38,6 +38,9 @@ namespace LinqAF.Generator
 
             string outProjectPath;
 
+            var overall = new Stopwatch();
+            overall.Start();
+
             var sw = new Stopwatch();
             sw.Start();
             log("Loading Projects... ");
@@ -71,7 +74,13 @@ namespace LinqAF.Generator
             sw.Stop();
             log("Done ");
             log("(Took: " + sw.ElapsedMilliseconds + "ms)");
+            log(Environment.NewLine);
 
+            overall.Stop();
+
+            log("Total time: " + overall.ElapsedMilliseconds + "ms");
+            log(Environment.NewLine);
+            
             return 0;
         }
     }

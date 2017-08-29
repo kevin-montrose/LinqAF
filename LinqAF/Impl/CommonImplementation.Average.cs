@@ -10,8 +10,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return AverageSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -32,7 +32,7 @@ namespace LinqAF.Impl
                 }
             }
 
-            if (count == 0) throw new InvalidOperationException("Sequence was empty");
+            if (count == 0) throw CommonImplementation.SequenceEmpty();
 
             return ((double)total) / (double)count;
         }
@@ -41,8 +41,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return AverageSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -51,33 +51,41 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            long count = 0;
-            long total = 0;
-
-            foreach (var item in source)
+            // this is a weird structure, but it removes a branch at the final return
+            using (var e = source.GetEnumerator())
             {
-                var val = selector(item);
-
-                if (val == null) continue;
-
-                checked
+                while (e.MoveNext())
                 {
-                    count++;
-                    total += val.Value;
+                    var val = selector(e.Current);
+                    if (val.HasValue)
+                    {
+                        long acc = val.GetValueOrDefault();
+                        long count = 1;
+
+                        while (e.MoveNext())
+                        {
+                            val = selector(e.Current);
+                            if (val.HasValue)
+                            {
+                                acc += val.GetValueOrDefault();
+                                count++;
+                            }
+                        }
+
+                        return ((double)acc) / (double)count;
+                    }
                 }
+
+                return null;
             }
-
-            if (count == 0) return null;
-
-            return ((double)total) / (double)count;
         }
 
         public static double AverageSelector<TItem, TEnumerable, TEnumerator>(ref TEnumerable source, Func<TItem, long> selector)
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return AverageSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -98,7 +106,7 @@ namespace LinqAF.Impl
                 }
             }
 
-            if (count == 0) throw new InvalidOperationException("Sequence was empty");
+            if (count == 0) throw CommonImplementation.SequenceEmpty();
 
             return ((double)total) / (double)count;
         }
@@ -107,8 +115,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return AverageSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -117,33 +125,41 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            long count = 0;
-            long total = 0;
-
-            foreach (var item in source)
+            // this is a weird structure, but it removes a branch at the final return
+            using (var e = source.GetEnumerator())
             {
-                var val = selector(item);
-
-                if (val == null) continue;
-
-                checked
+                while (e.MoveNext())
                 {
-                    count++;
-                    total += val.Value;
+                    var val = selector(e.Current);
+                    if (val.HasValue)
+                    {
+                        long acc = val.GetValueOrDefault();
+                        long count = 1;
+
+                        while (e.MoveNext())
+                        {
+                            val = selector(e.Current);
+                            if (val.HasValue)
+                            {
+                                acc += val.GetValueOrDefault();
+                                count++;
+                            }
+                        }
+
+                        return ((double)acc) / (double)count;
+                    }
                 }
+
+                return null;
             }
-
-            if (count == 0) return null;
-
-            return ((double)total) / (double)count;
         }
 
         public static float AverageSelector<TItem, TEnumerable, TEnumerator>(ref TEnumerable source, Func<TItem, float> selector)
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return AverageSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -161,7 +177,7 @@ namespace LinqAF.Impl
                 total += selector(item);
             }
 
-            if (count == 0) throw new InvalidOperationException("Sequence was empty");
+            if (count == 0) throw CommonImplementation.SequenceEmpty();
 
             return (float)(total / count);
         }
@@ -170,8 +186,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return AverageSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -180,30 +196,41 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            double count = 0;
-            double total = 0;
-
-            foreach (var item in source)
+            // this is a weird structure, but it removes a branch at the final return
+            using (var e = source.GetEnumerator())
             {
-                var val = selector(item);
+                while (e.MoveNext())
+                {
+                    var val = selector(e.Current);
+                    if (val.HasValue)
+                    {
+                        double acc = val.GetValueOrDefault();
+                        double count = 1;
 
-                if (val == null) continue;
+                        while (e.MoveNext())
+                        {
+                            val = selector(e.Current);
+                            if (val.HasValue)
+                            {
+                                acc += val.GetValueOrDefault();
+                                count++;
+                            }
+                        }
 
-                count++;
-                total += val.Value;
+                        return (float)(acc / count);
+                    }
+                }
+
+                return null;
             }
-
-            if (count == 0) return null;
-
-            return (float)(total / count);
         }
 
         public static double AverageSelector<TItem, TEnumerable, TEnumerator>(ref TEnumerable source, Func<TItem, double> selector)
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return AverageSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -221,7 +248,7 @@ namespace LinqAF.Impl
                 total += selector(item);
             }
 
-            if (count == 0) throw new InvalidOperationException("Sequence was empty");
+            if (count == 0) throw CommonImplementation.SequenceEmpty();
 
             return (total / count);
         }
@@ -230,8 +257,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return AverageSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -240,30 +267,41 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            double count = 0;
-            double total = 0;
-
-            foreach (var item in source)
+            // this is a weird structure, but it removes a branch at the final return
+            using (var e = source.GetEnumerator())
             {
-                var val = selector(item);
+                while (e.MoveNext())
+                {
+                    var val = selector(e.Current);
+                    if (val.HasValue)
+                    {
+                        double acc = val.GetValueOrDefault();
+                        double count = 1;
 
-                if (val == null) continue;
+                        while (e.MoveNext())
+                        {
+                            val = selector(e.Current);
+                            if (val.HasValue)
+                            {
+                                acc += val.GetValueOrDefault();
+                                count++;
+                            }
+                        }
 
-                count++;
-                total += val.Value;
+                        return (acc / count);
+                    }
+                }
+
+                return null;
             }
-
-            if (count == 0) return null;
-
-            return (total / count);
         }
 
         public static decimal AverageSelector<TItem, TEnumerable, TEnumerator>(ref TEnumerable source, Func<TItem, decimal> selector)
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return AverageSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -284,7 +322,7 @@ namespace LinqAF.Impl
                 }
             }
 
-            if (count == 0) throw new InvalidOperationException("Sequence was empty");
+            if (count == 0) throw CommonImplementation.SequenceEmpty();
 
             return (total / count);
         }
@@ -293,8 +331,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
 
             return AverageSelectorImpl<TItem, TEnumerable, TEnumerator>(ref source, selector);
         }
@@ -303,25 +341,33 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            decimal count = 0;
-            decimal total = 0;
-
-            foreach (var item in source)
+            // this is a weird structure, but it removes a branch at the final return
+            using (var e = source.GetEnumerator())
             {
-                var val = selector(item);
-
-                if (val == null) continue;
-
-                checked
+                while (e.MoveNext())
                 {
-                    count++;
-                    total += val.Value;
+                    var val = selector(e.Current);
+                    if (val.HasValue)
+                    {
+                        decimal acc = val.GetValueOrDefault();
+                        decimal count = 1;
+
+                        while (e.MoveNext())
+                        {
+                            val = selector(e.Current);
+                            if (val.HasValue)
+                            {
+                                acc += val.GetValueOrDefault();
+                                count++;
+                            }
+                        }
+
+                        return (acc / count);
+                    }
                 }
+
+                return null;
             }
-
-            if (count == 0) return null;
-
-            return (total / count);
         }
 
         // int
@@ -329,7 +375,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<int, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<int>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return AverageIntImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -338,7 +384,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<int, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<int>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             long count = 0;
             long total = 0;
@@ -352,7 +398,7 @@ namespace LinqAF.Impl
                 }
             }
 
-            if (count == 0) throw new InvalidOperationException("Sequence was empty");
+            if (count == 0) throw CommonImplementation.SequenceEmpty();
 
             return ((double)total) / (double)count;
         }
@@ -362,7 +408,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<int?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<int?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return AverageNullableIntImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -371,23 +417,33 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<int?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<int?>
         {
-            long count = 0;
-            long total = 0;
-
-            foreach (var item in source)
+            // this is a weird structure, but it removes a branch at the final return
+            using (var e = source.GetEnumerator())
             {
-                if (item == null) continue;
-
-                checked
+                while (e.MoveNext())
                 {
-                    count++;
-                    total += item.Value;
+                    var val = e.Current;
+                    if (val.HasValue)
+                    {
+                        long acc = val.GetValueOrDefault();
+                        long count = 1;
+
+                        while (e.MoveNext())
+                        {
+                            val = e.Current;
+                            if (val.HasValue)
+                            {
+                                acc += val.GetValueOrDefault();
+                                count++;
+                            }
+                        }
+
+                        return ((double)acc) / (double)count;
+                    }
                 }
+
+                return null;
             }
-
-            if (count == 0) return null;
-
-            return ((double)total) / (double)count;
         }
         
         // long
@@ -395,7 +451,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<long, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<long>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return AverageLongImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -416,7 +472,7 @@ namespace LinqAF.Impl
                 }
             }
 
-            if (count == 0) throw new InvalidOperationException("Sequence was empty");
+            if (count == 0) throw CommonImplementation.SequenceEmpty();
 
             return ((double)total) / (double)count;
         }
@@ -426,7 +482,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<long?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<long?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return AverageNullableLongImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -435,25 +491,33 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<long?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<long?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-
-            long count = 0;
-            long total = 0;
-
-            foreach (var item in source)
+            // this is a weird structure, but it removes a branch at the final return
+            using (var e = source.GetEnumerator())
             {
-                if (item == null) continue;
-
-                checked
+                while (e.MoveNext())
                 {
-                    count++;
-                    total += item.Value;
+                    var val = e.Current;
+                    if (val.HasValue)
+                    {
+                        long acc = val.GetValueOrDefault();
+                        long count = 1;
+
+                        while (e.MoveNext())
+                        {
+                            val = e.Current;
+                            if (val.HasValue)
+                            {
+                                acc += val.GetValueOrDefault();
+                                count++;
+                            }
+                        }
+
+                        return ((double)acc) / (double)count;
+                    }
                 }
+
+                return null;
             }
-
-            if (count == 0) return null;
-
-            return ((double)total) / (double)count;
         }
 
         // float
@@ -461,7 +525,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<float, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<float>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return AverageFloatImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -479,7 +543,7 @@ namespace LinqAF.Impl
                 total += item;
             }
 
-            if (count == 0) throw new InvalidOperationException("Sequence was empty");
+            if (count == 0) throw CommonImplementation.SequenceEmpty();
 
             return (float)(total / count);
         }
@@ -489,7 +553,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<float?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<float?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return AverageNullableFloatImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -498,20 +562,33 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<float?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<float?>
         {
-            double count = 0;
-            double total = 0;
-
-            foreach (var item in source)
+            // this is a weird structure, but it removes a branch at the final return
+            using (var e = source.GetEnumerator())
             {
-                if (item == null) continue;
+                while (e.MoveNext())
+                {
+                    var val = e.Current;
+                    if (val.HasValue)
+                    {
+                        double acc = val.GetValueOrDefault();
+                        double count = 1;
 
-                count++;
-                total += item.Value;
+                        while (e.MoveNext())
+                        {
+                            val = e.Current;
+                            if (val.HasValue)
+                            {
+                                acc += val.GetValueOrDefault();
+                                count++;
+                            }
+                        }
+
+                        return (float)(acc / count);
+                    }
+                }
+
+                return null;
             }
-
-            if (count == 0) return null;
-
-            return (float)(total / count);
         }
         
         // double
@@ -519,7 +596,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<double, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<double>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return AverageDoubleImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -537,7 +614,7 @@ namespace LinqAF.Impl
                 total += item;
             }
 
-            if (count == 0) throw new InvalidOperationException("Sequence was empty");
+            if (count == 0) throw CommonImplementation.SequenceEmpty();
 
             return (total / count);
         }
@@ -547,7 +624,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<double?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<double?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return AverageNullableDoubleImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -556,20 +633,33 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<double?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<double?>
         {
-            double count = 0;
-            double total = 0;
-
-            foreach (var item in source)
+            // this is a weird structure, but it removes a branch at the final return
+            using (var e = source.GetEnumerator())
             {
-                if (item == null) continue;
+                while (e.MoveNext())
+                {
+                    var val = e.Current;
+                    if (val.HasValue)
+                    {
+                        double acc = val.GetValueOrDefault();
+                        double count = 1;
 
-                count++;
-                total += item.Value;
+                        while (e.MoveNext())
+                        {
+                            val = e.Current;
+                            if (val.HasValue)
+                            {
+                                acc += val.GetValueOrDefault();
+                                count++;
+                            }
+                        }
+
+                        return (acc / count);
+                    }
+                }
+
+                return null;
             }
-
-            if (count == 0) return null;
-
-            return (total / count);
         }
         
         // decimal
@@ -577,7 +667,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<decimal, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<decimal>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return AverageDecimalImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -598,7 +688,7 @@ namespace LinqAF.Impl
                 }
             }
 
-            if (count == 0) throw new InvalidOperationException("Sequence was empty");
+            if (count == 0) throw CommonImplementation.SequenceEmpty();
 
             return (total / count);
         }
@@ -608,7 +698,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<decimal?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<decimal?>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return AverageNullableDecimalImpl<TEnumerable, TEnumerator>(ref source);
         }
@@ -617,23 +707,33 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<decimal?, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<decimal?>
         {
-            decimal count = 0;
-            decimal total = 0;
-
-            foreach (var item in source)
+            // this is a weird structure, but it removes a branch at the final return
+            using (var e = source.GetEnumerator())
             {
-                if (item == null) continue;
-
-                checked
+                while (e.MoveNext())
                 {
-                    count++;
-                    total += item.Value;
+                    var val = e.Current;
+                    if (val.HasValue)
+                    {
+                        decimal acc = val.GetValueOrDefault();
+                        decimal count = 1;
+
+                        while (e.MoveNext())
+                        {
+                            val = e.Current;
+                            if (val.HasValue)
+                            {
+                                acc += val.GetValueOrDefault();
+                                count++;
+                            }
+                        }
+
+                        return (acc / count);
+                    }
                 }
+
+                return null;
             }
-
-            if (count == 0) return null;
-
-            return (total / count);
         }
     }
 }

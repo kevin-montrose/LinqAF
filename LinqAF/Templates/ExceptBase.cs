@@ -13,105 +13,106 @@ namespace LinqAF
         public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, BoxedEnumerable<TItem>, BoxedEnumerator<TItem>> Except(BoxedEnumerable<TItem> second)
         => CommonImplementation.Except(RefThis(), ref second);
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Except(IEnumerable<TItem> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Except(IEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Except<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Except<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>> Except<TExcept_DictionaryKey>(Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TExcept_DictionaryKey, TItem>, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>> Except<TExcept_DictionaryKey>(Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Except(HashSet<TItem> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Except(HashSet<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Except(LinkedList<TItem> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Except(LinkedList<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Except(List<TItem> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Except(List<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Except(Queue<TItem> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Except(Queue<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>> Except<TExcept_DictionaryValue>(SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TExcept_DictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>> Except<TExcept_DictionaryValue>(SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>> Except<TExcept_DictionaryKey>(SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TExcept_DictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>> Except<TExcept_DictionaryKey>(SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Except(SortedSet<TItem> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Except(SortedSet<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Except(Stack<TItem> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Except(Stack<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Except(TItem[] second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Except(TItem[] second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge);
         }
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>, TExcept_IdentityEnumerator> Except<TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>(IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator>, TExcept_IdentityEnumerator> Except<TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator>(IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator> second)
             where TExcept_IdentityBridgeType : class
             where TExcept_IdentityEnumerator : struct, IStructEnumerator<TItem>
+            where TExcept_IdentityBridger: struct, IStructBridger<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>
         => CommonImplementation.Except(RefThis(), ref second);
 
         public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, ConcatEnumerable<TItem, TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator>, ConcatEnumerator<TItem, TInnerLeftEnumerator, TInnerRightEnumerator>> Except<TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator>(ConcatEnumerable<TItem, TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator> second)
@@ -140,32 +141,36 @@ namespace LinqAF
             where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectInItem>
         => CommonImplementation.Except(RefThis(), ref second);
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>, SelectManyBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>(SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>, SelectManyBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>(SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator> second)
             where TExcept_BridgeType : class
             where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_InnerEnumerator>
             where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
             where TExcept_ProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TExcept_Bridger: struct, IStructBridger<TItem, TExcept_BridgeType, TExcept_ProjectedEnumerator>
         => CommonImplementation.Except(RefThis(), ref second);
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second)
             where TExcept_SelectManyBridgeType : class
             where TExcept_SelectManyInnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_SelectManyInnerEnumerator>
             where TExcept_SelectManyInnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
             where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TExcept_Bridger: struct, IStructBridger<TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
         => CommonImplementation.Except(RefThis(), ref second);
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator> second)
             where TExcept_SelectManyBridgeType : class
             where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_InnerEnumerator>
             where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
             where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TExcept_CollectionItem>
+            where TExcept_Bridger: struct, IStructBridger<TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
         => CommonImplementation.Except(RefThis(), ref second);
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second)
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second)
             where TExcept_SelectManyBridgeType : class
             where TExcept_SelectManyInnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_SelectManyInnerEnumerator>
             where TExcept_SelectManyInnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
             where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TExcept_CollectionItem>
+            where TExcept_Bridger: struct, IStructBridger<TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
         => CommonImplementation.Except(RefThis(), ref second);
 
         public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, SelectManyEnumerable<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>, SelectManyEnumerator<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>(SelectManyEnumerable<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator> second)
@@ -301,8 +306,8 @@ namespace LinqAF
 
         public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>> Except(EmptyOrderedEnumerable<TItem> second)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             var empty = EmptyCache<TItem>.Empty;
             return CommonImplementation.ExceptImpl(RefThis(), ref empty);
@@ -411,105 +416,106 @@ namespace LinqAF
         public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, BoxedEnumerable<TItem>, BoxedEnumerator<TItem>> Except(BoxedEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         => CommonImplementation.Except(RefThis(), ref second, comparer);
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Except(IEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>, IdentityEnumerator<TItem>> Except(IEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Except<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TItem, TDictionaryValue>, DictionaryKeysEnumerator<TItem, TDictionaryValue>>, DictionaryKeysEnumerator<TItem, TDictionaryValue>> Except<TDictionaryValue>(Dictionary<TItem, TDictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>> Except<TExcept_DictionaryKey>(Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection, DictionaryValuesBridger<TExcept_DictionaryKey, TItem>, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>, DictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>> Except<TExcept_DictionaryKey>(Dictionary<TExcept_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Except(HashSet<TItem> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>, HashSetEnumerator<TItem>> Except(HashSet<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Except(LinkedList<TItem> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>, LinkedListEnumerator<TItem>> Except(LinkedList<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Except(List<TItem> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>, ListEnumerator<TItem>> Except(List<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Except(Queue<TItem> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>, QueueEnumerator<TItem>> Except(Queue<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>> Except<TExcept_DictionaryValue>(SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TItem, TExcept_DictionaryValue>, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>>, SortedDictionaryKeysEnumerator<TItem, TExcept_DictionaryValue>> Except<TExcept_DictionaryValue>(SortedDictionary<TItem, TExcept_DictionaryValue>.KeyCollection second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>> Except<TExcept_DictionaryKey>(SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection, SortedDictionaryValuesBridger<TExcept_DictionaryKey, TItem>, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>>, SortedDictionaryValuesEnumerator<TExcept_DictionaryKey, TItem>> Except<TExcept_DictionaryKey>(SortedDictionary<TExcept_DictionaryKey, TItem>.ValueCollection second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Except(SortedSet<TItem> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>, SortedSetEnumerator<TItem>> Except(SortedSet<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Except(Stack<TItem> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Except(Stack<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Except(TItem[] second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>> Except(TItem[] second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             var bridge = CommonImplementation.Bridge(second, nameof(second));
 
             return CommonImplementation.ExceptImpl(RefThis(), ref bridge, comparer);
         }
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>, TExcept_IdentityEnumerator> Except<TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>(IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator>, TExcept_IdentityEnumerator> Except<TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator>(IdentityEnumerable<TItem, TExcept_IdentityBridgeType, TExcept_IdentityBridger, TExcept_IdentityEnumerator> second, IEqualityComparer<TItem> comparer)
             where TExcept_IdentityBridgeType : class
             where TExcept_IdentityEnumerator : struct, IStructEnumerator<TItem>
+            where TExcept_IdentityBridger: struct, IStructBridger<TItem, TExcept_IdentityBridgeType, TExcept_IdentityEnumerator>
         => CommonImplementation.Except(RefThis(), ref second, comparer);
 
         public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, ConcatEnumerable<TItem, TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator>, ConcatEnumerator<TItem, TInnerLeftEnumerator, TInnerRightEnumerator>> Except<TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator>(ConcatEnumerable<TItem, TInnerLeftEnumerable, TInnerLeftEnumerator, TInnerRightEnumerable, TInnerRightEnumerator> second, IEqualityComparer<TItem> comparer)
@@ -538,32 +544,36 @@ namespace LinqAF
             where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectInItem>
         => CommonImplementation.Except(RefThis(), ref second, comparer);
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>, SelectManyBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>(SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>, SelectManyBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator>(SelectManyBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_BridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TExcept_BridgeType : class
             where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_InnerEnumerator>
             where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
             where TExcept_ProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TExcept_Bridger: struct, IStructBridger<TItem, TExcept_BridgeType, TExcept_ProjectedEnumerator>
         => CommonImplementation.Except(RefThis(), ref second, comparer);
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TExcept_SelectManyBridgeType : class
             where TExcept_SelectManyInnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_SelectManyInnerEnumerator>
             where TExcept_SelectManyInnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
             where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TItem>
+            where TExcept_Bridger: struct, IStructBridger<TItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
         => CommonImplementation.Except(RefThis(), ref second, comparer);
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyCollectionBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyCollectionBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TExcept_SelectManyBridgeType : class
             where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_InnerEnumerator>
             where TExcept_InnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
             where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TExcept_CollectionItem>
+            where TExcept_Bridger: struct, IStructBridger<TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
         => CommonImplementation.Except(RefThis(), ref second, comparer);
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>, SelectManyCollectionIndexedBridgeEnumerator<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator>(SelectManyCollectionIndexedBridgeEnumerable<TExcept_SelectManyInItem, TItem, TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_Bridger, TExcept_SelectManyInnerEnumerable, TExcept_SelectManyInnerEnumerator, TExcept_SelectManyProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
             where TExcept_SelectManyBridgeType : class
             where TExcept_SelectManyInnerEnumerable : struct, IStructEnumerable<TExcept_SelectManyInItem, TExcept_SelectManyInnerEnumerator>
             where TExcept_SelectManyInnerEnumerator : struct, IStructEnumerator<TExcept_SelectManyInItem>
             where TExcept_SelectManyProjectedEnumerator : struct, IStructEnumerator<TExcept_CollectionItem>
+            where TExcept_Bridger: struct, IStructBridger<TExcept_CollectionItem, TExcept_SelectManyBridgeType, TExcept_SelectManyProjectedEnumerator>
         => CommonImplementation.Except(RefThis(), ref second, comparer);
 
         public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, SelectManyEnumerable<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>, SelectManyEnumerator<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>> Except<TExcept_SelectManyInItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator>(SelectManyEnumerable<TExcept_SelectManyInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator, TExcept_ProjectedEnumerable, TExcept_ProjectedEnumerator> second, IEqualityComparer<TItem> comparer)
@@ -699,8 +709,8 @@ namespace LinqAF
 
         public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>> Except(EmptyOrderedEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument uninitialized", "first");
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
 
             var empty = EmptyCache<TItem>.Empty;
             return CommonImplementation.ExceptImpl(RefThis(), ref empty, comparer);

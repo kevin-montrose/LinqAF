@@ -9,7 +9,7 @@ namespace LinqAF.Impl
             where TInnerEnumerable: struct, IStructEnumerable<TItem, TInnerEnumerator>
             where TInnerEnumerator: struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return DistinctImpl<TItem, TInnerEnumerable, TInnerEnumerator>(ref source);
         }
@@ -25,7 +25,7 @@ namespace LinqAF.Impl
             where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
             where TInnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return DistinctImpl<TItem, TInnerEnumerable, TInnerEnumerator>(ref source, comparer);
         }

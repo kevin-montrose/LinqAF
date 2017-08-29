@@ -160,5 +160,283 @@ namespace LinqAF.Tests
                 try { bar.ThenByDescending(x => "", StringComparer.InvariantCultureIgnoreCase); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
         }
+
+        class _CreateOrderedEnumerable : IComparer<int>
+        {
+            public int Compare(int x, int y) => x.CompareTo(y);
+        }
+
+        [TestMethod]
+        public void CreateOrderedEnumerable()
+        {
+            var i =
+                new[]
+                {
+                    new { First = 2, Second = 3, Third = 1},
+                    new { First = 1, Second = 3, Third = 9},
+                    new { First = 2, Second = 5, Third = 9}
+                };
+            
+            var e1 = i.OrderBy(x => x.First);
+            var e2 = e1.CreateOrderedEnumerable(y => y.Second, new _CreateOrderedEnumerable(), true);
+            var e3 = e2.CreateOrderedEnumerable(z => z.Third, new _CreateOrderedEnumerable(), false);
+
+            var r1 = new List<int>();
+            foreach(var x in e1)
+            {
+                r1.Add(x.Second);
+            }
+
+            var r2 = new List<int>();
+            foreach (var x in e2)
+            {
+                r2.Add(x.Third);
+            }
+
+            var r3 = new List<int>();
+            foreach (var x in e3)
+            {
+                r3.Add(x.First);
+            }
+
+            Assert.IsTrue(new[] { 3, 3, 5 }.SequenceEqual(r1));
+            Assert.IsTrue(new[] { 9, 9, 1 }.SequenceEqual(r2));
+            Assert.IsTrue(new[] { 1, 2, 2 }.SequenceEqual(r3));
+        }
+
+        [TestMethod]
+        public void CreateOrderedEnumerable_Weird()
+        {
+            // emptyOrdered
+            {
+                var i = Enumerable.Empty<int>();
+
+                var e1 = i.OrderBy(x => x);
+                var e2 = e1.CreateOrderedEnumerable(y => y, new _CreateOrderedEnumerable(), true);
+                var e3 = e2.CreateOrderedEnumerable(z => z, new _CreateOrderedEnumerable(), false);
+
+                var r1 = new List<int>();
+                foreach (var x in e1)
+                {
+                    r1.Add(x);
+                }
+
+                var r2 = new List<int>();
+                foreach (var x in e2)
+                {
+                    r2.Add(x);
+                }
+
+                var r3 = new List<int>();
+                foreach (var x in e3)
+                {
+                    r3.Add(x);
+                }
+
+                Assert.IsTrue(!r1.Any());
+                Assert.IsTrue(!r2.Any());
+                Assert.IsTrue(!r3.Any());
+            }
+
+            // oneItemDefaultOrdered
+            {
+                var i = Enumerable.Empty<int>().DefaultIfEmpty();
+                
+                var e1 = i.OrderBy(x => x);
+                var e2 = e1.CreateOrderedEnumerable(y => y, new _CreateOrderedEnumerable(), true);
+                var e3 = e2.CreateOrderedEnumerable(z => z, new _CreateOrderedEnumerable(), false);
+
+                var r1 = new List<int>();
+                foreach (var x in e1)
+                {
+                    r1.Add(x);
+                }
+
+                var r2 = new List<int>();
+                foreach (var x in e2)
+                {
+                    r2.Add(x);
+                }
+
+                var r3 = new List<int>();
+                foreach (var x in e3)
+                {
+                    r3.Add(x);
+                }
+
+                Assert.IsTrue(new[] { 0 }.SequenceEqual(r1));
+                Assert.IsTrue(new[] { 0 }.SequenceEqual(r2));
+                Assert.IsTrue(new[] { 0 }.SequenceEqual(r3));
+            }
+
+            // oneItemSpecificOrdered
+            {
+                var i = Enumerable.Empty<int>().DefaultIfEmpty(4);
+
+                var e1 = i.OrderBy(x => x);
+                var e2 = e1.CreateOrderedEnumerable(y => y, new _CreateOrderedEnumerable(), true);
+                var e3 = e2.CreateOrderedEnumerable(z => z, new _CreateOrderedEnumerable(), false);
+
+                var r1 = new List<int>();
+                foreach (var x in e1)
+                {
+                    r1.Add(x);
+                }
+
+                var r2 = new List<int>();
+                foreach (var x in e2)
+                {
+                    r2.Add(x);
+                }
+
+                var r3 = new List<int>();
+                foreach (var x in e3)
+                {
+                    r3.Add(x);
+                }
+
+                Assert.IsTrue(new[] { 4 }.SequenceEqual(r1));
+                Assert.IsTrue(new[] { 4 }.SequenceEqual(r2));
+                Assert.IsTrue(new[] { 4 }.SequenceEqual(r3));
+            }
+        }
+
+        [TestMethod]
+        public void CreateOrderedEnumerable_Errors()
+        {
+            var i =
+                new[]
+                {
+                    new { First = 2, Second = 3, Third = 1},
+                    new { First = 1, Second = 3, Third = 9},
+                    new { First = 2, Second = 5, Third = 9}
+                };
+
+            var e = i.OrderBy(x => x.First);
+
+            try
+            {
+                e.CreateOrderedEnumerable(null, new _CreateOrderedEnumerable(), true);
+                Assert.Fail();
+            }
+            catch (ArgumentNullException exc)
+            {
+                Assert.AreEqual("keySelector", exc.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void CreateOrderedEnumerable_Errors_Weird()
+        {
+            // emptyOrdered
+            {
+                var e = Enumerable.Empty<int>().OrderBy(x => x);
+
+                try
+                {
+                    e.CreateOrderedEnumerable(null, new _CreateOrderedEnumerable(), true);
+                    Assert.Fail();
+                }
+                catch (ArgumentNullException exc)
+                {
+                    Assert.AreEqual("keySelector", exc.ParamName);
+                }
+            }
+
+            // oneItemDefaultOrdered
+            {
+                var e = Enumerable.Empty<int>().DefaultIfEmpty().OrderBy(x => x);
+
+                try
+                {
+                    e.CreateOrderedEnumerable(null, new _CreateOrderedEnumerable(), true);
+                    Assert.Fail();
+                }
+                catch (ArgumentNullException exc)
+                {
+                    Assert.AreEqual("keySelector", exc.ParamName);
+                }
+            }
+
+            // oneItemSpecificOrdered
+            {
+                var e = Enumerable.Empty<int>().DefaultIfEmpty(4).OrderBy(x => x);
+
+                try
+                {
+                    e.CreateOrderedEnumerable(null, new _CreateOrderedEnumerable(), true);
+                    Assert.Fail();
+                }
+                catch (ArgumentNullException exc)
+                {
+                    Assert.AreEqual("keySelector", exc.ParamName);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void CreateOrderedEnumerable_Malformed()
+        {
+            var e = new OrderByEnumerable<int, int, EmptyEnumerable<int>, EmptyEnumerator<int>, DefaultAscending<int, int>>();
+
+            try
+            {
+                e.CreateOrderedEnumerable(null, new _CreateOrderedEnumerable(), true);
+                Assert.Fail();
+            }
+            catch (ArgumentException exc)
+            {
+                Assert.AreEqual("source", exc.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void CreateOrderedEnumerable_Malformed_Weird()
+        {
+            // emptyOrdered
+            {
+                var e = new EmptyOrderedEnumerable<int>();
+
+                try
+                {
+                    e.CreateOrderedEnumerable(null, new _CreateOrderedEnumerable(), true);
+                    Assert.Fail();
+                }
+                catch (ArgumentException exc)
+                {
+                    Assert.AreEqual("source", exc.ParamName);
+                }
+            }
+
+            // oneItemDefaultOrdered
+            {
+                var e = new OneItemDefaultOrderedEnumerable<int>();
+
+                try
+                {
+                    e.CreateOrderedEnumerable(null, new _CreateOrderedEnumerable(), true);
+                    Assert.Fail();
+                }
+                catch (ArgumentException exc)
+                {
+                    Assert.AreEqual("source", exc.ParamName);
+                }
+            }
+
+            // oneItemSpecificOrdered
+            {
+                var e = new OneItemSpecificOrderedEnumerable<int>();
+
+                try
+                {
+                    e.CreateOrderedEnumerable(null, new _CreateOrderedEnumerable(), true);
+                    Assert.Fail();
+                }
+                catch (ArgumentException exc)
+                {
+                    Assert.AreEqual("source", exc.ParamName);
+                }
+            }
+        }
     }
 }

@@ -75,5 +75,85 @@ namespace LinqAF
 
             return CommonImplementation.SumNullableDecimal<BuiltInEnumerable<decimal?>, BuiltInEnumerator<decimal?>>(RefLocal(bridge));
         }
+        
+        public long Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, long> selector)
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
+        }
+
+        public float Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, float> selector)
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
+        }
+
+        public double Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, double> selector)
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
+        }
+
+        public decimal Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, decimal> selector)
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
+        }
+
+        public decimal? Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, decimal?> selector)
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
+        }
+
+        public double? Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, double?> selector)
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
+        }
+
+        public float? Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, float?> selector)
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
+        }
+
+        public long? Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, long?> selector)
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
+        }
+
+        public int? Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int?> selector)
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
+        }
+
+        public int Sum<TItem>(BuiltInEnumerable<TItem> source, Func<TItem, int> selector)
+        {
+            var bridge = Bridge(source, nameof(source));
+            if (selector == null) throw CommonImplementation.ArgumentNull(nameof(selector));
+
+            return CommonImplementation.SumSelectorImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), selector);
+        }
     }
 }

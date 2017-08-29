@@ -2,6 +2,7 @@
 using LinqAF;
 using System;
 using TestHelpers;
+using System.Collections.Generic;
 
 namespace LinqAF.Tests
 {
@@ -49,6 +50,13 @@ namespace LinqAF.Tests
             Assert.AreEqual("0", r5);
         }
 
+        class _IntComparer : IEqualityComparer<int>
+        {
+            public bool Equals(int x, int y) => x == y;
+
+            public int GetHashCode(int obj) => obj;
+        }
+
         [TestMethod]
         public void Chaining_Weird()
         {
@@ -56,7 +64,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -98,7 +107,12 @@ namespace LinqAF.Tests
                 }
 
                 {
-                    var ret = lookup.Aggregate((a, b) => a.Key >= b.Key ? a : b);
+                    var ret = lookupDefault.Aggregate((a, b) => a.Key >= b.Key ? a : b);
+                    Assert.AreEqual(3, ret.Key);
+                }
+
+                {
+                    var ret = lookupSpecific.Aggregate((a, b) => a.Key >= b.Key ? a : b);
                     Assert.AreEqual(3, ret.Key);
                 }
 
@@ -161,7 +175,12 @@ namespace LinqAF.Tests
                 }
 
                 {
-                    var ret = lookup.Aggregate(lookup.First(), (a, b) => a.Key >= b.Key ? a : b);
+                    var ret = lookupDefault.Aggregate(lookupDefault.First(), (a, b) => a.Key >= b.Key ? a : b);
+                    Assert.AreEqual(3, ret.Key);
+                }
+
+                {
+                    var ret = lookupSpecific.Aggregate(lookupDefault.First(), (a, b) => a.Key >= b.Key ? a : b);
                     Assert.AreEqual(3, ret.Key);
                 }
 
@@ -224,7 +243,12 @@ namespace LinqAF.Tests
                 }
 
                 {
-                    var ret = lookup.Aggregate(lookup.First(), (a, b) => a.Key >= b.Key ? a : b, x => x.First());
+                    var ret = lookupDefault.Aggregate(lookupDefault.First(), (a, b) => a.Key >= b.Key ? a : b, x => x.First());
+                    Assert.AreEqual(3, ret);
+                }
+
+                {
+                    var ret = lookupSpecific.Aggregate(lookupDefault.First(), (a, b) => a.Key >= b.Key ? a : b, x => x.First());
                     Assert.AreEqual(3, ret);
                 }
 
@@ -373,7 +397,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -426,7 +451,17 @@ namespace LinqAF.Tests
 
                 try
                 {
-                    lookup.Aggregate(default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>));
+                    lookupDefault.Aggregate(default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>));
+                    Assert.Fail();
+                }
+                catch (ArgumentNullException exc)
+                {
+                    Assert.AreEqual("func", exc.ParamName);
+                }
+
+                try
+                {
+                    lookupSpecific.Aggregate(default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>));
                     Assert.Fail();
                 }
                 catch (ArgumentNullException exc)
@@ -549,7 +584,17 @@ namespace LinqAF.Tests
 
                 try
                 {
-                    lookup.Aggregate(default(GroupingEnumerable<int, int>), default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>));
+                    lookupDefault.Aggregate(default(GroupingEnumerable<int, int>), default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>));
+                    Assert.Fail();
+                }
+                catch (ArgumentNullException exc)
+                {
+                    Assert.AreEqual("func", exc.ParamName);
+                }
+
+                try
+                {
+                    lookupSpecific.Aggregate(default(GroupingEnumerable<int, int>), default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>));
                     Assert.Fail();
                 }
                 catch (ArgumentNullException exc)
@@ -712,7 +757,7 @@ namespace LinqAF.Tests
 
                 try
                 {
-                    lookup.Aggregate(default(GroupingEnumerable<int, int>), default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>), x => x);
+                    lookupDefault.Aggregate(default(GroupingEnumerable<int, int>), default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>), x => x);
                     Assert.Fail();
                 }
                 catch (ArgumentNullException exc)
@@ -722,7 +767,27 @@ namespace LinqAF.Tests
 
                 try
                 {
-                    lookup.Aggregate(default(GroupingEnumerable<int, int>), (a, b) => a, default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>));
+                    lookupDefault.Aggregate(default(GroupingEnumerable<int, int>), (a, b) => a, default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>));
+                    Assert.Fail();
+                }
+                catch (ArgumentNullException exc)
+                {
+                    Assert.AreEqual("resultSelector", exc.ParamName);
+                }
+                
+                try
+                {
+                    lookupSpecific.Aggregate(default(GroupingEnumerable<int, int>), default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>), x => x);
+                    Assert.Fail();
+                }
+                catch (ArgumentNullException exc)
+                {
+                    Assert.AreEqual("func", exc.ParamName);
+                }
+
+                try
+                {
+                    lookupSpecific.Aggregate(default(GroupingEnumerable<int, int>), (a, b) => a, default(Func<GroupingEnumerable<int, int>, GroupingEnumerable<int, int>>));
                     Assert.Fail();
                 }
                 catch (ArgumentNullException exc)
@@ -955,7 +1020,8 @@ namespace LinqAF.Tests
             var emptyOrdered = new EmptyOrderedEnumerable<int>();
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -1008,7 +1074,17 @@ namespace LinqAF.Tests
 
                 try
                 {
-                    lookup.Aggregate((a, b) => a);
+                    lookupDefault.Aggregate((a, b) => a);
+                    Assert.Fail();
+                }
+                catch (ArgumentException exc)
+                {
+                    Assert.AreEqual("source", exc.ParamName);
+                }
+
+                try
+                {
+                    lookupSpecific.Aggregate((a, b) => a);
                     Assert.Fail();
                 }
                 catch (ArgumentException exc)
@@ -1131,7 +1207,17 @@ namespace LinqAF.Tests
 
                 try
                 {
-                    lookup.Aggregate(1, (a, b) => a);
+                    lookupDefault.Aggregate(1, (a, b) => a);
+                    Assert.Fail();
+                }
+                catch (ArgumentException exc)
+                {
+                    Assert.AreEqual("source", exc.ParamName);
+                }
+
+                try
+                {
+                    lookupSpecific.Aggregate(1, (a, b) => a);
                     Assert.Fail();
                 }
                 catch (ArgumentException exc)
@@ -1254,7 +1340,17 @@ namespace LinqAF.Tests
 
                 try
                 {
-                    lookup.Aggregate(1, (a, b) => a, x => x);
+                    lookupDefault.Aggregate(1, (a, b) => a, x => x);
+                    Assert.Fail();
+                }
+                catch (ArgumentException exc)
+                {
+                    Assert.AreEqual("source", exc.ParamName);
+                }
+
+                try
+                {
+                    lookupSpecific.Aggregate(1, (a, b) => a, x => x);
                     Assert.Fail();
                 }
                 catch (ArgumentException exc)

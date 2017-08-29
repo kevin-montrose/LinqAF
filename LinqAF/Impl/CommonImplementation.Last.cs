@@ -10,7 +10,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return LastImpl<TItem, TEnumerable, TEnumerator>(ref source);
         }
@@ -21,7 +21,7 @@ namespace LinqAF.Impl
         {
             using (var i = source.GetEnumerator())
             {
-                if (!i.MoveNext()) throw new InvalidOperationException("Sequence was empty");
+                if (!i.MoveNext()) throw CommonImplementation.SequenceEmpty();
 
                 var ret = i.Current;
 
@@ -39,8 +39,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return LastImpl<TItem, TEnumerable, TEnumerator>(ref source, predicate);
         }
@@ -61,7 +61,7 @@ namespace LinqAF.Impl
                 }
             }
 
-            if (!any) throw new InvalidOperationException($"No items matched {nameof(predicate)}");
+            if (!any) throw CommonImplementation.NoItemsMatched(nameof(predicate));
 
             return ret;
         }
@@ -71,7 +71,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             return LastOrDefaultImpl<TItem, TEnumerable, TEnumerator>(ref source);
         }
@@ -80,7 +80,7 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(source));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
             var ret = default(TItem);
             foreach (var item in source)
@@ -96,8 +96,8 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument unintialized", nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return LastOrDefaultImpl<TItem, TEnumerable, TEnumerator>(ref source, predicate);
         }

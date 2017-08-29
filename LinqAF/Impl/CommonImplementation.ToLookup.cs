@@ -1,27 +1,55 @@
-﻿using System;
+﻿using LinqAF.Config;
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace LinqAF.Impl
 {
     static partial class CommonImplementation
     {
-        public static LookupEnumerable<TKey, TElement> ToLookup<TItem, TKey, TElement, TEnumerable, TEnumerator>(
-            ref TEnumerable source, 
-            Func<TItem, TKey> keySelector,
-            Func<TItem, TElement> elementSelector,
-            IEqualityComparer<TKey> comparer
+        public static LookupDefaultEnumerable<TKey, TItem> ToLookup<TItem, TKey, TEnumerable, TEnumerator>(
+            ref TEnumerable source,
+            Func<TItem, TKey> keySelector
         )
-            where TEnumerable: struct, IStructEnumerable<TItem, TEnumerator>
-            where TEnumerator: struct, IStructEnumerator<TItem>
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            if (elementSelector == null) throw new ArgumentNullException(nameof(elementSelector));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            return ToLookupImpl<TItem, TKey, TElement, TEnumerable, TEnumerator>(ref source, keySelector, elementSelector, comparer);
+            return ToLookupImpl<TItem, TKey, TEnumerable, TEnumerator>(ref source, keySelector);
         }
 
-        internal static LookupEnumerable<TKey, TElement> ToLookupImpl<TItem, TKey, TElement, TEnumerable, TEnumerator>(
+        public static LookupSpecificEnumerable<TKey, TItem> ToLookup<TItem, TKey, TEnumerable, TEnumerator>(
+            ref TEnumerable source,
+            Func<TItem, TKey> keySelector,
+            IEqualityComparer<TKey> comparer
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+
+            return ToLookupImpl<TItem, TKey, TEnumerable, TEnumerator>(ref source, keySelector, comparer);
+        }
+
+        public static LookupDefaultEnumerable<TKey, TElement> ToLookup<TItem, TKey, TElement, TEnumerable, TEnumerator>(
+            ref TEnumerable source,
+            Func<TItem, TKey> keySelector,
+            Func<TItem, TElement> elementSelector
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
+
+            return ToLookupImpl<TItem, TKey, TElement, TEnumerable, TEnumerator>(ref source, keySelector, elementSelector);
+        }
+
+        public static LookupSpecificEnumerable<TKey, TElement> ToLookup<TItem, TKey, TElement, TEnumerable, TEnumerator>(
             ref TEnumerable source,
             Func<TItem, TKey> keySelector,
             Func<TItem, TElement> elementSelector,
@@ -30,51 +58,134 @@ namespace LinqAF.Impl
             where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
             where TEnumerator : struct, IStructEnumerator<TItem>
         {
-            var mapper = new Dictionary<TKey, GroupingEnumerable<TKey, TElement>>(comparer ?? EqualityComparer<TKey>.Default);
-            var keys = new List<TKey>();
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
+            if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
-            GroupingEnumerable<TKey, TElement>? nullValue = null;
+            return ToLookupImpl<TItem, TKey, TElement, TEnumerable, TEnumerator>(ref source, keySelector, elementSelector, comparer);
+        }
 
+        internal static LookupDefaultEnumerable<TKey, TItem> ToLookupImpl<TItem, TKey, TEnumerable, TEnumerator>(
+            ref TEnumerable source,
+            Func<TItem, TKey> keySelector
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            var e = source.GetEnumerator();
+            try
+            {
+                return ToLookupImpl(ref e, keySelector);
+            }
+            finally
+            {
+                e.Dispose();
+            }
+        }
+
+        internal static LookupDefaultEnumerable<TKey, TItem> ToLookupImpl<TItem, TKey, TEnumerator>(
+            ref TEnumerator source,
+            Func<TItem, TKey> keySelector
+        )
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            var hashtable = new LookupHashtable<TKey, TItem>();
+            hashtable.Initialize();
+
+            while (source.MoveNext())
+            {
+                var item = source.Current;
+                var key = keySelector(item);
+                hashtable.Add(key, item);
+            }
+
+            return new LookupDefaultEnumerable<TKey, TItem>(ref hashtable);
+        }
+
+        internal static LookupSpecificEnumerable<TKey, TItem> ToLookupImpl<TItem, TKey, TEnumerable, TEnumerator>(
+            ref TEnumerable source,
+            Func<TItem, TKey> keySelector,
+            IEqualityComparer<TKey> comparer
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            var e = source.GetEnumerator();
+            try
+            {
+                return ToLookupImpl(ref e, keySelector, comparer);
+            }
+            finally
+            {
+                e.Dispose();
+            }
+        }
+
+        internal static LookupSpecificEnumerable<TKey, TItem> ToLookupImpl<TItem, TKey, TEnumerator>(
+            ref TEnumerator source,
+            Func<TItem, TKey> keySelector,
+            IEqualityComparer<TKey> comparer
+        )
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            comparer = comparer ?? EqualityComparer<TKey>.Default;
+
+            var hashtable = new LookupHashtable<TKey, TItem>();
+            hashtable.Initialize();
+            
+            while (source.MoveNext())
+            {
+                var item = source.Current;
+                var key = keySelector(item);
+                hashtable.Add(key, item, comparer);
+            }
+
+            return new LookupSpecificEnumerable<TKey, TItem>(ref hashtable, comparer);
+        }
+        
+        internal static LookupDefaultEnumerable<TKey, TElement> ToLookupImpl<TItem, TKey, TElement, TEnumerable, TEnumerator>(
+            ref TEnumerable source,
+            Func<TItem, TKey> keySelector,
+            Func<TItem, TElement> elementSelector
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            var hashtable = new LookupHashtable<TKey, TElement>();
+            hashtable.Initialize();
+            
+            foreach (var item in source)
+            {
+                var key = keySelector(item);
+                var element = elementSelector(item);
+                hashtable.Add(key, element);
+            }
+
+            return new LookupDefaultEnumerable<TKey, TElement>(ref hashtable);
+        }
+
+        internal static LookupSpecificEnumerable<TKey, TElement> ToLookupImpl<TItem, TKey, TElement, TEnumerable, TEnumerator>(
+            ref TEnumerable source,
+            Func<TItem, TKey> keySelector,
+            Func<TItem, TElement> elementSelector,
+            IEqualityComparer<TKey> comparer
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            comparer = comparer ?? EqualityComparer<TKey>.Default;
+            var hashtable = new LookupHashtable<TKey, TElement>();
+            hashtable.Initialize();
+            
             foreach (var item in source)
             {
                 var key = keySelector(item);
                 var element = elementSelector(item);
 
-                // note: order of operations here is key, otherwise nullValue won't get updated
-                //   aren't value types a blast!
-                if (key == null)
-                {
-                    GroupingEnumerable<TKey, TElement> updated;
-                    if (nullValue == null)
-                    {
-                        updated = new GroupingEnumerable<TKey, TElement>(default(TKey), new List<TElement>());
-                        keys.Add(key);
-                    }
-                    else
-                    {
-                        updated = nullValue.Value;
-                    }
-
-                    updated.Inner.Add(element);
-                    nullValue = updated;
-
-                    continue;
-                }
-
-                // note: playing with fire here, updates to the actual values _in_ group will not be reflected
-                //   but since Inner is a _reference_ we're OK to modify through it
-
-                GroupingEnumerable<TKey, TElement> group;
-                if (!mapper.TryGetValue(key, out group))
-                {
-                    mapper[key] = group = new GroupingEnumerable<TKey, TElement>(key, new List<TElement>());
-                    keys.Add(key);
-                }
-
-                group.Inner.Add(element);
+                hashtable.Add(key, element, comparer);
             }
 
-            return new LookupEnumerable<TKey, TElement>(keys, mapper, nullValue);
+            return new LookupSpecificEnumerable<TKey, TElement>(ref hashtable, comparer);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace LinqAF.Generator
 @"using System.Collections.Generic;
 using LinqAF.Impl;
 using System;
+using LinqAF.Config;
 
 namespace LinqAF
 {
@@ -132,16 +133,28 @@ namespace LinqAF
             }
 
             // change methods to be extension methods, and replace placeholders
-            while (true)
-            {
-                var mtd = updatedDecl.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>().Where(m => !m.HasAnnotation(METHOD_REWRITTEN)).FirstOrDefault();
-                if (mtd == null) break;
+            var replacements = new Dictionary<SyntaxNode, SyntaxNode>();
 
+            foreach(var mtd in updatedDecl.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>().Where(m => !m.HasAnnotation(METHOD_REWRITTEN)))
+            {
                 var rewritten = MakeExtensionMethod(mtd);
                 rewritten = rewritten.WithAdditionalAnnotations(METHOD_REWRITTEN);
 
-                updatedDecl = updatedDecl.ReplaceNode(mtd, rewritten.WithTriviaFrom(mtd));
+                replacements[mtd] = rewritten.WithTriviaFrom(mtd);
             }
+
+            updatedDecl = updatedDecl.ReplaceNodes(replacements.Keys, (old, _) => replacements[old]);
+
+            //while (true)
+            //{
+            //    var mtd = updatedDecl.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>().Where(m => !m.HasAnnotation(METHOD_REWRITTEN)).FirstOrDefault();
+            //    if (mtd == null) break;
+
+            //    var rewritten = MakeExtensionMethod(mtd);
+            //    rewritten = rewritten.WithAdditionalAnnotations(METHOD_REWRITTEN);
+
+            //    updatedDecl = updatedDecl.ReplaceNode(mtd, rewritten.WithTriviaFrom(mtd));
+            //}
 
             // write the extension methods document
             var newFileName = name + "ExtensionMethods.cs";
@@ -193,7 +206,7 @@ namespace LinqAF
                 BridgeType(
                     "TItem[]",
                     "TItem",
-                    "IdentityEnumerable<TItem, TItem[], ArrayEnumerator<TItem>>",
+                    "IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>",
                     "ArrayEnumerator<TItem>"
                 )
             );
@@ -201,7 +214,7 @@ namespace LinqAF
                 BridgeType(
                     "IEnumerable<TItem>",
                     "TItem",
-                    "IdentityEnumerable<TItem, IEnumerable<TItem>, IdentityEnumerator<TItem>>",
+                    "IdentityEnumerable<TItem, IEnumerable<TItem>, IEnumerableBridger<TItem>, IdentityEnumerator<TItem>>",
                     "IdentityEnumerator<TItem>"
                 )
             );
@@ -209,7 +222,7 @@ namespace LinqAF
                 BridgeType(
                     "Dictionary<TOutItem, TDictionaryValue>.KeyCollection", 
                     "TOutItem",
-                    "IdentityEnumerable<TOutItem, Dictionary<TOutItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TOutItem, TDictionaryValue>>",
+                    "IdentityEnumerable<TOutItem, Dictionary<TOutItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TOutItem, TDictionaryValue>, DictionaryKeysEnumerator<TOutItem, TDictionaryValue>>",
                     "DictionaryKeysEnumerator<TOutItem, TDictionaryValue>",
                     "TDictionaryValue")
                 );
@@ -217,7 +230,7 @@ namespace LinqAF
                 BridgeType(
                     "Dictionary<TDictionaryKey, TOutItem>.ValueCollection", 
                     "TOutItem",
-                    "IdentityEnumerable<TOutItem, Dictionary<TDictionaryKey, TOutItem>.ValueCollection, DictionaryValuesEnumerator<TDictionaryKey, TOutItem>>",
+                    "IdentityEnumerable<TOutItem, Dictionary<TDictionaryKey, TOutItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TOutItem>, DictionaryValuesEnumerator<TDictionaryKey, TOutItem>>",
                     "DictionaryValuesEnumerator<TDictionaryKey, TOutItem>",
                     "TDictionaryKey"
                 )
@@ -226,7 +239,7 @@ namespace LinqAF
                 BridgeType(
                     "HashSet<TItem>", 
                     "TItem",
-                    "IdentityEnumerable<TItem, HashSet<TItem>, HashSetEnumerator<TItem>>",
+                    "IdentityEnumerable<TItem, HashSet<TItem>, HashSetBridger<TItem>, HashSetEnumerator<TItem>>",
                     "HashSetEnumerator<TItem>"
                 )
             );
@@ -234,7 +247,7 @@ namespace LinqAF
                 BridgeType(
                     "LinkedList<TItem>", 
                     "TItem",
-                    "IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListEnumerator<TItem>>",
+                    "IdentityEnumerable<TItem, LinkedList<TItem>, LinkedListBridger<TItem>, LinkedListEnumerator<TItem>>",
                     "LinkedListEnumerator<TItem>"
                 )
             );
@@ -242,7 +255,7 @@ namespace LinqAF
                 BridgeType(
                     "List<TItem>", 
                     "TItem",
-                    "IdentityEnumerable<TItem, List<TItem>, ListEnumerator<TItem>>",
+                    "IdentityEnumerable<TItem, List<TItem>, ListBridger<TItem>, ListEnumerator<TItem>>",
                     "ListEnumerator<TItem>"
                 )
             );
@@ -250,7 +263,7 @@ namespace LinqAF
                 BridgeType(
                     "Queue<TItem>", 
                     "TItem",
-                    "IdentityEnumerable<TItem, Queue<TItem>, QueueEnumerator<TItem>>",
+                    "IdentityEnumerable<TItem, Queue<TItem>, QueueBridger<TItem>, QueueEnumerator<TItem>>",
                     "QueueEnumerator<TItem>"
                 )
             );
@@ -258,7 +271,7 @@ namespace LinqAF
                 BridgeType(
                     "SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection", 
                     "TOutItem",
-                    "IdentityEnumerable<TOutItem, SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TOutItem, TDictionaryValue>>",
+                    "IdentityEnumerable<TOutItem, SortedDictionary<TOutItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TOutItem, TDictionaryValue>, SortedDictionaryKeysEnumerator<TOutItem, TDictionaryValue>>",
                     "SortedDictionaryKeysEnumerator<TOutItem, TDictionaryValue>",
                     "TDictionaryValue"
                 )
@@ -267,7 +280,7 @@ namespace LinqAF
                 BridgeType(
                     "SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection", 
                     "TOutItem",
-                    "IdentityEnumerable<TOutItem, SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection, SortedDictionaryValuesEnumerator<TDictionaryKey, TOutItem>>",
+                    "IdentityEnumerable<TOutItem, SortedDictionary<TDictionaryKey, TOutItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TOutItem>, SortedDictionaryValuesEnumerator<TDictionaryKey, TOutItem>>",
                     "SortedDictionaryValuesEnumerator<TDictionaryKey, TOutItem>",
                     "TDictionaryKey"
                 )
@@ -276,7 +289,7 @@ namespace LinqAF
                 BridgeType(
                     "SortedSet<TItem>", 
                     "TItem",
-                    "IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetEnumerator<TItem>>",
+                    "IdentityEnumerable<TItem, SortedSet<TItem>, SortedSetBridger<TItem>, SortedSetEnumerator<TItem>>",
                     "SortedSetEnumerator<TItem>"
                 )
             );
@@ -284,7 +297,7 @@ namespace LinqAF
                 BridgeType(
                     "Stack<TItem>", 
                     "TItem",
-                    "IdentityEnumerable<TItem, Stack<TItem>, StackEnumerator<TItem>>",
+                    "IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>",
                     "StackEnumerator<TItem>"
                 )
             );
@@ -293,7 +306,8 @@ namespace LinqAF
             {
                 var enumerableName = pair.Name;
 
-                if (enumerableName == "LookupEnumerable") continue;
+                if (enumerableName == "LookupDefaultEnumerable") continue;
+                if (enumerableName == "LookupSpecificEnumerable") continue;
                 if (enumerableName == "GroupByDefaultEnumerable") continue;
                 if (enumerableName == "GroupBySpecificEnumerable") continue;
 
@@ -548,20 +562,32 @@ namespace LinqAF
 
                     updatedMtd = updatedMtd.RemoveNodes(needRemoval, SyntaxRemoveOptions.KeepNoTrivia);
 
-                    while (true)
+                    var replacements = new Dictionary<SyntaxNode, SyntaxNode>();
+
+                    foreach(var withEmptyTypeArgs in (updatedMtd.Body?.DescendantNodesAndSelf() ?? updatedMtd.ExpressionBody?.DescendantNodesAndSelf()).OfType<TypeArgumentListSyntax>().Where(t => t.Arguments.Count == 0))
                     {
-                        var withEmptyTypeArgs =
-                            (updatedMtd.Body?.DescendantNodesAndSelf() ?? updatedMtd.ExpressionBody?.DescendantNodesAndSelf())
-                                .OfType<TypeArgumentListSyntax>()
-                                .FirstOrDefault(t => t.Arguments.Count == 0);
-
-                        if (withEmptyTypeArgs == null) break;
-
                         var parent = (GenericNameSyntax)withEmptyTypeArgs.Parent;
                         var simpleName = SyntaxFactory.IdentifierName(parent.Identifier);
 
-                        updatedMtd = updatedMtd.ReplaceNode(parent, simpleName.WithTriviaFrom(parent));
+                        replacements[parent] = simpleName.WithTriviaFrom(parent);
                     }
+
+                    updatedMtd = updatedMtd.ReplaceNodes(replacements.Keys, (old, _) => replacements[old]);
+
+                    //while (true)
+                    //{
+                    //    var withEmptyTypeArgs =
+                    //        (updatedMtd.Body?.DescendantNodesAndSelf() ?? updatedMtd.ExpressionBody?.DescendantNodesAndSelf())
+                    //            .OfType<TypeArgumentListSyntax>()
+                    //            .FirstOrDefault(t => t.Arguments.Count == 0);
+
+                    //    if (withEmptyTypeArgs == null) break;
+
+                    //    var parent = (GenericNameSyntax)withEmptyTypeArgs.Parent;
+                    //    var simpleName = SyntaxFactory.IdentifierName(parent.Identifier);
+
+                    //    updatedMtd = updatedMtd.ReplaceNode(parent, simpleName.WithTriviaFrom(parent));
+                    //}
                 }
 
                 ret.Add(updatedMtd.WithTriviaFrom(template));

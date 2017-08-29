@@ -3,6 +3,7 @@ using System;
 
 namespace LinqAF
 {
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public struct OrderByEnumerator<TItem, TKey, TInnerEnumerator, TComparer> :
         IStructEnumerator<TItem>
         where TInnerEnumerator : struct, IStructEnumerator<TItem>
@@ -28,9 +29,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Comparer.IsDefaultValue() &&
-                Inner.IsDefaultValue();
+            return Comparer.IsDefaultValue();
         }
 
         public void Dispose()
@@ -50,7 +49,7 @@ namespace LinqAF
 
             while (Orderer.SortedUpTo < ToYield)
             {
-                Orderer.Advance();
+                Orderer.Advance(ref Comparer);
             }
 
             var toYield = ToYield;
@@ -67,6 +66,7 @@ namespace LinqAF
         }
     }
 
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct OrderByEnumerable<TItem, TKey, TInnerEnumerable, TInnerEnumerator, TComparer>:
         IStructEnumerable<TItem, OrderByEnumerator<TItem, TKey, TInnerEnumerator, TComparer>>,
         IHasComparer<TItem, TKey, TComparer, TInnerEnumerable, TInnerEnumerator>
@@ -84,9 +84,7 @@ namespace LinqAF
 
         public bool IsDefaultValue()
         {
-            return
-                Comparer.IsDefaultValue() &&
-                Inner.IsDefaultValue();
+            return Comparer.IsDefaultValue();
         }
 
         public OrderByEnumerator<TItem, TKey, TInnerEnumerator, TComparer> GetEnumerator()

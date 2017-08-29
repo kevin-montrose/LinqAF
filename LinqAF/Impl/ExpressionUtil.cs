@@ -2,6 +2,7 @@
 // By: Jon Skeet & Marc Gravell
 // License: Apache
 
+using LinqAF.Impl;
 using System;
 using System.Linq.Expressions;
 
@@ -30,7 +31,7 @@ namespace MiscUtil.Linq
             catch (Exception ex)
             {
                 string msg = ex.Message; // avoid capture of ex itself
-                return delegate { throw new InvalidOperationException(msg); };
+                return delegate { throw CommonImplementation.InvalidOperation(msg); };
             }
         }
 
@@ -96,7 +97,7 @@ namespace MiscUtil.Linq
             catch (Exception ex)
             {
                 string msg = ex.Message; // avoid capture of ex itself
-                return delegate { throw new InvalidOperationException(msg); };
+                return delegate { throw CommonImplementation.InvalidOperation(msg); };
             }
         }
     }

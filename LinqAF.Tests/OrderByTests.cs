@@ -248,7 +248,8 @@ namespace LinqAF.Tests
                     "(__, a) => a.OrderBy(_ => _)",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -272,7 +273,8 @@ namespace LinqAF.Tests
                     "(__, a) => a.OrderByDescending(_ => _)",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -295,7 +297,8 @@ namespace LinqAF.Tests
                     "(__, a) => a.OrderBy(_ => _, new OrderByTests._Comparer())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -318,16 +321,21 @@ namespace LinqAF.Tests
                     "(__, a) => a.OrderByDescending(_ => _, new OrderByTests._Comparer())",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
             }
         }
 
-        class _IntComparer : IComparer<int>
+        class _IntComparer : IComparer<int>, IEqualityComparer<int>
         {
             public int Compare(int x, int y) => Comparer<int>.Default.Compare(x, y);
+
+            public bool Equals(int x, int y) => x == y;
+
+            public int GetHashCode(int obj) => obj;
         }
 
         class _GroupingComparer<T> : IEqualityComparer<GroupingEnumerable<T, T>>
@@ -369,7 +377,8 @@ namespace LinqAF.Tests
             var emptyOrdered = empty.OrderBy(x => x);
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -410,14 +419,22 @@ namespace LinqAF.Tests
                 Assert.IsTrue(groupBySpecific.OrderByDescending(x => x.Key, StringComparer.InvariantCultureIgnoreCase).SequenceEqual(new[] { groupBySpecific.ElementAt(2), groupBySpecific.ElementAt(0), groupBySpecific.ElementAt(1) }.Reverse(), new _GroupingComparer<string>()));
             }
 
-            // lookup
+            // lookupDefault
             {
-                Assert.IsTrue(lookup.OrderBy(x => x.Key).SequenceEqual(lookup, new _GroupingComparer<int>()));
-                Assert.IsTrue(lookup.OrderBy(x => x.Key, new _IntComparer()).SequenceEqual(lookup, new _GroupingComparer<int>()));
-                Assert.IsTrue(lookup.OrderByDescending(x => x.Key).SequenceEqual(lookup.Reverse(), new _GroupingComparer<int>()));
-                Assert.IsTrue(lookup.OrderByDescending(x => x.Key, new _IntComparer()).SequenceEqual(lookup.Reverse(), new _GroupingComparer<int>()));
+                Assert.IsTrue(lookupDefault.OrderBy(x => x.Key).SequenceEqual(lookupDefault, new _GroupingComparer<int>()));
+                Assert.IsTrue(lookupDefault.OrderBy(x => x.Key, new _IntComparer()).SequenceEqual(lookupDefault, new _GroupingComparer<int>()));
+                Assert.IsTrue(lookupDefault.OrderByDescending(x => x.Key).SequenceEqual(lookupDefault.Reverse(), new _GroupingComparer<int>()));
+                Assert.IsTrue(lookupDefault.OrderByDescending(x => x.Key, new _IntComparer()).SequenceEqual(lookupDefault.Reverse(), new _GroupingComparer<int>()));
             }
-            
+
+            // lookupSpecific
+            {
+                Assert.IsTrue(lookupSpecific.OrderBy(x => x.Key).SequenceEqual(lookupDefault, new _GroupingComparer<int>()));
+                Assert.IsTrue(lookupSpecific.OrderBy(x => x.Key, new _IntComparer()).SequenceEqual(lookupDefault, new _GroupingComparer<int>()));
+                Assert.IsTrue(lookupSpecific.OrderByDescending(x => x.Key).SequenceEqual(lookupDefault.Reverse(), new _GroupingComparer<int>()));
+                Assert.IsTrue(lookupSpecific.OrderByDescending(x => x.Key, new _IntComparer()).SequenceEqual(lookupDefault.Reverse(), new _GroupingComparer<int>()));
+            }
+
             // range
             {
                 Assert.IsTrue(range.OrderBy(x => x).SequenceEqual(new[] { 1, 2, 3, 4, 5 }));
@@ -494,7 +511,8 @@ namespace LinqAF.Tests
                             Assert.AreEqual(""keySelector"", exc.ParamName);
                         }
                       }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -516,7 +534,8 @@ namespace LinqAF.Tests
                             Assert.AreEqual(""keySelector"", exc.ParamName);
                         }
                       }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -538,7 +557,8 @@ namespace LinqAF.Tests
                             Assert.AreEqual(""keySelector"", exc.ParamName);
                         }
                       }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -560,7 +580,8 @@ namespace LinqAF.Tests
                             Assert.AreEqual(""keySelector"", exc.ParamName);
                         }
                       }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -572,7 +593,8 @@ namespace LinqAF.Tests
         {
             var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
             var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-            var lookup = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
             var range = Enumerable.Range(1, 5);
             var repeat = Enumerable.Repeat("foo", 5);
             var reverseRange = Enumerable.Range(1, 5).Reverse();
@@ -597,12 +619,20 @@ namespace LinqAF.Tests
                 try { groupBySpecific.OrderByDescending(default(Func<GroupingEnumerable<string, string>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.OrderBy(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
-                try { lookup.OrderBy(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
-                try { lookup.OrderByDescending(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
-                try { lookup.OrderByDescending(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupDefault.OrderBy(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupDefault.OrderBy(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupDefault.OrderByDescending(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupDefault.OrderByDescending(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+            }
+            
+            // lookupSpecific
+            {
+                try { lookupSpecific.OrderBy(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupSpecific.OrderBy(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupSpecific.OrderByDescending(default(Func<GroupingEnumerable<int, int>, int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
+                try { lookupSpecific.OrderByDescending(default(Func<GroupingEnumerable<int, int>, int>), new _IntComparer()); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("keySelector", exc.ParamName); }
             }
 
             // range
@@ -682,7 +712,8 @@ namespace LinqAF.Tests
                             Assert.AreEqual(""source"", exc.ParamName);
                         }
                       }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -705,7 +736,8 @@ namespace LinqAF.Tests
                             Assert.AreEqual(""source"", exc.ParamName);
                         }
                       }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -728,7 +760,8 @@ namespace LinqAF.Tests
                             Assert.AreEqual(""source"", exc.ParamName);
                         }
                       }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -751,7 +784,8 @@ namespace LinqAF.Tests
                             Assert.AreEqual(""source"", exc.ParamName);
                         }
                       }",
-                    typeof(LookupEnumerable<,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
                     typeof(GroupBySpecificEnumerable<,,,,>)
                 );
@@ -763,7 +797,8 @@ namespace LinqAF.Tests
         {
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
-            var lookup = new LookupEnumerable<int, int>();
+            var lookupDefault = new LookupDefaultEnumerable<int, int>();
+            var lookupSpecific = new LookupSpecificEnumerable<int, int>();
             var range = new RangeEnumerable<int>();
             var repeat = new RepeatEnumerable<int>();
             var reverseRange = new ReverseRangeEnumerable<int>();
@@ -788,12 +823,20 @@ namespace LinqAF.Tests
                 try { groupBySpecific.OrderByDescending(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
-            // lookup
+            // lookupDefault
             {
-                try { lookup.OrderBy(x => x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.OrderBy(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.OrderByDescending(x => x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
-                try { lookup.OrderByDescending(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.OrderBy(x => x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.OrderBy(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.OrderByDescending(x => x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupDefault.OrderByDescending(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+            }
+
+            // lookupSpecific
+            {
+                try { lookupSpecific.OrderBy(x => x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.OrderBy(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.OrderByDescending(x => x.Key); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
+                try { lookupSpecific.OrderByDescending(x => x.Key, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("source", exc.ParamName); }
             }
 
             // range

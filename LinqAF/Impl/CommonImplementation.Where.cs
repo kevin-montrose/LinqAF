@@ -8,8 +8,8 @@ namespace LinqAF.Impl
             where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
             where TInnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return WhereImpl<TItem, TInnerEnumerable, TInnerEnumerator>(ref source, predicate);
         }
@@ -25,8 +25,8 @@ namespace LinqAF.Impl
             where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
             where TInnerEnumerator : struct, IStructEnumerator<TItem>
         {
-            if (source.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(source));
-            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return WhereImpl<TItem, TInnerEnumerable, TInnerEnumerator>(ref source, predicate);
         }

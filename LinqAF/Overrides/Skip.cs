@@ -1,4 +1,4 @@
-﻿using System;
+﻿using LinqAF.Impl;
 
 namespace LinqAF
 {
@@ -6,7 +6,7 @@ namespace LinqAF
     {
         public SkipEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> Skip(int count)
         {
-            if (IsDefaultValue()) throw new ArgumentException("Argument unintialized", "source");
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (count <= 0)
             {

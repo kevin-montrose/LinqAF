@@ -9,9 +9,9 @@ namespace LinqAF.Impl
             where TSecondEnumerable : struct, IStructEnumerable<TSecondItemOut, TSecondEnumerator>
             where TSecondEnumerator : struct, IStructEnumerator<TSecondItemOut>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TOutItem>.Empty;
         }
@@ -20,9 +20,9 @@ namespace LinqAF.Impl
             where TSecondEnumerable : struct, IStructEnumerable<TSecondItemOut, TSecondEnumerator>
             where TSecondEnumerator : struct, IStructEnumerator<TSecondItemOut>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TOutItem>.Empty;
         }
@@ -30,9 +30,9 @@ namespace LinqAF.Impl
         internal static EmptyEnumerable<TOutItem> EmptyZipBridge_Impl<TItem, TOutItem, TSecondItemOut, TBridgeEnumerable>(ref EmptyEnumerable<TItem> first, TBridgeEnumerable second, Delegate resultSelector)
             where TBridgeEnumerable: class, IEnumerable<TSecondItemOut>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(first));
-            if (second == null) throw new ArgumentException("Argument uninitialized", nameof(second));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (second == null) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TOutItem>.Empty;
         }
@@ -40,9 +40,9 @@ namespace LinqAF.Impl
         internal static EmptyEnumerable<TOutItem> EmptyZipBridge_Impl<TItem, TOutItem, TSecondItemOut, TBridgeEnumerable>(ref EmptyOrderedEnumerable<TItem> first, TBridgeEnumerable second, Delegate resultSelector)
             where TBridgeEnumerable : class, IEnumerable<TSecondItemOut>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(first));
-            if (second == null) throw new ArgumentException("Argument uninitialized", nameof(second));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (second == null) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return EmptyCache<TOutItem>.Empty;
         }
@@ -53,9 +53,9 @@ namespace LinqAF.Impl
             where TSecondEnumerable : struct, IStructEnumerable<TSecondItem, TSecondEnumerator>
             where TSecondEnumerator : struct, IStructEnumerator<TSecondItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(first));
-            if (second.IsDefaultValue()) throw new ArgumentException("Argument uninitialized", nameof(second));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             return ZipImpl<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, TSecondEnumerable, TSecondEnumerator>(ref first, ref second, resultSelector);
         }
@@ -76,7 +76,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, IEnumerable<TSecondItem>, IdentityEnumerator<TSecondItem>>,
+                IdentityEnumerable<TSecondItem, IEnumerable<TSecondItem>, IEnumerableBridger<TSecondItem>, IdentityEnumerator<TSecondItem>>,
                 IdentityEnumerator<TSecondItem>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator>(
                 ref TFirstEnumerable first,
@@ -86,12 +86,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, IEnumerable<TSecondItem>, IdentityEnumerator<TSecondItem>>, IdentityEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, IEnumerable<TSecondItem>, IEnumerableBridger<TSecondItem>, IdentityEnumerator<TSecondItem>>, IdentityEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -101,7 +101,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, Dictionary<TSecondItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>,
+                IdentityEnumerable<TSecondItem, Dictionary<TSecondItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TSecondItem, TDictionaryValue>, DictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>,
                 DictionaryKeysEnumerator<TSecondItem, TDictionaryValue>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, TDictionaryValue>(
                 ref TFirstEnumerable first,
@@ -111,12 +111,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, Dictionary<TSecondItem, TDictionaryValue>.KeyCollection, DictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>, DictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, Dictionary<TSecondItem, TDictionaryValue>.KeyCollection, DictionaryKeysBridger<TSecondItem, TDictionaryValue>, DictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>, DictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -126,7 +126,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, Dictionary<TDictionaryKey, TSecondItem>.ValueCollection, DictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>,
+                IdentityEnumerable<TSecondItem, Dictionary<TDictionaryKey, TSecondItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TSecondItem>, DictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>,
                 DictionaryValuesEnumerator<TDictionaryKey, TSecondItem>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, TDictionaryKey>(
                 ref TFirstEnumerable first,
@@ -136,12 +136,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, Dictionary<TDictionaryKey, TSecondItem>.ValueCollection, DictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>, DictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, Dictionary<TDictionaryKey, TSecondItem>.ValueCollection, DictionaryValuesBridger<TDictionaryKey, TSecondItem>, DictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>, DictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -151,7 +151,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, HashSet<TSecondItem>, HashSetEnumerator<TSecondItem>>,
+                IdentityEnumerable<TSecondItem, HashSet<TSecondItem>, HashSetBridger<TSecondItem>, HashSetEnumerator<TSecondItem>>,
                 HashSetEnumerator<TSecondItem>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator>(
                 ref TFirstEnumerable first,
@@ -161,12 +161,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, HashSet<TSecondItem>, HashSetEnumerator<TSecondItem>>, HashSetEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, HashSet<TSecondItem>, HashSetBridger<TSecondItem>, HashSetEnumerator<TSecondItem>>, HashSetEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -176,7 +176,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, LinkedList<TSecondItem>, LinkedListEnumerator<TSecondItem>>,
+                IdentityEnumerable<TSecondItem, LinkedList<TSecondItem>, LinkedListBridger<TSecondItem>, LinkedListEnumerator<TSecondItem>>,
                 LinkedListEnumerator<TSecondItem>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator>(
                 ref TFirstEnumerable first,
@@ -186,12 +186,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, LinkedList<TSecondItem>, LinkedListEnumerator<TSecondItem>>, LinkedListEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, LinkedList<TSecondItem>, LinkedListBridger<TSecondItem>, LinkedListEnumerator<TSecondItem>>, LinkedListEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -201,7 +201,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, List<TSecondItem>, ListEnumerator<TSecondItem>>,
+                IdentityEnumerable<TSecondItem, List<TSecondItem>, ListBridger<TSecondItem>, ListEnumerator<TSecondItem>>,
                 ListEnumerator<TSecondItem>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator>(
                 ref TFirstEnumerable first,
@@ -211,12 +211,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, List<TSecondItem>, ListEnumerator<TSecondItem>>, ListEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, List<TSecondItem>, ListBridger<TSecondItem>, ListEnumerator<TSecondItem>>, ListEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -226,7 +226,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, Queue<TSecondItem>, QueueEnumerator<TSecondItem>>,
+                IdentityEnumerable<TSecondItem, Queue<TSecondItem>, QueueBridger<TSecondItem>, QueueEnumerator<TSecondItem>>,
                 QueueEnumerator<TSecondItem>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator>(
                 ref TFirstEnumerable first,
@@ -236,12 +236,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, Queue<TSecondItem>, QueueEnumerator<TSecondItem>>, QueueEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, Queue<TSecondItem>, QueueBridger<TSecondItem>, QueueEnumerator<TSecondItem>>, QueueEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -251,7 +251,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, SortedDictionary<TSecondItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>,
+                IdentityEnumerable<TSecondItem, SortedDictionary<TSecondItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TSecondItem, TDictionaryValue>, SortedDictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>,
                 SortedDictionaryKeysEnumerator<TSecondItem, TDictionaryValue>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, TDictionaryValue>(
                 ref TFirstEnumerable first,
@@ -261,12 +261,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, SortedDictionary<TSecondItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>, SortedDictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, SortedDictionary<TSecondItem, TDictionaryValue>.KeyCollection, SortedDictionaryKeysBridger<TSecondItem, TDictionaryValue>, SortedDictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>, SortedDictionaryKeysEnumerator<TSecondItem, TDictionaryValue>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -276,7 +276,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, SortedDictionary<TDictionaryKey, TSecondItem>.ValueCollection, SortedDictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>,
+                IdentityEnumerable<TSecondItem, SortedDictionary<TDictionaryKey, TSecondItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TSecondItem>, SortedDictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>,
                 SortedDictionaryValuesEnumerator<TDictionaryKey, TSecondItem>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, TDictionaryKey>(
                 ref TFirstEnumerable first,
@@ -286,12 +286,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, SortedDictionary<TDictionaryKey, TSecondItem>.ValueCollection, SortedDictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>, SortedDictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, SortedDictionary<TDictionaryKey, TSecondItem>.ValueCollection, SortedDictionaryValuesBridger<TDictionaryKey, TSecondItem>, SortedDictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>, SortedDictionaryValuesEnumerator<TDictionaryKey, TSecondItem>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -301,7 +301,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, SortedSet<TSecondItem>, SortedSetEnumerator<TSecondItem>>,
+                IdentityEnumerable<TSecondItem, SortedSet<TSecondItem>, SortedSetBridger<TSecondItem>, SortedSetEnumerator<TSecondItem>>,
                 SortedSetEnumerator<TSecondItem>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator>(
                 ref TFirstEnumerable first,
@@ -311,12 +311,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, SortedSet<TSecondItem>, SortedSetEnumerator<TSecondItem>>, SortedSetEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, SortedSet<TSecondItem>, SortedSetBridger<TSecondItem>, SortedSetEnumerator<TSecondItem>>, SortedSetEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -326,7 +326,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, Stack<TSecondItem>, StackEnumerator<TSecondItem>>,
+                IdentityEnumerable<TSecondItem, Stack<TSecondItem>, StackBridger<TSecondItem>, StackEnumerator<TSecondItem>>,
                 StackEnumerator<TSecondItem>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator>(
                 ref TFirstEnumerable first,
@@ -336,12 +336,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, Stack<TSecondItem>, StackEnumerator<TSecondItem>>, StackEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, Stack<TSecondItem>, StackBridger<TSecondItem>, StackEnumerator<TSecondItem>>, StackEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
         }
 
         public static
@@ -351,7 +351,7 @@ namespace LinqAF.Impl
                 TSecondItem,
                 TFirstEnumerable,
                 TFirstEnumerator,
-                IdentityEnumerable<TSecondItem, TSecondItem[], ArrayEnumerator<TSecondItem>>,
+                IdentityEnumerable<TSecondItem, TSecondItem[], ArrayBridger<TSecondItem>, ArrayEnumerator<TSecondItem>>,
                 ArrayEnumerator<TSecondItem>
             > Zip<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator>(
                 ref TFirstEnumerable first,
@@ -361,12 +361,12 @@ namespace LinqAF.Impl
             where TFirstEnumerable : struct, IStructEnumerable<TFirstItem, TFirstEnumerator>
             where TFirstEnumerator : struct, IStructEnumerator<TFirstItem>
         {
-            if (first.IsDefaultValue()) throw new ArgumentException("argument uninitialized", nameof(first));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (first.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(first));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
 
             var secondIdent = Bridge(second, nameof(second));
 
-            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, TSecondItem[], ArrayEnumerator<TSecondItem>>, ArrayEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
+            return new ZipEnumerable<TOutItem, TFirstItem, TSecondItem, TFirstEnumerable, TFirstEnumerator, IdentityEnumerable<TSecondItem, TSecondItem[], ArrayBridger<TSecondItem>, ArrayEnumerator<TSecondItem>>, ArrayEnumerator<TSecondItem>>(ref first, ref secondIdent, resultSelector);
         }
     }
 }
