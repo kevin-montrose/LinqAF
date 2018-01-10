@@ -40,14 +40,14 @@ namespace LinqAF.Tests
                 var a = new[] { rand.Next(), rand.Next() };
                 var b = Enumerable.Range(0, 2).Concat(Enumerable.Range(2, 4));
 
-                if (rand.Next(1) == 0) return (BoxedEnumerable<int>)a;
+                if (rand.Next(1) == 0) return a.Box();
 
                 return (BoxedEnumerable<int>)b;
             });
         }
 
         [TestMethod]
-        public void Universal()
+        public void Universal_Cast()
         {
             foreach (var e in Helper.AllEnumerables())
             {
@@ -95,7 +95,21 @@ namespace LinqAF.Tests
         }
 
         [TestMethod]
-        public void Chaining()
+        public void Universal_Method()
+        {
+            foreach (var e in Helper.AllEnumerables())
+            {
+                // doesn't make sense
+                if (e == typeof(BoxedEnumerable<>)) continue;
+
+                var boxMtd = e.GetMethod("Box", Type.EmptyTypes);
+
+                if (boxMtd == null) Assert.Fail($"No boxing operator found for {e.Name}");
+            }
+        }
+
+        [TestMethod]
+        public void Chaining_Cast()
         {
             Helper.ForEachEnumerableNoRetExpression(
                 new[] { 1, 2, 3 },
@@ -123,6 +137,37 @@ namespace LinqAF.Tests
                 typeof(Stack<>),
                 typeof(Queue<>),
                 typeof(int[]),
+                typeof(EmptyEnumerable<>),
+                typeof(EmptyOrderedEnumerable<>),
+                typeof(GroupByDefaultEnumerable<,,,,>),
+                typeof(GroupBySpecificEnumerable<,,,,>),
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
+            );
+        }
+
+        [TestMethod]
+        public void Chaining_Box()
+        {
+            Helper.ForEachEnumerableNoRetExpression(
+                new[] { 1, 2, 3 },
+                @"a =>
+                  {
+                    var boxed = a.Box();
+
+                    var res = new List<int>();
+                    foreach(var item in boxed)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.IsTrue(res.SequenceEqual(new [] { 1, 2, 3 }));
+                  }",
+                typeof(BoxedEnumerable<>),
+                typeof(Dictionary<,>.KeyCollection),
+                typeof(Dictionary<,>.ValueCollection),
+                typeof(SortedDictionary<,>.KeyCollection),
+                typeof(SortedDictionary<,>.ValueCollection),
                 typeof(EmptyEnumerable<>),
                 typeof(EmptyOrderedEnumerable<>),
                 typeof(GroupByDefaultEnumerable<,,,,>),
@@ -172,7 +217,7 @@ namespace LinqAF.Tests
         }
 
         [TestMethod]
-        public void Chaining_Weird()
+        public void Chaining_Weird_Cast()
         {
             var empty = Enumerable.Empty<int>();
             var emptyOrdered = empty.OrderBy(x => x);
@@ -263,6 +308,102 @@ namespace LinqAF.Tests
             // oneItemSpecificOrdered
             {
                 var boxed = (BoxedEnumerable<int>)oneItemSpecificOrdered;
+                Assert.IsTrue(boxed.SequenceEqual(oneItemSpecificOrdered));
+            }
+        }
+
+        [TestMethod]
+        public void Chaining_Weird_Method()
+        {
+            var empty = Enumerable.Empty<int>();
+            var emptyOrdered = empty.OrderBy(x => x);
+            var groupByDefault = new[] { 1, 1, 2, 2, 3, 3 }.GroupBy(x => x);
+            var groupBySpecific = new[] { "hello", "HELLO", "world", "WORLD", "foo", "FOO" }.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
+            var lookupDefault = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x);
+            var lookupSpecific = new int[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, new _IntComparer());
+            var range = Enumerable.Range(1, 5);
+            var repeat = Enumerable.Repeat("foo", 5);
+            var reverseRange = Enumerable.Range(1, 5).Reverse();
+            var oneItemDefault = Enumerable.Empty<int>().DefaultIfEmpty();
+            var oneItemSpecific = Enumerable.Empty<int>().DefaultIfEmpty(4);
+            var oneItemDefaultOrdered = oneItemDefault.OrderBy(x => x);
+            var oneItemSpecificOrdered = oneItemSpecific.OrderBy(x => x);
+
+            // empty
+            {
+                var boxed = empty.Box();
+                Assert.IsTrue(boxed.SequenceEqual(new int[0]));
+            }
+
+            // emptyOrdered
+            {
+                var boxed = emptyOrdered.Box();
+                Assert.IsTrue(boxed.SequenceEqual(new int[0]));
+            }
+
+            // groupByDefault
+            {
+                var boxed = groupByDefault.Box();
+                Assert.IsTrue(boxed.SequenceEqual(groupByDefault, new _GroupingComparer<int>()));
+            }
+
+            // groupBySpecific
+            {
+                var boxed = groupBySpecific.Box();
+                Assert.IsTrue(boxed.SequenceEqual(groupBySpecific, new _GroupingComparer<string>()));
+            }
+
+            // lookupDefault
+            {
+                var boxed = lookupDefault.Box();
+                Assert.IsTrue(boxed.SequenceEqual(lookupDefault, new _GroupingComparer<int>()));
+            }
+
+            // lookupSpecific
+            {
+                var boxed = lookupDefault.Box();
+                Assert.IsTrue(boxed.SequenceEqual(lookupSpecific, new _GroupingComparer<int>()));
+            }
+
+            // range
+            {
+                var boxed = range.Box();
+                Assert.IsTrue(boxed.SequenceEqual(range));
+            }
+
+            // repeat
+            {
+                var boxed = repeat.Box();
+                Assert.IsTrue(boxed.SequenceEqual(repeat));
+            }
+
+            // reverseRange
+            {
+                var boxed = reverseRange.Box();
+                Assert.IsTrue(boxed.SequenceEqual(reverseRange));
+            }
+
+            // oneItemDefault
+            {
+                var boxed = oneItemDefault.Box();
+                Assert.IsTrue(boxed.SequenceEqual(oneItemDefault));
+            }
+
+            // oneItemSpecific
+            {
+                var boxed = oneItemSpecific.Box();
+                Assert.IsTrue(boxed.SequenceEqual(oneItemSpecific));
+            }
+
+            // oneItemDefaultOrdered
+            {
+                var boxed = oneItemDefaultOrdered.Box();
+                Assert.IsTrue(boxed.SequenceEqual(oneItemDefaultOrdered));
+            }
+
+            // oneItemSpecificOrdered
+            {
+                var boxed = oneItemSpecificOrdered.Box();
                 Assert.IsTrue(boxed.SequenceEqual(oneItemSpecificOrdered));
             }
         }
