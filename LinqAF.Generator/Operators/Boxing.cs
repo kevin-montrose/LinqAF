@@ -1,9 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Editing;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
 
 namespace LinqAF.Generator
@@ -34,19 +29,6 @@ namespace LinqAF
             Allocator.Current.EnumerableBoxed<{Enumerable}>();
             
             var box = new Boxed(ref e);
-            return new BoxedEnumerable<{OutItem}>(box);
-        }
-
-        public BoxedEnumerable<{OutItem}> Box()
-        {
-            if (IsDefaultValue())
-            {
-                throw CommonImplementation.InvalidOperation(""Enumerable uninitialized"");
-            }
-
-            Allocator.Current.EnumerableBoxed<{Enumerable}>();
-            
-            var box = new Boxed(ref this);
             return new BoxedEnumerable<{OutItem}>(box);
         }
     }

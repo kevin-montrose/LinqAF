@@ -328,6 +328,9 @@
     <Compile Include="Reverse.cs" />
     <Compile Include="Templates\AsEnumerableBase.cs" />
     <Compile Include="Templates\ExceptBase.cs" />
+    <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Box.cs">
+      <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Templates\ExtensionMethods\MinExtensionMethodsBase.cs" />
     <Compile Include="Templates\ExtensionMethods\MaxExtensionMethodsBase.cs" />
     <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Concat.cs">
