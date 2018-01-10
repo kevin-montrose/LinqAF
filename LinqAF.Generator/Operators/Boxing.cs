@@ -31,9 +31,22 @@ namespace LinqAF
                 return EmptyCache<{OutItem}>.BadBoxedEmpty;
             }
 
-            Allocator.Current.EnumerableBoxed<{Enumerator}>();
+            Allocator.Current.EnumerableBoxed<{Enumerable}>();
             
             var box = new Boxed(ref e);
+            return new BoxedEnumerable<{OutItem}>(box);
+        }
+
+        public BoxedEnumerable<{OutItem}> Box()
+        {
+            if (IsDefaultValue())
+            {
+                throw CommonImplementation.InvalidOperation(""Enumerable uninitialized"");
+            }
+
+            Allocator.Current.EnumerableBoxed<{Enumerable}>();
+            
+            var box = new Boxed(ref this);
             return new BoxedEnumerable<{OutItem}>(box);
         }
     }
