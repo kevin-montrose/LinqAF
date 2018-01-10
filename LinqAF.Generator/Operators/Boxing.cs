@@ -31,6 +31,8 @@ namespace LinqAF
             var box = new Boxed(ref e);
             return new BoxedEnumerable<{OutItem}>(box);
         }
+
+        public BoxedEnumerable<{OutItem}> Box() => (BoxedEnumerable<{OutItem}>)this;
     }
 }
 ";
