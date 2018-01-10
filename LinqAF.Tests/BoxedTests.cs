@@ -31,6 +31,22 @@ namespace LinqAF.Tests
         }
 
         [TestMethod]
+        public void Bridge()
+        {
+            var rand = new Random();
+
+            _Simple(() =>
+            {
+                var a = new[] { rand.Next(), rand.Next() };
+                var b = Enumerable.Range(0, 2).Concat(Enumerable.Range(2, 4));
+
+                if (rand.Next(1) == 0) return (BoxedEnumerable<int>)a;
+
+                return (BoxedEnumerable<int>)b;
+            });
+        }
+
+        [TestMethod]
         public void Universal()
         {
             foreach (var e in Helper.AllEnumerables())
