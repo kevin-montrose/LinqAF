@@ -136,6 +136,6 @@ The initial motivation for LinqAF came from playing around with the [Rust Langua
 
 A great deal of my understanding of LINQ-to-Objects (and [600+ test cases](https://github.com/kevin-montrose/LinqAF/blob/master/LinqAF.Tests/EdulinqTests.cs)) came from [Jon Skeet's EduLinq blog series](https://codeblog.jonskeet.uk/category/edulinq/).
 
-The [MiscUtil library](http://www.yoda.arachsys.com/csharp/miscutil/) made my `RangeEnumerable` implementation possible - so thanks to Jon Skeet (again), and Marc Gravel.
+The [MiscUtil library](http://www.yoda.arachsys.com/csharp/miscutil/) made my `RangeEnumerable` implementation possible - so thanks to Jon Skeet (again), and Marc Gravell.
 
 Thanks to Benjamin Hodgson for `Box()`, as he pointed out that explicit casting couldn't handle anonymous types and would be quite painful for long type names regardless.
