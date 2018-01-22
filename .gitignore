@@ -238,3 +238,9 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Ignorable folders
+Benchmarks/
+LinqAF.Generated/**/*.cs
+LinqAF.Generated.Net35/**/*.cs
+LinqAF.Generated.NetStandard/**/*.cs

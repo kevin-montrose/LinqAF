@@ -71,6 +71,9 @@ namespace LinqAF.Generator
             var canGroup = compile.Where(g => g.Attributes["Include"].Value.Count(x => x == '.') > 1);
             foreach (var subFile in canGroup)
             {
+                var include = subFile.Attributes["Include"];
+                if (include == null || string.IsNullOrEmpty(include.Value)) continue;
+
                 var name = subFile.Attributes["Include"].Value;
                 var start = name.IndexOf('\\') + 1;              // either 0, or the char after the \
                 var end = name.IndexOf('.');
