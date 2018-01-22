@@ -144,18 +144,7 @@ namespace LinqAF
             }
 
             updatedDecl = updatedDecl.ReplaceNodes(replacements.Keys, (old, _) => replacements[old]);
-
-            //while (true)
-            //{
-            //    var mtd = updatedDecl.DescendantNodesAndSelf().OfType<MethodDeclarationSyntax>().Where(m => !m.HasAnnotation(METHOD_REWRITTEN)).FirstOrDefault();
-            //    if (mtd == null) break;
-
-            //    var rewritten = MakeExtensionMethod(mtd);
-            //    rewritten = rewritten.WithAdditionalAnnotations(METHOD_REWRITTEN);
-
-            //    updatedDecl = updatedDecl.ReplaceNode(mtd, rewritten.WithTriviaFrom(mtd));
-            //}
-
+            
             // write the extension methods document
             var newFileName = name + "ExtensionMethods.cs";
             var updatdRoot = root.ReplaceNode(extensionDecl, updatedDecl.WithTriviaFrom(extensionDecl));

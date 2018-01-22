@@ -179,7 +179,7 @@ namespace LinqAF
 
             // apply enumerable specific overrides
             ops.Add(Task(new Overrides()));
-
+            
             // type doesn't exist post-rewrite
             ops.Add(Task(RemoveFakeEnumerable));
 
@@ -188,7 +188,11 @@ namespace LinqAF
 
             // format!
             ops.Add(Task(FormatCode));
-            
+
+            // apply .NET35 #ifdefs
+            //   this must be after FormatCode, because the formatting messes up
+            //   the #if positioning
+            ops.Add(Task(WrapNET35Declarations));
 
             for (var i = 0; i < ops.Count; i++)
             {
@@ -472,6 +476,147 @@ namespace LinqAF
                     return curP;
                 }
             );
+        }
+
+        /// <summary>
+        /// Looks for a bunch of stuff that's added in version > .NET 3.5,
+        /// and wraps it in #if !NET35 blocks
+        /// </summary>
+        static void WrapNET35Declarations(Projects projects)
+        {
+            foreach(var doc in projects.Output.Documents)
+            {
+                var root = doc.GetSyntaxRootAsync().Result;
+
+                var replacements = new Dictionary<SyntaxNode, SyntaxNode>();
+
+                // structs
+                var structs = root.DescendantNodes().OfType<StructDeclarationSyntax>();
+                foreach(var @struct in structs)
+                {
+                    var ident = @struct.Identifier.ValueText;
+                    var needsWrap = ident == "SortedSetBridger" || ident == "SortedSetEnumerator";
+
+                    if (needsWrap)
+                    {
+                        var replacement = WrapInIfDef("!NET35", @struct);
+                        replacements[@struct] = replacement;
+                    }
+                }
+
+                // methods
+                var mtds = root.DescendantNodes().OfType<MethodDeclarationSyntax>();
+                foreach(var mtd in mtds)
+                {
+                    // args
+                    foreach(var p in mtd.ParameterList.Parameters)
+                    {
+                        var allTypes = p.DescendantNodesAndSelf().OfType<TypeSyntax>();
+                        var anyForbidden = allTypes.Any(x => NeedsWrap(x));
+
+                        if (anyForbidden)
+                        {
+                            var replacement = WrapInIfDef("!NET35", mtd);
+                            replacements[mtd] = replacement;
+                            goto nextMethod;
+                        }
+                    }
+
+                    // return
+                    var ret = mtd.ReturnType;
+                    var types = ret.DescendantNodesAndSelf().OfType<TypeSyntax>();
+                    foreach(var type in types)
+                    {
+                        if (NeedsWrap(type))
+                        {
+                            var replacement = WrapInIfDef("!NET35", mtd);
+                            replacements[mtd] = replacement;
+                            goto nextMethod;
+                        }
+                    }
+
+                    // no-op
+                    nextMethod: GC.KeepAlive(projects);
+                }
+
+                // attributes
+                var attrs = root.DescendantNodes().OfType<AttributeSyntax>();
+                foreach(var attr in attrs)
+                {
+                    var attrList = attr.Parent;
+                    
+                    foreach(var a in attr.ArgumentList.Arguments)
+                    {
+                        if(NeedsWrap(a.Expression))
+                        {
+                            var replacement = WrapInIfDef("!NET35", attrList);
+                            replacements[attrList] = replacement;
+                            goto nextAttribute;
+                        }
+                    }
+
+                    // no-op
+                    nextAttribute: GC.KeepAlive(projects);
+                }
+
+                if (replacements.Count == 0) continue;
+
+                var updated = root.ReplaceNodes(replacements.Keys, (old, _) => replacements[old]);
+
+                projects.ModifyOutput(
+                    p =>
+                    {
+                        var updatedDoc = p.GetDocument(doc.Id).WithSyntaxRoot(updated);
+
+                        return updatedDoc.Project;
+                    }
+                );
+            }
+        }
+
+        static bool NeedsWrap(TypeSyntax type)
+        {
+            if (!(type is GenericNameSyntax)) return false;
+
+            var asGenericName = type as GenericNameSyntax;
+            var val = asGenericName.Identifier.ValueText;
+
+            // this doesn't exist in .NET 3.5
+            return val == "SortedSet";
+        }
+
+        static bool NeedsWrap(ExpressionSyntax exp)
+        {
+            if (!(exp is MemberAccessExpressionSyntax)) return false;
+
+            var literal = exp.ToString();
+
+            // these don't exist in .NET 3.5
+            return literal == "MethodImplOptions.AggressiveInlining" || literal == "System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining";
+        }
+
+        // surrounds the given node in an #if ... #endif directive block
+        static SyntaxNode WrapInIfDef(string variableName, SyntaxNode node)
+        {
+            var notVariable = SyntaxFactory.ParseExpression(variableName).WithLeadingTrivia(SyntaxFactory.Whitespace(" "));
+            var linebreak = SyntaxFactory.Whitespace("\n");
+
+            var @if = SyntaxFactory.IfDirectiveTrivia(notVariable, true, true, true);
+
+            var @endif = SyntaxFactory.EndIfDirectiveTrivia(true);
+            
+            var triviaIf = SyntaxFactory.Trivia(@if);
+            var triviaEndIf = SyntaxFactory.Trivia(@endif);
+
+            var nodeOldLeadingTrivia = node.GetLeadingTrivia();
+            var nodeOldTrailingTrivia = node.GetTrailingTrivia();
+
+            var newLeadingTrivia = nodeOldLeadingTrivia.Add(linebreak).Add(triviaIf).Add(linebreak);
+            var newTrailingTrivia = nodeOldTrailingTrivia.Add(linebreak).Add(triviaEndIf).Add(linebreak);
+
+            var wrapped = node.WithLeadingTrivia(newLeadingTrivia).WithTrailingTrivia(newTrailingTrivia);
+
+            return wrapped;
         }
 
         /// <summary>
