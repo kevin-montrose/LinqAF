@@ -130,6 +130,40 @@ LinqAF _can_ be useful, but it's not a painless or trivial dependency.  Be very 
 
 Also the LinqAF.dll is ~23MB, so that's a thing.
 
+## Building, testing, and benchmarking LinqAF
+
+LinqAF is composed of several projects:
+
+ - **LinqAF** - the template for generating the final libraries
+   - Should always compile, but the produced DLL is non-functional
+   - All enumerables are in the top level
+   - Config/ contains non-LINQ-to-Objects replacing types
+   - Templates/ contains the templates for each set of operators, these are used to generate all the type-specific implementations of each operator
+   - Impl/ contains the actual code used to implement templates, as well as the interfaces for each operator (for static type checking in builds)
+   - Overrides/ contains concrete, per-enumerable methods that replace the ones generated from templates.
+ - **LinqAF.Generator** - a command line app that generates the final code
+   - Must be run in the root directory of the solution
+   - Looks for the LinqAF project to use as a template
+   - Updates the LinqAF.Generated project as part of output
+ - **LinqAF.Tests** - library containing tests for LinqAF, links against the LinqAF.Generated project
+   - Uses the `Microsoft.VisualStudio.TestTools.UnitTesting` framework
+   - Individual tests can run in Visual Studio
+   - Attempting to run several tests will likely result in an OutOfMemoryException in Visual Studio's test runner
+   - Any test that, by itself, results in an OutOfMemoryException should be split into multiple tests
+ - **LinqAF.TestRunner** - command line app that runs all tests in LinqAF.Tests, links against the LinqAF.Tests project
+   - Exists to work around the OutOfMemoryException issues noted above
+   - Also produces code coverage statistics
+ - **LinqAF.Generated\*** - final library projects, updated by LinqAF.Generator
+   - Only the LinqAF.Generated project contains files, all other projects reference those files instead
+   - Each generated project is for a different target platform
+   - All produce a LinqAF.dll
+ - **LinqAF.Benchmark** - a command line app that runs a series of benchmarks
+   - Uses the BenchmarkDotNet libary
+   - Benchmarks are defined in Benchmarks/, but must be added to the Main() as well
+   - All benchmarks needs a LINQ2Objects and a LinqAF method
+   - the LINQ2Objects method should have `Baseline = true` as part of it's `[Benchmark]`
+   - If a directory is provided as a command line parameter, results are logged to that directory
+
 ## Acknowledgements
 
 The initial motivation for LinqAF came from playing around with the [Rust Language](https://www.rust-lang.org/en-US/) and its [Iterators](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
