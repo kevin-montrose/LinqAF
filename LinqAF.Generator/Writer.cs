@@ -27,6 +27,8 @@ namespace LinqAF.Generator
         const string COMPOUND_KEY_STRUCT_NAME = "CompoundKey";
         const string FAKE_ENUMERABLE_NAME = "FakeEnumerable";
 
+        const string PROPERTIES_NAME = "Properties";
+
         public const string INTERFACE_PREABLE =
 @"using System;
 using LinqAF.Impl;
@@ -102,6 +104,7 @@ namespace LinqAF
             var ops = new List<RewriteTask>();
 
             // prepare basic project features
+            ops.Add(Task(CopyProperties));
             ops.Add(Task(CopyPublicInterfaces));
             ops.Add(Task(CopyEnumerable));
             ops.Add(Task(CopyImplementation));
@@ -756,6 +759,19 @@ namespace LinqAF
             var enumerable = projects.Template.Documents.Single(d => d.Name == "Enumerable.cs");
 
             Copier.Copy(enumerable, null, projects);
+        }
+
+        /// <summary>
+        /// Copy properties in Properties folder
+        /// </summary>
+        static void CopyProperties(Projects projects)
+        {
+            var propsToCopy = projects.Template.Documents.Where(d => d.Folders.LastOrDefault() == PROPERTIES_NAME).ToList();
+
+            foreach (var prop in propsToCopy)
+            {
+                Copier.Copy(prop, PROPERTIES_NAME, projects);
+            }
         }
 
         /// <summary>

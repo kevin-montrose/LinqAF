@@ -114,9 +114,9 @@ namespace LinqAF.Generator
             var templateProject = solution.Projects.Single(p => p.Name.Equals(templateProjectName, StringComparison.OrdinalIgnoreCase));
             var outputProject = solution.Projects.Single(p => p.Name.Equals(outputProjectName, StringComparison.OrdinalIgnoreCase));
             
-            while(outputProject.Documents.Count() > 1)
+            while(outputProject.Documents.Count() > 0)
             {
-                var toRemove = outputProject.Documents.First(d => d.Name != "AssemblyInfo.cs");
+                var toRemove = outputProject.Documents.First();
                 outputProject = outputProject.RemoveDocument(toRemove.Id);
             }
             
