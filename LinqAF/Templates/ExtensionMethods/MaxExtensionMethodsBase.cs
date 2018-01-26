@@ -5,16 +5,16 @@ namespace LinqAF
     abstract class MaxExtensionMethodsBase:
         ExtensionMethodsBase
     {
-        public double Max(PlaceholderEnumerable<int> source)
+        public int Max(PlaceholderEnumerable<int> source)
         => CommonImplementation.MaxInt<PlaceholderEnumerable<int>, PlaceholderEnumerator<int>>(RefParam(source));
 
-        public double? Max(PlaceholderEnumerable<int?> source)
+        public int? Max(PlaceholderEnumerable<int?> source)
         => CommonImplementation.MaxNullableInt<PlaceholderEnumerable<int?>, PlaceholderEnumerator<int?>>(RefParam(source));
 
-        public double Max(PlaceholderEnumerable<long> source)
+        public long Max(PlaceholderEnumerable<long> source)
         => CommonImplementation.MaxLong<PlaceholderEnumerable<long>, PlaceholderEnumerator<long>>(RefParam(source));
 
-        public double? Max(PlaceholderEnumerable<long?> source)
+        public long? Max(PlaceholderEnumerable<long?> source)
         => CommonImplementation.MaxNullableLong<PlaceholderEnumerable<long?>, PlaceholderEnumerator<long?>>(RefParam(source));
 
         public float Max(PlaceholderEnumerable<float> source)

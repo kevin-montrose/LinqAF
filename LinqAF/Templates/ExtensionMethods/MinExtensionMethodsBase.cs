@@ -5,16 +5,16 @@ namespace LinqAF
     abstract class MinExtensionMethodsBase:
         ExtensionMethodsBase
     {
-        public double Min(PlaceholderEnumerable<int> source)
+        public int Min(PlaceholderEnumerable<int> source)
         => CommonImplementation.MinInt<PlaceholderEnumerable<int>, PlaceholderEnumerator<int>>(RefParam(source));
 
-        public double? Min(PlaceholderEnumerable<int?> source)
+        public int? Min(PlaceholderEnumerable<int?> source)
         => CommonImplementation.MinNullableInt<PlaceholderEnumerable<int?>, PlaceholderEnumerator<int?>>(RefParam(source));
 
-        public double Min(PlaceholderEnumerable<long> source)
+        public long Min(PlaceholderEnumerable<long> source)
         => CommonImplementation.MinLong<PlaceholderEnumerable<long>, PlaceholderEnumerator<long>>(RefParam(source));
 
-        public double? Min(PlaceholderEnumerable<long?> source)
+        public long? Min(PlaceholderEnumerable<long?> source)
         => CommonImplementation.MinNullableLong<PlaceholderEnumerable<long?>, PlaceholderEnumerator<long?>>(RefParam(source));
 
         public float Min(PlaceholderEnumerable<float> source)
