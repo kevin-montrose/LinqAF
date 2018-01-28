@@ -325,6 +325,7 @@
     <Compile Include="Overrides\SelectWhere.cs" />
     <Compile Include="Overrides\Skip.cs" />
     <Compile Include="Overrides\Take.cs" />
+    <Compile Include="Queryable.cs" />
     <Compile Include="Reverse.cs" />
     <Compile Include="Templates\AsEnumerableBase.cs" />
     <Compile Include="Templates\ExceptBase.cs" />

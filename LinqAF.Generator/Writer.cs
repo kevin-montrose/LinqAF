@@ -125,6 +125,9 @@ namespace LinqAF
             // implement boxing
             ops.Add(Task(new Boxing()));
 
+            // implement a Queryable pass-through
+            ops.Add(Task(new Queryable()));
+
             // simple operations
             ops.Add(Task(new Aggregate()));
             ops.Add(Task(new All()));
@@ -187,10 +190,10 @@ namespace LinqAF
             ops.Add(Task(RemoveFakeEnumerable));
 
             // remove unused import
-            ops.Add(Task(RemoveUnusedImports));
+            /*ops.Add(Task(RemoveUnusedImports));
 
             // format!
-            ops.Add(Task(FormatCode));
+            ops.Add(Task(FormatCode));*/
 
             // apply .NET35 #ifdefs
             //   this must be after FormatCode, because the formatting messes up
