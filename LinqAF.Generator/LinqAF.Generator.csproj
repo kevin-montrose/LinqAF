@@ -206,6 +206,7 @@
     <Compile Include="Operators\IntersectExtensionMethods.cs" />
     <Compile Include="Operators\MinExtensionMethods.cs" />
     <Compile Include="Operators\MaxExtensionMethods.cs" />
+    <Compile Include="Operators\Queryable.cs" />
     <Compile Include="Operators\UnionExtensionMethods.cs" />
     <Compile Include="Operators\SequenceEqualExtensionMethods.cs" />
     <Compile Include="Operators\ConcatExtensionMethods.cs" />
