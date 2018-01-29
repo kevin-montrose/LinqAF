@@ -14,6 +14,12 @@ namespace LinqAF.Impl
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static bool AreEqual<T>(T a, T b, IComparer<T> comparer)
+        {
+            return comparer.Compare(a, b) == 0;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool AreEqual<T>(T a, T b)
         {
             if (a == null && b == null) return true;
@@ -73,7 +79,7 @@ namespace LinqAF.Impl
 
             return comparer.GetHashCode(val);
         }
-
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int GetHashCode<T>(T val)
         {

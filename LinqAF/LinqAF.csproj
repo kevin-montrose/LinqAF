@@ -21,6 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -49,6 +51,19 @@
     <Compile Include="Comparers.cs" />
     <Compile Include="Concat.cs" />
     <Compile Include="Config\Allocator.cs" />
+    <Compile Include="ConvenienceExtensionMethods.cs" />
+    <Compile Include="ConvenienceExtensionMethods.HashSet.cs">
+      <DependentUpon>ConvenienceExtensionMethods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConvenienceExtensionMethods.ISet.cs">
+      <DependentUpon>ConvenienceExtensionMethods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConvenienceExtensionMethods.List.cs">
+      <DependentUpon>ConvenienceExtensionMethods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConvenienceExtensionMethods.SortedSet.cs">
+      <DependentUpon>ConvenienceExtensionMethods.cs</DependentUpon>
+    </Compile>
     <Compile Include="DefaultIfEmpty.cs" />
     <Compile Include="Dictionary.cs" />
     <Compile Include="Boxed.cs" />
@@ -65,6 +80,13 @@
     <Compile Include="Impl\LookupHashtable.cs" />
     <Compile Include="Impl\StructStack.cs" />
     <Compile Include="IStructBridger.cs" />
+    <Compile Include="LinqAFString.Concat.cs">
+      <DependentUpon>LinqAFString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFString.cs" />
+    <Compile Include="LinqAFString.Join.cs">
+      <DependentUpon>LinqAFString.cs</DependentUpon>
+    </Compile>
     <Compile Include="OneItemOrdered.cs" />
     <Compile Include="EmptyOrdered.cs" />
     <Compile Include="Enumerable.cs" />

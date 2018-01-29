@@ -156,6 +156,7 @@
     <Compile Include="CastTests.cs" />
     <Compile Include="ConcatTests.cs" />
     <Compile Include="ContainsTests.cs" />
+    <Compile Include="ConvenienceTests.cs" />
     <Compile Include="CountTests.cs" />
     <Compile Include="DefaultIfEmptyTests.cs" />
     <Compile Include="DistinctTests.cs" />
