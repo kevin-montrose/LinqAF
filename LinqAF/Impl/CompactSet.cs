@@ -12,14 +12,14 @@ namespace LinqAF.Impl
         uint UsedIndexes_SingleValue;
         internal int[] ValueIndexes;
 
-        enum Mode
+        public enum Mode
         {
             Uninitialized,
             SingleValue,
             MultipleValue
         }
 
-        Mode CurrentMode
+        public Mode CurrentMode
         {
             get
             {
@@ -143,6 +143,47 @@ namespace LinqAF.Impl
             }
         }
 
+        public bool Contains(T value, ref T[] values, IComparer<T> comparer, out int valueIndex)
+        {
+            switch (CurrentMode)
+            {
+                case Mode.SingleValue:
+                    // just for containing values
+                    {
+                        var realIx = (int)(UsedIndexes_SingleValue - 1);
+                        var containedVal = values[realIx];
+                        if (CommonImplementation.GetHashCode(value) == CommonImplementation.GetHashCode(containedVal) && CommonImplementation.AreEqual(value, containedVal, comparer))
+                        {
+                            valueIndex = realIx;
+                            return true;
+                        }
+
+                        valueIndex = -1;
+                        return false;
+                    }
+                case Mode.MultipleValue:
+                    for (var i = 0; i < UsedIndexes_SingleValue; i++)
+                    {
+                        var realIx = ValueIndexes[i];
+                        var containedVal = values[realIx];
+                        if (CommonImplementation.GetHashCode(value) == CommonImplementation.GetHashCode(containedVal) && CommonImplementation.AreEqual(value, containedVal, comparer))
+                        {
+                            valueIndex = realIx;
+                            return true;
+                        }
+                    }
+
+                    valueIndex = -1;
+                    return false;
+
+                case Mode.Uninitialized:
+                    valueIndex = -1;
+                    return false;
+
+                default: throw CommonImplementation.UnexpectedState();
+            }
+        }
+
         public bool Contains(T value, ref T[] values, out int valueIndex)
         {
             switch (CurrentMode)
@@ -196,7 +237,51 @@ namespace LinqAF.Impl
             ValueIndexes = null;
         }
     }
-    
+
+    struct CompactSetIndexEnumerator<T>
+    {
+        public int Current => Buckets[BucketIndex].GetEntry(InnerIndex);
+
+        private int BucketIndex;
+        private int InnerIndex;
+        CompactSetBucket<T>[] Buckets;
+        public void Initialize(CompactSetBucket<T>[] buckets)
+        {
+            Buckets = buckets;
+            BucketIndex = InnerIndex = -1;
+        }
+
+        public bool MoveNext()
+        {
+            return FindNextIndex(BucketIndex, InnerIndex, out BucketIndex, out InnerIndex);
+        }
+
+        bool FindNextIndex(int startAtBucketIx, int startAtInnerIndex, out int newBucketIx, out int newInnerIndex)
+        {
+            if (startAtBucketIx == -1 || startAtInnerIndex == Buckets[startAtBucketIx].NumEntries - 1)
+            {
+                newInnerIndex = 0;
+                return FindNextBucket(startAtBucketIx, out newBucketIx);
+            }
+
+            newBucketIx = startAtBucketIx;
+            newInnerIndex = startAtInnerIndex + 1;
+            return true;
+        }
+
+        bool FindNextBucket(int oldBucketIx, out int newBucketIx)
+        {
+            newBucketIx = oldBucketIx + 1;
+
+            while (newBucketIx < Buckets.Length && Buckets[newBucketIx].CurrentMode == CompactSetBucket<T>.Mode.Uninitialized)
+            {
+                newBucketIx++;
+            }
+
+            return newBucketIx < Buckets.Length;
+        }
+    }
+
     [StructLayout(LayoutKind.Auto)]
     struct CompactSet<T>: IDisposable
     {
@@ -363,6 +448,48 @@ namespace LinqAF.Impl
             }
         }
 
+        public bool Add(T value, ref IndexedItemContainer<T> container, IComparer<T> comparer)
+        {
+            var hash = CommonImplementation.GetHashCode(value);
+            var posHash = (hash & 0x7FFFFFFF);
+            tryAgain:
+            var bucketIx = posHash % Buckets.Length;
+
+            // three cases
+            //   #1 - bucket is empty
+            //   #2 - bucket isn't empty, and contains the value
+            //   #3 - bucket isn't empty, and doesn't contain the value
+
+            if (Buckets[bucketIx].IsDefaultValue())
+            {
+                // case #1
+                var valueIndex = container.PlaceIn(value);
+                Buckets[bucketIx].SetInitial(valueIndex);
+                return true;
+            }
+            else
+            {
+                int _;
+                if (Buckets[bucketIx].Contains(value, ref container.Items, comparer, out _))
+                {
+                    // case #2
+                    return false;
+                }
+
+                // case #3
+
+                if (TryGrow(ref container, ref Buckets, comparer))
+                {
+                    goto tryAgain;
+                }
+
+                var valueIndex = container.PlaceIn(value);
+                Buckets[bucketIx].Append(valueIndex, null);
+
+                return true;
+            }
+        }
+
         public bool Add(T value, ref IndexedItemContainer<T> container)
         {
             var hash = CommonImplementation.GetHashCode(value);
@@ -420,6 +547,21 @@ namespace LinqAF.Impl
             return Buckets[bucketIx].Contains(value, ref container.Items, comparer, out valueIndex);
         }
 
+        public bool Contains(T value, ref IndexedItemContainer<T> container, IComparer<T> comparer, out int valueIndex)
+        {
+            var hash = CommonImplementation.GetHashCode(value);
+            var posHash = (hash & 0x7FFFFFFF);
+            var bucketIx = posHash % Buckets.Length;
+
+            if (Buckets[bucketIx].IsDefaultValue())
+            {
+                valueIndex = -1;
+                return false;
+            }
+
+            return Buckets[bucketIx].Contains(value, ref container.Items, comparer, out valueIndex);
+        }
+
         public bool Contains(T value, ref IndexedItemContainer<T> container, out int valueIndex)
         {
             var hash = CommonImplementation.GetHashCode(value);
@@ -433,6 +575,15 @@ namespace LinqAF.Impl
             }
 
             return Buckets[bucketIx].Contains(value, ref container.Items, out valueIndex);
+        }
+
+        // not really an enumerator, but close enough
+        public CompactSetIndexEnumerator<T> GetEnumerator()
+        {
+            var ret = new CompactSetIndexEnumerator<T>();
+            ret.Initialize(Buckets);
+
+            return ret;
         }
 
         static bool TryGrow(ref IndexedItemContainer<T> container, ref CompactSetBucket<T>[] buckets, IEqualityComparer<T> comparer)
@@ -483,6 +634,65 @@ namespace LinqAF.Impl
                     else
                     {
                         if(nowAvailableArr.Length > reuseableArray.Length)
+                        {
+                            reuseableArray = nowAvailableArr;
+                        }
+                    }
+                }
+            }
+
+            buckets = newBuckets;
+            return true;
+        }
+
+        static bool TryGrow(ref IndexedItemContainer<T> container, ref CompactSetBucket<T>[] buckets, IComparer<T> comparer)
+        {
+            var usedValues = container.UsedItems;
+
+            if (usedValues != buckets.Length)
+            {
+                return false;
+            }
+
+            var oldBuckets = buckets;
+            var newBuckets = Allocator.Current.GetArray<CompactSetBucket<T>>(CommonImplementation.NextSize(buckets.Length));
+
+            int[] reuseableArray = null;
+
+            for (var i = 0; i < oldBuckets.Length; i++)
+            {
+                var oldBucket = oldBuckets[i];
+                if (oldBucket.IsDefaultValue()) continue;
+
+                var numEntries = oldBucket.NumEntries;
+                for (var j = 0; j < numEntries; j++)
+                {
+                    var valueIx = oldBucket.GetEntry(j);
+
+                    var val = container.Items[valueIx];
+                    var newBucketIx = (CommonImplementation.GetHashCode(val) & 0x7FFFFFFF) % newBuckets.Length;
+
+                    if (newBuckets[newBucketIx].IsDefaultValue())
+                    {
+                        newBuckets[newBucketIx].SetInitial(valueIx);
+                    }
+                    else
+                    {
+                        newBuckets[newBucketIx].Append(valueIx, reuseableArray);
+                        reuseableArray = null;
+                    }
+                }
+
+                var nowAvailableArr = oldBucket.ValueIndexes;
+                if (nowAvailableArr != null)
+                {
+                    if (reuseableArray == null)
+                    {
+                        reuseableArray = nowAvailableArr;
+                    }
+                    else
+                    {
+                        if (nowAvailableArr.Length > reuseableArray.Length)
                         {
                             reuseableArray = nowAvailableArr;
                         }

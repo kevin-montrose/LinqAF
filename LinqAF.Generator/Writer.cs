@@ -128,6 +128,12 @@ namespace LinqAF
             // implement a Queryable pass-through
             ops.Add(Task(new Queryable()));
 
+            // implement string pass-through
+            ops.Add(Task(new LinqAFString()));
+
+            // copy a variety of convenience methods for System.Collections.Generic types
+            ops.Add(Task(ConvenienceMethods));
+
             // simple operations
             ops.Add(Task(new Aggregate()));
             ops.Add(Task(new All()));
@@ -213,39 +219,16 @@ namespace LinqAF
                 log(" (Took: " + sw.ElapsedMilliseconds + "ms)");
                 log(Environment.NewLine);
             }
-
-            log("Gathering stats...");
-
-            // quick stats
-            var numEnumerables = projects.EnumerableDocuments.Count();
-            var mostMethods =
-                projects.EnumerableDocuments
-                    .Select(
-                        d =>
-                        {
-                            var root = d.GetSyntaxRootAsync().Result;
-                            var structDef = root.DescendantNodesAndSelf().OfType<StructDeclarationSyntax>().Single();
-                            var name = structDef.Identifier.ValueText;
-
-                            var allDefs = projects.Output.Documents.SelectMany(x => x.GetSyntaxRootAsync().Result.DescendantNodesAndSelf().OfType<StructDeclarationSyntax>()).Where(s => s.Identifier.ValueText == name);
-
-                            var numMethods = allDefs.SelectMany(s => s.Members.Where(m => m is MethodDeclarationSyntax)).Count();
-
-                            return
-                                new
-                                {
-                                    StructName = name,
-                                    Methods = numMethods
-                                };
-                        }
-                    )
-                    .ToList();
-            log("Done");
-            log(Environment.NewLine);
-            log($"Files: {numEnumerables}");
-            log(Environment.NewLine);
-            log($"Most methods: {mostMethods[0].StructName} with {mostMethods[0].Methods:N0} methods");
-            log(Environment.NewLine);
+        }
+        
+        static void ConvenienceMethods(Projects projects)
+        {
+            // convenience extension methods
+            var docs = projects.Template.Documents.Where(d => d.Name.StartsWith("ConvenienceExtensionMethods")).ToList();
+            foreach(var doc in docs)
+            {
+                Copier.Copy(doc, "", projects);
+            }
         }
 
         static void FormatCode(Projects projects)
@@ -541,6 +524,18 @@ namespace LinqAF
                         }
                     }
 
+                    // calls
+                    var calls = mtd.DescendantNodesAndSelf().OfType<InvocationExpressionSyntax>();
+                    foreach(var call in calls)
+                    {
+                        if (NeedsWrap(call))
+                        {
+                            var replacement = WrapInIfDef("!NET35", mtd);
+                            replacements[mtd] = replacement;
+                            goto nextMethod;
+                        }
+                    }
+
                     // no-op
                     nextMethod: GC.KeepAlive(projects);
                 }
@@ -580,6 +575,29 @@ namespace LinqAF
             }
         }
 
+        static bool NeedsWrap(InvocationExpressionSyntax call)
+        {
+            var ident = call.Expression as MemberAccessExpressionSyntax;
+            if (ident == null) return false;
+
+            var rightHand = ident.Expression?.ToString();
+            var methodName = ident.Name?.Identifier.ValueText;
+
+            var methodIsZippy = methodName == "Zip";
+            var rightHandIsQueryabley = rightHand?.EndsWith("Queryable") ?? false;
+
+            var isZipCall = methodIsZippy && rightHandIsQueryabley;
+            if (isZipCall) return true;
+
+            var methodIsIsNullOrWhiteSpace = methodName == "IsNullOrWhiteSpace";
+            var rightHandIsStringy = rightHand?.EndsWith("String") ?? false;
+
+            var isIsNullOrWhiteSpaceCall = methodIsIsNullOrWhiteSpace && rightHandIsStringy;
+            if (isIsNullOrWhiteSpaceCall) return true;
+
+            return false;
+        }
+
         static bool NeedsWrap(TypeSyntax type)
         {
             if (!(type is GenericNameSyntax)) return false;
@@ -588,7 +606,7 @@ namespace LinqAF
             var val = asGenericName.Identifier.ValueText;
 
             // this doesn't exist in .NET 3.5
-            return val == "SortedSet";
+            return val == "SortedSet" || val == "ISet";
         }
 
         static bool NeedsWrap(ExpressionSyntax exp)

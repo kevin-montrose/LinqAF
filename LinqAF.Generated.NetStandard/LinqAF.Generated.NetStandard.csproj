@@ -12,6 +12,14 @@
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+
 	<ItemGroup>
 		<Compile Include="..\LinqAF.Generated\**\*.cs" Exclude="..\LinqAF.Generated\bin\**\*.cs;..\LinqAF.Generated\obj\**\*.cs" />
 	</ItemGroup>

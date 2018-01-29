@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -405,6 +407,19 @@
     </Compile>
     <Compile Include="ConcatExtensionMethods.cs" />
     <Compile Include="Config\Allocator.cs" />
+    <Compile Include="ConvenienceExtensionMethods.cs" />
+    <Compile Include="ConvenienceExtensionMethods.HashSet.cs">
+      <DependentUpon>ConvenienceExtensionMethods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConvenienceExtensionMethods.ISet.cs">
+      <DependentUpon>ConvenienceExtensionMethods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConvenienceExtensionMethods.List.cs">
+      <DependentUpon>ConvenienceExtensionMethods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConvenienceExtensionMethods.SortedSet.cs">
+      <DependentUpon>ConvenienceExtensionMethods.cs</DependentUpon>
+    </Compile>
     <Compile Include="DefaultIfEmptyDefault.Aggregate.cs">
       <DependentUpon>DefaultIfEmptyDefault.cs</DependentUpon>
     </Compile>
@@ -3143,6 +3158,13 @@
       <DependentUpon>JoinSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="LinkedListExtensionMethods.cs" />
+    <Compile Include="LinqAFString.Concat.cs">
+      <DependentUpon>LinqAFString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFString.cs" />
+    <Compile Include="LinqAFString.Join.cs">
+      <DependentUpon>LinqAFString.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListExtensionMethods.cs" />
     <Compile Include="LookupDefault.Aggregate.cs">
       <DependentUpon>LookupDefault.cs</DependentUpon>
