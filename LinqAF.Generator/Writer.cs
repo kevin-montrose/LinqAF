@@ -196,10 +196,10 @@ namespace LinqAF
             ops.Add(Task(RemoveFakeEnumerable));
 
             // remove unused import
-            /*ops.Add(Task(RemoveUnusedImports));
+            ops.Add(Task(RemoveUnusedImports));
 
             // format!
-            ops.Add(Task(FormatCode));*/
+            ops.Add(Task(FormatCode));
 
             // apply .NET35 #ifdefs
             //   this must be after FormatCode, because the formatting messes up
