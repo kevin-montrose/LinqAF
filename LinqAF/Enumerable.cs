@@ -13,7 +13,7 @@ namespace LinqAF
         internal const byte EmptyComparerSigil = 1;
         internal const byte OneItemSigil = 1;
         
-        public static RangeEnumerable<int> Range(int start, int count)
+        public static RangeEnumerable Range(int start, int count)
         {
             if (count < 0)
             {
@@ -29,7 +29,7 @@ namespace LinqAF
                 throw CommonImplementation.OutOfRange(nameof(count));
             }
 
-            return new RangeEnumerable<int>(RangeSigil, start, count);
+            return new RangeEnumerable(RangeSigil, start, count);
         }
 
         public static EmptyEnumerable<TItem> Empty<TItem>() => EmptyCache<TItem>.Empty;

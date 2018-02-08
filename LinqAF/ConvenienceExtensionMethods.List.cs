@@ -66,8 +66,8 @@ namespace LinqAF
             AddRangeImplEmpty(list);
         }
 
-        public static void AddRange<TItem>(this List<TItem> list, RangeEnumerable<TItem> second)
-        => AddRangeImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(list, ref second);
+        public static void AddRange(this List<int> list, RangeEnumerable second)
+        => AddRangeImpl<int, RangeEnumerable, RangeEnumerator>(list, ref second);
 
         public static void AddRange<TItem>(this List<TItem> list, RepeatEnumerable<TItem> second)
         => AddRangeImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(list, ref second);
@@ -310,8 +310,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => AddRangeImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(list, ref second);
 
-        public static void AddRange<TItem>(this List<TItem> list, ReverseRangeEnumerable<TItem> second)
-        => AddRangeImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(list, ref second);
+        public static void AddRange(this List<int> list, ReverseRangeEnumerable second)
+        => AddRangeImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(list, ref second);
 
         public static void AddRange<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this List<TItem> list, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -386,6 +386,26 @@ namespace LinqAF
 
         public static void AddRange<TItem>(this List<TItem> list, OneItemSpecificOrderedEnumerable<TItem> second)
         => AddRangeImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(list, ref second);
+
+        public static void AddRange<TItem, TInnerEnumerable, TInnerEnumerator>(this List<TItem> list, SkipLastEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> second)
+           where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
+           where TInnerEnumerator : struct, IStructEnumerator<TItem>
+        => AddRangeImpl<TItem, SkipLastEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>, SkipLastEnumerator<TItem, TInnerEnumerator>>(list, ref second);
+
+        public static void AddRange<TItem, TInnerEnumerable, TInnerEnumerator>(this List<TItem> list, TakeLastEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> second)
+           where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
+           where TInnerEnumerator : struct, IStructEnumerator<TItem>
+        => AddRangeImpl<TItem, TakeLastEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>, TakeLastEnumerator<TItem, TInnerEnumerator>>(list, ref second);
+
+        public static void AddRange<TItem, TInnerEnumerable, TInnerEnumerator>(this List<TItem> list, AppendEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> second)
+           where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
+           where TInnerEnumerator : struct, IStructEnumerator<TItem>
+        => AddRangeImpl<TItem, AppendEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>, AppendEnumerator<TItem, TInnerEnumerator>>(list, ref second);
+
+        public static void AddRange<TItem, TInnerEnumerable, TInnerEnumerator>(this List<TItem> list, PrependEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> second)
+          where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
+          where TInnerEnumerator : struct, IStructEnumerator<TItem>
+        => AddRangeImpl<TItem, PrependEnumerable<TItem, TInnerEnumerable, TInnerEnumerator>, PrependEnumerator<TItem, TInnerEnumerator>>(list, ref second);
         #endregion
 
         #region InsertRange
@@ -450,8 +470,8 @@ namespace LinqAF
             InsertRangeImplEmpty(list, index);
         }
 
-        public static void InsertRange<TItem>(this List<TItem> list, int index, RangeEnumerable<TItem> second)
-        => InsertRangeImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(list, index, ref second);
+        public static void InsertRange(this List<int> list, int index, RangeEnumerable second)
+        => InsertRangeImpl<int, RangeEnumerable, RangeEnumerator>(list, index, ref second);
 
         public static void InsertRange<TItem>(this List<TItem> list, int index, RepeatEnumerable<TItem> second)
         => InsertRangeImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(list, index, ref second);
@@ -696,8 +716,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => InsertRangeImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(list, index, ref second);
 
-        public static void InsertRange<TItem>(this List<TItem> list, int index, ReverseRangeEnumerable<TItem> second)
-        => InsertRangeImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(list, index, ref second);
+        public static void InsertRange(this List<int> list, int index, ReverseRangeEnumerable second)
+        => InsertRangeImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(list, index, ref second);
 
         public static void InsertRange<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this List<TItem> list, int index, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -778,6 +798,26 @@ namespace LinqAF
 
         public static void InsertRange<TItem>(this List<TItem> list, int index, OneItemSpecificOrderedEnumerable<TItem> second)
         => InsertRangeImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(list, index, ref second);
+
+        public static void InsertRange<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>(this List<TItem> list, int index, SkipLastEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator> second)
+           where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
+           where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => InsertRangeImpl<TItem, SkipLastEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>, SkipLastEnumerator<TItem, TConcat_InnerEnumerator>>(list, index, ref second);
+
+        public static void InsertRange<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>(this List<TItem> list, int index, TakeLastEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator> second)
+           where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
+           where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => InsertRangeImpl<TItem, TakeLastEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>, TakeLastEnumerator<TItem, TConcat_InnerEnumerator>>(list, index, ref second);
+
+        public static void InsertRange<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>(this List<TItem> list, int index, AppendEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator> second)
+           where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
+           where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => InsertRangeImpl<TItem, AppendEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>, AppendEnumerator<TItem, TConcat_InnerEnumerator>>(list, index, ref second);
+
+        public static void InsertRange<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>(this List<TItem> list, int index, PrependEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator> second)
+           where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
+           where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => InsertRangeImpl<TItem, PrependEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>, PrependEnumerator<TItem, TConcat_InnerEnumerator>>(list, index, ref second);
         #endregion
     }
 }

@@ -434,9 +434,9 @@ namespace LinqAF.Tests
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var lookupDefault = new LookupDefaultEnumerable<int, int>();
             var lookupSpecific = new LookupSpecificEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();

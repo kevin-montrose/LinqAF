@@ -34,5 +34,27 @@ namespace LinqAF
 
         public decimal? Min(PlaceholderEnumerable<decimal?> source)
         => CommonImplementation.MinNullableDecimal<PlaceholderEnumerable<decimal?>, PlaceholderEnumerator<decimal?>>(RefParam(source));
+
+        //// RangeEnumerable
+
+        //public int Min(RangeEnumerable source)
+        //{
+        //    if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+        //    if (source.InnerCount == 0) throw CommonImplementation.SequenceEmpty();
+
+        //    return source.Start;
+        //}
+
+        //// ReverseRangeEnumerable
+
+        //public int Min(ReverseRangeEnumerable source)
+        //{
+        //    if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+        //    if (source.InnerCount == 0) throw CommonImplementation.SequenceEmpty();
+
+        //    var ret = source.Start - source.InnerCount + 1;
+
+        //    return ret;
+        //}
     }
 }

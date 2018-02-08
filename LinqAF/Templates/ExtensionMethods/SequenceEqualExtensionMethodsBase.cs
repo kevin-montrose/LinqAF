@@ -706,5 +706,259 @@ namespace LinqAF
                     LookupSpecificEnumerator<TGenKey, TGenElement>
                 >(ref first, ref second, comparer);
         }
+
+        // RangeEnumerable
+
+        public bool SequenceEqual(
+            PlaceholderEnumerable<int> first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(RefParam(first), ref second, null);
+        }
+
+        public bool SequenceEqual(
+            PlaceholderEnumerable<int> first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(RefParam(first), ref second, comparer);
+        }
+
+       // public bool SequenceEqual(
+       //     RangeEnumerable first,
+       //     PlaceholderEnumerable<int> second
+       // )
+       // {
+       //     return
+       //         CommonImplementation.SequenceEqual<
+       //             int,
+       //             RangeEnumerable,
+       //             RangeEnumerator,
+       //             PlaceholderEnumerable<int>,
+       //             PlaceholderEnumerator<int>
+       //         >(ref first, RefParam(second), null);
+       // }
+
+       // public bool SequenceEqual(
+       //    RangeEnumerable first,
+       //    PlaceholderEnumerable<int> second,
+       //    IEqualityComparer<int> comparer
+       //)
+       // {
+       //     return
+       //         CommonImplementation.SequenceEqual<
+       //             int,
+       //             RangeEnumerable,
+       //             RangeEnumerator,
+       //             PlaceholderEnumerable<int>,
+       //             PlaceholderEnumerator<int>
+       //         >(ref first, RefParam(second), comparer);
+       // }
+
+        public bool SequenceEqual(
+            RangeEnumerable first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(ref first, ref second, null);
+        }
+
+        public bool SequenceEqual(
+            RangeEnumerable first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(ref first, ref second, null);
+        }
+
+        // ReverseRangeEnumerable
+
+        public bool SequenceEqual(
+            PlaceholderEnumerable<int> first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(RefParam(first), ref second, null);
+        }
+
+        public bool SequenceEqual(
+            PlaceholderEnumerable<int> first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(RefParam(first), ref second, comparer);
+        }
+
+       // public bool SequenceEqual(
+       //     ReverseRangeEnumerable first,
+       //     PlaceholderEnumerable<int> second
+       // )
+       // {
+       //     return
+       //         CommonImplementation.SequenceEqual<
+       //             int,
+       //             ReverseRangeEnumerable,
+       //             ReverseRangeEnumerator,
+       //             PlaceholderEnumerable<int>,
+       //             PlaceholderEnumerator<int>
+       //         >(ref first, RefParam(second), null);
+       // }
+
+       // public bool SequenceEqual(
+       //    ReverseRangeEnumerable first,
+       //    PlaceholderEnumerable<int> second,
+       //    IEqualityComparer<int> comparer
+       //)
+       // {
+       //     return
+       //         CommonImplementation.SequenceEqual<
+       //             int,
+       //             ReverseRangeEnumerable,
+       //             ReverseRangeEnumerator,
+       //             PlaceholderEnumerable<int>,
+       //             PlaceholderEnumerator<int>
+       //         >(ref first, RefParam(second), comparer);
+       // }
+
+        public bool SequenceEqual(
+            ReverseRangeEnumerable first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(ref first, ref second, null);
+        }
+
+        public bool SequenceEqual(
+            ReverseRangeEnumerable first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(ref first, ref second, null);
+        }
+
+        // Range - ReverseRange
+
+        public bool SequenceEqual(
+            RangeEnumerable first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(ref first, ref second, null);
+        }
+
+        public bool SequenceEqual(
+            RangeEnumerable first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(ref first, ref second, comparer);
+        }
+
+        public bool SequenceEqual(
+            ReverseRangeEnumerable first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(ref first, ref second, null);
+        }
+
+        public bool SequenceEqual(
+            ReverseRangeEnumerable first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.SequenceEqual<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(ref first, ref second, comparer);
+        }
     }
 }

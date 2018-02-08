@@ -42,20 +42,11 @@ namespace LinqAF
 
         public SelectManyIndexedBridgeEnumerable<TItem, TOutItem, HashSet<TOutItem>, HashSetBridger<TOutItem>, TEnumerable, TEnumerator, HashSetEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, HashSet<TOutItem>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
-
-        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TOutItem>, ReverseRangeEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, ReverseRangeEnumerable<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector);
-
-        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, RangeEnumerable<TOutItem>, RangeEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, RangeEnumerable<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector);
-
+        
         public EmptyEnumerable<TOutItem> SelectMany<TOutItem>(Func<TItem, int, EmptyOrderedEnumerable<TOutItem>> selector)
         => CommonImplementation.EmptySelectMany<TItem, TOutItem, TEnumerable, TEnumerator>(RefThis(), selector);
 
         public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, RepeatEnumerable<TOutItem>, RepeatEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, RepeatEnumerable<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector);
-
-        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TOutItem>, ReverseRangeEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, ReverseRangeEnumerable<TOutItem>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
 
         public EmptyEnumerable<TOutItem> SelectMany<TOutItem>(Func<TItem, EmptyEnumerable<TOutItem>> selector)
@@ -77,9 +68,6 @@ namespace LinqAF
         => CommonImplementation.SelectMany(RefThis(), selector);
 
         public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, RepeatEnumerable<TOutItem>, RepeatEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, RepeatEnumerable<TOutItem>> selector)
-        => CommonImplementation.SelectMany(RefThis(), selector);
-
-        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, RangeEnumerable<TOutItem>, RangeEnumerator<TOutItem>> SelectMany<TOutItem>(Func<TItem, int, RangeEnumerable<TOutItem>> selector)
         => CommonImplementation.SelectMany(RefThis(), selector);
 
         public EmptyEnumerable<TOutItem> SelectMany<TOutItem>(Func<TItem, int, EmptyEnumerable<TOutItem>> selector)
@@ -159,10 +147,7 @@ namespace LinqAF
 
         public EmptyEnumerable<TOutItem> SelectMany<TOutItem, TCollectionItem>(Func<TItem, EmptyEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.EmptySelectMany<TItem, TOutItem, TEnumerable, TEnumerator>(RefThis(), collectionSelector, resultSelector);
-
-        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, RangeEnumerable<TCollectionItem>, RangeEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, RangeEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
-
+        
         public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, RepeatEnumerable<TCollectionItem>, RepeatEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, RepeatEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
@@ -184,9 +169,6 @@ namespace LinqAF
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, RepeatEnumerable<TCollectionItem>, RepeatEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, RepeatEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
-        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, RangeEnumerable<TCollectionItem>, RangeEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, RangeEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
-
         public SelectManyCollectionIndexedBridgeEnumerable<TItem, TOutItem, TCollectionItem, TCollectionItem[], ArrayBridger<TCollectionItem>, TEnumerable, TEnumerator, ArrayEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, TCollectionItem[]> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
@@ -204,10 +186,7 @@ namespace LinqAF
 
         public EmptyEnumerable<TOutItem> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, EmptyOrderedEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.EmptySelectMany<TItem, TOutItem, TEnumerable, TEnumerator>(RefThis(), collectionSelector, resultSelector);
-
-        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TCollectionItem>, ReverseRangeEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, ReverseRangeEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
-
+        
         public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, TCollectionItem[], ArrayBridger<TCollectionItem>, TEnumerable, TEnumerator, ArrayEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, TCollectionItem[]> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
@@ -215,9 +194,6 @@ namespace LinqAF
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, List<TCollectionItem>, ListBridger<TCollectionItem>, TEnumerable, TEnumerator, ListEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, List<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
-        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
-
-        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TCollectionItem>, ReverseRangeEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, ReverseRangeEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionBridgeEnumerable<TItem, TOutItem, TCollectionItem, HashSet<TCollectionItem>, HashSetBridger<TCollectionItem>, TEnumerable, TEnumerator, HashSetEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, HashSet<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
@@ -1468,6 +1444,110 @@ namespace LinqAF
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
 
         public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, OneItemSpecificOrderedEnumerable<TCollectionItem>, OneItemSpecificOrderedEnumerator<TCollectionItem>> SelectMany<TOutItem, TCollectionItem>(Func<TItem, int, OneItemSpecificOrderedEnumerable<TCollectionItem>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SkipLastEnumerable<TOutItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>, SkipLastEnumerator<TOutItem, TSelectMany_SkipEnumerator>> SelectMany<TOutItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>(Func<TItem, SkipLastEnumerable<TOutItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>> selector)
+            where TSelectMany_SkipEnumerable : struct, IStructEnumerable<TOutItem, TSelectMany_SkipEnumerator>
+            where TSelectMany_SkipEnumerator : struct, IStructEnumerator<TOutItem>
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, TakeLastEnumerable<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>, TakeLastEnumerator<TOutItem, TSelectMany_TakeEnumerator>> SelectMany<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>(Func<TItem, TakeLastEnumerable<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>> selector)
+            where TSelectMany_TakeEnumerable : struct, IStructEnumerable<TOutItem, TSelectMany_TakeEnumerator>
+            where TSelectMany_TakeEnumerator : struct, IStructEnumerator<TOutItem>
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, SkipLastEnumerable<TOutItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>, SkipLastEnumerator<TOutItem, TSelectMany_SkipEnumerator>> SelectMany<TOutItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>(Func<TItem, int, SkipLastEnumerable<TOutItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>> selector)
+            where TSelectMany_SkipEnumerable : struct, IStructEnumerable<TOutItem, TSelectMany_SkipEnumerator>
+            where TSelectMany_SkipEnumerator : struct, IStructEnumerator<TOutItem>
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, TakeLastEnumerable<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>, TakeLastEnumerator<TOutItem, TSelectMany_TakeEnumerator>> SelectMany<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>(Func<TItem, int, TakeLastEnumerable<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>> selector)
+            where TSelectMany_TakeEnumerable : struct, IStructEnumerable<TOutItem, TSelectMany_TakeEnumerator>
+            where TSelectMany_TakeEnumerator : struct, IStructEnumerator<TOutItem>
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SkipLastEnumerable<TCollectionItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>, SkipLastEnumerator<TCollectionItem, TSelectMany_SkipEnumerator>> SelectMany<TOutItem, TCollectionItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>(Func<TItem, SkipLastEnumerable<TCollectionItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+            where TSelectMany_SkipEnumerable : struct, IStructEnumerable<TCollectionItem, TSelectMany_SkipEnumerator>
+            where TSelectMany_SkipEnumerator : struct, IStructEnumerator<TCollectionItem>
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, TakeLastEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>, TakeLastEnumerator<TCollectionItem, TSelectMany_TakeEnumerator>> SelectMany<TOutItem, TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>(Func<TItem, TakeLastEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+            where TSelectMany_TakeEnumerable : struct, IStructEnumerable<TCollectionItem, TSelectMany_TakeEnumerator>
+            where TSelectMany_TakeEnumerator : struct, IStructEnumerator<TCollectionItem>
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, SkipLastEnumerable<TCollectionItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>, SkipLastEnumerator<TCollectionItem, TSelectMany_SkipEnumerator>> SelectMany<TOutItem, TCollectionItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>(Func<TItem, int, SkipLastEnumerable<TCollectionItem, TSelectMany_SkipEnumerable, TSelectMany_SkipEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+            where TSelectMany_SkipEnumerable : struct, IStructEnumerable<TCollectionItem, TSelectMany_SkipEnumerator>
+            where TSelectMany_SkipEnumerator : struct, IStructEnumerator<TCollectionItem>
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, TakeLastEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>, TakeLastEnumerator<TCollectionItem, TSelectMany_TakeEnumerator>> SelectMany<TOutItem, TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>(Func<TItem, int, TakeLastEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+            where TSelectMany_TakeEnumerable : struct, IStructEnumerable<TCollectionItem, TSelectMany_TakeEnumerator>
+            where TSelectMany_TakeEnumerator : struct, IStructEnumerator<TCollectionItem>
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, AppendEnumerable<TOutItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>, AppendEnumerator<TOutItem, TDefaultIfEmptyInnerEnumerator>> SelectMany<TOutItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>(Func<TItem, AppendEnumerable<TOutItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>> selector)
+            where TDefaultIfEmptyInnerEnumerable : struct, IStructEnumerable<TOutItem, TDefaultIfEmptyInnerEnumerator>
+            where TDefaultIfEmptyInnerEnumerator : struct, IStructEnumerator<TOutItem>
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, PrependEnumerable<TOutItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>, PrependEnumerator<TOutItem, TDefaultIfEmptyInnerEnumerator>> SelectMany<TOutItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>(Func<TItem, PrependEnumerable<TOutItem, TDefaultIfEmptyInnerEnumerable, TDefaultIfEmptyInnerEnumerator>> selector)
+            where TDefaultIfEmptyInnerEnumerable : struct, IStructEnumerable<TOutItem, TDefaultIfEmptyInnerEnumerator>
+            where TDefaultIfEmptyInnerEnumerator : struct, IStructEnumerator<TOutItem>
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, AppendEnumerable<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>, AppendEnumerator<TOutItem, TSelectMany_TakeEnumerator>> SelectMany<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>(Func<TItem, int, AppendEnumerable<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>> selector)
+            where TSelectMany_TakeEnumerable : struct, IStructEnumerable<TOutItem, TSelectMany_TakeEnumerator>
+            where TSelectMany_TakeEnumerator : struct, IStructEnumerator<TOutItem>
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyIndexedEnumerable<TItem, TOutItem, TEnumerable, TEnumerator, PrependEnumerable<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>, PrependEnumerator<TOutItem, TSelectMany_TakeEnumerator>> SelectMany<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>(Func<TItem, int, PrependEnumerable<TOutItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>> selector)
+            where TSelectMany_TakeEnumerable : struct, IStructEnumerable<TOutItem, TSelectMany_TakeEnumerator>
+            where TSelectMany_TakeEnumerator : struct, IStructEnumerator<TOutItem>
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, AppendEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>, AppendEnumerator<TCollectionItem, TSelectMany_TakeEnumerator>> SelectMany<TOutItem, TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>(Func<TItem, AppendEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+            where TSelectMany_TakeEnumerable : struct, IStructEnumerable<TCollectionItem, TSelectMany_TakeEnumerator>
+            where TSelectMany_TakeEnumerator : struct, IStructEnumerator<TCollectionItem>
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, PrependEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>, PrependEnumerator<TCollectionItem, TSelectMany_TakeEnumerator>> SelectMany<TOutItem, TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>(Func<TItem, PrependEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+            where TSelectMany_TakeEnumerable : struct, IStructEnumerable<TCollectionItem, TSelectMany_TakeEnumerator>
+            where TSelectMany_TakeEnumerator : struct, IStructEnumerator<TCollectionItem>
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, AppendEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>, AppendEnumerator<TCollectionItem, TSelectMany_TakeEnumerator>> SelectMany<TOutItem, TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>(Func<TItem, int, AppendEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+            where TSelectMany_TakeEnumerable : struct, IStructEnumerable<TCollectionItem, TSelectMany_TakeEnumerator>
+            where TSelectMany_TakeEnumerator : struct, IStructEnumerator<TCollectionItem>
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, TCollectionItem, TEnumerable, TEnumerator, PrependEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>, PrependEnumerator<TCollectionItem, TSelectMany_TakeEnumerator>> SelectMany<TOutItem, TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>(Func<TItem, int, PrependEnumerable<TCollectionItem, TSelectMany_TakeEnumerable, TSelectMany_TakeEnumerator>> collectionSelector, Func<TItem, TCollectionItem, TOutItem> resultSelector)
+            where TSelectMany_TakeEnumerable : struct, IStructEnumerable<TCollectionItem, TSelectMany_TakeEnumerator>
+            where TSelectMany_TakeEnumerator : struct, IStructEnumerator<TCollectionItem>
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyEnumerable<TItem, int, TEnumerable, TEnumerator, RangeEnumerable, RangeEnumerator> SelectMany(Func<TItem, RangeEnumerable> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyEnumerable<TItem, int, TEnumerable, TEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> SelectMany(Func<TItem, ReverseRangeEnumerable> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyIndexedEnumerable<TItem, int, TEnumerable, TEnumerator, RangeEnumerable, RangeEnumerator> SelectMany(Func<TItem, int, RangeEnumerable> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyIndexedEnumerable<TItem, int, TEnumerable, TEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> SelectMany(Func<TItem, int, ReverseRangeEnumerable> selector)
+        => CommonImplementation.SelectMany(RefThis(), selector);
+
+        public SelectManyCollectionEnumerable<TItem, TOutItem, int, TEnumerable, TEnumerator, RangeEnumerable, RangeEnumerator> SelectMany<TOutItem>(Func<TItem, RangeEnumerable> collectionSelector, Func<TItem, int, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionEnumerable<TItem, TOutItem, int, TEnumerable, TEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> SelectMany<TOutItem>(Func<TItem, ReverseRangeEnumerable> collectionSelector, Func<TItem, int, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, int, TEnumerable, TEnumerator, RangeEnumerable, RangeEnumerator> SelectMany<TOutItem>(Func<TItem, int, RangeEnumerable> collectionSelector, Func<TItem, int, TOutItem> resultSelector)
+        => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
+
+        public SelectManyCollectionIndexedEnumerable<TItem, TOutItem, int, TEnumerable, TEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> SelectMany<TOutItem>(Func<TItem, int, ReverseRangeEnumerable> collectionSelector, Func<TItem, int, TOutItem> resultSelector)
         => CommonImplementation.SelectMany(RefThis(), collectionSelector, resultSelector);
     }
 }

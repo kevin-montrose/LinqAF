@@ -202,12 +202,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Operators\ExtensionMethodOverrides.cs" />
+    <Compile Include="Operators\Prepend.cs" />
+    <Compile Include="Operators\Append.cs" />
     <Compile Include="Operators\ExceptExtensionMethods.cs" />
     <Compile Include="Operators\IntersectExtensionMethods.cs" />
+    <Compile Include="Operators\LinqAFTask.cs" />
     <Compile Include="Operators\MinExtensionMethods.cs" />
     <Compile Include="Operators\MaxExtensionMethods.cs" />
     <Compile Include="Operators\LinqAFString.cs" />
     <Compile Include="Operators\Queryable.cs" />
+    <Compile Include="Operators\ToHashSet.cs" />
     <Compile Include="Operators\UnionExtensionMethods.cs" />
     <Compile Include="Operators\SequenceEqualExtensionMethods.cs" />
     <Compile Include="Operators\ConcatExtensionMethods.cs" />

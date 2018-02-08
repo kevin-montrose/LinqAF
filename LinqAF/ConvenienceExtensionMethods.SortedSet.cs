@@ -65,8 +65,8 @@ namespace LinqAF
             ExceptWithImplEmpty(set);
         }
 
-        public static void ExceptWith<TItem>(this SortedSet<TItem> set, RangeEnumerable<TItem> second)
-        => ExceptWithImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(set, ref second);
+        public static void ExceptWith(this SortedSet<int> set, RangeEnumerable second)
+        => ExceptWithImpl<int, RangeEnumerable, RangeEnumerator>(set, ref second);
 
         public static void ExceptWith<TItem>(this SortedSet<TItem> set, RepeatEnumerable<TItem> second)
         => ExceptWithImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(set, ref second);
@@ -309,8 +309,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => ExceptWithImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(set, ref second);
 
-        public static void ExceptWith<TItem>(this SortedSet<TItem> set, ReverseRangeEnumerable<TItem> second)
-        => ExceptWithImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(set, ref second);
+        public static void ExceptWith(this SortedSet<int> set, ReverseRangeEnumerable second)
+        => ExceptWithImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(set, ref second);
 
         public static void ExceptWith<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this SortedSet<TItem> set, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -385,6 +385,38 @@ namespace LinqAF
 
         public static void ExceptWith<TItem>(this SortedSet<TItem> set, OneItemSpecificOrderedEnumerable<TItem> second)
         => ExceptWithImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(set, ref second);
+
+        public static void ExceptWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            AppendEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => ExceptWithImpl<TItem, AppendEnumerable<TItem, TEnumerable, TEnumerator>, AppendEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void ExceptWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            PrependEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => ExceptWithImpl<TItem, PrependEnumerable<TItem, TEnumerable, TEnumerator>, PrependEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void ExceptWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            SkipLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => ExceptWithImpl<TItem, SkipLastEnumerable<TItem, TEnumerable, TEnumerator>, SkipLastEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void ExceptWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            TakeLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => ExceptWithImpl<TItem, TakeLastEnumerable<TItem, TEnumerable, TEnumerator>, TakeLastEnumerator<TItem, TEnumerator>>(set, ref second);
         #endregion
 
         #region IntersectWith
@@ -485,8 +517,8 @@ namespace LinqAF
             IntersectWithImplEmpty(set);
         }
 
-        public static void IntersectWith<TItem>(this SortedSet<TItem> set, RangeEnumerable<TItem> second)
-        => IntersectWithImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(set, ref second);
+        public static void IntersectWith(this SortedSet<int> set, RangeEnumerable second)
+        => IntersectWithImpl<int, RangeEnumerable, RangeEnumerator>(set, ref second);
 
         public static void IntersectWith<TItem>(this SortedSet<TItem> set, RepeatEnumerable<TItem> second)
         => IntersectWithImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(set, ref second);
@@ -729,8 +761,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => IntersectWithImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(set, ref second);
 
-        public static void IntersectWith<TItem>(this SortedSet<TItem> set, ReverseRangeEnumerable<TItem> second)
-        => IntersectWithImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(set, ref second);
+        public static void IntersectWith(this SortedSet<int> set, ReverseRangeEnumerable second)
+        => IntersectWithImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(set, ref second);
 
         public static void IntersectWith<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this SortedSet<TItem> set, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -805,6 +837,38 @@ namespace LinqAF
 
         public static void IntersectWith<TItem>(this SortedSet<TItem> set, OneItemSpecificOrderedEnumerable<TItem> second)
         => IntersectWithImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(set, ref second);
+
+        public static void IntersectWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            AppendEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IntersectWithImpl<TItem, AppendEnumerable<TItem, TEnumerable, TEnumerator>, AppendEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void IntersectWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            PrependEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IntersectWithImpl<TItem, PrependEnumerable<TItem, TEnumerable, TEnumerator>, PrependEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void IntersectWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            SkipLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IntersectWithImpl<TItem, SkipLastEnumerable<TItem, TEnumerable, TEnumerator>, SkipLastEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void IntersectWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            TakeLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IntersectWithImpl<TItem, TakeLastEnumerable<TItem, TEnumerable, TEnumerator>, TakeLastEnumerator<TItem, TEnumerator>>(set, ref second);
         #endregion
 
         #region IsProperSubsetOf
@@ -898,8 +962,8 @@ namespace LinqAF
             return IsProperSubsetOfImplEmpty(set);
         }
 
-        public static bool IsProperSubsetOf<TItem>(this SortedSet<TItem> set, RangeEnumerable<TItem> second)
-        => IsProperSubsetOfImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(set, ref second);
+        public static bool IsProperSubsetOf(this SortedSet<int> set, RangeEnumerable second)
+        => IsProperSubsetOfImpl<int, RangeEnumerable, RangeEnumerator>(set, ref second);
 
         public static bool IsProperSubsetOf<TItem>(this SortedSet<TItem> set, RepeatEnumerable<TItem> second)
         => IsProperSubsetOfImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(set, ref second);
@@ -1142,8 +1206,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => IsProperSubsetOfImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(set, ref second);
 
-        public static bool IsProperSubsetOf<TItem>(this SortedSet<TItem> set, ReverseRangeEnumerable<TItem> second)
-        => IsProperSubsetOfImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(set, ref second);
+        public static bool IsProperSubsetOf(this SortedSet<int> set, ReverseRangeEnumerable second)
+        => IsProperSubsetOfImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(set, ref second);
 
         public static bool IsProperSubsetOf<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this SortedSet<TItem> set, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -1218,6 +1282,38 @@ namespace LinqAF
 
         public static bool IsProperSubsetOf<TItem>(this SortedSet<TItem> set, OneItemSpecificOrderedEnumerable<TItem> second)
         => IsProperSubsetOfImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(set, ref second);
+
+        public static bool IsProperSubsetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            AppendEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsProperSubsetOfImpl<TItem, AppendEnumerable<TItem, TEnumerable, TEnumerator>, AppendEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsProperSubsetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            PrependEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsProperSubsetOfImpl<TItem, PrependEnumerable<TItem, TEnumerable, TEnumerator>, PrependEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsProperSubsetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            SkipLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsProperSubsetOfImpl<TItem, SkipLastEnumerable<TItem, TEnumerable, TEnumerator>, SkipLastEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsProperSubsetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            TakeLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsProperSubsetOfImpl<TItem, TakeLastEnumerable<TItem, TEnumerable, TEnumerator>, TakeLastEnumerator<TItem, TEnumerator>>(set, ref second);
         #endregion
 
         #region IsProperSupersetOf
@@ -1287,8 +1383,8 @@ namespace LinqAF
             return IsProperSupersetOfImplEmpty(set);
         }
 
-        public static bool IsProperSupersetOf<TItem>(this SortedSet<TItem> set, RangeEnumerable<TItem> second)
-        => IsProperSupersetOfImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(set, ref second);
+        public static bool IsProperSupersetOf(this SortedSet<int> set, RangeEnumerable second)
+        => IsProperSupersetOfImpl<int, RangeEnumerable, RangeEnumerator>(set, ref second);
 
         public static bool IsProperSupersetOf<TItem>(this SortedSet<TItem> set, RepeatEnumerable<TItem> second)
         => IsProperSupersetOfImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(set, ref second);
@@ -1531,8 +1627,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => IsProperSupersetOfImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(set, ref second);
 
-        public static bool IsProperSupersetOf<TItem>(this SortedSet<TItem> set, ReverseRangeEnumerable<TItem> second)
-        => IsProperSupersetOfImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(set, ref second);
+        public static bool IsProperSupersetOf(this SortedSet<int> set, ReverseRangeEnumerable second)
+        => IsProperSupersetOfImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(set, ref second);
 
         public static bool IsProperSupersetOf<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this SortedSet<TItem> set, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -1607,6 +1703,38 @@ namespace LinqAF
 
         public static bool IsProperSupersetOf<TItem>(this SortedSet<TItem> set, OneItemSpecificOrderedEnumerable<TItem> second)
         => IsProperSupersetOfImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(set, ref second);
+
+        public static bool IsProperSupersetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            AppendEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsProperSupersetOfImpl<TItem, AppendEnumerable<TItem, TEnumerable, TEnumerator>, AppendEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsProperSupersetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            PrependEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsProperSupersetOfImpl<TItem, PrependEnumerable<TItem, TEnumerable, TEnumerator>, PrependEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsProperSupersetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            SkipLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsProperSupersetOfImpl<TItem, SkipLastEnumerable<TItem, TEnumerable, TEnumerator>, SkipLastEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsProperSupersetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            TakeLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsProperSupersetOfImpl<TItem, TakeLastEnumerable<TItem, TEnumerable, TEnumerator>, TakeLastEnumerator<TItem, TEnumerator>>(set, ref second);
         #endregion
 
         #region IsSubsetOf
@@ -1700,8 +1828,8 @@ namespace LinqAF
             return IsSubsetOfImplEmpty(set);
         }
 
-        public static bool IsSubsetOf<TItem>(this SortedSet<TItem> set, RangeEnumerable<TItem> second)
-        => IsSubsetOfImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(set, ref second);
+        public static bool IsSubsetOf(this SortedSet<int> set, RangeEnumerable second)
+        => IsSubsetOfImpl<int, RangeEnumerable, RangeEnumerator>(set, ref second);
 
         public static bool IsSubsetOf<TItem>(this SortedSet<TItem> set, RepeatEnumerable<TItem> second)
         => IsSubsetOfImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(set, ref second);
@@ -1944,8 +2072,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => IsSubsetOfImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(set, ref second);
 
-        public static bool IsSubsetOf<TItem>(this SortedSet<TItem> set, ReverseRangeEnumerable<TItem> second)
-        => IsSubsetOfImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(set, ref second);
+        public static bool IsSubsetOf(this SortedSet<int> set, ReverseRangeEnumerable second)
+        => IsSubsetOfImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(set, ref second);
 
         public static bool IsSubsetOf<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this SortedSet<TItem> set, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -2020,6 +2148,38 @@ namespace LinqAF
 
         public static bool IsSubsetOf<TItem>(this SortedSet<TItem> set, OneItemSpecificOrderedEnumerable<TItem> second)
         => IsSubsetOfImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(set, ref second);
+
+        public static bool IsSubsetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            AppendEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsSubsetOfImpl<TItem, AppendEnumerable<TItem, TEnumerable, TEnumerator>, AppendEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsSubsetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            PrependEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsSubsetOfImpl<TItem, PrependEnumerable<TItem, TEnumerable, TEnumerator>, PrependEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsSubsetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            SkipLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsSubsetOfImpl<TItem, SkipLastEnumerable<TItem, TEnumerable, TEnumerator>, SkipLastEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsSubsetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            TakeLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsSubsetOfImpl<TItem, TakeLastEnumerable<TItem, TEnumerable, TEnumerator>, TakeLastEnumerator<TItem, TEnumerator>>(set, ref second);
         #endregion
 
         #region IsSupersetOf
@@ -2086,8 +2246,8 @@ namespace LinqAF
             return IsSupersetOfImplEmpty(set);
         }
 
-        public static bool IsSupersetOf<TItem>(this SortedSet<TItem> set, RangeEnumerable<TItem> second)
-        => IsSupersetOfImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(set, ref second);
+        public static bool IsSupersetOf(this SortedSet<int> set, RangeEnumerable second)
+        => IsSupersetOfImpl<int, RangeEnumerable, RangeEnumerator>(set, ref second);
 
         public static bool IsSupersetOf<TItem>(this SortedSet<TItem> set, RepeatEnumerable<TItem> second)
         => IsSupersetOfImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(set, ref second);
@@ -2330,8 +2490,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => IsSupersetOfImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(set, ref second);
 
-        public static bool IsSupersetOf<TItem>(this SortedSet<TItem> set, ReverseRangeEnumerable<TItem> second)
-        => IsSupersetOfImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(set, ref second);
+        public static bool IsSupersetOf(this SortedSet<int> set, ReverseRangeEnumerable second)
+        => IsSupersetOfImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(set, ref second);
 
         public static bool IsSupersetOf<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this SortedSet<TItem> set, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -2406,6 +2566,38 @@ namespace LinqAF
 
         public static bool IsSupersetOf<TItem>(this SortedSet<TItem> set, OneItemSpecificOrderedEnumerable<TItem> second)
         => IsSupersetOfImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(set, ref second);
+
+        public static bool IsSupersetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            AppendEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsSupersetOfImpl<TItem, AppendEnumerable<TItem, TEnumerable, TEnumerator>, AppendEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsSupersetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            PrependEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsSupersetOfImpl<TItem, PrependEnumerable<TItem, TEnumerable, TEnumerator>, PrependEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsSupersetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            SkipLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsSupersetOfImpl<TItem, SkipLastEnumerable<TItem, TEnumerable, TEnumerator>, SkipLastEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool IsSupersetOf<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            TakeLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => IsSupersetOfImpl<TItem, TakeLastEnumerable<TItem, TEnumerable, TEnumerator>, TakeLastEnumerator<TItem, TEnumerator>>(set, ref second);
         #endregion
 
         #region Overlaps
@@ -2471,8 +2663,8 @@ namespace LinqAF
             return OverlapsImplEmpty(set);
         }
 
-        public static bool Overlaps<TItem>(this SortedSet<TItem> set, RangeEnumerable<TItem> second)
-        => OverlapsImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(set, ref second);
+        public static bool Overlaps(this SortedSet<int> set, RangeEnumerable second)
+        => OverlapsImpl<int, RangeEnumerable, RangeEnumerator>(set, ref second);
 
         public static bool Overlaps<TItem>(this SortedSet<TItem> set, RepeatEnumerable<TItem> second)
         => OverlapsImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(set, ref second);
@@ -2715,8 +2907,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => OverlapsImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(set, ref second);
 
-        public static bool Overlaps<TItem>(this SortedSet<TItem> set, ReverseRangeEnumerable<TItem> second)
-        => OverlapsImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(set, ref second);
+        public static bool Overlaps(this SortedSet<int> set, ReverseRangeEnumerable second)
+        => OverlapsImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(set, ref second);
 
         public static bool Overlaps<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this SortedSet<TItem> set, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -2791,6 +2983,38 @@ namespace LinqAF
 
         public static bool Overlaps<TItem>(this SortedSet<TItem> set, OneItemSpecificOrderedEnumerable<TItem> second)
         => OverlapsImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(set, ref second);
+
+        public static bool Overlaps<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            AppendEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => OverlapsImpl<TItem, AppendEnumerable<TItem, TEnumerable, TEnumerator>, AppendEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool Overlaps<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            PrependEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => OverlapsImpl<TItem, PrependEnumerable<TItem, TEnumerable, TEnumerator>, PrependEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool Overlaps<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            SkipLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => OverlapsImpl<TItem, SkipLastEnumerable<TItem, TEnumerable, TEnumerator>, SkipLastEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool Overlaps<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            TakeLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => OverlapsImpl<TItem, TakeLastEnumerable<TItem, TEnumerable, TEnumerator>, TakeLastEnumerator<TItem, TEnumerator>>(set, ref second);
         #endregion
 
         #region SetEquals
@@ -2882,8 +3106,8 @@ namespace LinqAF
             return SetEqualsImplEmpty(set);
         }
 
-        public static bool SetEquals<TItem>(this SortedSet<TItem> set, RangeEnumerable<TItem> second)
-        => SetEqualsImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(set, ref second);
+        public static bool SetEquals(this SortedSet<int> set, RangeEnumerable second)
+        => SetEqualsImpl<int, RangeEnumerable, RangeEnumerator>(set, ref second);
 
         public static bool SetEquals<TItem>(this SortedSet<TItem> set, RepeatEnumerable<TItem> second)
         => SetEqualsImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(set, ref second);
@@ -3126,8 +3350,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => SetEqualsImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(set, ref second);
 
-        public static bool SetEquals<TItem>(this SortedSet<TItem> set, ReverseRangeEnumerable<TItem> second)
-        => SetEqualsImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(set, ref second);
+        public static bool SetEquals(this SortedSet<int> set, ReverseRangeEnumerable second)
+        => SetEqualsImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(set, ref second);
 
         public static bool SetEquals<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this SortedSet<TItem> set, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -3202,6 +3426,38 @@ namespace LinqAF
 
         public static bool SetEquals<TItem>(this SortedSet<TItem> set, OneItemSpecificOrderedEnumerable<TItem> second)
         => SetEqualsImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(set, ref second);
+
+        public static bool SetEquals<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            AppendEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => SetEqualsImpl<TItem, AppendEnumerable<TItem, TEnumerable, TEnumerator>, AppendEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool SetEquals<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            PrependEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => SetEqualsImpl<TItem, PrependEnumerable<TItem, TEnumerable, TEnumerator>, PrependEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool SetEquals<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            SkipLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => SetEqualsImpl<TItem, SkipLastEnumerable<TItem, TEnumerable, TEnumerator>, SkipLastEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static bool SetEquals<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            TakeLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => SetEqualsImpl<TItem, TakeLastEnumerable<TItem, TEnumerable, TEnumerator>, TakeLastEnumerator<TItem, TEnumerator>>(set, ref second);
         #endregion
 
         #region SymmetricExceptWith
@@ -3307,8 +3563,8 @@ namespace LinqAF
             SymmetricExceptWithImplEmpty(set);
         }
 
-        public static void SymmetricExceptWith<TItem>(this SortedSet<TItem> set, RangeEnumerable<TItem> second)
-        => SymmetricExceptWithImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(set, ref second);
+        public static void SymmetricExceptWith(this SortedSet<int> set, RangeEnumerable second)
+        => SymmetricExceptWithImpl<int, RangeEnumerable, RangeEnumerator>(set, ref second);
 
         public static void SymmetricExceptWith<TItem>(this SortedSet<TItem> set, RepeatEnumerable<TItem> second)
         => SymmetricExceptWithImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(set, ref second);
@@ -3551,8 +3807,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => SymmetricExceptWithImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(set, ref second);
 
-        public static void SymmetricExceptWith<TItem>(this SortedSet<TItem> set, ReverseRangeEnumerable<TItem> second)
-        => SymmetricExceptWithImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(set, ref second);
+        public static void SymmetricExceptWith(this SortedSet<int> set, ReverseRangeEnumerable second)
+        => SymmetricExceptWithImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(set, ref second);
 
         public static void SymmetricExceptWith<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this SortedSet<TItem> set, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -3627,6 +3883,38 @@ namespace LinqAF
 
         public static void SymmetricExceptWith<TItem>(this SortedSet<TItem> set, OneItemSpecificOrderedEnumerable<TItem> second)
         => SymmetricExceptWithImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(set, ref second);
+
+        public static void SymmetricExceptWith<TItem, TEnumerable, TEnumerator>(
+           this SortedSet<TItem> set,
+           AppendEnumerable<TItem, TEnumerable, TEnumerator> second
+       )
+           where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+           where TEnumerator : struct, IStructEnumerator<TItem>
+       => SymmetricExceptWithImpl<TItem, AppendEnumerable<TItem, TEnumerable, TEnumerator>, AppendEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void SymmetricExceptWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            PrependEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => SymmetricExceptWithImpl<TItem, PrependEnumerable<TItem, TEnumerable, TEnumerator>, PrependEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void SymmetricExceptWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            SkipLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => SymmetricExceptWithImpl<TItem, SkipLastEnumerable<TItem, TEnumerable, TEnumerator>, SkipLastEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void SymmetricExceptWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            TakeLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => SymmetricExceptWithImpl<TItem, TakeLastEnumerable<TItem, TEnumerable, TEnumerator>, TakeLastEnumerator<TItem, TEnumerator>>(set, ref second);
         #endregion
 
         #region UnionWith
@@ -3688,8 +3976,8 @@ namespace LinqAF
             UnionWithImplEmpty(set);
         }
 
-        public static void UnionWith<TItem>(this SortedSet<TItem> set, RangeEnumerable<TItem> second)
-        => UnionWithImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(set, ref second);
+        public static void UnionWith(this SortedSet<int> set, RangeEnumerable second)
+        => UnionWithImpl<int, RangeEnumerable, RangeEnumerator>(set, ref second);
 
         public static void UnionWith<TItem>(this SortedSet<TItem> set, RepeatEnumerable<TItem> second)
         => UnionWithImpl<TItem, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(set, ref second);
@@ -3932,8 +4220,8 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => UnionWithImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(set, ref second);
 
-        public static void UnionWith<TItem>(this SortedSet<TItem> set, ReverseRangeEnumerable<TItem> second)
-        => UnionWithImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(set, ref second);
+        public static void UnionWith(this SortedSet<int> set, ReverseRangeEnumerable second)
+        => UnionWithImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(set, ref second);
 
         public static void UnionWith<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(this SortedSet<TItem> set, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
@@ -4008,6 +4296,38 @@ namespace LinqAF
 
         public static void UnionWith<TItem>(this SortedSet<TItem> set, OneItemSpecificOrderedEnumerable<TItem> second)
         => UnionWithImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(set, ref second);
+
+        public static void UnionWith<TItem, TEnumerable, TEnumerator>(
+           this SortedSet<TItem> set,
+           AppendEnumerable<TItem, TEnumerable, TEnumerator> second
+       )
+           where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+           where TEnumerator : struct, IStructEnumerator<TItem>
+       => UnionWithImpl<TItem, AppendEnumerable<TItem, TEnumerable, TEnumerator>, AppendEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void UnionWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            PrependEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => UnionWithImpl<TItem, PrependEnumerable<TItem, TEnumerable, TEnumerator>, PrependEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void UnionWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            SkipLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => UnionWithImpl<TItem, SkipLastEnumerable<TItem, TEnumerable, TEnumerator>, SkipLastEnumerator<TItem, TEnumerator>>(set, ref second);
+
+        public static void UnionWith<TItem, TEnumerable, TEnumerator>(
+            this SortedSet<TItem> set,
+            TakeLastEnumerable<TItem, TEnumerable, TEnumerator> second
+        )
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        => UnionWithImpl<TItem, TakeLastEnumerable<TItem, TEnumerable, TEnumerator>, TakeLastEnumerator<TItem, TEnumerator>>(set, ref second);
         #endregion
     }
 }

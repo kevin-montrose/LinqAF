@@ -238,6 +238,7 @@ namespace LinqAF.Impl
         }
     }
 
+    [StructLayout(LayoutKind.Auto)]
     struct CompactSetIndexEnumerator<T>
     {
         public int Current => Buckets[BucketIndex].GetEntry(InnerIndex);

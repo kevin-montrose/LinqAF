@@ -2,12 +2,68 @@
 using System.Collections.Generic;
 using TestHelpers;
 using System;
+using System.Reflection;
+using System.Text;
 
 namespace LinqAF.Tests
 {
     [TestClass]
     public class JoinTests
     {
+        static void _InstanceExtensionNoOverlapImpl(int spread, int take)
+        {
+            Dictionary<MethodInfo, List<MethodInfo>> instOverlaps, extOverlaps;
+            Helper.GetOverlappingMethods(typeof(Impl.IJoin<,,>), out instOverlaps, out extOverlaps, spread, take);
+
+            if (instOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in instOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+
+            if (extOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in extOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap1()
+        => _InstanceExtensionNoOverlapImpl(5, 0);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap2()
+        => _InstanceExtensionNoOverlapImpl(5, 1);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap3()
+        => _InstanceExtensionNoOverlapImpl(5, 2);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap4()
+        => _InstanceExtensionNoOverlapImpl(5, 3);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap5()
+        => _InstanceExtensionNoOverlapImpl(5, 4);
+
         static void _Universal(IEnumerable<Type> enums)
         {
             foreach (var e in enums)
@@ -2256,7 +2312,7 @@ namespace LinqAF.Tests
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var lookup = new LookupDefaultEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
 
             // empty
             {
@@ -2775,7 +2831,7 @@ namespace LinqAF.Tests
         public void Malformed_Weird2()
         {
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();

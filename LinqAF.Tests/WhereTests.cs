@@ -3,12 +3,49 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LinqAF;
 using System.Collections.Generic;
 using TestHelpers;
+using System.Reflection;
+using System.Text;
 
 namespace LinqAF.Tests
 {
     [TestClass]
     public class WhereTests
     {
+        [TestMethod]
+        public void InstanceExtensionNoOverlap()
+        {
+            Dictionary<MethodInfo, List<MethodInfo>> instOverlaps, extOverlaps;
+            Helper.GetOverlappingMethods(typeof(Impl.IWhere<,,>), out instOverlaps, out extOverlaps);
+
+            if (instOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in instOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+
+            if (extOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in extOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+        }
+
         [TestMethod]
         public void Universal()
         {
@@ -358,9 +395,9 @@ namespace LinqAF.Tests
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var lookupDefault = new LookupDefaultEnumerable<int, int>();
             var lookupSpecific = new LookupSpecificEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();

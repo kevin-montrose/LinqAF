@@ -27,5 +27,10 @@ namespace LinqAF.Impl
         }
 
         public List<T> GetPopulatedList<T>(IEnumerable<T> collection) => new List<T>(collection);
+
+        public HashSet<TItem> GetEmptyHashSet<TItem>(IEqualityComparer<TItem> comparer)
+        {
+            return new HashSet<TItem>(comparer);
+        }
     }
 }

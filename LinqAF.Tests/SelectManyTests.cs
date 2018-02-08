@@ -2,12 +2,68 @@
 using System;
 using System.Collections.Generic;
 using TestHelpers;
+using System.Reflection;
+using System.Text;
 
 namespace LinqAF.Tests
 {
     [TestClass]
     public class SelectManyTests
     {
+        static void _InstanceExtensionNoOverlapImpl(int spread, int take)
+        {
+            Dictionary<MethodInfo, List<MethodInfo>> instOverlaps, extOverlaps;
+            Helper.GetOverlappingMethods(typeof(Impl.ISelectMany<,,>), out instOverlaps, out extOverlaps, spread, take);
+
+            if (instOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in instOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine("\t" +
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+
+            if (extOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in extOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine("\t" +
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap1()
+        => _InstanceExtensionNoOverlapImpl(5, 0);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap2()
+        => _InstanceExtensionNoOverlapImpl(5, 1);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap3()
+        => _InstanceExtensionNoOverlapImpl(5, 3);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap4()
+        => _InstanceExtensionNoOverlapImpl(5, 3);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap5()
+        => _InstanceExtensionNoOverlapImpl(5, 4);
+
         static void _Universal(IEnumerable<Type> enums)
         {
             foreach (var e in enums)
@@ -221,9 +277,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault = x => groupByDefault;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific = x => groupBySpecific;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookup = x => lookup;
-            Func<int, RangeEnumerable<int>> intToRange = x => range;
+            Func<int, RangeEnumerable> intToRange = x => range;
             Func<int, RepeatEnumerable<int>> intToRepeat = x => repeat;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRange = x => reverseRange;
+            Func<int, ReverseRangeEnumerable> intToReverseRange = x => reverseRange;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefault = x => oneItemDefault;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecific = x => oneItemSpecific;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered = x => oneItemDefaultOrdered;
@@ -235,9 +291,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault = x => groupByDefault;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific = x => groupBySpecific;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookup = x => lookup;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRange = x => range;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRange = x => range;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeat = x => repeat;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRange = x => reverseRange;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRange = x => reverseRange;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault = x => oneItemDefault;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific = x => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered = x => oneItemDefaultOrdered;
@@ -249,9 +305,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault_indexed = (x, _) => groupByDefault;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific_indexed = (x, _) => groupBySpecific;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookup_indexed = (x, _) => lookup;
-            Func<int, int, RangeEnumerable<int>> intToRange_indexed = (x, _) => range;
+            Func<int, int, RangeEnumerable> intToRange_indexed = (x, _) => range;
             Func<int, int, RepeatEnumerable<int>> intToRepeat_indexed = (x, _) => repeat;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRange_indexed = (x, _) => reverseRange;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRange_indexed = (x, _) => reverseRange;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefault_indexed = (x, _) => oneItemDefault;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecific_indexed = (x, _) => oneItemSpecific;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrdered;
@@ -263,9 +319,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault_indexed = (x, _) => groupByDefault;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific_indexed = (x, _) => groupBySpecific;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookup_indexed = (x, _) => lookup;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRange_indexed = (x, _) => range;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRange_indexed = (x, _) => range;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeat_indexed = (x, _) => repeat;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRange_indexed = (x, _) => reverseRange;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRange_indexed = (x, _) => reverseRange;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault_indexed = (x, _) => oneItemDefault;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific_indexed = (x, _) => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrdered;
@@ -669,9 +725,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault = x => groupByDefault;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific = x => groupBySpecific;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookup = x => lookup;
-            Func<int, RangeEnumerable<int>> intToRange = x => range;
+            Func<int, RangeEnumerable> intToRange = x => range;
             Func<int, RepeatEnumerable<int>> intToRepeat = x => repeat;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRange = x => reverseRange;
+            Func<int, ReverseRangeEnumerable> intToReverseRange = x => reverseRange;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefault = x => oneItemDefault;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecific = x => oneItemSpecific;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered = x => oneItemDefaultOrdered;
@@ -683,9 +739,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault = x => groupByDefault;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific = x => groupBySpecific;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookup = x => lookup;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRange = x => range;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRange = x => range;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeat = x => repeat;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRange = x => reverseRange;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRange = x => reverseRange;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault = x => oneItemDefault;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific = x => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered = x => oneItemDefaultOrdered;
@@ -697,9 +753,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault_indexed = (x, _) => groupByDefault;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific_indexed = (x, _) => groupBySpecific;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookup_indexed = (x, _) => lookup;
-            Func<int, int, RangeEnumerable<int>> intToRange_indexed = (x, _) => range;
+            Func<int, int, RangeEnumerable> intToRange_indexed = (x, _) => range;
             Func<int, int, RepeatEnumerable<int>> intToRepeat_indexed = (x, _) => repeat;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRange_indexed = (x, _) => reverseRange;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRange_indexed = (x, _) => reverseRange;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefault_indexed = (x, _) => oneItemDefault;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecific_indexed = (x, _) => oneItemSpecific;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrdered;
@@ -711,9 +767,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault_indexed = (x, _) => groupByDefault;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific_indexed = (x, _) => groupBySpecific;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookup_indexed = (x, _) => lookup;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRange_indexed = (x, _) => range;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRange_indexed = (x, _) => range;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeat_indexed = (x, _) => repeat;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRange_indexed = (x, _) => reverseRange;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRange_indexed = (x, _) => reverseRange;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault_indexed = (x, _) => oneItemDefault;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific_indexed = (x, _) => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrdered;
@@ -1134,9 +1190,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault = x => groupByDefault;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific = x => groupBySpecific;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookup = x => lookup;
-            Func<int, RangeEnumerable<int>> intToRange = x => range;
+            Func<int, RangeEnumerable> intToRange = x => range;
             Func<int, RepeatEnumerable<int>> intToRepeat = x => repeat;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRange = x => reverseRange;
+            Func<int, ReverseRangeEnumerable> intToReverseRange = x => reverseRange;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefault = x => oneItemDefault;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecific = x => oneItemSpecific;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered = x => oneItemDefaultOrdered;
@@ -1148,9 +1204,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault = x => groupByDefault;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific = x => groupBySpecific;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookup = x => lookup;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRange = x => range;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRange = x => range;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeat = x => repeat;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRange = x => reverseRange;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRange = x => reverseRange;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault = x => oneItemDefault;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific = x => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered = x => oneItemDefaultOrdered;
@@ -1162,9 +1218,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault_indexed = (x, _) => groupByDefault;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific_indexed = (x, _) => groupBySpecific;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookup_indexed = (x, _) => lookup;
-            Func<int, int, RangeEnumerable<int>> intToRange_indexed = (x, _) => range;
+            Func<int, int, RangeEnumerable> intToRange_indexed = (x, _) => range;
             Func<int, int, RepeatEnumerable<int>> intToRepeat_indexed = (x, _) => repeat;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRange_indexed = (x, _) => reverseRange;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRange_indexed = (x, _) => reverseRange;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefault_indexed = (x, _) => oneItemDefault;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecific_indexed = (x, _) => oneItemSpecific;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrdered;
@@ -1176,9 +1232,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault_indexed = (x, _) => groupByDefault;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific_indexed = (x, _) => groupBySpecific;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookup_indexed = (x, _) => lookup;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRange_indexed = (x, _) => range;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRange_indexed = (x, _) => range;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeat_indexed = (x, _) => repeat;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRange_indexed = (x, _) => reverseRange;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRange_indexed = (x, _) => reverseRange;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault_indexed = (x, _) => oneItemDefault;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific_indexed = (x, _) => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrdered;
@@ -1985,9 +2041,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault = null;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific = null;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookup = null;
-            Func<int, RangeEnumerable<int>> intToRange = null;
+            Func<int, RangeEnumerable> intToRange = null;
             Func<int, RepeatEnumerable<int>> intToRepeat = null;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRange = null;
+            Func<int, ReverseRangeEnumerable> intToReverseRange = null;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefault = null;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecific = null;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered = null;
@@ -1999,9 +2055,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault = null;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific = null;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookup = null;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRange = null;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRange = null;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeat = null;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRange = null;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRange = null;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault = null;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific = null;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered = null;
@@ -2013,9 +2069,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault_indexed = null;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific_indexed = null;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookup_indexed = null;
-            Func<int, int, RangeEnumerable<int>> intToRange_indexed = null;
+            Func<int, int, RangeEnumerable> intToRange_indexed = null;
             Func<int, int, RepeatEnumerable<int>> intToRepeat_indexed = null;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRange_indexed = null;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRange_indexed = null;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefault_indexed = null;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecific_indexed = null;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered_indexed = null;
@@ -2027,9 +2083,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault_indexed = null;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific_indexed = null;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookup_indexed = null;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRange_indexed = null;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRange_indexed = null;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeat_indexed = null;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRange_indexed = null;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRange_indexed = null;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault_indexed = null;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific_indexed = null;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered_indexed = null;
@@ -2614,9 +2670,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault = null;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific = null;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookup = null;
-            Func<int, RangeEnumerable<int>> intToRange = null;
+            Func<int, RangeEnumerable> intToRange = null;
             Func<int, RepeatEnumerable<int>> intToRepeat = null;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRange = null;
+            Func<int, ReverseRangeEnumerable> intToReverseRange = null;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefault = null;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecific = null;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered = null;
@@ -2628,9 +2684,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault = null;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific = null;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookup = null;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRange = null;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRange = null;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeat = null;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRange = null;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRange = null;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault = null;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific = null;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered = null;
@@ -2642,9 +2698,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault_indexed = null;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific_indexed = null;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookup_indexed = null;
-            Func<int, int, RangeEnumerable<int>> intToRange_indexed = null;
+            Func<int, int, RangeEnumerable> intToRange_indexed = null;
             Func<int, int, RepeatEnumerable<int>> intToRepeat_indexed = null;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRange_indexed = null;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRange_indexed = null;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefault_indexed = null;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecific_indexed = null;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered_indexed = null;
@@ -2656,9 +2712,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault_indexed = null;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific_indexed = null;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookup_indexed = null;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRange_indexed = null;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRange_indexed = null;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeat_indexed = null;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRange_indexed = null;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRange_indexed = null;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault_indexed = null;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific_indexed = null;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered_indexed = null;
@@ -3227,9 +3283,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault = null;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific = null;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookup = null;
-            Func<int, RangeEnumerable<int>> intToRange = null;
+            Func<int, RangeEnumerable> intToRange = null;
             Func<int, RepeatEnumerable<int>> intToRepeat = null;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRange = null;
+            Func<int, ReverseRangeEnumerable> intToReverseRange = null;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefault = null;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecific = null;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered = null;
@@ -3241,9 +3297,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault_indexed = null;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific_indexed = null;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookup_indexed = null;
-            Func<int, int, RangeEnumerable<int>> intToRange_indexed = null;
+            Func<int, int, RangeEnumerable> intToRange_indexed = null;
             Func<int, int, RepeatEnumerable<int>> intToRepeat_indexed = null;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRange_indexed = null;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRange_indexed = null;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefault_indexed = null;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecific_indexed = null;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered_indexed = null;
@@ -4066,9 +4122,9 @@ namespace LinqAF.Tests
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>();
             var lookup = new LookupDefaultEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();
@@ -4093,9 +4149,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault = x => groupByDefaultGood;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific = x => groupBySpecificGood;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookup = x => lookupGood;
-            Func<int, RangeEnumerable<int>> intToRange = x => rangeGood;
+            Func<int, RangeEnumerable> intToRange = x => rangeGood;
             Func<int, RepeatEnumerable<int>> intToRepeat = x => repeatGood;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRange = x => reverseRangeGood;
+            Func<int, ReverseRangeEnumerable> intToReverseRange = x => reverseRangeGood;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefault = x => oneItemDefaultGood;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecific = x => oneItemSpecificGood;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered = x => oneItemDefaultOrderedGood;
@@ -4107,9 +4163,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefaultBad = x => groupByDefault;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecificBad = x => groupBySpecific;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookupBad = x => lookup;
-            Func<int, RangeEnumerable<int>> intToRangeBad = x => range;
+            Func<int, RangeEnumerable> intToRangeBad = x => range;
             Func<int, RepeatEnumerable<int>> intToRepeatBad = x => repeat;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRangeBad = x => reverseRange;
+            Func<int, ReverseRangeEnumerable> intToReverseRangeBad = x => reverseRange;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefaultBad = x => oneItemDefault;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecificBad = x => oneItemSpecific;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrderedBad = x => oneItemDefaultOrdered;
@@ -4121,9 +4177,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault = x => groupByDefaultGood;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific = x => groupBySpecificGood;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookup = x => lookupGood;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRange = x => rangeGood;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRange = x => rangeGood;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeat = x => repeatGood;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRange = x => reverseRangeGood;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRange = x => reverseRangeGood;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault = x => oneItemDefaultGood;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific = x => oneItemSpecificGood;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered = x => oneItemDefaultOrderedGood;
@@ -4135,9 +4191,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefaultBad = x => groupByDefault;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecificBad = x => groupBySpecific;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookupBad = x => lookup;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRangeBad = x => range;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRangeBad = x => range;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeatBad = x => repeat;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRangeBad = x => reverseRange;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRangeBad = x => reverseRange;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefaultBad = x => oneItemDefault;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecificBad = x => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrderedBad = x => oneItemDefaultOrdered;
@@ -4149,9 +4205,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault_indexed = (x, _) => groupByDefaultGood;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific_indexed = (x, _) => groupBySpecificGood;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookup_indexed = (x, _) => lookupGood;
-            Func<int, int, RangeEnumerable<int>> intToRange_indexed = (x, _) => rangeGood;
+            Func<int, int, RangeEnumerable> intToRange_indexed = (x, _) => rangeGood;
             Func<int, int, RepeatEnumerable<int>> intToRepeat_indexed = (x, _) => repeatGood;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRange_indexed = (x, _) => reverseRangeGood;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRange_indexed = (x, _) => reverseRangeGood;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefault_indexed = (x, _) => oneItemDefaultGood;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecific_indexed = (x, _) => oneItemSpecificGood;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrderedGood;
@@ -4163,9 +4219,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefaultBad_indexed = (x, _) => groupByDefault;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecificBad_indexed = (x, _) => groupBySpecific;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookupBad_indexed = (x, _) => lookup;
-            Func<int, int, RangeEnumerable<int>> intToRangeBad_indexed = (x, _) => range;
+            Func<int, int, RangeEnumerable> intToRangeBad_indexed = (x, _) => range;
             Func<int, int, RepeatEnumerable<int>> intToRepeatBad_indexed = (x, _) => repeat;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRangeBad_indexed = (x, _) => reverseRange;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRangeBad_indexed = (x, _) => reverseRange;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefaultBad_indexed = (x, _) => oneItemDefault;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecificBad_indexed = (x, _) => oneItemSpecific;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrderedBad_indexed = (x, _) => oneItemDefaultOrdered;
@@ -4177,9 +4233,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault_indexed = (x, _) => groupByDefaultGood;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific_indexed = (x, _) => groupBySpecificGood;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookup_indexed = (x, _) => lookupGood;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRange_indexed = (x, _) => rangeGood;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRange_indexed = (x, _) => rangeGood;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeat_indexed = (x, _) => repeatGood;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRange_indexed = (x, _) => reverseRangeGood;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRange_indexed = (x, _) => reverseRangeGood;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault_indexed = (x, _) => oneItemDefaultGood;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific_indexed = (x, _) => oneItemSpecificGood;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrderedGood;
@@ -4191,9 +4247,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefaultBad_indexed = (x, _) => groupByDefault;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecificBad_indexed = (x, _) => groupBySpecific;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookupBad_indexed = (x, _) => lookup;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRangeBad_indexed = (x, _) => range;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRangeBad_indexed = (x, _) => range;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeatBad_indexed = (x, _) => repeat;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRangeBad_indexed = (x, _) => reverseRange;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRangeBad_indexed = (x, _) => reverseRange;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefaultBad_indexed = (x, _) => oneItemDefault;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecificBad_indexed = (x, _) => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrderedBad_indexed = (x, _) => oneItemDefaultOrdered;
@@ -5043,9 +5099,9 @@ namespace LinqAF.Tests
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>();
             var lookup = new LookupDefaultEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();
@@ -5070,9 +5126,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault = x => groupByDefaultGood;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific = x => groupBySpecificGood;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookup = x => lookupGood;
-            Func<int, RangeEnumerable<int>> intToRange = x => rangeGood;
+            Func<int, RangeEnumerable> intToRange = x => rangeGood;
             Func<int, RepeatEnumerable<int>> intToRepeat = x => repeatGood;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRange = x => reverseRangeGood;
+            Func<int, ReverseRangeEnumerable> intToReverseRange = x => reverseRangeGood;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefault = x => oneItemDefaultGood;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecific = x => oneItemSpecificGood;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered = x => oneItemDefaultOrderedGood;
@@ -5084,9 +5140,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefaultBad = x => groupByDefault;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecificBad = x => groupBySpecific;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookupBad = x => lookup;
-            Func<int, RangeEnumerable<int>> intToRangeBad = x => range;
+            Func<int, RangeEnumerable> intToRangeBad = x => range;
             Func<int, RepeatEnumerable<int>> intToRepeatBad = x => repeat;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRangeBad = x => reverseRange;
+            Func<int, ReverseRangeEnumerable> intToReverseRangeBad = x => reverseRange;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefaultBad = x => oneItemDefault;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecificBad = x => oneItemSpecific;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrderedBad = x => oneItemDefaultOrdered;
@@ -5098,9 +5154,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault = x => groupByDefaultGood;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific = x => groupBySpecificGood;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookup = x => lookupGood;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRange = x => rangeGood;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRange = x => rangeGood;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeat = x => repeatGood;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRange = x => reverseRangeGood;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRange = x => reverseRangeGood;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault = x => oneItemDefaultGood;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific = x => oneItemSpecificGood;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered = x => oneItemDefaultOrderedGood;
@@ -5112,9 +5168,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefaultBad = x => groupByDefault;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecificBad = x => groupBySpecific;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookupBad = x => lookup;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRangeBad = x => range;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRangeBad = x => range;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeatBad = x => repeat;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRangeBad = x => reverseRange;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRangeBad = x => reverseRange;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefaultBad = x => oneItemDefault;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecificBad = x => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrderedBad = x => oneItemDefaultOrdered;
@@ -5126,9 +5182,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault_indexed = (x, _) => groupByDefaultGood;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific_indexed = (x, _) => groupBySpecificGood;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookup_indexed = (x, _) => lookupGood;
-            Func<int, int, RangeEnumerable<int>> intToRange_indexed = (x, _) => rangeGood;
+            Func<int, int, RangeEnumerable> intToRange_indexed = (x, _) => rangeGood;
             Func<int, int, RepeatEnumerable<int>> intToRepeat_indexed = (x, _) => repeatGood;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRange_indexed = (x, _) => reverseRangeGood;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRange_indexed = (x, _) => reverseRangeGood;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefault_indexed = (x, _) => oneItemDefaultGood;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecific_indexed = (x, _) => oneItemSpecificGood;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrderedGood;
@@ -5140,9 +5196,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefaultBad_indexed = (x, _) => groupByDefault;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecificBad_indexed = (x, _) => groupBySpecific;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookupBad_indexed = (x, _) => lookup;
-            Func<int, int, RangeEnumerable<int>> intToRangeBad_indexed = (x, _) => range;
+            Func<int, int, RangeEnumerable> intToRangeBad_indexed = (x, _) => range;
             Func<int, int, RepeatEnumerable<int>> intToRepeatBad_indexed = (x, _) => repeat;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRangeBad_indexed = (x, _) => reverseRange;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRangeBad_indexed = (x, _) => reverseRange;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefaultBad_indexed = (x, _) => oneItemDefault;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecificBad_indexed = (x, _) => oneItemSpecific;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrderedBad_indexed = (x, _) => oneItemDefaultOrdered;
@@ -5154,9 +5210,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault_indexed = (x, _) => groupByDefaultGood;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific_indexed = (x, _) => groupBySpecificGood;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookup_indexed = (x, _) => lookupGood;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRange_indexed = (x, _) => rangeGood;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRange_indexed = (x, _) => rangeGood;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeat_indexed = (x, _) => repeatGood;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRange_indexed = (x, _) => reverseRangeGood;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRange_indexed = (x, _) => reverseRangeGood;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault_indexed = (x, _) => oneItemDefaultGood;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific_indexed = (x, _) => oneItemSpecificGood;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrderedGood;
@@ -5168,9 +5224,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefaultBad_indexed = (x, _) => groupByDefault;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecificBad_indexed = (x, _) => groupBySpecific;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookupBad_indexed = (x, _) => lookup;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRangeBad_indexed = (x, _) => range;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRangeBad_indexed = (x, _) => range;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeatBad_indexed = (x, _) => repeat;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRangeBad_indexed = (x, _) => reverseRange;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRangeBad_indexed = (x, _) => reverseRange;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefaultBad_indexed = (x, _) => oneItemDefault;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecificBad_indexed = (x, _) => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrderedBad_indexed = (x, _) => oneItemDefaultOrdered;
@@ -5614,9 +5670,9 @@ namespace LinqAF.Tests
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>();
             var lookup = new LookupDefaultEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();
@@ -5641,9 +5697,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault = x => groupByDefaultGood;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific = x => groupBySpecificGood;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookup = x => lookupGood;
-            Func<int, RangeEnumerable<int>> intToRange = x => rangeGood;
+            Func<int, RangeEnumerable> intToRange = x => rangeGood;
             Func<int, RepeatEnumerable<int>> intToRepeat = x => repeatGood;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRange = x => reverseRangeGood;
+            Func<int, ReverseRangeEnumerable> intToReverseRange = x => reverseRangeGood;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefault = x => oneItemDefaultGood;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecific = x => oneItemSpecificGood;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered = x => oneItemDefaultOrderedGood;
@@ -5655,9 +5711,9 @@ namespace LinqAF.Tests
             Func<int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefaultBad = x => groupByDefault;
             Func<int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecificBad = x => groupBySpecific;
             Func<int, LookupDefaultEnumerable<int, int>> intToLookupBad = x => lookup;
-            Func<int, RangeEnumerable<int>> intToRangeBad = x => range;
+            Func<int, RangeEnumerable> intToRangeBad = x => range;
             Func<int, RepeatEnumerable<int>> intToRepeatBad = x => repeat;
-            Func<int, ReverseRangeEnumerable<int>> intToReverseRangeBad = x => reverseRange;
+            Func<int, ReverseRangeEnumerable> intToReverseRangeBad = x => reverseRange;
             Func<int, OneItemDefaultEnumerable<int>> intToOneItemDefaultBad = x => oneItemDefault;
             Func<int, OneItemSpecificEnumerable<int>> intToOneItemSpecificBad = x => oneItemSpecific;
             Func<int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrderedBad = x => oneItemDefaultOrdered;
@@ -5669,9 +5725,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault = x => groupByDefaultGood;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific = x => groupBySpecificGood;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookup = x => lookupGood;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRange = x => rangeGood;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRange = x => rangeGood;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeat = x => repeatGood;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRange = x => reverseRangeGood;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRange = x => reverseRangeGood;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault = x => oneItemDefaultGood;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific = x => oneItemSpecificGood;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered = x => oneItemDefaultOrderedGood;
@@ -5683,9 +5739,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefaultBad = x => groupByDefault;
             Func<GroupingEnumerable<int, int>, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecificBad = x => groupBySpecific;
             Func<GroupingEnumerable<int, int>, LookupDefaultEnumerable<int, int>> groupedIntToLookupBad = x => lookup;
-            Func<GroupingEnumerable<int, int>, RangeEnumerable<int>> groupedIntToRangeBad = x => range;
+            Func<GroupingEnumerable<int, int>, RangeEnumerable> groupedIntToRangeBad = x => range;
             Func<GroupingEnumerable<int, int>, RepeatEnumerable<int>> groupedIntToRepeatBad = x => repeat;
-            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable<int>> groupedIntToReverseRangeBad = x => reverseRange;
+            Func<GroupingEnumerable<int, int>, ReverseRangeEnumerable> groupedIntToReverseRangeBad = x => reverseRange;
             Func<GroupingEnumerable<int, int>, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefaultBad = x => oneItemDefault;
             Func<GroupingEnumerable<int, int>, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecificBad = x => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrderedBad = x => oneItemDefaultOrdered;
@@ -5697,9 +5753,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefault_indexed = (x, _) => groupByDefaultGood;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecific_indexed = (x, _) => groupBySpecificGood;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookup_indexed = (x, _) => lookupGood;
-            Func<int, int, RangeEnumerable<int>> intToRange_indexed = (x, _) => rangeGood;
+            Func<int, int, RangeEnumerable> intToRange_indexed = (x, _) => rangeGood;
             Func<int, int, RepeatEnumerable<int>> intToRepeat_indexed = (x, _) => repeatGood;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRange_indexed = (x, _) => reverseRangeGood;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRange_indexed = (x, _) => reverseRangeGood;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefault_indexed = (x, _) => oneItemDefaultGood;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecific_indexed = (x, _) => oneItemSpecificGood;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrderedGood;
@@ -5711,9 +5767,9 @@ namespace LinqAF.Tests
             Func<int, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupByDefaultBad_indexed = (x, _) => groupByDefault;
             Func<int, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> intToGroupBySpecificBad_indexed = (x, _) => groupBySpecific;
             Func<int, int, LookupDefaultEnumerable<int, int>> intToLookupBad_indexed = (x, _) => lookup;
-            Func<int, int, RangeEnumerable<int>> intToRangeBad_indexed = (x, _) => range;
+            Func<int, int, RangeEnumerable> intToRangeBad_indexed = (x, _) => range;
             Func<int, int, RepeatEnumerable<int>> intToRepeatBad_indexed = (x, _) => repeat;
-            Func<int, int, ReverseRangeEnumerable<int>> intToReverseRangeBad_indexed = (x, _) => reverseRange;
+            Func<int, int, ReverseRangeEnumerable> intToReverseRangeBad_indexed = (x, _) => reverseRange;
             Func<int, int, OneItemDefaultEnumerable<int>> intToOneItemDefaultBad_indexed = (x, _) => oneItemDefault;
             Func<int, int, OneItemSpecificEnumerable<int>> intToOneItemSpecificBad_indexed = (x, _) => oneItemSpecific;
             Func<int, int, OneItemDefaultOrderedEnumerable<int>> intToOneItemDefaultOrderedBad_indexed = (x, _) => oneItemDefaultOrdered;
@@ -5725,9 +5781,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefault_indexed = (x, _) => groupByDefaultGood;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecific_indexed = (x, _) => groupBySpecificGood;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookup_indexed = (x, _) => lookupGood;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRange_indexed = (x, _) => rangeGood;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRange_indexed = (x, _) => rangeGood;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeat_indexed = (x, _) => repeatGood;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRange_indexed = (x, _) => reverseRangeGood;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRange_indexed = (x, _) => reverseRangeGood;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefault_indexed = (x, _) => oneItemDefaultGood;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecific_indexed = (x, _) => oneItemSpecificGood;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrdered_indexed = (x, _) => oneItemDefaultOrderedGood;
@@ -5739,9 +5795,9 @@ namespace LinqAF.Tests
             Func<GroupingEnumerable<int, int>, int, GroupByDefaultEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupByDefaultBad_indexed = (x, _) => groupByDefault;
             Func<GroupingEnumerable<int, int>, int, GroupBySpecificEnumerable<int, int, int, IdentityEnumerable<int, int[], ArrayBridger<int>, ArrayEnumerator<int>>, ArrayEnumerator<int>>> groupedIntToGroupBySpecificBad_indexed = (x, _) => groupBySpecific;
             Func<GroupingEnumerable<int, int>, int, LookupDefaultEnumerable<int, int>> groupedIntToLookupBad_indexed = (x, _) => lookup;
-            Func<GroupingEnumerable<int, int>, int, RangeEnumerable<int>> groupedIntToRangeBad_indexed = (x, _) => range;
+            Func<GroupingEnumerable<int, int>, int, RangeEnumerable> groupedIntToRangeBad_indexed = (x, _) => range;
             Func<GroupingEnumerable<int, int>, int, RepeatEnumerable<int>> groupedIntToRepeatBad_indexed = (x, _) => repeat;
-            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable<int>> groupedIntToReverseRangeBad_indexed = (x, _) => reverseRange;
+            Func<GroupingEnumerable<int, int>, int, ReverseRangeEnumerable> groupedIntToReverseRangeBad_indexed = (x, _) => reverseRange;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultEnumerable<int>> groupedIntToOneItemDefaultBad_indexed = (x, _) => oneItemDefault;
             Func<GroupingEnumerable<int, int>, int, OneItemSpecificEnumerable<int>> groupedIntToOneItemSpecificBad_indexed = (x, _) => oneItemSpecific;
             Func<GroupingEnumerable<int, int>, int, OneItemDefaultOrderedEnumerable<int>> groupedIntToOneItemDefaultOrderedBad_indexed = (x, _) => oneItemDefaultOrdered;
@@ -6367,7 +6423,7 @@ namespace LinqAF.Tests
         public void Simple()
         {
             var e = new[] { 1, 2, 3 };
-            Func<int, RangeEnumerable<int>> f = i => Enumerable.Range(i, 3);
+            Func<int, RangeEnumerable> f = i => Enumerable.Range(i, 3);
             var asSelectMany = e.SelectMany(f);
 
             Assert.IsTrue(asSelectMany.GetType().IsValueType);

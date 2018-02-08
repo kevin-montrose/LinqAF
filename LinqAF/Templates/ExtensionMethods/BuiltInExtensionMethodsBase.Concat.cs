@@ -144,5 +144,45 @@ namespace LinqAF
                     LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(firstBridge), ref second);
         }
+
+        // RangeEnumerable
+
+        [DoNotInject]
+        public ConcatEnumerable<int, BuiltInEnumerable<int>, BuiltInEnumerator<int>, RangeEnumerable, RangeEnumerator> Concat(
+            BuiltInEnumerable<int> first, 
+            RangeEnumerable second)
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return
+                CommonImplementation.ConcatImpl<
+                    int,
+                    BuiltInEnumerable<int>,
+                    BuiltInEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(RefLocal(firstBridge), ref second);
+        }
+
+        // ReverseRangeEnumerable
+
+        [DoNotInject]
+        public ConcatEnumerable<int, BuiltInEnumerable<int>, BuiltInEnumerator<int>, ReverseRangeEnumerable, ReverseRangeEnumerator> Concat(
+            BuiltInEnumerable<int> first,
+            ReverseRangeEnumerable second)
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return
+                CommonImplementation.ConcatImpl<
+                    int,
+                    BuiltInEnumerable<int>,
+                    BuiltInEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(RefLocal(firstBridge), ref second);
+        }
     }
 }

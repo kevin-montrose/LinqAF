@@ -41,6 +41,7 @@ namespace LinqAF.Benchmark
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Aggregate.OneParam), typeof(Aggregate.TwoParams), typeof(Aggregate.ThreeParams) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(All.OneParam) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Any.NoParams), typeof(Any.OneParam) });
+                Run(outputDir, slower, allocatedMore, new[] { typeof(Append.NoParams) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Average.NonNull), typeof(Average.Nullable), typeof(Average.ProjectionNonNull), typeof(Average.ProjectionNullable) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Cast.UnderlyingTyped), typeof(Cast.UnderlyingUntyped) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Concat.NoParams) });
@@ -66,6 +67,7 @@ namespace LinqAF.Benchmark
                 Run(outputDir, slower, allocatedMore, new[] { typeof(OfType.NoParams) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(OrderBy.OneParam), typeof(OrderBy.TwoParams) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(OrderByDescending.OneParam), typeof(OrderByDescending.TwoParams) });
+                Run(outputDir, slower, allocatedMore, new[] { typeof(Prepend.NoParams) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Range) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Repeat) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Reverse.UnderlyingSized), typeof(Reverse.UnderlyingUnsized) });
@@ -75,14 +77,17 @@ namespace LinqAF.Benchmark
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Benchmarks.Single.NoParams), typeof(Benchmarks.Single.OneParam) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(SingleOrDefault.NoParams), typeof(SingleOrDefault.OneParam) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Skip.OneParam) });
+                // No released .NET Framework has SkipLast yet
                 Run(outputDir, slower, allocatedMore, new[] { typeof(SkipWhile.OneParamNoIndex), typeof(SkipWhile.OneParamIndexed) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Sum.NonNull), typeof(Sum.Nullable), typeof(Sum.Projection) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Take.OneParam) });
+                // No released .NET Framework has TakeLast yet
                 Run(outputDir, slower, allocatedMore, new[] { typeof(TakeWhile.OneParamNoIndex), typeof(TakeWhile.OneParamIndexed) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(ThenBy.OneParam), typeof(ThenBy.TwoParams) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(ThenByDescending.OneParam), typeof(ThenByDescending.TwoParams) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(ToArray.UnderlyingSized), typeof(ToArray.UnderlyingUnsized) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(ToDictionary.OneParamSized), typeof(ToDictionary.OneParamSized_Comparable), typeof(ToDictionary.OneParamUnsized), typeof(ToDictionary.OneParamUnsized_Comparable), typeof(ToDictionary.TwoParamSized), typeof(ToDictionary.TwoParamSized_Comparable), typeof(ToDictionary.TwoParamUnsized), typeof(ToDictionary.TwoParamUnsized_Comparable) });
+                // No released .NET Framework has ToHashSet yet
                 Run(outputDir, slower, allocatedMore, new[] { typeof(ToList.UnderlyingSized), typeof(ToList.UnderlyingUnsized) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(ToLookup.KeySelector), typeof(ToLookup.KeySelector_Comparer), typeof(ToLookup.KeySelector_ElementSelector), typeof(ToLookup.KeySelector_ElementSelector_Comparer) });
                 Run(outputDir, slower, allocatedMore, new[] { typeof(Union.OneParam), typeof(Union.TwoParams) });
@@ -166,7 +171,7 @@ namespace LinqAF.Benchmark
             config = config.With(Job.RyuJitX64.WithGcConcurrent(true).WithGcServer(true));
             config = config.With(Job.LegacyJitX86.WithGcConcurrent(true).WithGcServer(true));
             config = config.With(DefaultConfig.Instance.GetLoggers().ToArray());
-                
+            
             var ret = new Dictionary<Type, Summary>();
 
             foreach (var bench in benchmarks)

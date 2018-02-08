@@ -1,16 +1,51 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TestHelpers;
+using System.Reflection;
+using System.Text;
 
 namespace LinqAF.Tests
 {
     [TestClass]
     public class SkipTests
     {
+        [TestMethod]
+        public void InstanceExtensionNoOverlap()
+        {
+            Dictionary<MethodInfo, List<MethodInfo>> instOverlaps, extOverlaps;
+            Helper.GetOverlappingMethods(typeof(Impl.ISkip<,,>), out instOverlaps, out extOverlaps);
+
+            if (instOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in instOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+
+            if (extOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in extOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+        }
+
         [TestMethod]
         public void Universal()
         {
@@ -90,6 +125,27 @@ namespace LinqAF.Tests
                     typeof(LookupSpecificEnumerable<,>)
                );
             }
+
+            // skip, last
+            {
+                Helper.ForEachEnumerableExpression(
+                    new object[0],
+                    new[] { 1, 2, 3 },
+                    res =>
+                    {
+                        Assert.AreEqual(2, res.Count);
+                        Assert.AreEqual(1, res[0]);
+                        Assert.AreEqual(2, res[1]);
+                    },
+                    "(_, a) => a.SkipLast(1)",
+                    typeof(EmptyEnumerable<>),
+                    typeof(EmptyOrderedEnumerable<>),
+                    typeof(GroupByDefaultEnumerable<,,,,>),
+                    typeof(GroupBySpecificEnumerable<,,,,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
+                );
+            }
         }
 
         class _IntComparer : IEqualityComparer<int>
@@ -163,6 +219,7 @@ namespace LinqAF.Tests
                 Assert.IsTrue(range.Skip(1).SequenceEqual(new[] { 2, 3, 4, 5 }));
                 Assert.IsTrue(range.SkipWhile(x => x <= 1).SequenceEqual(new[] { 2, 3, 4, 5 }));
                 Assert.IsTrue(range.SkipWhile((x, ix) => x <= 1).SequenceEqual(new[] { 2, 3, 4, 5 }));
+                Assert.IsTrue(range.SkipLast(1).SequenceEqual(new[] { 1, 2, 3, 4 }));
             }
 
             // repeat
@@ -170,6 +227,7 @@ namespace LinqAF.Tests
                 Assert.IsTrue(repeat.Skip(1).SequenceEqual(new[] { "foo", "foo", "foo", "foo", }));
                 Assert.IsTrue(repeat.SkipWhile(x => x == "foo").SequenceEqual(new string[0]));
                 Assert.IsTrue(repeat.SkipWhile((x, ix) => ix < 1).SequenceEqual(new[] { "foo", "foo", "foo", "foo", }));
+                Assert.IsTrue(repeat.SkipLast(1).SequenceEqual(new[] { "foo", "foo", "foo", "foo" }));
             }
 
             // reverseRange
@@ -177,6 +235,7 @@ namespace LinqAF.Tests
                 Assert.IsTrue(reverseRange.Skip(1).SequenceEqual(new[] { 4, 3, 2, 1 }));
                 Assert.IsTrue(reverseRange.SkipWhile(x => x >= 5).SequenceEqual(new[] { 4, 3, 2, 1 }));
                 Assert.IsTrue(reverseRange.SkipWhile((x, ix) => ix < 1).SequenceEqual(new[] { 4, 3, 2, 1 }));
+                Assert.IsTrue(reverseRange.SkipLast(1).SequenceEqual(new[] { 5, 4, 3, 2 }));
             }
 
             // oneItemDefault
@@ -361,9 +420,9 @@ namespace LinqAF.Tests
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var lookupDefault = new LookupDefaultEnumerable<int, int>();
             var lookupSpecific = new LookupSpecificEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();
@@ -662,6 +721,132 @@ namespace LinqAF.Tests
             Assert.AreEqual(1, res[0]);
             Assert.AreEqual(2, res[1]);
             Assert.AreEqual(3, res[2]);
+        }
+
+
+        [TestMethod]
+        public void Last()
+        {
+            var es = new int[][]
+            {
+                new [] { 1, 2, 3 },
+                new [] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
+            };
+
+            foreach(var e in es)
+            {
+                // simple
+                {
+                    var asSkip = e.SkipLast(1);
+
+                    Assert.IsTrue(asSkip.GetType().IsValueType);
+
+                    var res = new List<int>();
+                    foreach (var item in asSkip)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.AreEqual(e.Length - 1, res.Count);
+                    for(var i = 0; i < res.Count; i++)
+                    {
+                        Assert.AreEqual(e[i], res[i]);
+                    }
+                }
+
+                // none
+                {
+                    var asSkip = e.SkipLast(0);
+
+                    Assert.IsTrue(asSkip.GetType().IsValueType);
+
+                    var res = new List<int>();
+                    foreach (var item in asSkip)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.AreEqual(e.Length, res.Count);
+                    Assert.IsTrue(e.SequenceEqual(res));
+                }
+
+                // all
+                {
+                    var asSkip = e.SkipLast(e.Length);
+
+                    Assert.IsTrue(asSkip.GetType().IsValueType);
+
+                    var res = new List<int>();
+                    foreach (var item in asSkip)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.AreEqual(0, res.Count);
+                }
+
+                // over
+                {
+                    var asSkip = e.SkipLast(e.Length * 2);
+
+                    Assert.IsTrue(asSkip.GetType().IsValueType);
+
+                    var res = new List<int>();
+                    foreach (var item in asSkip)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.AreEqual(0, res.Count);
+                }
+
+                // negative
+                {
+                    var asSkip = e.SkipLast(-100);
+
+                    Assert.IsTrue(asSkip.GetType().IsValueType);
+
+                    var res = new List<int>();
+                    foreach (var item in asSkip)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.AreEqual(e.Length, res.Count);
+                    Assert.IsTrue(e.SequenceEqual(res));
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ChainedSkipLast()
+        {
+            // under
+            {
+                var e = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                var shouldMatch = e.SkipLast(3).AsEnumerable().SkipLast(2).ToList();
+                var actually = e.SkipLast(3).SkipLast(2).ToList();
+
+                Assert.IsTrue(shouldMatch.SequenceEqual(actually));
+            }
+
+            // exact
+            {
+                var e = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                var shouldMatch = e.SkipLast(3).AsEnumerable().SkipLast(7).ToList();
+                var actually = e.SkipLast(3).SkipLast(7).ToList();
+
+                Assert.IsTrue(shouldMatch.SequenceEqual(actually));
+            }
+
+            // over
+            {
+                var e = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                var shouldMatch = e.SkipLast(3).AsEnumerable().SkipLast(15).ToList();
+                var actually = e.SkipLast(3).SkipLast(15).ToList();
+
+                Assert.IsTrue(shouldMatch.SequenceEqual(actually));
+            }
         }
     }
 }

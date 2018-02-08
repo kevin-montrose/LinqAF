@@ -13,6 +13,50 @@ namespace LinqAF.Impl
             TLeftItem,
             TLeftEnumerable,
             TLeftEnumerator,
+            int,
+            RangeEnumerable,
+            RangeEnumerator
+        > GroupJoin<TOutItem, TKeyItem>(RangeEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<int, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, int>, TOutItem> resultSelector);
+
+        GroupJoinSpecificEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            int,
+            RangeEnumerable,
+            RangeEnumerator
+        > GroupJoin<TOutItem, TKeyItem>(RangeEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<int, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, int>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer);
+
+        GroupJoinDefaultEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            int,
+            ReverseRangeEnumerable,
+            ReverseRangeEnumerator
+        > GroupJoin<TOutItem, TKeyItem>(ReverseRangeEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<int, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, int>, TOutItem> resultSelector);
+
+        GroupJoinSpecificEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            int,
+            ReverseRangeEnumerable,
+            ReverseRangeEnumerator
+        > GroupJoin<TOutItem, TKeyItem>(ReverseRangeEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<int, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, int>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer);
+
+        GroupJoinDefaultEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
             TRightItem,
             BoxedEnumerable<TRightItem>,
             BoxedEnumerator<TRightItem>
@@ -1468,39 +1512,6 @@ namespace LinqAF.Impl
             where TOrderByComparer : struct, IStructComparer<TRightItem, TOrderByKey>;
 
         GroupJoinDefaultEnumerable<
-           TOutItem,
-           TKeyItem,
-           TLeftItem,
-           TLeftEnumerable,
-           TLeftEnumerator,
-           TRightItem,
-           RangeEnumerable<TRightItem>,
-           RangeEnumerator<TRightItem>
-        > GroupJoin<TOutItem, TKeyItem, TRightItem>(
-            RangeEnumerable<TRightItem> inner,
-            Func<TLeftItem, TKeyItem> outerKeySelector,
-            Func<TRightItem, TKeyItem> innerKeySelector,
-            Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector
-        );
-
-        GroupJoinSpecificEnumerable<
-           TOutItem,
-           TKeyItem,
-           TLeftItem,
-           TLeftEnumerable,
-           TLeftEnumerator,
-           TRightItem,
-           RangeEnumerable<TRightItem>,
-           RangeEnumerator<TRightItem>
-        > GroupJoin<TOutItem, TKeyItem, TRightItem>(
-            RangeEnumerable<TRightItem> inner,
-            Func<TLeftItem, TKeyItem> outerKeySelector,
-            Func<TRightItem, TKeyItem> innerKeySelector,
-            Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector,
-            IEqualityComparer<TKeyItem> comparer
-        );
-
-        GroupJoinDefaultEnumerable<
           TOutItem,
           TKeyItem,
           TLeftItem,
@@ -2599,39 +2610,6 @@ namespace LinqAF.Impl
             where TBridgeType : class;
 
         GroupJoinDefaultEnumerable<
-          TOutItem,
-          TKeyItem,
-          TLeftItem,
-          TLeftEnumerable,
-          TLeftEnumerator,
-          TRightItem,
-          ReverseRangeEnumerable<TRightItem>,
-          ReverseRangeEnumerator<TRightItem>
-        > GroupJoin<TOutItem, TKeyItem, TRightItem>(
-            ReverseRangeEnumerable<TRightItem> inner,
-            Func<TLeftItem, TKeyItem> outerKeySelector,
-            Func<TRightItem, TKeyItem> innerKeySelector,
-            Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector
-        );
-
-        GroupJoinSpecificEnumerable<
-          TOutItem,
-          TKeyItem,
-          TLeftItem,
-          TLeftEnumerable,
-          TLeftEnumerator,
-          TRightItem,
-          ReverseRangeEnumerable<TRightItem>,
-          ReverseRangeEnumerator<TRightItem>
-        > GroupJoin<TOutItem, TKeyItem, TRightItem>(
-            ReverseRangeEnumerable<TRightItem> inner,
-            Func<TLeftItem, TKeyItem> outerKeySelector,
-            Func<TRightItem, TKeyItem> innerKeySelector,
-            Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector,
-            IEqualityComparer<TKeyItem> comparer
-        );
-
-        GroupJoinDefaultEnumerable<
             TOutItem,
             TKeyItem,
             TLeftItem,
@@ -2718,5 +2696,111 @@ namespace LinqAF.Impl
             OneItemSpecificOrderedEnumerable<TRightItem>,
             OneItemSpecificOrderedEnumerator<TRightItem>
         > GroupJoin<TOutItem, TKeyItem, TRightItem>(OneItemSpecificOrderedEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer);
+        
+        GroupJoinDefaultEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TRightItem,
+            SkipLastEnumerable<TRightItem, TSkipEnumerable, TSkipEnumerator>,
+            SkipLastEnumerator<TRightItem, TSkipEnumerator>
+        > GroupJoin<TOutItem, TKeyItem, TRightItem, TSkipEnumerable, TSkipEnumerator>(SkipLastEnumerable<TRightItem, TSkipEnumerable, TSkipEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+            where TSkipEnumerable : struct, IStructEnumerable<TRightItem, TSkipEnumerator>
+            where TSkipEnumerator : struct, IStructEnumerator<TRightItem>;
+
+        GroupJoinSpecificEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TRightItem,
+            SkipLastEnumerable<TRightItem, TSkipEnumerable, TSkipEnumerator>,
+            SkipLastEnumerator<TRightItem, TSkipEnumerator>
+        > GroupJoin<TOutItem, TKeyItem, TRightItem, TSkipEnumerable, TSkipEnumerator>(SkipLastEnumerable<TRightItem, TSkipEnumerable, TSkipEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+            where TSkipEnumerable : struct, IStructEnumerable<TRightItem, TSkipEnumerator>
+            where TSkipEnumerator : struct, IStructEnumerator<TRightItem>;
+        
+        GroupJoinDefaultEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TRightItem,
+            TakeLastEnumerable<TRightItem, TTakeEnumerable, TTakeEnumerator>,
+            TakeLastEnumerator<TRightItem, TTakeEnumerator>
+        > GroupJoin<TOutItem, TKeyItem, TRightItem, TTakeEnumerable, TTakeEnumerator>(TakeLastEnumerable<TRightItem, TTakeEnumerable, TTakeEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+            where TTakeEnumerable : struct, IStructEnumerable<TRightItem, TTakeEnumerator>
+            where TTakeEnumerator : struct, IStructEnumerator<TRightItem>;
+
+        GroupJoinSpecificEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TRightItem,
+            TakeLastEnumerable<TRightItem, TTakeEnumerable, TTakeEnumerator>,
+            TakeLastEnumerator<TRightItem, TTakeEnumerator>
+        > GroupJoin<TOutItem, TKeyItem, TRightItem, TTakeEnumerable, TTakeEnumerator>(TakeLastEnumerable<TRightItem, TTakeEnumerable, TTakeEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+            where TTakeEnumerable : struct, IStructEnumerable<TRightItem, TTakeEnumerator>
+            where TTakeEnumerator : struct, IStructEnumerator<TRightItem>;
+
+        GroupJoinDefaultEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TRightItem,
+            AppendEnumerable<TRightItem, TAppendEnumerable, TAppendEnumerator>,
+            AppendEnumerator<TRightItem, TAppendEnumerator>
+        > GroupJoin<TOutItem, TKeyItem, TRightItem, TAppendEnumerable, TAppendEnumerator>(AppendEnumerable<TRightItem, TAppendEnumerable, TAppendEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+            where TAppendEnumerable : struct, IStructEnumerable<TRightItem, TAppendEnumerator>
+            where TAppendEnumerator : struct, IStructEnumerator<TRightItem>;
+
+        GroupJoinSpecificEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TRightItem,
+            AppendEnumerable<TRightItem, TAppendEnumerable, TAppendEnumerator>,
+            AppendEnumerator<TRightItem, TAppendEnumerator>
+        > GroupJoin<TOutItem, TKeyItem, TRightItem, TAppendEnumerable, TAppendEnumerator>(AppendEnumerable<TRightItem, TAppendEnumerable, TAppendEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+            where TAppendEnumerable : struct, IStructEnumerable<TRightItem, TAppendEnumerator>
+            where TAppendEnumerator : struct, IStructEnumerator<TRightItem>;
+
+        //
+
+        GroupJoinDefaultEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TRightItem,
+            PrependEnumerable<TRightItem, TPrependEnumerable, TPrependEnumerator>,
+            PrependEnumerator<TRightItem, TPrependEnumerator>
+        > GroupJoin<TOutItem, TKeyItem, TRightItem, TPrependEnumerable, TPrependEnumerator>(PrependEnumerable<TRightItem, TPrependEnumerable, TPrependEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector)
+            where TPrependEnumerable : struct, IStructEnumerable<TRightItem, TPrependEnumerator>
+            where TPrependEnumerator : struct, IStructEnumerator<TRightItem>;
+
+        GroupJoinSpecificEnumerable<
+            TOutItem,
+            TKeyItem,
+            TLeftItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TRightItem,
+            PrependEnumerable<TRightItem, TPrependEnumerable, TPrependEnumerator>,
+            PrependEnumerator<TRightItem, TPrependEnumerator>
+        > GroupJoin<TOutItem, TKeyItem, TRightItem, TPrependEnumerable, TPrependEnumerator>(PrependEnumerable<TRightItem, TPrependEnumerable, TPrependEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, GroupedEnumerable<TKeyItem, TRightItem>, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+            where TPrependEnumerable : struct, IStructEnumerable<TRightItem, TPrependEnumerator>
+            where TPrependEnumerator : struct, IStructEnumerator<TRightItem>;
     }
 }

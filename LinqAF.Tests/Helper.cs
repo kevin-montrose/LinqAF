@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.IO;
 using Microsoft.CodeAnalysis;
 using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace TestHelpers
 {
@@ -69,6 +70,259 @@ namespace TestHelpers
             return mtd;
         }
 
+        static Dictionary<Type, List<MethodInfo>> GetInstanceMethods(Type forInterface, List<Type> forEnumerables)
+        {
+            var instanceMtds = new Dictionary<Type, List<MethodInfo>>();
+
+            foreach (var mtd in forInterface.GetMethods())
+            {
+                var mtdGs = mtd.IsGenericMethod ? mtd.GetGenericArguments() : Type.EmptyTypes;
+                var mtdPs = mtd.GetParameters();
+                
+                foreach (var e in forEnumerables)
+                {
+                    var insts = e.GetMethods();
+                    var sameName = insts.Where(m => m.Name == mtd.Name).ToArray();
+                    var withParams = sameName.Select(m => new { Parameters = m.GetParameters(), Method = m }).ToArray();
+                    var sameArity = withParams.Where(m => m.Parameters.Length == mtdPs.Length);
+                    var sameGenArity = sameArity.Where(m => (m.Method.IsGenericMethod ? m.Method.GetGenericArguments().Length : 0) == mtdGs.Length).ToArray();
+
+                    var equivParams =
+                            sameGenArity.OrderByDescending(
+                                t =>
+                                {
+                                    var ret = 0;
+                                    var m = t.Method;
+
+                                    if (m.ReturnType == mtd.ReturnType || Equals(m.ReturnType, mtd.ReturnType))
+                                    {
+                                        ret++;
+                                    }
+
+                                    var mPs = t.Parameters;
+                                    for (var i = 0; i < mPs.Length; i++)
+                                    {
+                                        if (Equivalent(mPs[i], mtdPs[i]))
+                                        {
+                                            ret++;
+                                        }
+                                        else
+                                        {
+                                            var isDelegate =
+                                                mPs[i].ParameterType.IsGenericType &&
+                                                (mPs[i].ParameterType.Name == "Func" ||
+                                                 mPs[i].ParameterType.Name == "Action");
+
+                                            if (isDelegate)
+                                            {
+                                                var mPsGenArgs = mPs[i].ParameterType.GetGenericArguments();
+                                                var mtdPsGenArgs = mtdPs[i].ParameterType.GetGenericArguments();
+
+                                                var allMatching = true;
+
+                                                for (var j = 0; j < mPsGenArgs.Length; j++)
+                                                {
+                                                    if (!Equivalent(mPsGenArgs[j], mtdPsGenArgs[j]))
+                                                    {
+                                                        allMatching = false;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (allMatching)
+                                                {
+                                                    ret++;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    return ret;
+                                }
+                            )
+                            .ToArray();
+
+                    var matching = equivParams.FirstOrDefault();
+                    if (matching == null) continue;
+
+                    List<MethodInfo> forType;
+                    if(!instanceMtds.TryGetValue(e, out forType))
+                    {
+                        instanceMtds[e] = forType = new List<MethodInfo>();
+                    }
+                    forType.Add(matching.Method);
+                }
+            }
+
+            return instanceMtds;
+        }
+
+        public static void GetOverlappingMethods(
+            Type @interface, 
+            out Dictionary<MethodInfo, List<MethodInfo>> instOverlaps, 
+            out Dictionary<MethodInfo, List<MethodInfo>> extOverlaps,
+            int split = 1,
+            int take = 0
+        )
+        {
+            var forEnumerables = AllEnumerables(true).Where((_, ix) => ix % split == take).ToList();
+            var extensionMtds = GetExtensionMethods(@interface, forEnumerables);
+            var instanceMtds = GetInstanceMethods(@interface, forEnumerables);
+            
+            // instance methods!
+            {
+                instOverlaps = new Dictionary<MethodInfo, List<MethodInfo>>();
+
+                foreach (var kv in instanceMtds)
+                {
+                    var inst = kv.Key;
+
+                    foreach (var instMtd in kv.Value)
+                    {
+                        List<MethodInfo> potentialExt;
+                        if (!extensionMtds.TryGetValue(inst, out potentialExt)) continue;
+
+                        var instParams = instMtd.GetParameters();
+
+                        var sameArity = potentialExt.Where(m => m.GetParameters().Length == instParams.Length + 1);
+
+                        var overlaps = new List<MethodInfo>();
+
+                        foreach (var overlapExtMtd in sameArity)
+                        {
+                            var overlapExtMtdParams = overlapExtMtd.GetParameters();
+
+                            var areSame = true;
+
+                            for (var i = 0; i < instParams.Length; i++)
+                            {
+                                var instP = instParams[i];
+                                var extP = overlapExtMtdParams[i + 1];
+
+                                if (!Equivalent(instP, extP))
+                                {
+                                    areSame = false;
+                                    break;
+                                }
+                            }
+
+                            if (areSame)
+                            {
+                                overlaps.Add(overlapExtMtd);
+                            }
+                        }
+
+                        if (overlaps.Count > 0)
+                        {
+                            instOverlaps[instMtd] = overlaps;
+                        }
+                    }
+                }
+            }
+
+            // extension methods!
+            {
+                extOverlaps = new Dictionary<MethodInfo, List<MethodInfo>>();
+
+                foreach (var kv in extensionMtds)
+                {
+                    var ext = kv.Key;
+
+                    foreach (var extMtd in kv.Value)
+                    {
+                        List<MethodInfo> potentialInst;
+                        if (!instanceMtds.TryGetValue(ext, out potentialInst)) continue;
+
+                        var extParams = extMtd.GetParameters();
+
+                        var sameArity = potentialInst.Where(m => m.GetParameters().Length + 1 == extParams.Length);
+
+                        var overlaps = new List<MethodInfo>();
+
+                        foreach (var overlapInstMtd in sameArity)
+                        {
+                            var overlapInstMtdParams = overlapInstMtd.GetParameters();
+
+                            var areSame = true;
+
+                            for (var i = 0; i < overlapInstMtdParams.Length; i++)
+                            {
+                                var instP = overlapInstMtdParams[i];
+                                var extP = extParams[i + 1];
+
+                                if (!Equivalent(instP, extP))
+                                {
+                                    areSame = false;
+                                    break;
+                                }
+                            }
+
+                            if (areSame)
+                            {
+                                overlaps.Add(overlapInstMtd);
+                            }
+                        }
+
+                        if (overlaps.Count > 0)
+                        {
+                            extOverlaps[extMtd] = overlaps;
+                        }
+                    }
+                }
+            }
+        }
+
+        class TypeStringEqualityComparer : IEqualityComparer<Type>
+        {
+            public bool Equals(Type x, Type y)
+            => x.ToString() == y.ToString();
+
+            public int GetHashCode(Type obj)
+            => obj.ToString().GetHashCode();
+        }
+
+        static Dictionary<Type, List<MethodInfo>> GetExtensionMethods(Type interfaceType, List<Type> forEnumerables)
+        {
+            var extensionMethods = new Dictionary<Type, List<MethodInfo>>(new TypeStringEqualityComparer());
+
+            var mtdNames = interfaceType.GetMethods().Select(s => s.Name).ToHashSet();
+            var enumerableNames = forEnumerables.Select(e => e.Name).ToList();
+
+            var extensionClasses = 
+                typeof(LinqAF.IStructEnumerable<,>).Assembly
+                    .GetTypes()
+                    .Where(t => t.IsPublic && t.IsClass && t.IsAbstract && t.IsSealed && t.GetCustomAttributes<ExtensionAttribute>() != null)
+                    .ToArray();
+
+            var correctlyNamedMethods =
+                extensionClasses
+                    .SelectMany(m => m.GetMethods(BindingFlags.Public | BindingFlags.Static))
+                    .Where(m => m.GetCustomAttribute<ExtensionAttribute>() != null && mtdNames.Contains(m.Name))
+                    .ToArray();
+
+            var finalMethods =
+                correctlyNamedMethods
+                    .Select(s => new { Parameters = s.GetParameters().Select(p => p.ParameterType).ToArray(), Method = s })
+                    .Where(t => forEnumerables.Contains(t.Parameters[0]))
+                    .ToArray();
+
+            foreach(var t in finalMethods)
+            {
+                var @this = t.Parameters[0];
+
+                if (!forEnumerables.Contains(@this)) continue;
+
+                List<MethodInfo> on; 
+                if(!extensionMethods.TryGetValue(@this, out on))
+                {
+                    extensionMethods[@this] = on = new List<MethodInfo>();
+                }
+                on.Add(t.Method);
+            }
+
+            return extensionMethods;
+        }
+
         public static IEnumerable<Type> AllEnumerables(bool includeWeirdOnes = false)
         {
             if (includeWeirdOnes && AllEnumerables_IncludingWeird != null) return AllEnumerables_IncludingWeird;
@@ -96,6 +350,8 @@ namespace TestHelpers
                     if (e == typeof(GroupingEnumerable<,>)) continue;
                     if (e == typeof(GroupByDefaultEnumerable<,,,,>)) continue;
                     if (e == typeof(GroupBySpecificEnumerable<,,,,>)) continue;
+                    if (e == typeof(RangeEnumerable)) continue;
+                    if (e == typeof(ReverseRangeEnumerable)) continue;
                 }
 
                 ret.Add(e);
@@ -251,11 +507,8 @@ namespace TestHelpers
             return ret;
         }
 
-        static bool Equivalent(ParameterInfo interfaceParam, ParameterInfo concreteParam)
+        static bool Equivalent(Type iType, Type cType)
         {
-            var iType = interfaceParam.ParameterType;
-            var cType = concreteParam.ParameterType;
-
             if (iType.ContainsGenericParameters && !cType.ContainsGenericParameters) return false;
             if (!iType.ContainsGenericParameters && cType.ContainsGenericParameters) return false;
 
@@ -263,6 +516,23 @@ namespace TestHelpers
             {
                 return iType == cType;
             }
+
+            if (iType.IsGenericParameter && cType.IsGenericParameter) return true;
+
+            if (iType.IsArray || cType.IsArray)
+            {
+                if (iType.IsArray != cType.IsArray) return false;
+
+                var iElem = iType.GetElementType();
+                var cElem = cType.GetElementType();
+
+                return Equivalent(iElem, cElem);
+            }
+
+            var iGenTypeDef = iType.IsGenericType && !iType.IsGenericTypeDefinition ? iType.GetGenericTypeDefinition() : iType;
+            var cGenTypeDef = cType.IsGenericType && !cType.IsGenericTypeDefinition ? cType.GetGenericTypeDefinition() : cType;
+
+            if (iGenTypeDef != cGenTypeDef) return false;
 
             var iGenParams = GetGenericArguments(iType);
             var cGenParams = GetGenericArguments(cType);
@@ -305,8 +575,17 @@ namespace TestHelpers
             return true;
         }
 
+        static bool Equivalent(ParameterInfo interfaceParam, ParameterInfo concreteParam)
+        {
+            var iType = interfaceParam.ParameterType;
+            var cType = concreteParam.ParameterType;
+
+            return Equivalent(iType, cType);
+        }
+
         public static IEnumerable<dynamic> GetMalformedEnumerables<T>()
         {
+            yield return new AppendEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
             yield return new BoxedEnumerable<T>();
             yield return new CastEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>();
             yield return new ConcatEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
@@ -332,11 +611,14 @@ namespace TestHelpers
             yield return new JoinSpecificEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>();
             // skipping Lookup
             yield return new OfTypeEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>();
+            yield return new OneItemDefaultEnumerable<T>();
+            yield return new OneItemSpecificEnumerable<T>();
             yield return new OrderByEnumerable<T, int, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, DefaultAscending<T, int>>();
-            yield return new RangeEnumerable<T>();
+            yield return new PrependEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
+            // skipping Range
             yield return new RepeatEnumerable<T>();
             yield return new ReverseEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
-            yield return new ReverseRangeEnumerable<T>();
+            // skipping ReverseRange
             yield return new SelectEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>();
             yield return new SelectIndexedEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>();
             yield return new SelectManyEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
@@ -352,9 +634,11 @@ namespace TestHelpers
             yield return new SkipEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
             yield return new SkipWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
             yield return new SkipWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
+            yield return new SkipLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
             yield return new TakeEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
             yield return new TakeWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
             yield return new TakeWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
+            yield return new TakeLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
             yield return new UnionDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
             yield return new UnionSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
             yield return new WhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>();
@@ -372,6 +656,7 @@ namespace TestHelpers
             var patterns =
                 new[]
                 {
+                    ActionTemplate<AppendEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<BoxedEnumerable<T>>(pattern, ignore),
                     ActionTemplate<CastEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>>(pattern, ignore),
                     ActionTemplate<ConcatEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
@@ -397,11 +682,14 @@ namespace TestHelpers
                     ActionTemplate<JoinSpecificEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>>(pattern, ignore),
                     // skipping Lookup
                     ActionTemplate<OfTypeEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>>(pattern, ignore),
+                    ActionTemplate<OneItemDefaultEnumerable<T>>(pattern, ignore),
+                    ActionTemplate<OneItemSpecificEnumerable<T>>(pattern, ignore),
                     ActionTemplate<OrderByEnumerable<T, int, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, DefaultAscending<T, int>>>(pattern, ignore),
-                    ActionTemplate<RangeEnumerable<T>>(pattern, ignore),
+                    ActionTemplate<PrependEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
+                    // skipping Range
                     ActionTemplate<RepeatEnumerable<T>>(pattern, ignore),
                     ActionTemplate<ReverseEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<ReverseRangeEnumerable<T>>(pattern, ignore),
+                    // skipping ReverseRange
                     ActionTemplate<SelectEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>>(pattern, ignore),
                     ActionTemplate<SelectIndexedEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>>(pattern, ignore),
                     ActionTemplate<SelectManyEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
@@ -417,9 +705,11 @@ namespace TestHelpers
                     ActionTemplate<SkipEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<SkipWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<SkipWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
+                    ActionTemplate<SkipLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<TakeEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<TakeWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<TakeWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
+                    ActionTemplate<TakeLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<WhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<UnionDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<UnionSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
@@ -427,60 +717,6 @@ namespace TestHelpers
                     ActionTemplate<WhereSelectEnumerable<T, object, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, SinglePredicate<object>, SingleProjection<T, object>>>(pattern, ignore),
                     ActionTemplate<WhereWhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, SinglePredicate<T>>>(pattern, ignore),
                     ActionTemplate<ZipEnumerable<T, int, int, IdentityEnumerable<int, IEnumerable<int>, IEnumerableBridger<int>, IdentityEnumerator<int>>, IdentityEnumerator<int>, IdentityEnumerable<int, IEnumerable<int>, IEnumerableBridger<int>, IdentityEnumerator<int>>, IdentityEnumerator<int>>>(pattern, ignore)
-
-                    /*ActionTemplate<BoxedEnumerable<T>>(pattern, ignore),
-                    ActionTemplate<CastEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IdentityEnumerator>, IdentityEnumerator>>(pattern, ignore),
-                    ActionTemplate<ConcatEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<DefaultIfEmptyDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<DefaultIfEmptySpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<DistinctDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<DistinctSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<EmptyEnumerable<T>>(pattern, ignore),
-                    ActionTemplate<EmptyOrderedEnumerable<T>>(pattern, ignore),
-                    ActionTemplate<ExceptDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<ExceptSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<GroupByCollectionDefaultEnumerable<object, int, string, T, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>>(pattern, ignore),
-                    ActionTemplate<GroupByCollectionSpecificEnumerable<object, int, string, T, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>>(pattern, ignore),
-                    ActionTemplate<GroupedEnumerable<object, T>>(pattern, ignore),
-                    ActionTemplate<GroupingEnumerable<object, T>>(pattern, ignore),
-                    ActionTemplate<GroupJoinDefaultEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>>(pattern, ignore),
-                    ActionTemplate<GroupJoinSpecificEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>>(pattern, ignore),
-                    ActionTemplate<IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<IntersectDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<IntersectSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<JoinDefaultEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>>(pattern, ignore),
-                    ActionTemplate<JoinSpecificEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>>(pattern, ignore),
-                    ActionTemplate<OfTypeEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IdentityEnumerator>, IdentityEnumerator>>(pattern, ignore),
-                    ActionTemplate<OrderByEnumerable<T, int, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, DefaultAscending<T, int>>>(pattern, ignore),
-                    ActionTemplate<RangeEnumerable<T>>(pattern, ignore),
-                    ActionTemplate<RepeatEnumerable<T>>(pattern, ignore),
-                    ActionTemplate<ReverseEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<ReverseRangeEnumerable<T>>(pattern, ignore),
-                    ActionTemplate<SelectEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>>(pattern, ignore),
-                    ActionTemplate<SelectIndexedEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>>(pattern, ignore),
-                    ActionTemplate<SelectManyBridgeEnumerable<object, T, IEnumerable<T>, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<SelectManyIndexedBridgeEnumerable<object, T, IEnumerable<T>, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<SelectManyEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<SelectManyIndexedEnumerable<object, T, RepeatEnumerable<object>, RepeatEnumerator<object>, DefaultIfEmptySpecificEnumerable<T, EmptyEnumerable<T>, EmptyEnumerator<T>>, DefaultIfEmptySpecificEnumerator<T, EmptyEnumerator<T>>>>(pattern, ignore),
-                    ActionTemplate<SelectManyCollectionBridgeEnumerable<object, T, string, IEnumerable<string>, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerator<string>>>(pattern, ignore),
-                    ActionTemplate<SelectManyCollectionIndexedBridgeEnumerable<object, T, string, IEnumerable<string>, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerator<string>>>(pattern, ignore),
-                    ActionTemplate<SelectManyCollectionEnumerable<object, T, string, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerable<string, IEnumerable<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>>(pattern, ignore),
-                    ActionTemplate<SelectManyCollectionIndexedEnumerable<object, T, string, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerable<string, IEnumerable<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>>(pattern, ignore),
-                    ActionTemplate<SelectSelectEnumerable<T, object, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, SingleProjection<T, object>>>(pattern, ignore),
-                    ActionTemplate<SelectWhereEnumerable<T, object, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, SingleProjection<T, object>, SinglePredicate<T>>>(pattern, ignore),
-                    ActionTemplate<SkipEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<SkipWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<SkipWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<TakeEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<TakeWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<TakeWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<UnionDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<UnionSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<WhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<WhereIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<WhereSelectEnumerable<T, object, IdentityEnumerable<object, IEnumerable<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, SinglePredicate<object>, SingleProjection<T, object>>>(pattern, ignore),
-                    ActionTemplate<WhereWhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, SinglePredicate<T>>>(pattern, ignore),
-                    ActionTemplate<ZipEnumerable<T, int, int, IdentityEnumerable<int, IEnumerable<int>, IdentityEnumerator<int>>, IdentityEnumerator<int>, IdentityEnumerable<int, IEnumerable<int>, IdentityEnumerator<int>>, IdentityEnumerator<int>>>(pattern, ignore)*/
                 };
 
             var dels = CompileDelegates(patterns);
@@ -538,7 +774,11 @@ namespace TestHelpers
                 dels[49],
                 dels[50],
                 dels[51],
-                dels[52]
+                dels[52],
+                dels[53],
+                dels[54],
+                dels[55],
+                dels[56]
             );
         }
 
@@ -596,12 +836,16 @@ namespace TestHelpers
                 Delegate f50,
                 Delegate f51,
                 Delegate f52,
-                Delegate f53
+                Delegate f53,
+                Delegate f54,
+                Delegate f55,
+                Delegate f56,
+                Delegate f57
             )
         {
             var lookup = new Dictionary<Type, Delegate>();
 
-            var funcs = new Delegate[] { f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27, f28, f29, f30, f31, f32, f33, f34, f35, f36, f37, f38, f39, f40, f41, f42, f43, f44, f45, f46, f47, f48, f49, f50, f51, f52, f53 };
+            var funcs = new Delegate[] { f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27, f28, f29, f30, f31, f32, f33, f34, f35, f36, f37, f38, f39, f40, f41, f42, f43, f44, f45, f46, f47, f48, f49, f50, f51, f52, f53, f54, f55, f56, f57 };
             foreach (var f in funcs)
             {
                 var left = GetGenericArguments(f.GetType())[0];
@@ -721,6 +965,7 @@ namespace TestHelpers
                      FuncTemplate<V, SortedSet<T>>(pattern, ignore),
                      FuncTemplate<V, Stack<T>>(pattern, ignore),
                      FuncTemplate<V, T[]>(pattern, ignore),
+                     FuncTemplate<V, AppendEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                      FuncTemplate<V, BoxedEnumerable<T>>(pattern, ignore),
                      FuncTemplate<V, CastEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>>(pattern, ignore),
                      FuncTemplate<V, ConcatEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
@@ -749,10 +994,9 @@ namespace TestHelpers
                      FuncTemplate<V, LookupSpecificEnumerable<T, T>>(pattern, ignore),
                      FuncTemplate<V, OfTypeEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>>(pattern, ignore),
                      FuncTemplate<V, OrderByEnumerable<T, int, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, DefaultAscending<T, int>>>(pattern, ignore),
-                     FuncTemplate<V, RangeEnumerable<T>>(pattern, ignore),
+                     FuncTemplate<V, PrependEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                      FuncTemplate<V, RepeatEnumerable<T>>(pattern, ignore),
                      FuncTemplate<V, ReverseEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                     FuncTemplate<V, ReverseRangeEnumerable<T>>(pattern, ignore),
                      FuncTemplate<V, SelectEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>>(pattern, ignore),
                      FuncTemplate<V, SelectIndexedEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>>(pattern, ignore),
                      FuncTemplate<V, SelectManyBridgeEnumerable<object, T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerator<T>>>(pattern, ignore),
@@ -768,9 +1012,11 @@ namespace TestHelpers
                      FuncTemplate<V, SkipEnumerable<T, IdentityEnumerable<T, IEnumerable<T>,  IEnumerableBridger<T>,IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                      FuncTemplate<V, SkipWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                      FuncTemplate<V, SkipWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
+                     FuncTemplate<V, SkipLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>,  IEnumerableBridger<T>,IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                      FuncTemplate<V, TakeEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                      FuncTemplate<V, TakeWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>,  IEnumerableBridger<T>,IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                      FuncTemplate<V, TakeWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
+                     FuncTemplate<V, TakeLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                      FuncTemplate<V, UnionDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                      FuncTemplate<V, UnionSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                      FuncTemplate<V, WhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
@@ -853,7 +1099,9 @@ namespace TestHelpers
                 inner => dels[65].DynamicInvoke(outerTerm, inner),
                 inner => dels[66].DynamicInvoke(outerTerm, inner),
                 inner => dels[67].DynamicInvoke(outerTerm, inner),
-                inner => dels[68].DynamicInvoke(outerTerm, inner)
+                inner => dels[68].DynamicInvoke(outerTerm, inner),
+                inner => dels[69].DynamicInvoke(outerTerm, inner),
+                inner => dels[70].DynamicInvoke(outerTerm, inner)
             );
         }
 
@@ -872,38 +1120,38 @@ namespace TestHelpers
                 Func<SortedSet<T>, object> b10,
                 Func<Stack<T>, object> b11,
                 Func<T[], object> b12,
-                Func<BoxedEnumerable<T>, object> f1,
-                Func<CastEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>, object> f2,
-                Func<ConcatEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f3,
-                Func<DefaultIfEmptyDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f4,
-                Func<DefaultIfEmptySpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f5,
-                Func<DistinctDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f6,
-                Func<DistinctSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f7,
-                Func<EmptyEnumerable<T>, object> f8,
-                Func<EmptyOrderedEnumerable<T>, object> f9,
-                Func<ExceptDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f10,
-                Func<ExceptSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f11,
-                Func<GroupByCollectionDefaultEnumerable<object, int, string, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>, object> f12,
-                Func<GroupByCollectionSpecificEnumerable<object, int, string, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>, object> f13,
-                Func<GroupByDefaultEnumerable<object, object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>, object> f14,
-                Func<GroupBySpecificEnumerable<object, object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>, object> f15,
-                Func<GroupedEnumerable<object, T>, object> f16,
-                Func<GroupingEnumerable<object, T>, object> f17,
-                Func<GroupJoinDefaultEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>, object> f18,
-                Func<GroupJoinSpecificEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>, object> f19,
-                Func<IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, object> f20,
-                Func<IntersectDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f21,
-                Func<IntersectSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f22,
-                Func<JoinDefaultEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>,  IdentityEnumerator<string>>, IdentityEnumerator<string>>, object> f23,
-                Func<JoinSpecificEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>, object> f24,
-                Func<LookupDefaultEnumerable<T, T>, object> f25,
-                Func<LookupSpecificEnumerable<T, T>, object> f26,
-                Func<OfTypeEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>, object> f27,
-                Func<OrderByEnumerable<T, int, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, DefaultAscending<T, int>>, object> f28,
-                Func<RangeEnumerable<T>, object> f29,
-                Func<RepeatEnumerable<T>, object> f30,
-                Func<ReverseEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f31,
-                Func<ReverseRangeEnumerable<T>, object> f32,
+                Func<AppendEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f1,
+                Func<BoxedEnumerable<T>, object> f2,
+                Func<CastEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>, object> f3,
+                Func<ConcatEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f4,
+                Func<DefaultIfEmptyDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f5,
+                Func<DefaultIfEmptySpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f6,
+                Func<DistinctDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f7,
+                Func<DistinctSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f8,
+                Func<EmptyEnumerable<T>, object> f9,
+                Func<EmptyOrderedEnumerable<T>, object> f10,
+                Func<ExceptDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f11,
+                Func<ExceptSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f12,
+                Func<GroupByCollectionDefaultEnumerable<object, int, string, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>, object> f13,
+                Func<GroupByCollectionSpecificEnumerable<object, int, string, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>, object> f14,
+                Func<GroupByDefaultEnumerable<object, object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>, object> f15,
+                Func<GroupBySpecificEnumerable<object, object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>, object> f16,
+                Func<GroupedEnumerable<object, T>, object> f17,
+                Func<GroupingEnumerable<object, T>, object> f18,
+                Func<GroupJoinDefaultEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>, object> f19,
+                Func<GroupJoinSpecificEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>, object> f20,
+                Func<IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, object> f21,
+                Func<IntersectDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f22,
+                Func<IntersectSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f23,
+                Func<JoinDefaultEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>,  IdentityEnumerator<string>>, IdentityEnumerator<string>>, object> f24,
+                Func<JoinSpecificEnumerable<T, string, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>, string, IdentityEnumerable<string, IEnumerable<string>, IEnumerableBridger<string>, IdentityEnumerator<string>>, IdentityEnumerator<string>>, object> f25,
+                Func<LookupDefaultEnumerable<T, T>, object> f26,
+                Func<LookupSpecificEnumerable<T, T>, object> f27,
+                Func<OfTypeEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>, object> f28,
+                Func<OrderByEnumerable<T, int, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, DefaultAscending<T, int>>, object> f29,
+                Func<PrependEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f30,
+                Func<RepeatEnumerable<T>, object> f31,
+                Func<ReverseEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f32,
                 Func<SelectEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>, object> f33,
                 Func<SelectIndexedEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>, object> f34,
                 Func<SelectManyBridgeEnumerable<object, T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerator<T>>, object> f35,
@@ -919,16 +1167,18 @@ namespace TestHelpers
                 Func<SkipEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f45,
                 Func<SkipWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f46,
                 Func<SkipWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f47,
-                Func<TakeEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f48,
-                Func<TakeWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f49,
-                Func<TakeWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f50,
-                Func<UnionDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f51,
-                Func<UnionSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f52,
-                Func<WhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f53,
-                Func<WhereIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f54,
-                Func<WhereSelectEnumerable<T, object, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, SinglePredicate<object>, SingleProjection<T, object>>, object> f55,
-                Func<WhereWhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, SinglePredicate<T>>, object> f56,
-                Func<ZipEnumerable<T, int, int, IdentityEnumerable<int, IEnumerable<int>, IEnumerableBridger<int>, IdentityEnumerator<int>>, IdentityEnumerator<int>, IdentityEnumerable<int, IEnumerable<int>, IEnumerableBridger<int>, IdentityEnumerator<int>>, IdentityEnumerator<int>>, object> f57
+                Func<SkipLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f48,
+                Func<TakeEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f49,
+                Func<TakeWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f50,
+                Func<TakeWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f51,
+                Func<TakeLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f52,
+                Func<UnionDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f53,
+                Func<UnionSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f54,
+                Func<WhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f55,
+                Func<WhereIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>, object> f56,
+                Func<WhereSelectEnumerable<T, object, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, SinglePredicate<object>, SingleProjection<T, object>>, object> f57,
+                Func<WhereWhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, SinglePredicate<T>>, object> f58,
+                Func<ZipEnumerable<T, int, int, IdentityEnumerable<int, IEnumerable<int>, IEnumerableBridger<int>, IdentityEnumerator<int>>, IdentityEnumerator<int>, IdentityEnumerable<int, IEnumerable<int>, IEnumerableBridger<int>, IdentityEnumerator<int>>, IdentityEnumerator<int>>, object> f59
             )
         {
             // the interop types
@@ -1008,7 +1258,7 @@ namespace TestHelpers
             {
                 var lookup = new Dictionary<Type, Delegate>();
 
-                var funcs = new Delegate[] { f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27, f28, f29, f30, f31, f32, f33, f34, f35, f36, f37, f38, f39, f40, f41, f42, f43, f44, f45, f46, f47, f48, f49, f50, f51, f52, f53, f54, f55, f56, f57 };
+                var funcs = new Delegate[] { f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27, f28, f29, f30, f31, f32, f33, f34, f35, f36, f37, f38, f39, f40, f41, f42, f43, f44, f45, f46, f47, f48, f49, f50, f51, f52, f53, f54, f55, f56, f57, f58, f59 };
                 foreach (var f in funcs)
                 {
                     var left = GetGenericArguments(f.GetType())[0];
@@ -1315,6 +1565,7 @@ namespace TestHelpers.Generated
                     ActionTemplate<SortedSet<T>>(pattern, ignore),
                     ActionTemplate<Stack<T>>(pattern, ignore),
                     ActionTemplate<T[]>(pattern, ignore),
+                    ActionTemplate<AppendEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<BoxedEnumerable<T>>(pattern, ignore),
                     ActionTemplate<CastEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger, IdentityEnumerator>, IdentityEnumerator>>(pattern, ignore),
                     ActionTemplate<ConcatEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
@@ -1343,10 +1594,9 @@ namespace TestHelpers.Generated
                     ActionTemplate<LookupSpecificEnumerable<T, T>>(pattern, ignore),
                     ActionTemplate<OfTypeEnumerable<object, T, IdentityEnumerable<object, System.Collections.IEnumerable, IEnumerableBridger,IdentityEnumerator>, IdentityEnumerator>>(pattern, ignore),
                     ActionTemplate<OrderByEnumerable<T, int, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, DefaultAscending<T, int>>>(pattern, ignore),
-                    ActionTemplate<RangeEnumerable<T>>(pattern, ignore),
+                    ActionTemplate<PrependEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<RepeatEnumerable<T>>(pattern, ignore),
                     ActionTemplate<ReverseEnumerable<T, IdentityEnumerable<T, IEnumerable<T>,  IEnumerableBridger<T>,IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
-                    ActionTemplate<ReverseRangeEnumerable<T>>(pattern, ignore),
                     ActionTemplate<SelectEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>>>(pattern, ignore),
                     ActionTemplate<SelectIndexedEnumerable<object, T, IdentityEnumerable<object, IEnumerable<object>,  IEnumerableBridger<object>,IdentityEnumerator<object>>, IdentityEnumerator<object>>>(pattern, ignore),
                     ActionTemplate<SelectManyBridgeEnumerable<object, T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerable<object, IEnumerable<object>, IEnumerableBridger<object>, IdentityEnumerator<object>>, IdentityEnumerator<object>, IdentityEnumerator<T>>>(pattern, ignore),
@@ -1362,9 +1612,11 @@ namespace TestHelpers.Generated
                     ActionTemplate<SkipEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<SkipWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<SkipWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
+                    ActionTemplate<SkipLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<TakeEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<TakeWhileEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<TakeWhileIndexedEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
+                    ActionTemplate<TakeLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<UnionDefaultEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<UnionSpecificEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
                     ActionTemplate<WhereEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>>(pattern, ignore),
@@ -1446,7 +1698,9 @@ namespace TestHelpers.Generated
                 dels[65],
                 dels[66],
                 dels[67],
-                dels[68]
+                dels[68],
+                dels[69],
+                dels[70]
             );
         }
 
@@ -1520,7 +1774,9 @@ namespace TestHelpers.Generated
                 Delegate f54,
                 Delegate f55,
                 Delegate f56,
-                Delegate f57
+                Delegate f57,
+                Delegate f58,
+                Delegate f59
             )
         {
             // the interop types
@@ -1558,7 +1814,7 @@ namespace TestHelpers.Generated
             // the free types
             {
                 var lookup = new Dictionary<Type, Delegate>();
-                var funcs = new Delegate[] { f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27, f28, f29, f30, f31, f32, f33, f34, f35, f36, f37, f38, f39, f40, f41, f42, f43, f44, f45, f46, f47, f48, f49, f50, f51, f52, f53, f54, f55, f56, f57 };
+                var funcs = new Delegate[] { f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27, f28, f29, f30, f31, f32, f33, f34, f35, f36, f37, f38, f39, f40, f41, f42, f43, f44, f45, f46, f47, f48, f49, f50, f51, f52, f53, f54, f55, f56, f57, f58, f59 };
                 foreach (var f in funcs)
                 {
                     var left = GetGenericArguments(f.GetType())[0];
@@ -1679,6 +1935,17 @@ namespace TestHelpers.Generated
 
         public static IEnumerable<dynamic> GetEnumerables<T>(T[] toYield)
         {
+            if (toYield.Length > 0)
+            {
+                var append =
+                    GetYielding<
+                        T,
+                        AppendEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>,
+                        AppendEnumerator<T, IdentityEnumerator<T>>
+                    >(toYield, null);
+                yield return append;
+            }
+
             var box =
                 GetYielding<
                     T,
@@ -1861,6 +2128,17 @@ namespace TestHelpers.Generated
                 >(toYield, null);
             yield return orderBy;
 
+            if (toYield.Length > 0)
+            {
+                var prepend =
+                GetYielding<
+                    T,
+                    PrependEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>,
+                    PrependEnumerator<T, IdentityEnumerator<T>>
+                >(toYield, null);
+                yield return prepend;
+            }
+
             // skipping Range & Repeat
 
             var reverse =
@@ -1993,6 +2271,14 @@ namespace TestHelpers.Generated
                 >(toYield, null);
             yield return skipWhileIndexed;
 
+            var skipLast =
+                GetYielding<
+                    T,
+                    SkipLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>,
+                    SkipLastEnumerator<T, IdentityEnumerator<T>>
+                >(toYield, null);
+            yield return skipLast;
+
             var take =
                 GetYielding<
                     T,
@@ -2016,6 +2302,14 @@ namespace TestHelpers.Generated
                     TakeWhileIndexedEnumerator<T, IdentityEnumerator<T>>
                 >(toYield, null);
             yield return takeWhileIndexed;
+
+            var takeLast =
+                GetYielding<
+                    T,
+                    TakeLastEnumerable<T, IdentityEnumerable<T, IEnumerable<T>, IEnumerableBridger<T>, IdentityEnumerator<T>>, IdentityEnumerator<T>>,
+                    TakeLastEnumerator<T, IdentityEnumerator<T>>
+                >(toYield, null);
+            yield return takeLast;
 
             var unionDefault =
                 GetYielding<
@@ -2079,6 +2373,17 @@ namespace TestHelpers.Generated
             where TEnumerator : struct, IStructEnumerator<T>
         {
             var gen = GetGenericTypeDefinition(typeof(TEnumerable));
+
+            if (gen == typeof(AppendEnumerable<,,>))
+            {
+                if (toYield.Length == 0) return default(TEnumerable);
+
+                var inner = toYield.Take(toYield.Length - 1).AsEnumerable();
+                var element = toYield[toYield.Length - 1];
+
+                var toRet = inner.Append(element);
+                return (TEnumerable)(object)toRet;
+            }
 
             if (gen == typeof(BoxedEnumerable<>))
             {
@@ -2494,7 +2799,18 @@ namespace TestHelpers.Generated
                 return (TEnumerable)(object)orderBy;
             }
 
-            if (gen == typeof(RangeEnumerable<>))
+            if (gen == typeof(PrependEnumerable<,,>))
+            {
+                if (toYield.Length == 0) return default(TEnumerable);
+
+                var inner = toYield.Skip(1).AsEnumerable();
+                var element = toYield[0];
+
+                var toRet = inner.Prepend(element);
+                return (TEnumerable)(object)toRet;
+            }
+
+            if (gen == typeof(RangeEnumerable))
             {
                 if ((toYield?.Length ?? 0) != 0) throw new InvalidOperationException("Range cannot yield a particular sequence");
                 if ((extra?.Length ?? 0) != 2) throw new InvalidOperationException("Range requires a start and count value be placed in extra");
@@ -2529,7 +2845,7 @@ namespace TestHelpers.Generated
                 return (TEnumerable)(object)reverse;
             }
 
-            if (gen == typeof(ReverseRangeEnumerable<>))
+            if (gen == typeof(ReverseRangeEnumerable))
             {
                 if ((toYield?.Length ?? 0) != 0) throw new InvalidOperationException("ReverseRange cannot yield a particular sequence");
                 if ((extra?.Length ?? 0) != 2) throw new InvalidOperationException("ReverseRange requires a start and count value be placed in extra");
@@ -2537,7 +2853,7 @@ namespace TestHelpers.Generated
                 var start = (int)extra[0];
                 var count = (int)extra[1];
 
-                return (TEnumerable)(object)new ReverseRangeEnumerable<int>(Enumerable.ReverseRangeSigil, start, count);
+                return (TEnumerable)(object)new ReverseRangeEnumerable(Enumerable.ReverseRangeSigil, start, count);
             }
 
             if (gen == typeof(SelectEnumerable<,,,>))
@@ -2841,6 +3157,14 @@ namespace TestHelpers.Generated
                 return (TEnumerable)(object)IEnumerableExtensionMethods.SkipWhile(vals, isDefault);
             }
 
+            if (gen == typeof(SkipLastEnumerable<,,>))
+            {
+                var vals = new T[toYield.Length + 3];
+                Array.Copy(toYield, vals, toYield.Length);
+
+                return (TEnumerable)(object)IEnumerableExtensionMethods.SkipLast(vals, 3);
+            }
+
             if (gen == typeof(TakeEnumerable<,,>))
             {
                 var vals = new T[toYield.Length + 3];
@@ -2868,6 +3192,14 @@ namespace TestHelpers.Generated
                 Func<T, int, bool> isNotDefault = (_, ix) => ix < toYield.Length;
 
                 return (TEnumerable)(object)IEnumerableExtensionMethods.TakeWhile(vals, isNotDefault);
+            }
+
+            if (gen == typeof(TakeLastEnumerable<,,>))
+            {
+                var vals = new T[toYield.Length + 3];
+                Array.Copy(toYield, 0, vals, 3, toYield.Length);
+
+                return (TEnumerable)(object)IEnumerableExtensionMethods.TakeLast(vals, toYield.Length);
             }
 
             if (gen == typeof(UnionDefaultEnumerable<,,,,>))

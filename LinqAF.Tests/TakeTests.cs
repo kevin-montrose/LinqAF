@@ -3,12 +3,139 @@ using System;
 using LinqAF;
 using System.Collections.Generic;
 using TestHelpers;
+using System.Reflection;
+using System.Text;
 
 namespace LinqAF.Tests
 {
     [TestClass]
     public class TakeTests
     {
+        [TestMethod]
+        public void InstanceExtensionNoOverlap()
+        {
+            Dictionary<MethodInfo, List<MethodInfo>> instOverlaps, extOverlaps;
+            Helper.GetOverlappingMethods(typeof(Impl.ITake<,,>), out instOverlaps, out extOverlaps);
+
+            if (instOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in instOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+
+            if (extOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in extOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void QueueImpl()
+        {
+            // basic
+            {
+                var queue = new Impl.StructQueue<string>();
+                queue.Initialize();
+
+                queue.Enqueue("hello");
+                queue.Enqueue("world");
+                queue.Enqueue("fizz");
+                queue.Enqueue("buzz");
+
+                Assert.AreEqual(4, queue.Count);
+                Assert.AreEqual("hello", queue.Dequeue());
+                Assert.AreEqual(3, queue.Count);
+                Assert.AreEqual("world", queue.Dequeue());
+                Assert.AreEqual(2, queue.Count);
+                Assert.AreEqual("fizz", queue.Dequeue());
+                Assert.AreEqual(1, queue.Count);
+                Assert.AreEqual("buzz", queue.Dequeue());
+                Assert.AreEqual(0, queue.Count);
+            }
+
+            // grow
+            {
+                var queue = new Impl.StructQueue<string>();
+                queue.Initialize(2);
+
+                queue.Enqueue("hello");
+                queue.Enqueue("world");
+                queue.Enqueue("fizz");
+
+                Assert.AreEqual(3, queue.Count);
+                Assert.AreEqual("hello", queue.Dequeue());
+                Assert.AreEqual(2, queue.Count);
+                Assert.AreEqual("world", queue.Dequeue());
+                Assert.AreEqual(1, queue.Count);
+                Assert.AreEqual("fizz", queue.Dequeue());
+                Assert.AreEqual(0, queue.Count);
+            }
+
+            // complex
+            {
+                var queue = new Impl.StructQueue<string>();
+                queue.Initialize(2);
+
+                queue.Enqueue("hello");
+                Assert.AreEqual(1, queue.Count);
+                Assert.AreEqual("hello", queue.Dequeue());
+                Assert.AreEqual(0, queue.Count);
+
+                queue.Enqueue("world");
+                Assert.AreEqual(1, queue.Count);
+                queue.Enqueue("fizz");
+                Assert.AreEqual(2, queue.Count);
+                queue.Enqueue("buzz");
+                Assert.AreEqual(3, queue.Count);
+
+                queue.DequeueAndEnqueue("foo");
+                Assert.AreEqual(3, queue.Count);
+
+                Assert.AreEqual("fizz", queue.Dequeue());
+                Assert.AreEqual(2, queue.Count);
+
+                Assert.AreEqual("buzz", queue.Dequeue());
+                Assert.AreEqual(1, queue.Count);
+
+                for(var i = 0; i < 5; i++)
+                {
+                    queue.Enqueue("bizz");
+                    Assert.AreEqual(i + 1 + 1, queue.Count);
+                }
+
+                Assert.AreEqual("foo", queue.Dequeue());
+                Assert.AreEqual(5, queue.Count);
+
+                Assert.AreEqual("bizz", queue.Dequeue());
+                Assert.AreEqual(4, queue.Count);
+                Assert.AreEqual("bizz", queue.Dequeue());
+                Assert.AreEqual(3, queue.Count);
+                Assert.AreEqual("bizz", queue.Dequeue());
+                Assert.AreEqual(2, queue.Count);
+                Assert.AreEqual("bizz", queue.Dequeue());
+                Assert.AreEqual(1, queue.Count);
+                Assert.AreEqual("bizz", queue.Dequeue());
+                Assert.AreEqual(0, queue.Count);
+            }
+        }
+
         [TestMethod]
         public void Universal()
         {
@@ -79,6 +206,26 @@ namespace LinqAF.Tests
                         Assert.AreEqual(1, res[0]);
                     },
                     "(__, a) => a.TakeWhile((_, ix) => ix < 1)",
+                    typeof(EmptyEnumerable<>),
+                    typeof(EmptyOrderedEnumerable<>),
+                    typeof(GroupByDefaultEnumerable<,,,,>),
+                    typeof(GroupBySpecificEnumerable<,,,,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
+                );
+            }
+
+            // take last
+            {
+                Helper.ForEachEnumerableExpression(
+                    new object[0],
+                    new[] { 1, 2, 3 },
+                    res =>
+                    {
+                        Assert.AreEqual(1, res.Count);
+                        Assert.AreEqual(3, res[0]);
+                    },
+                    "(_, a) => a.TakeLast(1)",
                     typeof(EmptyEnumerable<>),
                     typeof(EmptyOrderedEnumerable<>),
                     typeof(GroupByDefaultEnumerable<,,,,>),
@@ -160,6 +307,7 @@ namespace LinqAF.Tests
                 Assert.IsTrue(range.Take(1).SequenceEqual(new[] { 1 }));
                 Assert.IsTrue(range.TakeWhile(x => x <= 1).SequenceEqual(new[] { 1 }));
                 Assert.IsTrue(range.TakeWhile((x, ix) => x <= 1).SequenceEqual(new[] { 1 }));
+                Assert.IsTrue(range.TakeLast(1).SequenceEqual(new[] { 5 }));
             }
 
             // repeat
@@ -167,6 +315,7 @@ namespace LinqAF.Tests
                 Assert.IsTrue(repeat.Take(1).SequenceEqual(new[] { "foo", }));
                 Assert.IsTrue(repeat.TakeWhile(x => x == "foo").SequenceEqual(new[] { "foo", "foo", "foo", "foo", "foo" }));
                 Assert.IsTrue(repeat.TakeWhile((x, ix) => ix < 1).SequenceEqual(new[] { "foo",  }));
+                Assert.IsTrue(repeat.TakeLast(1).SequenceEqual(new[] { "foo" }));
             }
 
             // reverseRange
@@ -174,6 +323,7 @@ namespace LinqAF.Tests
                 Assert.IsTrue(reverseRange.Take(1).SequenceEqual(new[] { 5 }));
                 Assert.IsTrue(reverseRange.TakeWhile(x => x >= 5).SequenceEqual(new[] { 5 }));
                 Assert.IsTrue(reverseRange.TakeWhile((x, ix) => ix < 1).SequenceEqual(new[] { 5 }));
+                Assert.IsTrue(reverseRange.TakeLast(1).SequenceEqual(new[] { 1 }));
             }
 
             // oneItemDefault
@@ -350,9 +500,9 @@ namespace LinqAF.Tests
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var lookupDefault = new LookupDefaultEnumerable<int, int>();
             var lookupSpecific = new LookupSpecificEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();
@@ -643,6 +793,122 @@ namespace LinqAF.Tests
             }
 
             Assert.AreEqual(0, res.Count);
+        }
+
+        [TestMethod]
+        public void Last()
+        {
+            var es = new int[][] {
+                new [] {1, 2, 3, },
+                new [] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
+            };
+
+            foreach (var e in es)
+            {
+                // simple
+                {
+                    var asTake = e.TakeLast(1);
+                    Assert.IsTrue(asTake.GetType().IsValueType);
+
+                    var res = new List<int>();
+                    foreach (var item in asTake)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.AreEqual(1, res.Count);
+                    Assert.AreEqual(e[e.Length - 1], res[0]);
+                }
+
+                // all
+                {
+                    var asTake = e.TakeLast(e.Length);
+                    Assert.IsTrue(asTake.GetType().IsValueType);
+
+                    var res = new List<int>();
+                    foreach (var item in asTake)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.AreEqual(e.Length, res.Count);
+                    Assert.IsTrue(e.SequenceEqual(res));
+                }
+
+                // over
+                {
+                    var asTake = e.TakeLast(e.Length + 1);
+                    Assert.IsTrue(asTake.GetType().IsValueType);
+
+                    var res = new List<int>();
+                    foreach (var item in asTake)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.AreEqual(e.Length, res.Count);
+                    Assert.IsTrue(e.SequenceEqual(res));
+                }
+
+                // zero
+                {
+                    var asTake = e.TakeLast(0);
+                    Assert.IsTrue(asTake.GetType().IsValueType);
+
+                    var res = new List<int>();
+                    foreach (var item in asTake)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.AreEqual(0, res.Count);
+                }
+
+                // negative
+                {
+                    var asTake = e.TakeLast(-10);
+                    Assert.IsTrue(asTake.GetType().IsValueType);
+
+                    var res = new List<int>();
+                    foreach (var item in asTake)
+                    {
+                        res.Add(item);
+                    }
+
+                    Assert.AreEqual(0, res.Count);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ChainedTakeLast()
+        {
+            // under
+            {
+                var e = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                var shouldMatch = e.TakeLast(3).AsEnumerable().TakeLast(2).ToList();
+                var actually = e.TakeLast(3).TakeLast(2).ToList();
+
+                Assert.IsTrue(shouldMatch.SequenceEqual(actually));
+            }
+
+            // exact
+            {
+                var e = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                var shouldMatch = e.TakeLast(3).AsEnumerable().TakeLast(7).ToList();
+                var actually = e.TakeLast(3).TakeLast(7).ToList();
+
+                Assert.IsTrue(shouldMatch.SequenceEqual(actually));
+            }
+
+            // over
+            {
+                var e = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+                var shouldMatch = e.TakeLast(15).AsEnumerable().TakeLast(3).ToList();
+                var actually = e.TakeLast(15).TakeLast(3).ToList();
+
+                Assert.IsTrue(shouldMatch.SequenceEqual(actually));
+            }
         }
     }
 }

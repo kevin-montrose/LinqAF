@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
 using TestHelpers;
 
 namespace LinqAF.Tests
@@ -8,6 +10,60 @@ namespace LinqAF.Tests
     [TestClass]
     public class ConcatTests
     {
+        static void _InstanceExtensionNoOverlapImpl(int spread, int take)
+        {
+            Dictionary<MethodInfo, List<MethodInfo>> instOverlaps, extOverlaps;
+            Helper.GetOverlappingMethods(typeof(Impl.IConcat<,,>), out instOverlaps, out extOverlaps, spread, take);
+
+            if (instOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in instOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine("\t" +
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+
+            if (extOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in extOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine("\t"+
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap1()
+        => _InstanceExtensionNoOverlapImpl(5, 0);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap2()
+        => _InstanceExtensionNoOverlapImpl(5, 1);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap3()
+        => _InstanceExtensionNoOverlapImpl(5, 2);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap4()
+        => _InstanceExtensionNoOverlapImpl(5, 3);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap5()
+        => _InstanceExtensionNoOverlapImpl(5, 4);
+
         [TestMethod]
         public void Universal()
         {
@@ -61,8 +117,21 @@ namespace LinqAF.Tests
         }
 
         [TestMethod]
-        public void Chaining()
+        public void Chaining_1()
         {
+            var toSkip = Helper.AllEnumerables().Where((_, ix) => ix % 2 == 0).ToArray();
+            toSkip = toSkip.Concat(
+                new[]
+                {
+                    typeof(EmptyEnumerable<>),
+                    typeof(EmptyOrderedEnumerable<>),
+                    typeof(GroupByDefaultEnumerable<,,,,>),
+                    typeof(GroupBySpecificEnumerable<,,,,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
+                }
+            ).ToArray();
+
             Helper.ForEachEnumerableNoRetExpression(
                 new[] { 1, 2, 3 },
                 @"a =>
@@ -87,18 +156,71 @@ namespace LinqAF.Tests
                         typeof(LookupDefaultEnumerable<,>),
                         typeof(LookupSpecificEnumerable<,>)
                     )",
-                typeof(EmptyEnumerable<>),
-                typeof(EmptyOrderedEnumerable<>),
-                typeof(GroupByDefaultEnumerable<,,,,>),
-                typeof(GroupBySpecificEnumerable<,,,,>),
-                typeof(LookupDefaultEnumerable<,>),
-                typeof(LookupSpecificEnumerable<,>)
+                toSkip
             );
-            
+
             {
                 var concatEmpty = Enumerable.Empty<int>().Concat(new[] { 1, 2, 3 });
                 var res = new List<int>();
-                foreach(var item in concatEmpty)
+                foreach (var item in concatEmpty)
+                {
+                    res.Add(item);
+                }
+
+                Assert.AreEqual(3, res.Count);
+                Assert.AreEqual(1, res[0]);
+                Assert.AreEqual(2, res[1]);
+                Assert.AreEqual(3, res[2]);
+            }
+        }
+
+        [TestMethod]
+        public void Chaining_2()
+        {
+            var toSkip = Helper.AllEnumerables().Where((_, ix) => ix % 2 == 1).ToArray();
+            toSkip = toSkip.Concat(
+                new[]
+                {
+                    typeof(EmptyEnumerable<>),
+                    typeof(EmptyOrderedEnumerable<>),
+                    typeof(GroupByDefaultEnumerable<,,,,>),
+                    typeof(GroupBySpecificEnumerable<,,,,>),
+                    typeof(LookupDefaultEnumerable<,>),
+                    typeof(LookupSpecificEnumerable<,>)
+                }
+            ).ToArray();
+
+            Helper.ForEachEnumerableNoRetExpression(
+                new[] { 1, 2, 3 },
+                @"a =>
+                    Helper.ForEachEnumerableExpression(
+                        a,
+                        new[] { 4, 5, 6 },
+                        res =>
+                        {
+                            Assert.AreEqual(6, res.Count);
+                            Assert.AreEqual(1, res[0]);
+                            Assert.AreEqual(2, res[1]);
+                            Assert.AreEqual(3, res[2]);
+                            Assert.AreEqual(4, res[3]);
+                            Assert.AreEqual(5, res[4]);
+                            Assert.AreEqual(6, res[5]);
+                        },
+                        ""(a, b) => a.Concat(b)"",
+                        typeof(EmptyEnumerable<>),
+                        typeof(EmptyOrderedEnumerable<>),
+                        typeof(GroupByDefaultEnumerable<,,,,>),
+                        typeof(GroupBySpecificEnumerable<,,,,>),
+                        typeof(LookupDefaultEnumerable<,>),
+                        typeof(LookupSpecificEnumerable<,>)
+                    )",
+                toSkip
+            );
+
+            {
+                var concatEmpty = Enumerable.Empty<int>().Concat(new[] { 1, 2, 3 });
+                var res = new List<int>();
+                foreach (var item in concatEmpty)
                 {
                     res.Add(item);
                 }
@@ -121,7 +243,7 @@ namespace LinqAF.Tests
 
                 if (xList.Count != yList.Count) return false;
 
-                for(var i = 0; i < xList.Count; i++)
+                for (var i = 0; i < xList.Count; i++)
                 {
                     if (!xList[i].Equals(yList[i])) return false;
                 }
@@ -132,7 +254,7 @@ namespace LinqAF.Tests
             public int GetHashCode(GroupingEnumerable<T, V> obj)
             {
                 var ret = obj.Key.GetHashCode();
-                foreach(var item in obj)
+                foreach (var item in obj)
                 {
                     ret *= 17;
                     ret += item.GetHashCode();
@@ -186,7 +308,7 @@ namespace LinqAF.Tests
                     typeof(LookupDefaultEnumerable<,>),
                     typeof(LookupSpecificEnumerable<,>)
                 );
-                
+
                 Assert.IsTrue(empty.Concat(empty).SequenceEqual(new int[0]));
                 Assert.IsTrue(empty.Concat(emptyOrdered).SequenceEqual(new int[0]));
                 Assert.IsTrue(Enumerable.Empty<GroupingEnumerable<int, int>>().Concat(groupByDefault).SequenceEqual(groupByDefault, new _GroupingComparer<int, int>()));
@@ -237,7 +359,7 @@ namespace LinqAF.Tests
                 Assert.IsTrue(emptyOrdered.Concat(oneItemDefaultOrdered).SequenceEqual(oneItemDefaultOrdered));
                 Assert.IsTrue(emptyOrdered.Concat(oneItemSpecificOrdered).SequenceEqual(oneItemSpecificOrdered));
             }
-            
+
             // groupByDefault
             {
                 // identity
@@ -800,7 +922,7 @@ namespace LinqAF.Tests
                 var oneItemSpecificOrderedGroupingInt = Enumerable.Empty<GroupingEnumerable<int, int>>().DefaultIfEmpty(groupByDefault.First()).OrderBy(x => x);
                 Assert.IsTrue(oneItemSpecificOrderedGroupingInt.Concat(groupByDefault).SequenceEqual(new[] { groupByDefault.ElementAt(0), groupByDefault.ElementAt(0), groupByDefault.ElementAt(1), groupByDefault.ElementAt(2) }, new _GroupingComparer<int, int>()));
 
-                var oneItemSpecificOrderedGroupingString = Enumerable.Empty<GroupingEnumerable<string, string>>().DefaultIfEmpty(groupBySpecific.First()).OrderBy(x=>x);
+                var oneItemSpecificOrderedGroupingString = Enumerable.Empty<GroupingEnumerable<string, string>>().DefaultIfEmpty(groupBySpecific.First()).OrderBy(x => x);
                 Assert.IsTrue(oneItemSpecificOrderedGroupingString.Concat(groupBySpecific).SequenceEqual(new[] { groupBySpecific.ElementAt(0), groupBySpecific.ElementAt(0), groupBySpecific.ElementAt(1), groupBySpecific.ElementAt(2) }, new _GroupingComparer<string, string>()));
 
                 Assert.IsTrue(oneItemSpecificOrderedGroupingInt.Concat(lookupDefault).SequenceEqual(new[] { lookupDefault.ElementAt(0), lookupDefault.ElementAt(0), lookupDefault.ElementAt(1), lookupDefault.ElementAt(2) }, new _GroupingComparer<int, int>()));
@@ -971,7 +1093,7 @@ namespace LinqAF.Tests
 
             // empty
             {
-                try { empty.Concat(default(int[])); Assert.Fail(); }catch(ArgumentNullException exc) { Assert.AreEqual("second", exc.ParamName); }
+                try { empty.Concat(default(int[])); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("second", exc.ParamName); }
                 try { empty.Concat(default(IEnumerable<int>)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("second", exc.ParamName); }
                 try { empty.Concat(default(Dictionary<int, object>.KeyCollection)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("second", exc.ParamName); }
                 try { empty.Concat(default(Dictionary<object, int>.ValueCollection)); Assert.Fail(); } catch (ArgumentNullException exc) { Assert.AreEqual("second", exc.ParamName); }
@@ -1213,9 +1335,9 @@ namespace LinqAF.Tests
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var lookupDefault = new LookupDefaultEnumerable<int, int>();
             var lookupSpecific = new LookupSpecificEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();
@@ -2539,102 +2661,6 @@ namespace LinqAF.Tests
                     }
                 }
 
-                // groupByDefault
-                {
-                    var rangeGrouping = new RangeEnumerable<GroupingEnumerable<int, int>>();
-                    try
-                    {
-                        rangeGrouping.Concat(new int[0].GroupBy(x => x));
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("first", exc.ParamName);
-                    }
-
-                    try
-                    {
-                        new int[0].GroupBy(x => x).Concat(rangeGrouping);
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("second", exc.ParamName);
-                    }
-                }
-
-                // groupBySpecific
-                {
-                    var rangeGrouping = new RangeEnumerable<GroupingEnumerable<int, int>>();
-                    try
-                    {
-                        rangeGrouping.Concat(new int[0].GroupBy(x => x, new _IntComparer()));
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("first", exc.ParamName);
-                    }
-
-                    try
-                    {
-                        new int[0].GroupBy(x => x, new _IntComparer()).Concat(rangeGrouping);
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("second", exc.ParamName);
-                    }
-                }
-
-                // lookupDefault
-                {
-                    var rangeGrouping = new RangeEnumerable<GroupingEnumerable<int, int>>();
-                    try
-                    {
-                        rangeGrouping.Concat(new int[0].ToLookup(x => x));
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("first", exc.ParamName);
-                    }
-
-                    try
-                    {
-                        new int[0].ToLookup(x => x).Concat(rangeGrouping);
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("second", exc.ParamName);
-                    }
-                }
-
-                // lookupSpecific
-                {
-                    var rangeGrouping = new RangeEnumerable<GroupingEnumerable<int, int>>();
-                    try
-                    {
-                        rangeGrouping.Concat(new int[0].ToLookup(x => x, new _IntComparer()));
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("first", exc.ParamName);
-                    }
-
-                    try
-                    {
-                        new int[0].ToLookup(x => x, new _IntComparer()).Concat(rangeGrouping);
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("second", exc.ParamName);
-                    }
-                }
-
                 // range
                 {
                     try
@@ -3051,102 +3077,6 @@ namespace LinqAF.Tests
                     try
                     {
                         Enumerable.Empty<int>().OrderBy(x => x).Concat(reverseRange);
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("second", exc.ParamName);
-                    }
-                }
-
-                // groupByDefault
-                {
-                    var reverseRangeGrouping = new ReverseRangeEnumerable<GroupingEnumerable<int, int>>();
-                    try
-                    {
-                        reverseRangeGrouping.Concat(new int[0].GroupBy(x => x));
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("first", exc.ParamName);
-                    }
-
-                    try
-                    {
-                        new int[0].GroupBy(x => x).Concat(reverseRangeGrouping);
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("second", exc.ParamName);
-                    }
-                }
-
-                // groupBySpecific
-                {
-                    var reverseRangeGrouping = new ReverseRangeEnumerable<GroupingEnumerable<int, int>>();
-                    try
-                    {
-                        reverseRangeGrouping.Concat(new int[0].GroupBy(x => x, new _IntComparer()));
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("first", exc.ParamName);
-                    }
-
-                    try
-                    {
-                        new int[0].GroupBy(x => x, new _IntComparer()).Concat(reverseRangeGrouping);
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("second", exc.ParamName);
-                    }
-                }
-
-                // lookupDefault
-                {
-                    var reverseRangeGrouping = new ReverseRangeEnumerable<GroupingEnumerable<int, int>>();
-                    try
-                    {
-                        reverseRangeGrouping.Concat(new int[0].ToLookup(x => x));
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("first", exc.ParamName);
-                    }
-
-                    try
-                    {
-                        new int[0].ToLookup(x => x).Concat(reverseRangeGrouping);
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("second", exc.ParamName);
-                    }
-                }
-
-                // lookupSpecific
-                {
-                    var reverseRangeGrouping = new ReverseRangeEnumerable<GroupingEnumerable<int, int>>();
-                    try
-                    {
-                        reverseRangeGrouping.Concat(new int[0].ToLookup(x => x, new _IntComparer()));
-                        Assert.Fail();
-                    }
-                    catch (ArgumentException exc)
-                    {
-                        Assert.AreEqual("first", exc.ParamName);
-                    }
-
-                    try
-                    {
-                        new int[0].ToLookup(x => x, new _IntComparer()).Concat(reverseRangeGrouping);
                         Assert.Fail();
                     }
                     catch (ArgumentException exc)
@@ -4277,7 +4207,7 @@ namespace LinqAF.Tests
                 }
             }
         }
-        
+
         [TestMethod]
         public void Simple()
         {
@@ -4289,7 +4219,7 @@ namespace LinqAF.Tests
             Assert.IsTrue(asConcat.GetType().IsValueType);
 
             var ret = new List<int>();
-            foreach(var item in asConcat)
+            foreach (var item in asConcat)
             {
                 ret.Add(item);
             }

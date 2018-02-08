@@ -49,7 +49,7 @@ namespace LinqAF.Tests
                         )
                         .ToArray();
 
-                foreach(var shouldHaveConvenienceMtd in takingIEnumerable)
+                foreach (var shouldHaveConvenienceMtd in takingIEnumerable)
                 {
                     var originalMethodPs = shouldHaveConvenienceMtd.GetParameters();
 
@@ -63,7 +63,7 @@ namespace LinqAF.Tests
                                 {
                                     var convenienceParams = m.GetParameters();
 
-                                    for(var i = 0; i < originalMethodPs.Length; i++)
+                                    for (var i = 0; i < originalMethodPs.Length; i++)
                                     {
                                         var convenienceParam = convenienceParams[i + 1];
                                         var originalParam = originalMethodPs[i];
@@ -91,7 +91,7 @@ namespace LinqAF.Tests
         {
             var pubStatic = typeof(ConvenienceExtensionMethods).GetMethods(BindingFlags.Public | BindingFlags.Static);
 
-            foreach(var mtd in pubStatic)
+            foreach (var mtd in pubStatic)
             {
                 Assert.IsNotNull(mtd.GetCustomAttribute<ExtensionAttribute>(), $"Convenience method {mtd.Name} isn't an extension method");
 
@@ -106,7 +106,7 @@ namespace LinqAF.Tests
 
                 Assert.AreEqual(thisTypeParams.Length, mtdParams.Length - 1, $"Incorrect number of parameters for {mtd.Name}");
 
-                for(var i = 0; i < thisTypeParams.Length; i++)
+                for (var i = 0; i < thisTypeParams.Length; i++)
                 {
                     var thisTypeParam = thisTypeParams[i];
                     var mtdParam = mtdParams[i + 1];
@@ -141,6 +141,46 @@ namespace LinqAF.Tests
 
         #region HashSet
         [TestMethod]
+        public void HashSet_New()
+        {
+            // default comparer
+            Helper.ForEachEnumerableNoRetExpression(
+                new[] { 1, 2, 3 },
+                @"a =>
+                  {
+                    var linqAF = LinqAFNew.HashSet(a);
+                    var shouldMatch = new HashSet<int>(new [] { 1, 2, 3 });
+
+                    Assert.IsTrue(shouldMatch.SetEquals(linqAF));
+                  }",
+                typeof(EmptyEnumerable<>),
+                typeof(EmptyOrderedEnumerable<>),
+                typeof(GroupByDefaultEnumerable<,,,,>),
+                typeof(GroupBySpecificEnumerable<,,,,>),
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
+            );
+
+            // custom comparer
+            Helper.ForEachEnumerableNoRetExpression(
+                new[] { "foo", "FOO", "bar", "BAR" },
+                @"a =>
+                  {
+                    var linqAF = LinqAFNew.HashSet(a, StringComparer.InvariantCultureIgnoreCase);
+                    var shouldMatch = new HashSet<string>(new [] { ""foo"", ""FOO"", ""bar"", ""BAR"" }, StringComparer.InvariantCultureIgnoreCase);
+
+                    Assert.IsTrue(shouldMatch.SetEquals(linqAF));
+                  }",
+                typeof(EmptyEnumerable<>),
+                typeof(EmptyOrderedEnumerable<>),
+                typeof(GroupByDefaultEnumerable<,,,,>),
+                typeof(GroupBySpecificEnumerable<,,,,>),
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
+            );
+        }
+
+        [TestMethod]
         public void HashSet_ExceptWith_Universal()
         {
             var exceptWithMethods =
@@ -156,7 +196,24 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType) {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -244,7 +301,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking =
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -323,7 +398,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -426,7 +519,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -529,7 +640,26 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking =
+                    exceptWithMethods
+                        .SingleOrDefault(
+                            m =>
+                            {
+                                var mPs = m.GetParameters();
+                                Type pGen;
+
+                                if (mPs[1].ParameterType.IsGenericType)
+                                {
+                                    pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                                }
+                                else
+                                {
+                                    pGen = mPs[1].ParameterType;
+                                }
+
+                                return pGen == e;
+                            }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -632,7 +762,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -735,7 +883,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -772,7 +938,7 @@ namespace LinqAF.Tests
                 typeof(LookupDefaultEnumerable<,>),
                 typeof(LookupSpecificEnumerable<,>)
             );
-            
+
             // empty
             {
                 var hashset1 = new System.Collections.Generic.HashSet<int>() { 3, 4, 5, 6 };
@@ -820,7 +986,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -905,7 +1089,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -941,7 +1143,7 @@ namespace LinqAF.Tests
 
             // empty
             {
-                var hashset = new System.Collections.Generic.HashSet<int>() {3, 2, 1 };
+                var hashset = new System.Collections.Generic.HashSet<int>() { 3, 2, 1 };
                 hashset.SymmetricExceptWith(Enumerable.Empty<int>());
 
                 Assert.AreEqual(3, hashset.Count);
@@ -978,7 +1180,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -1037,7 +1257,53 @@ namespace LinqAF.Tests
         }
         #endregion
 
+        #region LinkedList
+        [TestMethod]
+        public void LinkedList_New()
+        {
+            // default comparer
+            Helper.ForEachEnumerableNoRetExpression(
+                new[] { 1, 2, 3 },
+                @"a =>
+                  {
+                    var linqAF = LinqAFNew.LinkedList(a);
+                    var shouldMatch = new LinkedList<int>(new [] { 1, 2, 3 });
+
+                    Assert.IsTrue(shouldMatch.SequenceEqual(linqAF));
+                  }",
+                typeof(EmptyEnumerable<>),
+                typeof(EmptyOrderedEnumerable<>),
+                typeof(GroupByDefaultEnumerable<,,,,>),
+                typeof(GroupBySpecificEnumerable<,,,,>),
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
+            );
+        }
+        #endregion
+
         #region List
+        [TestMethod]
+        public void List_New()
+        {
+            // default comparer
+            Helper.ForEachEnumerableNoRetExpression(
+                new[] { 1, 2, 3 },
+                @"a =>
+                  {
+                    var linqAF = LinqAFNew.List(a);
+                    var shouldMatch = new List<int>(new [] { 1, 2, 3 });
+
+                    Assert.IsTrue(shouldMatch.SequenceEqual(linqAF));
+                  }",
+                typeof(EmptyEnumerable<>),
+                typeof(EmptyOrderedEnumerable<>),
+                typeof(GroupByDefaultEnumerable<,,,,>),
+                typeof(GroupBySpecificEnumerable<,,,,>),
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
+            );
+        }
+
         [TestMethod]
         public void List_AddRange_Universal()
         {
@@ -1054,7 +1320,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -1116,7 +1400,7 @@ namespace LinqAF.Tests
         [TestMethod]
         public void List_InsertRange_Universal()
         {
-            var exceptWithMethods =
+            var insertRangeMethods =
                 typeof(ConvenienceExtensionMethods)
                 .GetMethods(BindingFlags.Public | BindingFlags.Static)
                 .Where(p => p.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == typeof(System.Collections.Generic.List<>))
@@ -1129,9 +1413,27 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType == typeof(int) && m.GetParameters()[2].ParameterType.GetGenericTypeDefinition() == e);
+                var insertRangeTaking =
+                    insertRangeMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
 
-                if (exceptWithTaking == null)
+                            if (mPs[2].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[2].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[2].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
+
+                if (insertRangeTaking == null)
                 {
                     missing.Add(e.Name);
                 }
@@ -1189,6 +1491,30 @@ namespace LinqAF.Tests
         }
         #endregion
 
+        #region Queue
+        [TestMethod]
+        public void Queue_New()
+        {
+            // default comparer
+            Helper.ForEachEnumerableNoRetExpression(
+                new[] { 1, 2, 3 },
+                @"a =>
+                  {
+                    var linqAF = LinqAFNew.Queue(a);
+                    var shouldMatch = new Queue<int>(new [] { 1, 2, 3 });
+
+                    Assert.IsTrue(shouldMatch.SequenceEqual(linqAF));
+                  }",
+                typeof(EmptyEnumerable<>),
+                typeof(EmptyOrderedEnumerable<>),
+                typeof(GroupByDefaultEnumerable<,,,,>),
+                typeof(GroupBySpecificEnumerable<,,,,>),
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
+            );
+        }
+        #endregion
+
         #region ISet
         public void ISet_ExceptWith_Universal()
         {
@@ -1205,7 +1531,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -1293,7 +1637,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -1372,7 +1734,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -1475,7 +1855,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -1578,7 +1976,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -1681,7 +2097,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -1784,7 +2218,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -1869,7 +2321,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -1954,7 +2424,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking =
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2027,7 +2515,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2088,6 +2594,46 @@ namespace LinqAF.Tests
 
         #region SortedSet
         [TestMethod]
+        public void SortedSet_New()
+        {
+            // default comparer
+            Helper.ForEachEnumerableNoRetExpression(
+                new[] { 1, 2, 3 },
+                @"a =>
+                  {
+                    var linqAF = LinqAFNew.SortedSet(a);
+                    var shouldMatch = new SortedSet<int>(new [] { 1, 2, 3 });
+
+                    Assert.IsTrue(shouldMatch.SetEquals(linqAF));
+                  }",
+                typeof(EmptyEnumerable<>),
+                typeof(EmptyOrderedEnumerable<>),
+                typeof(GroupByDefaultEnumerable<,,,,>),
+                typeof(GroupBySpecificEnumerable<,,,,>),
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
+            );
+
+            // custom comparer
+            Helper.ForEachEnumerableNoRetExpression(
+                new[] { "foo", "FOO", "bar", "BAR" },
+                @"a =>
+                  {
+                    var linqAF = LinqAFNew.SortedSet(a, StringComparer.InvariantCultureIgnoreCase);
+                    var shouldMatch = new SortedSet<string>(new [] { ""foo"", ""FOO"", ""bar"", ""BAR"" }, StringComparer.InvariantCultureIgnoreCase);
+
+                    Assert.IsTrue(shouldMatch.SetEquals(linqAF));
+                  }",
+                typeof(EmptyEnumerable<>),
+                typeof(EmptyOrderedEnumerable<>),
+                typeof(GroupByDefaultEnumerable<,,,,>),
+                typeof(GroupBySpecificEnumerable<,,,,>),
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
+            );
+        }
+
+        [TestMethod]
         public void SortedSet_ExceptWith_Universal()
         {
             var exceptWithMethods =
@@ -2103,7 +2649,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2191,7 +2755,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2270,7 +2852,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2373,7 +2973,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2476,7 +3094,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2579,7 +3215,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2682,7 +3336,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2767,7 +3439,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2852,7 +3542,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2925,7 +3633,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -2984,6 +3710,30 @@ namespace LinqAF.Tests
         }
         #endregion
 
+        #region Stack
+        [TestMethod]
+        public void Stack_New()
+        {
+            // default comparer
+            Helper.ForEachEnumerableNoRetExpression(
+                new[] { 1, 2, 3 },
+                @"a =>
+                  {
+                    var linqAF = LinqAFNew.Stack(a);
+                    var shouldMatch = new Stack<int>(new [] { 1, 2, 3 });
+
+                    Assert.IsTrue(shouldMatch.SequenceEqual(linqAF));
+                  }",
+                typeof(EmptyEnumerable<>),
+                typeof(EmptyOrderedEnumerable<>),
+                typeof(GroupByDefaultEnumerable<,,,,>),
+                typeof(GroupBySpecificEnumerable<,,,,>),
+                typeof(LookupDefaultEnumerable<,>),
+                typeof(LookupSpecificEnumerable<,>)
+            );
+        }
+        #endregion
+
         #region String
         [TestMethod]
         public void String_CheckForPassthroughs()
@@ -3000,11 +3750,6 @@ namespace LinqAF.Tests
                 if (mtd.Name == "op_Equality") continue;
                 if (mtd.Name == "op_Inequality") continue;
 
-                if(mtd.MetadataToken == 100664475)
-                {
-                    Console.WriteLine();
-                }
-
                 var mtdPs = mtd.GetParameters();
 
                 var sameName = linqAFMtds.Where(m => m.Name == mtd.Name).ToArray();
@@ -3015,7 +3760,7 @@ namespace LinqAF.Tests
                             m =>
                             {
                                 var mPs = m.GetParameters();
-                                for(var i = 0; i < mPs.Length; i++)
+                                for (var i = 0; i < mPs.Length; i++)
                                 {
                                     var same = String_AreEquivalent(mPs[i].ParameterType, mtdPs[i].ParameterType);
 
@@ -3027,13 +3772,13 @@ namespace LinqAF.Tests
                         )
                         .ToArray();
 
-                if(samePs.Length == 0)
+                if (samePs.Length == 0)
                 {
                     missing.Add(mtd.Name + "(" + string.Join(", ", mtdPs.Select(p => p.ParameterType.Name).ToArray()) + ")");
                 }
                 else
                 {
-                    if(samePs.Length > 1)
+                    if (samePs.Length > 1)
                     {
                         tooMany.Add(mtd.Name + "(" + string.Join(", ", mtdPs.Select(p => p.ParameterType.Name).ToArray()) + ")");
                     }
@@ -3066,12 +3811,12 @@ namespace LinqAF.Tests
 
                 if (aGenParams.Length != bGenParams.Length) return false;
 
-                for(var i = 0; i < aGenParams.Length; i++)
+                for (var i = 0; i < aGenParams.Length; i++)
                 {
                     if (!String_AreEquivalent(aGenParams[i], bGenParams[i])) return false;
                 }
             }
-            
+
             if (aGen != a || bGen != b) return String_AreEquivalent(aGen, bGen);
 
             return false;
@@ -3080,7 +3825,7 @@ namespace LinqAF.Tests
         [TestMethod]
         public void String_Concat_Universal()
         {
-            var exceptWithMethods =
+            var concatMethods =
                 typeof(LinqAFString)
                 .GetMethods(BindingFlags.Public | BindingFlags.Static)
                 .Where(p => p.Name == "Concat")
@@ -3092,9 +3837,27 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e);
+                var concatTaking = 
+                    concatMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
 
-                if (exceptWithTaking == null)
+                            if (mPs[0].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[0].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[0].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
+
+                if (concatTaking == null)
                 {
                     missing.Add(e.Name);
                 }
@@ -3122,7 +3885,7 @@ namespace LinqAF.Tests
                 typeof(LookupDefaultEnumerable<,>),
                 typeof(LookupSpecificEnumerable<,>)
             );
-            
+
             // empty
             {
                 var res = LinqAFString.Concat(Enumerable.Empty<int>());
@@ -3153,7 +3916,25 @@ namespace LinqAF.Tests
 
             foreach (var e in allEnumerables)
             {
-                var exceptWithTaking = exceptWithMethods.SingleOrDefault(m => m.GetParameters()[1].ParameterType.IsGenericType && m.GetParameters()[1].ParameterType.GetGenericTypeDefinition() == e);
+                var exceptWithTaking = 
+                    exceptWithMethods.SingleOrDefault(
+                        m =>
+                        {
+                            var mPs = m.GetParameters();
+                            Type pGen;
+
+                            if (mPs[1].ParameterType.IsGenericType)
+                            {
+                                pGen = mPs[1].ParameterType.GetGenericTypeDefinition();
+                            }
+                            else
+                            {
+                                pGen = mPs[1].ParameterType;
+                            }
+
+                            return pGen == e;
+                        }
+                    );
 
                 if (exceptWithTaking == null)
                 {
@@ -3199,5 +3980,300 @@ namespace LinqAF.Tests
             }
         }
         #endregion
+
+        #region Task
+        [TestMethod]
+        public void Task_CheckForPassthroughs()
+        {
+            var publicStaticStringMtds = typeof(System.Threading.Tasks.Task).GetMethods(BindingFlags.Public | BindingFlags.Static).ToArray();
+            var linqAFMtds = typeof(LinqAFTask).GetMethods(BindingFlags.Public | BindingFlags.Static).ToArray();
+
+            var missing = new System.Collections.Generic.HashSet<string>();
+            var tooMany = new System.Collections.Generic.HashSet<string>();
+
+            foreach (var mtd in publicStaticStringMtds)
+            {
+                // ignore operators
+                if (mtd.Name == "op_Equality") continue;
+                if (mtd.Name == "op_Inequality") continue;
+
+                var mtdPs = mtd.GetParameters();
+                var mtdGPs = mtd.ContainsGenericParameters ? mtd.GetGenericArguments() : Type.EmptyTypes;
+
+                if (mtd.MetadataToken == 100679629)
+                {
+                    Console.WriteLine();
+                }
+
+                var sameName = linqAFMtds.Where(m => m.Name == mtd.Name).ToArray();
+                var sameNumParams = sameName.Where(m => m.GetParameters().Length == mtdPs.Length).ToArray();
+                var samePs =
+                    sameNumParams
+                        .Where(
+                            m =>
+                            {
+                                if (m.MetadataToken == 100714099)
+                                {
+                                    Console.WriteLine();
+                                }
+
+                                var mPs = m.GetParameters();
+                                var mGPs = m.ContainsGenericParameters ? m.GetGenericArguments() : Type.EmptyTypes;
+
+                                if (mGPs.Length != mtdGPs.Length) return false;
+
+                                for (var i = 0; i < mPs.Length; i++)
+                                {
+                                    var same = Task_AreEquivalent(mPs[i].ParameterType, mtdPs[i].ParameterType);
+
+                                    if (!same) return false;
+                                }
+
+                                return true;
+                            }
+                        )
+                        .ToArray();
+
+                if (samePs.Length == 0)
+                {
+                    missing.Add(mtd.Name + "(" + string.Join(", ", mtdPs.Select(p => p.ParameterType.Name).ToArray()) + ")");
+                }
+                else
+                {
+                    if (samePs.Length > 1)
+                    {
+                        tooMany.Add(mtd.Name + "(" + string.Join(", ", mtdPs.Select(p => p.ParameterType.Name).ToArray()) + ")");
+                    }
+                }
+            }
+
+            Assert.AreEqual(0, missing.Count, string.Join("\n", missing));
+            Assert.AreEqual(0, tooMany.Count, string.Join("\n", tooMany));
+        }
+
+        static bool Task_AreEquivalent(Type a, Type b)
+        {
+            if (a == b) return true;
+            if (a.IsAssignableFrom(b) && b.IsAssignableFrom(a)) return true;
+            if (a.IsEquivalentTo(b) && b.IsEquivalentTo(a)) return true;
+            if (a.IsGenericParameter && b.IsGenericParameter) return true;
+
+            if (a.IsGenericType != b.IsGenericType) return false;
+
+            var aGen = a;
+            var bGen = b;
+
+            if (aGen.IsGenericType)
+            {
+                aGen = aGen.GetGenericTypeDefinition();
+                bGen = bGen.GetGenericTypeDefinition();
+
+                var aGenParams = a.GetGenericArguments();
+                var bGenParams = b.GetGenericArguments();
+
+                if (aGenParams.Length != bGenParams.Length) return false;
+
+                for (var i = 0; i < aGenParams.Length; i++)
+                {
+                    if (!Task_AreEquivalent(aGenParams[i], bGenParams[i])) return false;
+                }
+            }
+
+            if (aGen != a || bGen != b) return Task_AreEquivalent(aGen, bGen);
+            if (aGen.IsArray && bGen.IsArray) return Task_AreEquivalent(aGen.GetElementType(), bGen.GetElementType());
+
+            return false;
+        }
+
+        [TestMethod]
+        public void Task_WaitAll_Universal()
+        {
+            var waitAllMethods =
+                typeof(LinqAFTask)
+                .GetMethods(BindingFlags.Public | BindingFlags.Static)
+                .Where(p => p.Name == "WaitAll")
+                .ToList();
+
+            var allEnumerables =
+                typeof(IStructEnumerable<,>).Assembly
+                    .GetTypes()
+                    .Where(t => t.GetInterface("IStructEnumerable`2") != null)
+                    .Where(t => t.Name != "LookupDefaultEnumerable`2" && t.Name != "LookupSpecificEnumerable`2")
+                    .Where(t => t.Name != "GroupByDefaultEnumerable`5" && t.Name != "GroupBySpecificEnumerable`5")
+                    .Where(t => t.Name != "RangeEnumerable" && t.Name != "ReverseRangeEnumerable")
+                    .ToList();
+
+            var missing = new System.Collections.Generic.List<string>();
+
+            foreach (var e in allEnumerables)
+            {
+                var waitAllTaking_noTimeout_noCancellation =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e);
+
+                if (waitAllTaking_noTimeout_noCancellation == null) missing.Add(e.Name);
+
+                var waitAllTaking_timespanTimeout_noCancellation =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.GetParameters().Length == 2 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e && m.GetParameters()[1].ParameterType == typeof(TimeSpan));
+
+                if (waitAllTaking_timespanTimeout_noCancellation == null) missing.Add(e.Name);
+
+                var waitAllTaking_intTimeout_noCancellation =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.GetParameters().Length == 2 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e && m.GetParameters()[1].ParameterType == typeof(int));
+
+                if (waitAllTaking_intTimeout_noCancellation == null) missing.Add(e.Name);
+
+                var waitAllTaking_noTimeout_cancellation =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.GetParameters().Length == 2 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e && m.GetParameters()[1].ParameterType == typeof(System.Threading.CancellationToken));
+
+                if (waitAllTaking_noTimeout_cancellation == null) missing.Add(e.Name);
+
+                var waitAllTaking_intTimeout_cancellation =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.GetParameters().Length == 3 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e && m.GetParameters()[1].ParameterType == typeof(int) && m.GetParameters()[2].ParameterType == typeof(System.Threading.CancellationToken));
+
+                if (waitAllTaking_intTimeout_cancellation == null) missing.Add(e.Name);
+            }
+
+            Assert.AreEqual(0, missing.Count, "Missing methods that take: " + string.Join(", ", missing));
+        }
+
+        [TestMethod]
+        public void Task_WaitAny_Universal()
+        {
+            var waitAllMethods =
+                typeof(LinqAFTask)
+                .GetMethods(BindingFlags.Public | BindingFlags.Static)
+                .Where(p => p.Name == "WaitAny")
+                .ToList();
+
+            var allEnumerables =
+                typeof(IStructEnumerable<,>).Assembly
+                    .GetTypes()
+                    .Where(t => t.GetInterface("IStructEnumerable`2") != null)
+                    .Where(t => t.Name != "LookupDefaultEnumerable`2" && t.Name != "LookupSpecificEnumerable`2")
+                    .Where(t => t.Name != "GroupByDefaultEnumerable`5" && t.Name != "GroupBySpecificEnumerable`5")
+                    .Where(t => t.Name != "RangeEnumerable" && t.Name != "ReverseRangeEnumerable")
+                    .ToList();
+
+            var missing = new System.Collections.Generic.List<string>();
+
+            foreach (var e in allEnumerables)
+            {
+                var waitAllTaking_noTimeout_noCancellation =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e);
+
+                if (waitAllTaking_noTimeout_noCancellation == null) missing.Add(e.Name);
+
+                var waitAllTaking_timespanTimeout_noCancellation =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.GetParameters().Length == 2 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e && m.GetParameters()[1].ParameterType == typeof(TimeSpan));
+
+                if (waitAllTaking_timespanTimeout_noCancellation == null) missing.Add(e.Name);
+
+                var waitAllTaking_intTimeout_noCancellation =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.GetParameters().Length == 2 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e && m.GetParameters()[1].ParameterType == typeof(int));
+
+                if (waitAllTaking_intTimeout_noCancellation == null) missing.Add(e.Name);
+
+                var waitAllTaking_noTimeout_cancellation =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.GetParameters().Length == 2 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e && m.GetParameters()[1].ParameterType == typeof(System.Threading.CancellationToken));
+
+                if (waitAllTaking_noTimeout_cancellation == null) missing.Add(e.Name);
+
+                var waitAllTaking_intTimeout_cancellation =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.GetParameters().Length == 3 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e && m.GetParameters()[1].ParameterType == typeof(int) && m.GetParameters()[2].ParameterType == typeof(System.Threading.CancellationToken));
+
+                if (waitAllTaking_intTimeout_cancellation == null) missing.Add(e.Name);
+            }
+
+            Assert.AreEqual(0, missing.Count, "Missing methods that take: " + string.Join(", ", missing));
+        }
+
+        [TestMethod]
+        public void Task_WhenAll_Universal()
+        {
+            var waitAllMethods =
+                typeof(LinqAFTask)
+                .GetMethods(BindingFlags.Public | BindingFlags.Static)
+                .Where(p => p.Name == "WhenAll")
+                .ToList();
+
+            var allEnumerables =
+                typeof(IStructEnumerable<,>).Assembly
+                    .GetTypes()
+                    .Where(t => t.GetInterface("IStructEnumerable`2") != null)
+                    .Where(t => t.Name != "LookupDefaultEnumerable`2" && t.Name != "LookupSpecificEnumerable`2")
+                    .Where(t => t.Name != "GroupByDefaultEnumerable`5" && t.Name != "GroupBySpecificEnumerable`5")
+                    .Where(t => t.Name != "RangeEnumerable" && t.Name != "ReverseRangeEnumerable")
+                    .ToList();
+
+            var missing = new System.Collections.Generic.List<string>();
+
+            foreach (var e in allEnumerables)
+            {
+                var waitAllTaking_noValue =
+                    waitAllMethods
+                        .SingleOrDefault(m => !m.ReturnType.ContainsGenericParameters && m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e);
+
+                if (waitAllTaking_noValue == null) missing.Add(e.Name);
+
+                var waitAllTaking_value =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.ReturnType.ContainsGenericParameters && m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e);
+
+                if (waitAllTaking_value == null) missing.Add(e.Name);
+            }
+
+            Assert.AreEqual(0, missing.Count, "Missing methods that take: " + string.Join(", ", missing));
+        }
+
+        [TestMethod]
+        public void Task_WhenAny_Universal()
+        {
+            var waitAllMethods =
+                typeof(LinqAFTask)
+                .GetMethods(BindingFlags.Public | BindingFlags.Static)
+                .Where(p => p.Name == "WhenAny")
+                .ToList();
+
+            var allEnumerables =
+                typeof(IStructEnumerable<,>).Assembly
+                    .GetTypes()
+                    .Where(t => t.GetInterface("IStructEnumerable`2") != null)
+                    .Where(t => t.Name != "LookupDefaultEnumerable`2" && t.Name != "LookupSpecificEnumerable`2")
+                    .Where(t => t.Name != "GroupByDefaultEnumerable`5" && t.Name != "GroupBySpecificEnumerable`5")
+                    .Where(t => t.Name != "RangeEnumerable" && t.Name != "ReverseRangeEnumerable")
+                    .ToList();
+
+            var missing = new System.Collections.Generic.List<string>();
+
+            foreach (var e in allEnumerables)
+            {
+                var waitAllTaking_noValue =
+                    waitAllMethods
+                        .SingleOrDefault(m => !m.ReturnType.ContainsGenericParameters && m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e);
+
+                if (waitAllTaking_noValue == null) missing.Add(e.Name);
+
+                var waitAllTaking_value =
+                    waitAllMethods
+                        .SingleOrDefault(m => m.ReturnType.ContainsGenericParameters && m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType.IsGenericType && m.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == e);
+
+                if (waitAllTaking_value == null) missing.Add(e.Name);
+            }
+
+            Assert.AreEqual(0, missing.Count, "Missing methods that take: " + string.Join(", ", missing));
+        }
+
+        #endregion
+
     }
 }

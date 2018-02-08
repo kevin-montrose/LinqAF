@@ -34,6 +34,8 @@ namespace LinqAF.TestRunner
 
         static void Main(string[] args)
         {
+            const bool defaultSuppressCoverage = true;  // set false to collect coverage, true to not
+
             var run = new List<Test>();
             var asm = Assembly.Load("LinqAF.Tests");
 
@@ -54,12 +56,12 @@ namespace LinqAF.TestRunner
                 {
                     if (@class.GetCustomAttribute<TestClassAttribute>() != null)
                     {
-                        tests.AddRange(QueueTests(@class, suppressCoverage: false).Select(t => t.Name).AsEnumerable());
+                        tests.AddRange(QueueTests(@class, suppressCoverage: defaultSuppressCoverage).Select(t => t.Name).AsEnumerable());
                     }
                 }
 
                 tests = tests.OrderBy(x => x).ToList();
-
+                
                 Console.WriteLine($"Queuing {tests.Count} tests on {UseProceses()} different processes");
                 
                 results = ShardAndCollect(tests, out covered);
@@ -70,7 +72,7 @@ namespace LinqAF.TestRunner
                 redirecting = null;
 
                 covered = null;
-                var suppressCoverage = args.Length > 1 && args[1] == "no-coverage";
+                var suppressCoverage = args.Length > 1 ? args[1] == "no-coverage" : defaultSuppressCoverage;
 
                 var testNames = new HashSet<string>(args[0].Split(';'));
 
@@ -138,19 +140,22 @@ namespace LinqAF.TestRunner
             {
                 Console.WriteLine();
 
-                covered.Sort((x, y) => -(x.CoveragePercent.CompareTo(y.CoveragePercent)));
-                
-                var totalMethods = covered.Count;
-                var at100 = covered.Count(c => c.CoveragePercent >= 100);
-                var covPer = ((double)at100) / (double)totalMethods * 100.0;
-                Console.WriteLine($"{at100}/{totalMethods} methods ({Math.Round(covPer, 1)}%) at 100% code coverage");
-
-                Console.WriteLine("Press any key to dump 0% coverage methods");
-                Console.ReadKey();
-
-                foreach (var method in covered.Where(p => p.CoveragePercent <= 0))
+                if (covered != null)
                 {
-                    Console.WriteLine($"\t{method.NiceMethodName} at {Math.Round(method.CoveragePercent, 1)}% coverage");
+                    covered.Sort((x, y) => -(x.CoveragePercent.CompareTo(y.CoveragePercent)));
+
+                    var totalMethods = covered.Count;
+                    var at100 = covered.Count(c => c.CoveragePercent >= 100);
+                    var covPer = ((double)at100) / (double)totalMethods * 100.0;
+                    Console.WriteLine($"{at100}/{totalMethods} methods ({Math.Round(covPer, 1)}%) at 100% code coverage");
+
+                    Console.WriteLine("Press any key to dump 0% coverage methods");
+                    Console.ReadKey();
+
+                    foreach (var method in covered.Where(p => p.CoveragePercent <= 0))
+                    {
+                        Console.WriteLine($"\t{method.NiceMethodName} at {Math.Round(method.CoveragePercent, 1)}% coverage");
+                    }
                 }
 
 #if DEBUG
@@ -220,11 +225,11 @@ namespace LinqAF.TestRunner
             return ret;
 
             // PARTIAL BLAST
-            /*ret /= 2;
-            ret--;
-            if (ret < 0) ret = 1;
+            //ret /= 2;
+            //ret--;
+            //if (ret < 0) ret = 1;
 
-            return ret;*/
+            //return ret;
         }
 
         static async Task<List<Covered>> CollectCoverageAsync(string test)
@@ -600,11 +605,11 @@ namespace LinqAF.TestRunner
                         RedirectStandardOutput = true,
                         UseShellExecute = false
                     };
-                
+
                 pendingProcessStarts.Enqueue(procStart);
             }
 
-            Func<int> getPendingProcessStartsCount = 
+            Func<int> getPendingProcessStartsCount =
                 () =>
                 {
                     lock (pendingProcessStarts)
@@ -635,7 +640,7 @@ namespace LinqAF.TestRunner
                 {
                     continue;
                 }
-                
+
                 if (getPendingProcessStartsCount() > 0)
                 {
                     ProcessStartInfo next;
@@ -734,13 +739,14 @@ namespace LinqAF.TestRunner
                                             {
                                                 coveredRef = Covered.Merge(coveredRef.Concat(parsedCoverage).AsEnumerable());
                                             }
-                                            
+
                                             var total100 = coveredRef.Count(c => c.CoveragePercent >= 100);
                                             var total = coveredRef.Count();
 
                                             coverageRate = Math.Round(((double)total100) / (double)total * 100.0, 1);
                                         }
-                                    }else
+                                    }
+                                    else
                                     {
                                         coverageRate = double.NaN;
                                     }
@@ -749,7 +755,14 @@ namespace LinqAF.TestRunner
 
                                     if (errorMessage == null)
                                     {
-                                        Console.WriteLine($"[Proc: {newProc.Id}] ({num}/{testNames.Count}): {name} PASSED (covered methods: {coverageRate}%)");
+                                        if (!double.IsNaN(coverageRate))
+                                        {
+                                            Console.WriteLine($"[Proc: {newProc.Id}] ({num}/{testNames.Count}): {name} PASSED (covered methods: {coverageRate}%)");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"[Proc: {newProc.Id}] ({num}/{testNames.Count}): {name} PASSED");
+                                        }
                                     }
                                     else
                                     {
@@ -769,7 +782,7 @@ namespace LinqAF.TestRunner
                 }
             }
 
-            covered = coveredRef.ToList();
+            covered = coveredRef?.ToList();
             return results;
         }
 

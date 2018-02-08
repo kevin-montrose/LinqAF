@@ -1135,5 +1135,315 @@ namespace LinqAF
                     comparer
                 );
         }
+
+        // RangeEnumerable
+
+        public ExceptDefaultEnumerable<int,PlaceholderEnumerable<int>,PlaceholderEnumerator<int>,RangeEnumerable,RangeEnumerator> Except(
+            PlaceholderEnumerable<int> first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second
+                );
+        }
+
+        public ExceptSpecificEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, RangeEnumerable, RangeEnumerator> Except(
+            PlaceholderEnumerable<int> first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second,
+                    comparer
+                );
+        }
+
+        //public ExceptDefaultEnumerable<int, RangeEnumerable, RangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Except(
+        //    RangeEnumerable first,
+        //    PlaceholderEnumerable<int> second
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Except<
+        //            int,
+        //            RangeEnumerable,
+        //            RangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second)
+        //        );
+        //}
+
+        //public ExceptSpecificEnumerable<int, RangeEnumerable, RangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Except(
+        //    RangeEnumerable first,
+        //    PlaceholderEnumerable<int> second,
+        //    IEqualityComparer<int> comparer
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Except<
+        //            int,
+        //            RangeEnumerable,
+        //            RangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second),
+        //            comparer
+        //        );
+        //}
+
+        public ExceptDefaultEnumerable<int, RangeEnumerable, RangeEnumerator, RangeEnumerable, RangeEnumerator> Except(
+            RangeEnumerable first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public ExceptSpecificEnumerable<int, RangeEnumerable, RangeEnumerator, RangeEnumerable, RangeEnumerator> Except(
+            RangeEnumerable first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        // ReverseRangeEnumerable
+
+        public ExceptDefaultEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, ReverseRangeEnumerable, ReverseRangeEnumerator> Except(
+            PlaceholderEnumerable<int> first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second
+                );
+        }
+
+        public ExceptSpecificEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, ReverseRangeEnumerable, ReverseRangeEnumerator> Except(
+            PlaceholderEnumerable<int> first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second,
+                    comparer
+                );
+        }
+
+        //public ExceptDefaultEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Except(
+        //    ReverseRangeEnumerable first,
+        //    PlaceholderEnumerable<int> second
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Except<
+        //            int,
+        //            ReverseRangeEnumerable,
+        //            ReverseRangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second)
+        //        );
+        //}
+
+        //public ExceptSpecificEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Except(
+        //    ReverseRangeEnumerable first,
+        //    PlaceholderEnumerable<int> second,
+        //    IEqualityComparer<int> comparer
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Except<
+        //            int,
+        //            ReverseRangeEnumerable,
+        //            ReverseRangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second),
+        //            comparer
+        //        );
+        //}
+
+        public ExceptDefaultEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Except(
+            ReverseRangeEnumerable first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public ExceptSpecificEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Except(
+            ReverseRangeEnumerable first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        // Range - ReverseRange
+
+        public ExceptDefaultEnumerable<int, RangeEnumerable, RangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Except(
+            RangeEnumerable first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public ExceptSpecificEnumerable<int, RangeEnumerable, RangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Except(
+            RangeEnumerable first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        public ExceptDefaultEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, RangeEnumerable, RangeEnumerator> Except(
+            ReverseRangeEnumerable first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public ExceptSpecificEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, RangeEnumerable, RangeEnumerator> Except(
+            ReverseRangeEnumerable first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Except<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
     }
 }

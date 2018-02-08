@@ -161,12 +161,6 @@ namespace LinqAF
             where TOfTypeInnerEnumerator : struct, IStructEnumerator<TOfTypeInItem>
         => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, OfTypeEnumerable<TOfTypeInItem, TItem, TOfTypeInnerEnumerable, TOfTypeInnerEnumerator>, OfTypeEnumerator<TOfTypeInItem, TItem, TOfTypeInnerEnumerator>>(RefThis(), ref second, comparer);
 
-        public bool SequenceEqual(RangeEnumerable<TItem> second)
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(RefThis(), ref second, null);
-
-        public bool SequenceEqual(RangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(RefThis(), ref second, comparer);
-
         public bool SequenceEqual(RepeatEnumerable<TItem> second)
         => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(RefThis(), ref second, null);
 
@@ -679,12 +673,6 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(RefThis(), ref second, comparer);
 
-        public bool SequenceEqual(ReverseRangeEnumerable<TItem> second)
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(RefThis(), ref second, null);
-
-        public bool SequenceEqual(ReverseRangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
-        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(RefThis(), ref second, comparer);
-
         public bool SequenceEqual(OneItemDefaultEnumerable<TItem> second)
         => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, OneItemDefaultEnumerable<TItem>, OneItemDefaultEnumerator<TItem>>(RefThis(), ref second, null);
 
@@ -708,5 +696,45 @@ namespace LinqAF
 
         public bool SequenceEqual(OneItemSpecificOrderedEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(RefThis(), ref second, comparer);
+
+        public bool SequenceEqual<TSkipEnumerable, TSkipEnumerator>(SkipLastEnumerable<TItem, TSkipEnumerable, TSkipEnumerator> second)
+            where TSkipEnumerable : struct, IStructEnumerable<TItem, TSkipEnumerator>
+            where TSkipEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SkipLastEnumerable<TItem, TSkipEnumerable, TSkipEnumerator>, SkipLastEnumerator<TItem, TSkipEnumerator>>(RefThis(), ref second, null);
+
+        public bool SequenceEqual<TSkipEnumerable, TSkipEnumerator>(SkipLastEnumerable<TItem, TSkipEnumerable, TSkipEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TSkipEnumerable : struct, IStructEnumerable<TItem, TSkipEnumerator>
+            where TSkipEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, SkipLastEnumerable<TItem, TSkipEnumerable, TSkipEnumerator>, SkipLastEnumerator<TItem, TSkipEnumerator>>(RefThis(), ref second, comparer);
+
+        public bool SequenceEqual<TTakeEnumerable, TTakeEnumerator>(TakeLastEnumerable<TItem, TTakeEnumerable, TTakeEnumerator> second)
+            where TTakeEnumerable : struct, IStructEnumerable<TItem, TTakeEnumerator>
+            where TTakeEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, TakeLastEnumerable<TItem, TTakeEnumerable, TTakeEnumerator>, TakeLastEnumerator<TItem, TTakeEnumerator>>(RefThis(), ref second, null);
+
+        public bool SequenceEqual<TTakeEnumerable, TTakeEnumerator>(TakeLastEnumerable<TItem, TTakeEnumerable, TTakeEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TTakeEnumerable : struct, IStructEnumerable<TItem, TTakeEnumerator>
+            where TTakeEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, TakeLastEnumerable<TItem, TTakeEnumerable, TTakeEnumerator>, TakeLastEnumerator<TItem, TTakeEnumerator>>(RefThis(), ref second, comparer);
+
+        public bool SequenceEqual<TAppendEnumerable, TAppendEnumerator>(AppendEnumerable<TItem, TAppendEnumerable, TAppendEnumerator> second)
+            where TAppendEnumerable : struct, IStructEnumerable<TItem, TAppendEnumerator>
+            where TAppendEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, AppendEnumerable<TItem, TAppendEnumerable, TAppendEnumerator>, AppendEnumerator<TItem, TAppendEnumerator>>(RefThis(), ref second, null);
+
+        public bool SequenceEqual<TAppendEnumerable, TAppendEnumerator>(AppendEnumerable<TItem, TAppendEnumerable, TAppendEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TAppendEnumerable : struct, IStructEnumerable<TItem, TAppendEnumerator>
+            where TAppendEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, AppendEnumerable<TItem, TAppendEnumerable, TAppendEnumerator>, AppendEnumerator<TItem, TAppendEnumerator>>(RefThis(), ref second, comparer);
+
+        public bool SequenceEqual<TPrependEnumerable, TPrependEnumerator>(PrependEnumerable<TItem, TPrependEnumerable, TPrependEnumerator> second)
+            where TPrependEnumerable : struct, IStructEnumerable<TItem, TPrependEnumerator>
+            where TPrependEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, PrependEnumerable<TItem, TPrependEnumerable, TPrependEnumerator>, PrependEnumerator<TItem, TPrependEnumerator>>(RefThis(), ref second, null);
+
+        public bool SequenceEqual<TPrependEnumerable, TPrependEnumerator>(PrependEnumerable<TItem, TPrependEnumerable, TPrependEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TPrependEnumerable : struct, IStructEnumerable<TItem, TPrependEnumerator>
+            where TPrependEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.SequenceEqual<TItem, TEnumerable, TEnumerator, PrependEnumerable<TItem, TPrependEnumerable, TPrependEnumerator>, PrependEnumerator<TItem, TPrependEnumerator>>(RefThis(), ref second, comparer);
     }
 }

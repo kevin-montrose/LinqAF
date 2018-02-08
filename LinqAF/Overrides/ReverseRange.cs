@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LinqAF
 {
-    public partial struct ReverseRangeEnumerable<TItem>
+    public partial struct ReverseRangeEnumerable
     {
         public int Count()
         {
@@ -29,7 +29,7 @@ namespace LinqAF
             return InnerCount >= 0;
         }
 
-        public TItem ElementAt(int index)
+        public int ElementAt(int index)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
@@ -38,34 +38,44 @@ namespace LinqAF
                 throw CommonImplementation.OutOfRange(nameof(index));
             }
 
-            return Operator.Subtract(Start, Operator.Convert<int, TItem>(index));
+            return Start - index;
         }
 
-        public TItem ElementAtOrDefault(int index)
+        public int ElementAtOrDefault(int index)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (index >= InnerCount || index < 0)
             {
-                return default(TItem);
+                return 0;
             }
 
-            return Operator.Subtract(Start, Operator.Convert<int, TItem>(index));
+            return Start -index;
         }
 
-        public bool Contains(TItem value)
+        public bool Contains(int value)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
-            var max = this.Start;
-            var min = Operator.Subtract(max, Operator.Convert<int, TItem>(this.InnerCount));
+            // 3 2 1
+            // length = 3
+            // max = 3
+            // min = 3 - 3 + 1 = 1
 
-            if (Operator.LessThan(value, min) || Operator.GreaterThanOrEqual(value, max)) return false;
+            // value = 0
+            //   value < min
+            // value = 3
+            //   value > max
+
+            var max = this.Start;
+            var min = max - this.InnerCount + 1;
+
+            if (value < min || value > max) return false;
 
             return true;
         }
 
-        public TItem First()
+        public int First()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
@@ -77,19 +87,19 @@ namespace LinqAF
             return this.Start;
         }
 
-        public TItem FirstOrDefault()
+        public int FirstOrDefault()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (this.InnerCount == 0)
             {
-                return default(TItem);
+                return 0;
             }
 
             return this.Start;
         }
         
-        public TItem Last()
+        public int Last()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
@@ -102,36 +112,36 @@ namespace LinqAF
             // ReverseRange(3, 3) -> 3, 2, 1
             // Last = (Start - InnerCount) + 1
 
-            var ret = Operator.Add(Operator.Subtract(Start, Operator.Convert<int, TItem>(InnerCount)), RangeEnumerator<TItem>.One);
+            var ret = (Start - InnerCount) + 1;
             return ret;
         }
 
-        public TItem LastOrDefault()
+        public int LastOrDefault()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (this.InnerCount == 0)
             {
-                return default(TItem);
+                return 0;
             }
 
             // Range(1, 3) -> 1, 2, 3
             // ReverseRange(3, 3) -> 3, 2, 1
             // Last = (Start - InnerCount) + 1
 
-            var ret = Operator.Add(Operator.Subtract(Start, Operator.Convert<int, TItem>(InnerCount)), RangeEnumerator<TItem>.One);
+            var ret = (Start - InnerCount) + 1;
             return ret;
         }
 
-        public TItem Max() => First();
+        public int Max() => First();
 
 
-        public TItem Min() => Last();
+        public int Min() => Last();
 
 
-        public bool SequenceEqual(EmptyEnumerable<TItem> second) => SequenceEqual(second, null);
+        public bool SequenceEqual(EmptyEnumerable<int> second) => SequenceEqual(second, null);
         
-        public bool SequenceEqual(EmptyEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
+        public bool SequenceEqual(EmptyEnumerable<int> second, IEqualityComparer<int> comparer)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
@@ -139,23 +149,9 @@ namespace LinqAF
             return this.InnerCount == 0;
         }
         
-        public bool SequenceEqual(ReverseRangeEnumerable<TItem> second) => SequenceEqual(second, null);
+        public bool SequenceEqual(RepeatEnumerable<int> second) => SequenceEqual(second, null);
 
-        public bool SequenceEqual(ReverseRangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
-        {
-            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
-            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
-
-            if (!Operator.Equal(this.InnerCount, second.InnerCount)) return false;
-
-            comparer = comparer ?? EqualityComparer<TItem>.Default;
-
-            return comparer.Equals(this.Start, second.Start);
-        }
-
-        public bool SequenceEqual(RepeatEnumerable<TItem> second) => SequenceEqual(second, null);
-
-        public bool SequenceEqual(RepeatEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
+        public bool SequenceEqual(RepeatEnumerable<int> second, IEqualityComparer<int> comparer)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
             if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
@@ -171,13 +167,13 @@ namespace LinqAF
             }
 
             // must be exactly one now item
-            comparer = comparer ?? EqualityComparer<TItem>.Default;
+            comparer = comparer ?? EqualityComparer<int>.Default;
 
             // only equal sequences if their single element is equal
             return comparer.Equals(this.Start, second.Item);
         }
         
-        public TItem Single()
+        public int Single()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
@@ -194,13 +190,13 @@ namespace LinqAF
             return this.Start;
         }
 
-        public TItem SingleOrDefault()
+        public int SingleOrDefault()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             if (this.InnerCount == 0)
             {
-                return default(TItem);
+                return 0;
             }
 
             if (this.InnerCount > 1)
@@ -211,21 +207,21 @@ namespace LinqAF
             return this.Start;
         }
         
-        public ReverseRangeEnumerable<TItem> Skip(int count)
+        public ReverseRangeEnumerable Skip(int count)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             // decrement start by count
             // decrement count by count
 
-            var newStart = Operator.Subtract(Start, Operator.Convert<int, TItem>(count));
+            var newStart = Start -count;
             var newCount = InnerCount - count;
             if (newCount < 0) newCount = 0;
 
-            return new ReverseRangeEnumerable<TItem>(Enumerable.ReverseRangeSigil, newStart, newCount);
+            return new ReverseRangeEnumerable(Enumerable.ReverseRangeSigil, newStart, newCount);
         }
 
-        public ReverseRangeEnumerable<TItem> Take(int count)
+        public ReverseRangeEnumerable Take(int count)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
@@ -234,21 +230,21 @@ namespace LinqAF
             var newCount = Math.Min(InnerCount, count);
             if (newCount < 0) newCount = 0;
 
-            return new ReverseRangeEnumerable<TItem>(Enumerable.ReverseRangeSigil, Start, newCount);
+            return new ReverseRangeEnumerable(Enumerable.ReverseRangeSigil, Start, newCount);
         }
 
-        public ReverseRangeEnumerable<TItem> Distinct()
+        public ReverseRangeEnumerable Distinct()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return this;
         }
 
-        public List<TItem> ToList()
+        public List<int> ToList()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
-            var ret = Allocator.Current.GetEmptyList<TItem>(this.InnerCount);
+            var ret = Allocator.Current.GetEmptyList<int>(this.InnerCount);
             foreach(var item in this)
             {
                 ret.Add(item);
@@ -257,11 +253,11 @@ namespace LinqAF
             return ret;
         }
 
-        public TItem[] ToArray()
+        public int[] ToArray()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
-            var ret = Allocator.Current.GetArray<TItem>(this.InnerCount);
+            var ret = Allocator.Current.GetArray<int>(this.InnerCount);
             var ix = 0;
             foreach(var item in this)
             {
@@ -272,12 +268,12 @@ namespace LinqAF
             return ret;
         }
 
-        public Dictionary<TToDictionary_Key, TItem> ToDictionary<TToDictionary_Key>(Func<TItem, TToDictionary_Key> keySelector)
+        public Dictionary<TToDictionary_Key, int> ToDictionary<TToDictionary_Key>(Func<int, TToDictionary_Key> keySelector)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
             if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TItem>(this.InnerCount, null);
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, int>(this.InnerCount, null);
             foreach(var item in this)
             {
                 ret.Add(keySelector(item), item);
@@ -285,7 +281,7 @@ namespace LinqAF
             return ret;
         }
 
-        public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<TItem, TToDictionary_Key> keySelector, Func<TItem, TToDictionary_Value> elementSelector)
+        public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<int, TToDictionary_Key> keySelector, Func<int, TToDictionary_Value> elementSelector)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
             if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
@@ -299,12 +295,12 @@ namespace LinqAF
             return ret;
         }
 
-        public Dictionary<TToDictionary_Key, TItem> ToDictionary<TToDictionary_Key>(Func<TItem, TToDictionary_Key> keySelector, IEqualityComparer<TToDictionary_Key> comparer)
+        public Dictionary<TToDictionary_Key, int> ToDictionary<TToDictionary_Key>(Func<int, TToDictionary_Key> keySelector, IEqualityComparer<TToDictionary_Key> comparer)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
             if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, TItem>(this.InnerCount, comparer);
+            var ret = Allocator.Current.GetEmptyDictionary<TToDictionary_Key, int>(this.InnerCount, comparer);
             foreach (var item in this)
             {
                 ret.Add(keySelector(item), item);
@@ -312,7 +308,7 @@ namespace LinqAF
             return ret;
         }
 
-        public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<TItem, TToDictionary_Key> keySelector, Func<TItem, TToDictionary_Value> elementSelector, IEqualityComparer<TToDictionary_Key> comparer)
+        public Dictionary<TToDictionary_Key, TToDictionary_Value> ToDictionary<TToDictionary_Key, TToDictionary_Value>(Func<int, TToDictionary_Key> keySelector, Func<int, TToDictionary_Value> elementSelector, IEqualityComparer<TToDictionary_Key> comparer)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
             if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
@@ -326,7 +322,7 @@ namespace LinqAF
             return ret;
         }
 
-        public RangeEnumerable<TItem> Reverse()
-        => CommonImplementation.ReverseReverseRange<TItem>(ref this);
+        public RangeEnumerable Reverse()
+        => CommonImplementation.ReverseReverseRange(ref this);
     }
 }

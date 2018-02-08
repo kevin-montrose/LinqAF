@@ -128,7 +128,7 @@ namespace LinqAF
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(ReverseRangeEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem>(ReverseRangeEnumerable inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<int, TJoin_KeyItem> innerKeySelector, Func<TItem, int, TJoin_OutItem> resultSelector)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
@@ -172,7 +172,7 @@ namespace LinqAF
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(RangeEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem>(RangeEnumerable inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<int, TJoin_KeyItem> innerKeySelector, Func<TItem, int, TJoin_OutItem> resultSelector)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
@@ -227,7 +227,7 @@ namespace LinqAF
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(ReverseRangeEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem>(ReverseRangeEnumerable inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<int, TJoin_KeyItem> innerKeySelector, Func<TItem, int, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
@@ -304,7 +304,7 @@ namespace LinqAF
             return EmptyCache<TJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem, TJoin_RightItem>(RangeEnumerable<TJoin_RightItem> inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<TJoin_RightItem, TJoin_KeyItem> innerKeySelector, Func<TItem, TJoin_RightItem, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
+        public EmptyEnumerable<TJoin_OutItem> Join<TJoin_OutItem, TJoin_KeyItem>(RangeEnumerable inner, Func<TItem, TJoin_KeyItem> outerKeySelector, Func<int, TJoin_KeyItem> innerKeySelector, Func<TItem, int, TJoin_OutItem> resultSelector, IEqualityComparer<TJoin_KeyItem> comparer)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));

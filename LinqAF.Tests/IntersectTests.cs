@@ -2,12 +2,68 @@
 using System;
 using System.Collections.Generic;
 using TestHelpers;
+using System.Reflection;
+using System.Text;
 
 namespace LinqAF.Tests
 {
     [TestClass]
     public class IntersectTests
     {
+        static void _InstanceExtensionNoOverlapImpl(int spread, int take)
+        {
+            Dictionary<MethodInfo, List<MethodInfo>> instOverlaps, extOverlaps;
+            Helper.GetOverlappingMethods(typeof(Impl.IIntersect<,,>), out instOverlaps, out extOverlaps, spread, take);
+
+            if (instOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in instOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+
+            if (extOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in extOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap1()
+        => _InstanceExtensionNoOverlapImpl(5, 0);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap2()
+        => _InstanceExtensionNoOverlapImpl(5, 1);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap3()
+        => _InstanceExtensionNoOverlapImpl(5, 2);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap4()
+        => _InstanceExtensionNoOverlapImpl(5, 3);
+
+        [TestMethod]
+        public void InstanceExtensionNoOverlap5()
+        => _InstanceExtensionNoOverlapImpl(5, 4);
+
         [TestMethod]
         public void Universal()
         {
@@ -1104,9 +1160,9 @@ namespace LinqAF.Tests
             var groupByDefault = new GroupByDefaultEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var lookup = new LookupDefaultEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();
@@ -1469,19 +1525,6 @@ namespace LinqAF.Tests
                 try { range.Intersect(Enumerable.Empty<int>().OrderBy(x => x), new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
                 try { Enumerable.Empty<int>().OrderBy(x => x).Intersect(range); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
                 try { Enumerable.Empty<int>().OrderBy(x => x).Intersect(range, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                var badRangeGrouping = new RangeEnumerable<GroupingEnumerable<int, int>>();
-                try { badRangeGrouping.Intersect(new[] { 1 }.GroupBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { badRangeGrouping.Intersect(new[] { 1 }.GroupBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { new[] { 1 }.GroupBy(x => x).Intersect(badRangeGrouping); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { new[] { 1 }.GroupBy(x => x).Intersect(badRangeGrouping, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { badRangeGrouping.Intersect(new[] { 1 }.GroupBy(x => x, new _IntComparer())); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { badRangeGrouping.Intersect(new[] { 1 }.GroupBy(x => x, new _IntComparer()), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { new[] { 1 }.GroupBy(x => x, new _IntComparer()).Intersect(badRangeGrouping); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { new[] { 1 }.GroupBy(x => x, new _IntComparer()).Intersect(badRangeGrouping, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { badRangeGrouping.Intersect(new[] { 1 }.ToLookup(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { badRangeGrouping.Intersect(new[] { 1 }.ToLookup(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { new[] { 1 }.ToLookup(x => x).Intersect(badRangeGrouping); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { new[] { 1 }.ToLookup(x => x).Intersect(badRangeGrouping, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
                 try { range.Intersect(Enumerable.Range(1, 1)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
                 try { range.Intersect(Enumerable.Range(1, 1), new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
                 try { Enumerable.Range(1, 1).Intersect(range); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
@@ -1615,19 +1658,6 @@ namespace LinqAF.Tests
                 try { reverseRange.Intersect(Enumerable.Empty<int>().OrderBy(x => x), new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
                 try { Enumerable.Empty<int>().OrderBy(x => x).Intersect(reverseRange); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
                 try { Enumerable.Empty<int>().OrderBy(x => x).Intersect(reverseRange, new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                var badReverseRangeGrouping = new ReverseRangeEnumerable<GroupingEnumerable<int, int>>();
-                try { badReverseRangeGrouping.Intersect(new[] { 1 }.GroupBy(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { badReverseRangeGrouping.Intersect(new[] { 1 }.GroupBy(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { new[] { 1 }.GroupBy(x => x).Intersect(badReverseRangeGrouping); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { new[] { 1 }.GroupBy(x => x).Intersect(badReverseRangeGrouping, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { badReverseRangeGrouping.Intersect(new[] { 1 }.GroupBy(x => x, new _IntComparer())); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { badReverseRangeGrouping.Intersect(new[] { 1 }.GroupBy(x => x, new _IntComparer()), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { new[] { 1 }.GroupBy(x => x, new _IntComparer()).Intersect(badReverseRangeGrouping); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { new[] { 1 }.GroupBy(x => x, new _IntComparer()).Intersect(badReverseRangeGrouping, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { badReverseRangeGrouping.Intersect(new[] { 1 }.ToLookup(x => x)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { badReverseRangeGrouping.Intersect(new[] { 1 }.ToLookup(x => x), new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
-                try { new[] { 1 }.ToLookup(x => x).Intersect(badReverseRangeGrouping); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
-                try { new[] { 1 }.ToLookup(x => x).Intersect(badReverseRangeGrouping, new _GroupingComparer<int>()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }
                 try { reverseRange.Intersect(Enumerable.Range(1, 1)); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
                 try { reverseRange.Intersect(Enumerable.Range(1, 1), new _IntComparer()); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("first", exc.ParamName); }
                 try { Enumerable.Range(1, 1).Intersect(reverseRange); Assert.Fail(); } catch (ArgumentException exc) { Assert.AreEqual("second", exc.ParamName); }

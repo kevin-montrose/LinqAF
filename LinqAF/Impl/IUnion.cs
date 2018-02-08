@@ -106,8 +106,6 @@ namespace LinqAF.Impl
 
         UnionDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>> Union(EmptyEnumerable<TItem> second);
 
-        UnionDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Union(RangeEnumerable<TItem> second);
-
         UnionDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Union(RepeatEnumerable<TItem> second);
 
         UnionDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectEnumerable<TUnion_SelectInItem, TItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator>, SelectEnumerator<TUnion_SelectInItem, TItem, TUnion_InnerEnumerator>> Union<TUnion_SelectInItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator>(SelectEnumerable<TUnion_SelectInItem, TItem, TUnion_InnerEnumerable, TUnion_InnerEnumerator> second)
@@ -315,8 +313,6 @@ namespace LinqAF.Impl
             where TReverseEnumerable : struct, IStructEnumerable<TItem, TReverseEnumerator>
             where TReverseEnumerator : struct, IStructEnumerator<TItem>;
 
-        UnionDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Union(ReverseRangeEnumerable<TItem> second);
-
         UnionDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>, OrderByEnumerator<TItem, TOrderByKey, TOrderByEnumerator, TOrderByComparer>> Union<TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
             where TOrderByEnumerator : struct, IStructEnumerator<TItem>
@@ -501,8 +497,6 @@ namespace LinqAF.Impl
             where TInnerRightEnumerator : struct, IStructEnumerator<TItem>;
 
         UnionSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>> Union(EmptyEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
-
-        UnionSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Union(RangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
 
         UnionSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Union(RepeatEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
 
@@ -713,8 +707,6 @@ namespace LinqAF.Impl
             where TReverseEnumerable : struct, IStructEnumerable<TItem, TReverseEnumerator>
             where TReverseEnumerator : struct, IStructEnumerator<TItem>;
 
-        UnionSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Union(ReverseRangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
-
         UnionSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>, OrderByEnumerator<TItem, TOrderByKey, TOrderByEnumerator, TOrderByComparer>> Union<TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second, IEqualityComparer<TItem> comparer)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
             where TOrderByEnumerator : struct, IStructEnumerator<TItem>
@@ -817,5 +809,85 @@ namespace LinqAF.Impl
 
         UnionDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>> Union(OneItemSpecificOrderedEnumerable<TItem> second);
         UnionSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>> Union(OneItemSpecificOrderedEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
+
+        UnionDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>,
+            SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>
+        > Union<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        UnionDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>,
+            TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>
+        > Union<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        UnionSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>,
+            SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>
+        > Union<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        UnionSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>,
+            TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>
+        > Union<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        UnionDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>,
+            AppendEnumerator<TItem, TAppendInnerEnumerator>
+        > Union<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        UnionSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>,
+            AppendEnumerator<TItem, TAppendInnerEnumerator>
+        > Union<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        UnionDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>,
+            PrependEnumerator<TItem, TPrependInnerEnumerator>
+        > Union<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        UnionSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>,
+            PrependEnumerator<TItem, TPrependInnerEnumerator>
+        > Union<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>;
     }
 }

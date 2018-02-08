@@ -101,7 +101,6 @@ namespace LinqAF.Impl
                     where TInnerRightEnumerable : struct, IStructEnumerable<TItem, TInnerRightEnumerator>
                     where TInnerRightEnumerator : struct, IStructEnumerator<TItem>;
         EmptyEnumerable<TItem> Intersect(EmptyEnumerable<TItem> second);
-        IntersectDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Intersect(RangeEnumerable<TItem> second);
         IntersectDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Intersect(RepeatEnumerable<TItem> second);
         IntersectDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectEnumerable<TIntersect_SelectInItem, TItem, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator>, SelectEnumerator<TIntersect_SelectInItem, TItem, TIntersect_InnerEnumerator>> Intersect<TIntersect_SelectInItem, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator>(SelectEnumerable<TIntersect_SelectInItem, TItem, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator> second)
                     where TIntersect_InnerEnumerable : struct, IStructEnumerable<TIntersect_SelectInItem, TIntersect_InnerEnumerator>
@@ -270,7 +269,6 @@ namespace LinqAF.Impl
         IntersectDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>> Intersect<TReverseEnumerable, TReverseEnumerator>(ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator> second)
                     where TReverseEnumerable : struct, IStructEnumerable<TItem, TReverseEnumerator>
                     where TReverseEnumerator : struct, IStructEnumerator<TItem>;
-        IntersectDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Intersect(ReverseRangeEnumerable<TItem> second);
         IntersectDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>, OrderByEnumerator<TItem, TOrderByKey, TOrderByEnumerator, TOrderByComparer>> Intersect<TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
                     where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
                     where TOrderByEnumerator : struct, IStructEnumerator<TItem>
@@ -444,7 +442,6 @@ namespace LinqAF.Impl
                     where TInnerRightEnumerable : struct, IStructEnumerable<TItem, TInnerRightEnumerator>
                     where TInnerRightEnumerator : struct, IStructEnumerator<TItem>;
         EmptyEnumerable<TItem> Intersect(EmptyEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
-        IntersectSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Intersect(RangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
         IntersectSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Intersect(RepeatEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
         IntersectSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectEnumerable<TIntersect_SelectInItem, TItem, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator>, SelectEnumerator<TIntersect_SelectInItem, TItem, TIntersect_InnerEnumerator>> Intersect<TIntersect_SelectInItem, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator>(SelectEnumerable<TIntersect_SelectInItem, TItem, TIntersect_InnerEnumerable, TIntersect_InnerEnumerator> second, IEqualityComparer<TItem> comparer)
                     where TIntersect_InnerEnumerable : struct, IStructEnumerable<TIntersect_SelectInItem, TIntersect_InnerEnumerator>
@@ -615,7 +612,6 @@ namespace LinqAF.Impl
         IntersectSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>> Intersect<TReverseEnumerable, TReverseEnumerator>(ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator> second, IEqualityComparer<TItem> comparer)
                     where TReverseEnumerable : struct, IStructEnumerable<TItem, TReverseEnumerator>
                     where TReverseEnumerator : struct, IStructEnumerator<TItem>;
-        IntersectSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Intersect(ReverseRangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
         IntersectSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>, OrderByEnumerator<TItem, TOrderByKey, TOrderByEnumerator, TOrderByComparer>> Intersect<TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second, IEqualityComparer<TItem> comparer)
                     where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
                     where TOrderByEnumerator : struct, IStructEnumerator<TItem>
@@ -712,5 +708,85 @@ namespace LinqAF.Impl
 
         IntersectDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>> Intersect(OneItemSpecificOrderedEnumerable<TItem> second);
         IntersectSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>> Intersect(OneItemSpecificOrderedEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
+
+        IntersectDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>,
+            SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>
+        > Intersect<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        IntersectDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>,
+            TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>
+        > Intersect<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        IntersectSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>,
+            SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>
+        > Intersect<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        IntersectSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>,
+            TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>
+        > Intersect<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        IntersectDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>,
+            AppendEnumerator<TItem, TAppendInnerEnumerator>
+        > Intersect<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        IntersectSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>,
+            AppendEnumerator<TItem, TAppendInnerEnumerator>
+        > Intersect<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>;
+        
+        IntersectDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>,
+            PrependEnumerator<TItem, TPrependInnerEnumerator>
+        > Intersect<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        IntersectSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>,
+            PrependEnumerator<TItem, TPrependInnerEnumerator>
+        > Intersect<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>;
     }
 }

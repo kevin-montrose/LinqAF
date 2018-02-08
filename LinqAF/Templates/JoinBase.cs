@@ -88,7 +88,7 @@ namespace LinqAF
             return CommonImplementation.JoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector);
         }
 
-        public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, ReverseRangeEnumerable<TRightItem>, ReverseRangeEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(ReverseRangeEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector)
+        public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, int, ReverseRangeEnumerable, ReverseRangeEnumerator> Join<TOutItem, TKeyItem>(ReverseRangeEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<int, TKeyItem> innerKeySelector, Func<TLeftItem, int, TOutItem> resultSelector)
         => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
 
         public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, Stack<TRightItem>, StackBridger<TRightItem>, StackEnumerator<TRightItem>>, StackEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(Stack<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector)
@@ -116,7 +116,7 @@ namespace LinqAF
         public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, RepeatEnumerable<TRightItem>, RepeatEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(RepeatEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector)
         => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
 
-        public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, RangeEnumerable<TRightItem>, RangeEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(RangeEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector)
+        public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, int, RangeEnumerable, RangeEnumerator> Join<TOutItem, TKeyItem>(RangeEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<int, TKeyItem> innerKeySelector, Func<TLeftItem, int, TOutItem> resultSelector)
         => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
 
         public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, List<TRightItem>, ListBridger<TRightItem>, ListEnumerator<TRightItem>>, ListEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(List<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector)
@@ -155,7 +155,7 @@ namespace LinqAF
             return CommonImplementation.JoinImpl(RefThis(), ref bridge, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
 
-        public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, ReverseRangeEnumerable<TRightItem>, ReverseRangeEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(ReverseRangeEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, int, ReverseRangeEnumerable, ReverseRangeEnumerator> Join<TOutItem, TKeyItem>(ReverseRangeEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<int, TKeyItem> innerKeySelector, Func<TLeftItem, int, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
         public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, LinkedList<TRightItem>, LinkedListBridger<TRightItem>, LinkedListEnumerator<TRightItem>>, LinkedListEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(LinkedList<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
@@ -216,7 +216,7 @@ namespace LinqAF
         public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, RepeatEnumerable<TRightItem>, RepeatEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(RepeatEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
-        public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, RangeEnumerable<TRightItem>, RangeEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(RangeEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, int, RangeEnumerable, RangeEnumerator> Join<TOutItem, TKeyItem>(RangeEnumerable inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<int, TKeyItem> innerKeySelector, Func<TLeftItem, int, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
         => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
 
         public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, IdentityEnumerable<TRightItem, SortedSet<TRightItem>, SortedSetBridger<TRightItem>, SortedSetEnumerator<TRightItem>>, SortedSetEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(SortedSet<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
@@ -1007,6 +1007,46 @@ namespace LinqAF
         => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
 
         public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, OneItemSpecificOrderedEnumerable<TRightItem>, OneItemSpecificOrderedEnumerator<TRightItem>> Join<TOutItem, TKeyItem, TRightItem>(OneItemSpecificOrderedEnumerable<TRightItem> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+        => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+
+        public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SkipLastEnumerable<TRightItem, TSkipEnumerable, TSkipEnumerator>, SkipLastEnumerator<TRightItem, TSkipEnumerator>> Join<TOutItem, TKeyItem, TRightItem, TSkipEnumerable, TSkipEnumerator>(SkipLastEnumerable<TRightItem, TSkipEnumerable, TSkipEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector)
+            where TSkipEnumerable : struct, IStructEnumerable<TRightItem, TSkipEnumerator>
+            where TSkipEnumerator : struct, IStructEnumerator<TRightItem>
+        => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
+
+        public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, SkipLastEnumerable<TRightItem, TSkipEnumerable, TSkipEnumerator>, SkipLastEnumerator<TRightItem, TSkipEnumerator>> Join<TOutItem, TKeyItem, TRightItem, TSkipEnumerable, TSkipEnumerator>(SkipLastEnumerable<TRightItem, TSkipEnumerable, TSkipEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+            where TSkipEnumerable : struct, IStructEnumerable<TRightItem, TSkipEnumerator>
+            where TSkipEnumerator : struct, IStructEnumerator<TRightItem>
+        => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+
+        public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, TakeLastEnumerable<TRightItem, TTakeEnumerable, TTakeEnumerator>, TakeLastEnumerator<TRightItem, TTakeEnumerator>> Join<TOutItem, TKeyItem, TRightItem, TTakeEnumerable, TTakeEnumerator>(TakeLastEnumerable<TRightItem, TTakeEnumerable, TTakeEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector)
+            where TTakeEnumerable : struct, IStructEnumerable<TRightItem, TTakeEnumerator>
+            where TTakeEnumerator : struct, IStructEnumerator<TRightItem>
+        => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
+
+        public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, TakeLastEnumerable<TRightItem, TTakeEnumerable, TTakeEnumerator>, TakeLastEnumerator<TRightItem, TTakeEnumerator>> Join<TOutItem, TKeyItem, TRightItem, TTakeEnumerable, TTakeEnumerator>(TakeLastEnumerable<TRightItem, TTakeEnumerable, TTakeEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+            where TTakeEnumerable : struct, IStructEnumerable<TRightItem, TTakeEnumerator>
+            where TTakeEnumerator : struct, IStructEnumerator<TRightItem>
+        => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+
+        public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, AppendEnumerable<TRightItem, TAppendEnumerable, TAppendEnumerator>, AppendEnumerator<TRightItem, TAppendEnumerator>> Join<TOutItem, TKeyItem, TRightItem, TAppendEnumerable, TAppendEnumerator>(AppendEnumerable<TRightItem, TAppendEnumerable, TAppendEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector)
+            where TAppendEnumerable : struct, IStructEnumerable<TRightItem, TAppendEnumerator>
+            where TAppendEnumerator : struct, IStructEnumerator<TRightItem>
+        => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
+
+        public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, AppendEnumerable<TRightItem, TAppendEnumerable, TAppendEnumerator>, AppendEnumerator<TRightItem, TAppendEnumerator>> Join<TOutItem, TKeyItem, TRightItem, TAppendEnumerable, TAppendEnumerator>(AppendEnumerable<TRightItem, TAppendEnumerable, TAppendEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+            where TAppendEnumerable : struct, IStructEnumerable<TRightItem, TAppendEnumerator>
+            where TAppendEnumerator : struct, IStructEnumerator<TRightItem>
+        => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+
+        public JoinDefaultEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, PrependEnumerable<TRightItem, TPrependEnumerable, TPrependEnumerator>, PrependEnumerator<TRightItem, TPrependEnumerator>> Join<TOutItem, TKeyItem, TRightItem, TPrependEnumerable, TPrependEnumerator>(PrependEnumerable<TRightItem, TPrependEnumerable, TPrependEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector)
+            where TPrependEnumerable : struct, IStructEnumerable<TRightItem, TPrependEnumerator>
+            where TPrependEnumerator : struct, IStructEnumerator<TRightItem>
+        => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector);
+
+        public JoinSpecificEnumerable<TOutItem, TKeyItem, TLeftItem, TLeftEnumerable, TLeftEnumerator, TRightItem, PrependEnumerable<TRightItem, TPrependEnumerable, TPrependEnumerator>, PrependEnumerator<TRightItem, TPrependEnumerator>> Join<TOutItem, TKeyItem, TRightItem, TPrependEnumerable, TPrependEnumerator>(PrependEnumerable<TRightItem, TPrependEnumerable, TPrependEnumerator> inner, Func<TLeftItem, TKeyItem> outerKeySelector, Func<TRightItem, TKeyItem> innerKeySelector, Func<TLeftItem, TRightItem, TOutItem> resultSelector, IEqualityComparer<TKeyItem> comparer)
+            where TPrependEnumerable : struct, IStructEnumerable<TRightItem, TPrependEnumerator>
+            where TPrependEnumerator : struct, IStructEnumerator<TRightItem>
         => CommonImplementation.Join(RefThis(), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
     }
 }

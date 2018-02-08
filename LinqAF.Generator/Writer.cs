@@ -17,6 +17,8 @@ namespace LinqAF.Generator
     static class Writer
     {
         public const string LOOKUP_EXTENSION_METHODS_FILENAME = "LookupExtensionMethods.cs";
+        public const string RANGE_EXTENSION_METHODS_FILENAME = "RangeExtensionMethods.cs";
+        public const string REVERSE_RANGE_EXTENSION_METHODS_FILENAME = "ReverseRangeExtensionMethods.cs";
         public const string ENUMERABLE_INTERFACE_NAME = "IStructEnumerable";
         public const string HAS_COMPARER_INTERFACE_NAME = "IHasComparer";
         const string ENUMERATOR_INTERFACE_NAME = "IStructEnumerator";
@@ -120,7 +122,7 @@ namespace LinqAF
             ops.Add(Task(CopyComparers));
             ops.Add(Task(CopyBridgers));
             ops.Add(Task(CopyCompoundKey));
-            ops.Add(Task(CopyLookupExtensionMethods));
+            ops.Add(Task(CopyExplicitExtensionMethods));
 
             // implement boxing
             ops.Add(Task(new Boxing()));
@@ -131,6 +133,9 @@ namespace LinqAF
             // implement string pass-through
             ops.Add(Task(new LinqAFString()));
 
+            // implement task pass-through
+            ops.Add(Task(new LinqAFTask()));
+            
             // copy a variety of convenience methods for System.Collections.Generic types
             ops.Add(Task(ConvenienceMethods));
 
@@ -138,6 +143,7 @@ namespace LinqAF
             ops.Add(Task(new Aggregate()));
             ops.Add(Task(new All()));
             ops.Add(Task(new Any()));
+            ops.Add(Task(new Append()));
             ops.Add(Task(new Average()));
             ops.Add(Task(new Cast()));
             ops.Add(Task(new Contains()));
@@ -149,6 +155,7 @@ namespace LinqAF
             ops.Add(Task(new Max()));
             ops.Add(Task(new Min()));
             ops.Add(Task(new OfType()));
+            ops.Add(Task(new Prepend()));
             ops.Add(Task(new Select()));
             ops.Add(Task(new Single()));
             ops.Add(Task(new Skip()));
@@ -159,6 +166,7 @@ namespace LinqAF
             ops.Add(Task(new ToList()));
             ops.Add(Task(new ToArray()));
             ops.Add(Task(new ToDictionary()));
+            ops.Add(Task(new ToHashSet()));
             ops.Add(Task(new ToLookup()));
             ops.Add(Task(new GroupBy()));
             ops.Add(Task(new Reverse()));
@@ -191,15 +199,18 @@ namespace LinqAF
 
             // apply enumerable specific overrides
             ops.Add(Task(new Overrides()));
+
+            // apply overrides to extension methods
+            ops.Add(Task(new ExtensionMethodOverrides()));
             
             // type doesn't exist post-rewrite
             ops.Add(Task(RemoveFakeEnumerable));
 
             // remove unused import
-            ops.Add(Task(RemoveUnusedImports));
+            /*ops.Add(Task(RemoveUnusedImports));
 
             // format!
-            ops.Add(Task(FormatCode));
+            ops.Add(Task(FormatCode));*/
 
             // apply .NET35 #ifdefs
             //   this must be after FormatCode, because the formatting messes up
@@ -224,10 +235,21 @@ namespace LinqAF
         static void ConvenienceMethods(Projects projects)
         {
             // convenience extension methods
-            var docs = projects.Template.Documents.Where(d => d.Name.StartsWith("ConvenienceExtensionMethods")).ToList();
-            foreach(var doc in docs)
             {
-                Copier.Copy(doc, "", projects);
+                var docs = projects.Template.Documents.Where(d => d.Name.StartsWith("ConvenienceExtensionMethods")).ToList();
+                foreach (var doc in docs)
+                {
+                    Copier.Copy(doc, "", projects);
+                }
+            }
+
+            // convenience new methods
+            {
+                var docs = projects.Template.Documents.Where(d => d.Name.StartsWith("LinqAFNew")).ToList();
+                foreach (var doc in docs)
+                {
+                    Copier.Copy(doc, "", projects);
+                }
             }
         }
 
@@ -479,6 +501,12 @@ namespace LinqAF
 
                 var replacements = new Dictionary<SyntaxNode, SyntaxNode>();
 
+                if (doc.Name.StartsWith("LinqAFTask."))
+                {
+                    replacements[root] = WrapInIfDef("!NET35", root);
+                    goto doReplacements;
+                }
+
                 // structs
                 var structs = root.DescendantNodes().OfType<StructDeclarationSyntax>();
                 foreach(var @struct in structs)
@@ -559,6 +587,8 @@ namespace LinqAF
                     // no-op
                     nextAttribute: GC.KeepAlive(projects);
                 }
+
+                doReplacements:
 
                 if (replacements.Count == 0) continue;
 
@@ -920,6 +950,8 @@ namespace LinqAF
 
             foreach (var doc in projects.EnumerableDocuments)
             {
+                var isLookup = doc.Name == "LookupSpecific.cs" || doc.Name == "LookupDefault.cs";
+
                 var editor = DocumentEditor.CreateAsync(doc).Result;
 
                 var root = doc.GetSyntaxRootAsync().Result;
@@ -928,8 +960,12 @@ namespace LinqAF
 
                 foreach (var mtd in enumerable.Members.OfType<MethodDeclarationSyntax>())
                 {
+                    var isContains = mtd.Identifier.ValueText == "Contains";
+
+                    var isLookupContains = isLookup && isContains;
+
                     var mtdName = mtd.Identifier.ValueText;
-                    if (!methodNames.Contains(mtdName))
+                    if (!methodNames.Contains(mtdName) && !isLookupContains)
                     {
                         editor.RemoveNode(mtd);
                     }
@@ -1089,19 +1125,27 @@ namespace LinqAF
             );
         }
 
-        static void CopyLookupExtensionMethods(Projects projects)
+        static void CopyExplicitExtensionMethods(Projects projects)
         {
-            var toCopy = projects.Template.Documents.Single(d => d.Name == LOOKUP_EXTENSION_METHODS_FILENAME);
-            var toCopyText = toCopy.GetTextAsync().Result;
-
-            projects.ModifyOutput(
-                p =>
+            Action<string> copy =
+                filename =>
                 {
-                    var newDoc = p.AddDocument(LOOKUP_EXTENSION_METHODS_FILENAME, toCopyText);
+                    var toCopy = projects.Template.Documents.Single(d => d.Name == filename);
+                    var toCopyText = toCopy.GetTextAsync().Result;
 
-                    return newDoc.Project;
-                }
-            );
+                    projects.ModifyOutput(
+                        p =>
+                        {
+                            var newDoc = p.AddDocument(filename, toCopyText);
+
+                            return newDoc.Project;
+                        }
+                    );
+                };
+
+            copy(LOOKUP_EXTENSION_METHODS_FILENAME);
+            copy(RANGE_EXTENSION_METHODS_FILENAME);
+            copy(REVERSE_RANGE_EXTENSION_METHODS_FILENAME);
         }
 
        static void CopyCompoundKey(Projects projects)

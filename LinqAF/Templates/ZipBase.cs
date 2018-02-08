@@ -90,10 +90,7 @@ namespace LinqAF
             where TOfTypeInnerEnumerable : struct, IStructEnumerable<TOfTypeInItem, TOfTypeInnerEnumerator>
             where TOfTypeInnerEnumerator : struct, IStructEnumerator<TOfTypeInItem>
         => CommonImplementation.Zip<TOutItem, TItem, TOfTypeOutItem, TEnumerable, TEnumerator, OfTypeEnumerable<TOfTypeInItem, TOfTypeOutItem, TOfTypeInnerEnumerable, TOfTypeInnerEnumerator>, OfTypeEnumerator<TOfTypeInItem, TOfTypeOutItem, TOfTypeInnerEnumerator>>(RefThis(), ref second, resultSelector);
-
-        public ZipEnumerable<TOutItem, TItem, TRangeItem, TEnumerable, TEnumerator, RangeEnumerable<TRangeItem>, RangeEnumerator<TRangeItem>> Zip<TOutItem, TRangeItem>(RangeEnumerable<TRangeItem> second, Func<TItem, TRangeItem, TOutItem> resultSelector)
-        => CommonImplementation.Zip<TOutItem, TItem, TRangeItem, TEnumerable, TEnumerator, RangeEnumerable<TRangeItem>, RangeEnumerator<TRangeItem>>(RefThis(), ref second, resultSelector);
-
+        
         public ZipEnumerable<TOutItem, TItem, TRangeItem, TEnumerable, TEnumerator, RepeatEnumerable<TRangeItem>, RepeatEnumerator<TRangeItem>> Zip<TOutItem, TRangeItem>(RepeatEnumerable<TRangeItem> second, Func<TItem, TRangeItem, TOutItem> resultSelector)
         => CommonImplementation.Zip<TOutItem, TItem, TRangeItem, TEnumerable, TEnumerator, RepeatEnumerable<TRangeItem>, RepeatEnumerator<TRangeItem>>(RefThis(), ref second, resultSelector);
 
@@ -346,9 +343,6 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TReverseOutItem>
         => CommonImplementation.Zip<TOutItem, TItem, TReverseOutItem, TEnumerable, TEnumerator, ReverseEnumerable<TReverseOutItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TReverseOutItem>>(RefThis(), ref second, resultSelector);
 
-        public ZipEnumerable<TOutItem, TItem, TReverseRangeOutItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TReverseRangeOutItem>, ReverseRangeEnumerator<TReverseRangeOutItem>> Zip<TOutItem, TReverseRangeOutItem>(ReverseRangeEnumerable<TReverseRangeOutItem> second, Func<TItem, TReverseRangeOutItem, TOutItem> resultSelector)
-        => CommonImplementation.Zip<TOutItem, TItem, TReverseRangeOutItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TReverseRangeOutItem>, ReverseRangeEnumerator<TReverseRangeOutItem>>(RefThis(), ref second, resultSelector);
-
         public ZipEnumerable<TOutItem, TItem, TGroupByOutItem, TEnumerable, TEnumerator, GroupByCollectionDefaultEnumerable<TGroupByInItem, TGroupByKey, TGroupByElement, TGroupByOutItem, TGroupByEnumerable, TGroupByEnumerator>, GroupByCollectionDefaultEnumerator<TGroupByInItem, TGroupByKey, TGroupByElement, TGroupByOutItem, TGroupByEnumerator>> Zip<TOutItem, TGroupByInItem, TGroupByKey, TGroupByElement, TGroupByOutItem, TGroupByEnumerable, TGroupByEnumerator>(GroupByCollectionDefaultEnumerable<TGroupByInItem, TGroupByKey, TGroupByElement, TGroupByOutItem, TGroupByEnumerable, TGroupByEnumerator> second, Func<TItem, TGroupByOutItem, TOutItem> resultSelector)
             where TGroupByEnumerable : struct, IStructEnumerable<TGroupByInItem, TGroupByEnumerator>
             where TGroupByEnumerator : struct, IStructEnumerator<TGroupByInItem>
@@ -386,5 +380,31 @@ namespace LinqAF
 
         public ZipEnumerable<TOutItem, TItem, TInnerItem, TEnumerable, TEnumerator, OneItemSpecificOrderedEnumerable<TInnerItem>, OneItemSpecificOrderedEnumerator<TInnerItem>> Zip<TInnerItem, TOutItem>(OneItemSpecificOrderedEnumerable<TInnerItem> second, Func<TItem, TInnerItem, TOutItem> resultSelector)
         => CommonImplementation.Zip<TOutItem, TItem, TInnerItem, TEnumerable, TEnumerator, OneItemSpecificOrderedEnumerable<TInnerItem>, OneItemSpecificOrderedEnumerator<TInnerItem>>(RefThis(), ref second, resultSelector);
+
+        public ZipEnumerable<TOutItem, TItem, TInnerItem, TEnumerable, TEnumerator, SkipLastEnumerable<TInnerItem, TSkipEnumerable, TSkipEnumerator>, SkipLastEnumerator<TInnerItem, TSkipEnumerator>> Zip<TInnerItem, TOutItem, TSkipEnumerable, TSkipEnumerator>(SkipLastEnumerable<TInnerItem, TSkipEnumerable, TSkipEnumerator> second, Func<TItem, TInnerItem, TOutItem> resultSelector)
+            where TSkipEnumerable : struct, IStructEnumerable<TInnerItem, TSkipEnumerator>
+            where TSkipEnumerator : struct, IStructEnumerator<TInnerItem>
+        => CommonImplementation.Zip<TOutItem, TItem, TInnerItem, TEnumerable, TEnumerator, SkipLastEnumerable<TInnerItem, TSkipEnumerable, TSkipEnumerator>, SkipLastEnumerator<TInnerItem, TSkipEnumerator>>(RefThis(), ref second, resultSelector);
+
+        public ZipEnumerable<TOutItem, TItem, TInnerItem, TEnumerable, TEnumerator, TakeLastEnumerable<TInnerItem, TTakeEnumerable, TTakeEnumerator>, TakeLastEnumerator<TInnerItem, TTakeEnumerator>> Zip<TInnerItem, TOutItem, TTakeEnumerable, TTakeEnumerator>(TakeLastEnumerable<TInnerItem, TTakeEnumerable, TTakeEnumerator> second, Func<TItem, TInnerItem, TOutItem> resultSelector)
+            where TTakeEnumerable : struct, IStructEnumerable<TInnerItem, TTakeEnumerator>
+            where TTakeEnumerator : struct, IStructEnumerator<TInnerItem>
+        => CommonImplementation.Zip<TOutItem, TItem, TInnerItem, TEnumerable, TEnumerator, TakeLastEnumerable<TInnerItem, TTakeEnumerable, TTakeEnumerator>, TakeLastEnumerator<TInnerItem, TTakeEnumerator>>(RefThis(), ref second, resultSelector);
+
+        public ZipEnumerable<TOutItem, TItem, TInnerItem, TEnumerable, TEnumerator, AppendEnumerable<TInnerItem, TAppendEnumerable, TAppendEnumerator>, AppendEnumerator<TInnerItem, TAppendEnumerator>> Zip<TInnerItem, TOutItem, TAppendEnumerable, TAppendEnumerator>(AppendEnumerable<TInnerItem, TAppendEnumerable, TAppendEnumerator> second, Func<TItem, TInnerItem, TOutItem> resultSelector)
+            where TAppendEnumerable : struct, IStructEnumerable<TInnerItem, TAppendEnumerator>
+            where TAppendEnumerator : struct, IStructEnumerator<TInnerItem>
+        => CommonImplementation.Zip<TOutItem, TItem, TInnerItem, TEnumerable, TEnumerator, AppendEnumerable<TInnerItem, TAppendEnumerable, TAppendEnumerator>, AppendEnumerator<TInnerItem, TAppendEnumerator>>(RefThis(), ref second, resultSelector);
+
+        public ZipEnumerable<TOutItem, TItem, TInnerItem, TEnumerable, TEnumerator, PrependEnumerable<TInnerItem, TPrependEnumerable, TPrependEnumerator>, PrependEnumerator<TInnerItem, TPrependEnumerator>> Zip<TInnerItem, TOutItem, TPrependEnumerable, TPrependEnumerator>(PrependEnumerable<TInnerItem, TPrependEnumerable, TPrependEnumerator> second, Func<TItem, TInnerItem, TOutItem> resultSelector)
+            where TPrependEnumerable : struct, IStructEnumerable<TInnerItem, TPrependEnumerator>
+            where TPrependEnumerator : struct, IStructEnumerator<TInnerItem>
+        => CommonImplementation.Zip<TOutItem, TItem, TInnerItem, TEnumerable, TEnumerator, PrependEnumerable<TInnerItem, TPrependEnumerable, TPrependEnumerator>, PrependEnumerator<TInnerItem, TPrependEnumerator>>(RefThis(), ref second, resultSelector);
+
+        public ZipEnumerable<TOutItem, TItem, int, TEnumerable, TEnumerator, RangeEnumerable, RangeEnumerator> Zip<TOutItem>(RangeEnumerable second, Func<TItem, int, TOutItem> resultSelector)
+        => CommonImplementation.Zip<TOutItem, TItem, int, TEnumerable, TEnumerator, RangeEnumerable, RangeEnumerator>(RefThis(), ref second, resultSelector);
+
+        public ZipEnumerable<TOutItem, TItem, int, TEnumerable, TEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Zip<TOutItem>(ReverseRangeEnumerable second, Func<TItem, int, TOutItem> resultSelector)
+        => CommonImplementation.Zip<TOutItem, TItem, int, TEnumerable, TEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator>(RefThis(), ref second, resultSelector);
     }
 }

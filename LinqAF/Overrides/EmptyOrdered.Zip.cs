@@ -93,8 +93,8 @@ namespace LinqAF
             where TZip_ReverseEnumerator : struct, IStructEnumerator<TZip_ReverseOutItem>
         => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_ReverseOutItem, ReverseEnumerable<TZip_ReverseOutItem, TZip_ReverseEnumerable, TZip_ReverseEnumerator>, ReverseEnumerator<TZip_ReverseOutItem>>(ref this, ref second, resultSelector);
 
-        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_ReverseRangeOutItem>(ReverseRangeEnumerable<TZip_ReverseRangeOutItem> second, Func<TItem, TZip_ReverseRangeOutItem, TZip_OutItem> resultSelector)
-        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_ReverseRangeOutItem, ReverseRangeEnumerable<TZip_ReverseRangeOutItem>, ReverseRangeEnumerator<TZip_ReverseRangeOutItem>>(ref this, ref second, resultSelector);
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem>(ReverseRangeEnumerable second, Func<TItem, int, TZip_OutItem> resultSelector)
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, int, ReverseRangeEnumerable, ReverseRangeEnumerator>(ref this, ref second, resultSelector);
 
         public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_GroupByInItem, TZip_GroupByKey, TZip_GroupByElement, TZip_GroupByOutItem, TZip_GroupByEnumerable, TZip_GroupByEnumerator>(GroupByCollectionDefaultEnumerable<TZip_GroupByInItem, TZip_GroupByKey, TZip_GroupByElement, TZip_GroupByOutItem, TZip_GroupByEnumerable, TZip_GroupByEnumerator> second, Func<TItem, TZip_GroupByOutItem, TZip_OutItem> resultSelector)
             where TZip_GroupByEnumerable : struct, IStructEnumerable<TZip_GroupByInItem, TZip_GroupByEnumerator>
@@ -128,8 +128,8 @@ namespace LinqAF
         public EmptyEnumerable<TZip_OutItem> Zip<TZip_InnerItem, TZip_OutItem>(OneItemSpecificEnumerable<TZip_InnerItem> second, Func<TItem, TZip_InnerItem, TZip_OutItem> resultSelector)
         => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_InnerItem, OneItemSpecificEnumerable<TZip_InnerItem>, OneItemSpecificEnumerator<TZip_InnerItem>>(ref this, ref second, resultSelector);
 
-        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_RangeItem>(RangeEnumerable<TZip_RangeItem> second, Func<TItem, TZip_RangeItem, TZip_OutItem> resultSelector)
-        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_RangeItem, RangeEnumerable<TZip_RangeItem>, RangeEnumerator<TZip_RangeItem>>(ref this, ref second, resultSelector);
+        public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem>(RangeEnumerable second, Func<TItem, int, TZip_OutItem> resultSelector)
+        => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, int, RangeEnumerable, RangeEnumerator>(ref this, ref second, resultSelector);
 
         public EmptyEnumerable<TZip_OutItem> Zip<TZip_OutItem, TZip_RangeItem>(RepeatEnumerable<TZip_RangeItem> second, Func<TItem, TZip_RangeItem, TZip_OutItem> resultSelector)
         => CommonImplementation.EmptyZip_Impl<TItem, TZip_OutItem, TZip_RangeItem, RepeatEnumerable<TZip_RangeItem>, RepeatEnumerator<TZip_RangeItem>>(ref this, ref second, resultSelector);

@@ -52,9 +52,6 @@ namespace LinqAF
             return CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, TItem[], ArrayBridger<TItem>, ArrayEnumerator<TItem>>, ArrayEnumerator<TItem>>(RefThis(), ref bridge);
         }
 
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Concat(ReverseRangeEnumerable<TItem> second)
-        => CommonImplementation.Concat(RefThis(), ref second);
-
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Concat(Stack<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
@@ -63,9 +60,6 @@ namespace LinqAF
 
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Concat(RepeatEnumerable<TItem> second)
         => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>>(RefThis(), ref second);
-
-        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Concat(RangeEnumerable<TItem> second)
-        => CommonImplementation.Concat<TItem, TEnumerable, TEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(RefThis(), ref second);
 
         public TEnumerable Concat(EmptyEnumerable<TItem> second)
         {
@@ -403,6 +397,26 @@ namespace LinqAF
         => CommonImplementation.Concat(RefThis(), ref second);
 
         public ConcatEnumerable<TItem, TEnumerable, TEnumerator, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>> Concat(OneItemSpecificOrderedEnumerable<TItem> second)
+        => CommonImplementation.Concat(RefThis(), ref second);
+
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>, SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>> Concat<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Concat(RefThis(), ref second);
+
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>, TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>> Concat<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Concat(RefThis(), ref second);
+
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>, AppendEnumerator<TItem, TAppendInnerEnumerator>> Concat<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Concat(RefThis(), ref second);
+
+        public ConcatEnumerable<TItem, TEnumerable, TEnumerator, PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>, PrependEnumerator<TItem, TPrependInnerEnumerator>> Concat<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Concat(RefThis(), ref second);
     }
 }

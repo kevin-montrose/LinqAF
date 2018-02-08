@@ -478,5 +478,161 @@ namespace LinqAF
                     LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
+
+        // RangeEnumerable
+        [DoNotInject]
+        public
+            GroupJoinDefaultEnumerable<
+                TResult,
+                TGroupJoinKey,
+                TOuter,
+                BuiltInEnumerable<TOuter>,
+                BuiltInEnumerator<TOuter>,
+                int,
+                RangeEnumerable,
+                RangeEnumerator
+            > GroupJoin<TResult, TGroupJoinKey, TOuter>(
+                BuiltInEnumerable<TOuter> outer,
+                RangeEnumerable inner,
+                Func<TOuter, TGroupJoinKey> outerKeySelector,
+                Func<int, TGroupJoinKey> innerKeySelector,
+                Func<TOuter, GroupedEnumerable<TGroupJoinKey, int>, TResult> resultSelector
+            )
+        {
+            var outerBridge = Bridge(outer, nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.GroupJoinImpl<
+                    TResult,
+                    TGroupJoinKey,
+                    TOuter,
+                    BuiltInEnumerable<TOuter>,
+                    BuiltInEnumerator<TOuter>,
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector);
+        }
+
+        [DoNotInject]
+        public
+            GroupJoinSpecificEnumerable<
+                TResult,
+                TGroupJoinKey,
+                TOuter,
+                BuiltInEnumerable<TOuter>,
+                BuiltInEnumerator<TOuter>,
+                int,
+                RangeEnumerable,
+                RangeEnumerator
+            > GroupJoin<TResult, TGroupJoinKey, TOuter>(
+                BuiltInEnumerable<TOuter> outer,
+                RangeEnumerable inner,
+                Func<TOuter, TGroupJoinKey> outerKeySelector,
+                Func<int, TGroupJoinKey> innerKeySelector,
+                Func<TOuter, GroupedEnumerable<TGroupJoinKey, int>, TResult> resultSelector,
+                IEqualityComparer<TGroupJoinKey> comparer
+            )
+        {
+            var outerBridge = Bridge(outer, nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.GroupJoinImpl<
+                    TResult,
+                    TGroupJoinKey,
+                    TOuter,
+                    BuiltInEnumerable<TOuter>,
+                    BuiltInEnumerator<TOuter>,
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+        }
+
+        // ReverseRangeEnumerable
+        [DoNotInject]
+        public
+            GroupJoinDefaultEnumerable<
+                TResult,
+                TGroupJoinKey,
+                TOuter,
+                BuiltInEnumerable<TOuter>,
+                BuiltInEnumerator<TOuter>,
+                int,
+                ReverseRangeEnumerable,
+                ReverseRangeEnumerator
+            > GroupJoin<TResult, TGroupJoinKey, TOuter>(
+                BuiltInEnumerable<TOuter> outer,
+                ReverseRangeEnumerable inner,
+                Func<TOuter, TGroupJoinKey> outerKeySelector,
+                Func<int, TGroupJoinKey> innerKeySelector,
+                Func<TOuter, GroupedEnumerable<TGroupJoinKey, int>, TResult> resultSelector
+            )
+        {
+            var outerBridge = Bridge(outer, nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.GroupJoinImpl<
+                    TResult,
+                    TGroupJoinKey,
+                    TOuter,
+                    BuiltInEnumerable<TOuter>,
+                    BuiltInEnumerator<TOuter>,
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector);
+        }
+
+        [DoNotInject]
+        public
+            GroupJoinSpecificEnumerable<
+                TResult,
+                TGroupJoinKey,
+                TOuter,
+                BuiltInEnumerable<TOuter>,
+                BuiltInEnumerator<TOuter>,
+                int,
+                ReverseRangeEnumerable,
+                ReverseRangeEnumerator
+            > GroupJoin<TResult, TGroupJoinKey, TOuter>(
+                BuiltInEnumerable<TOuter> outer,
+                ReverseRangeEnumerable inner,
+                Func<TOuter, TGroupJoinKey> outerKeySelector,
+                Func<int, TGroupJoinKey> innerKeySelector,
+                Func<TOuter, GroupedEnumerable<TGroupJoinKey, int>, TResult> resultSelector,
+                IEqualityComparer<TGroupJoinKey> comparer
+            )
+        {
+            var outerBridge = Bridge(outer, nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.GroupJoinImpl<
+                    TResult,
+                    TGroupJoinKey,
+                    TOuter,
+                    BuiltInEnumerable<TOuter>,
+                    BuiltInEnumerator<TOuter>,
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+        }
     }
 }

@@ -274,12 +274,12 @@ namespace LinqAF.Impl
         ZipEnumerable<
             TOutItem,
             TThisItem,
-            TRangeItem,
+            int,
             TThisEnumerable,
             TThisEnumerator,
-            RangeEnumerable<TRangeItem>,
-            RangeEnumerator<TRangeItem>
-        > Zip<TOutItem, TRangeItem>(RangeEnumerable<TRangeItem> second, Func<TThisItem, TRangeItem, TOutItem> resultSelector);
+            RangeEnumerable,
+            RangeEnumerator
+        > Zip<TOutItem>(RangeEnumerable second, Func<TThisItem, int, TOutItem> resultSelector);
 
         ZipEnumerable<
             TOutItem,
@@ -982,14 +982,14 @@ namespace LinqAF.Impl
         ZipEnumerable<
             TOutItem,
             TThisItem,
-            TReverseRangeOutItem,
+            int,
             TThisEnumerable,
             TThisEnumerator,
-            ReverseRangeEnumerable<TReverseRangeOutItem>,
-            ReverseRangeEnumerator<TReverseRangeOutItem>
-        > Zip<TOutItem, TReverseRangeOutItem>(
-            ReverseRangeEnumerable<TReverseRangeOutItem> second,
-            Func<TThisItem, TReverseRangeOutItem, TOutItem> resultSelector
+            ReverseRangeEnumerable,
+            ReverseRangeEnumerator
+        > Zip<TOutItem>(
+            ReverseRangeEnumerable second,
+            Func<TThisItem, int, TOutItem> resultSelector
         );
 
         ZipEnumerable<
@@ -1073,5 +1073,67 @@ namespace LinqAF.Impl
             OneItemSpecificOrderedEnumerable<TInnerItem> second,
             Func<TThisItem, TInnerItem, TOutItem> resultSelector
         );
+
+        //
+
+        ZipEnumerable<
+            TOutItem,
+            TThisItem,
+            TInnerItem,
+            TThisEnumerable,
+            TThisEnumerator,
+            SkipLastEnumerable<TInnerItem, TSkipEnumerable, TSkipEnumerator>,
+            SkipLastEnumerator<TInnerItem, TSkipEnumerator>
+        > Zip<TInnerItem, TOutItem, TSkipEnumerable, TSkipEnumerator>(
+            SkipLastEnumerable<TInnerItem, TSkipEnumerable, TSkipEnumerator> second,
+            Func<TThisItem, TInnerItem, TOutItem> resultSelector
+        )
+            where TSkipEnumerable : struct, IStructEnumerable<TInnerItem, TSkipEnumerator>
+            where TSkipEnumerator : struct, IStructEnumerator<TInnerItem>;
+
+        ZipEnumerable<
+            TOutItem,
+            TThisItem,
+            TInnerItem,
+            TThisEnumerable,
+            TThisEnumerator,
+            TakeLastEnumerable<TInnerItem, TTakeEnumerable, TTakeEnumerator>,
+            TakeLastEnumerator<TInnerItem, TTakeEnumerator>
+        > Zip<TInnerItem, TOutItem, TTakeEnumerable, TTakeEnumerator>(
+            TakeLastEnumerable<TInnerItem, TTakeEnumerable, TTakeEnumerator> second,
+            Func<TThisItem, TInnerItem, TOutItem> resultSelector
+        )
+            where TTakeEnumerable : struct, IStructEnumerable<TInnerItem, TTakeEnumerator>
+            where TTakeEnumerator : struct, IStructEnumerator<TInnerItem>;
+
+        ZipEnumerable<
+            TOutItem,
+            TThisItem,
+            TInnerItem,
+            TThisEnumerable,
+            TThisEnumerator,
+            AppendEnumerable<TInnerItem, TAppendEnumerable, TAppendEnumerator>,
+            AppendEnumerator<TInnerItem, TAppendEnumerator>
+        > Zip<TInnerItem, TOutItem, TAppendEnumerable, TAppendEnumerator>(
+            AppendEnumerable<TInnerItem, TAppendEnumerable, TAppendEnumerator> second,
+            Func<TThisItem, TInnerItem, TOutItem> resultSelector
+        )
+            where TAppendEnumerable : struct, IStructEnumerable<TInnerItem, TAppendEnumerator>
+            where TAppendEnumerator : struct, IStructEnumerator<TInnerItem>;
+
+        ZipEnumerable<
+            TOutItem,
+            TThisItem,
+            TInnerItem,
+            TThisEnumerable,
+            TThisEnumerator,
+            PrependEnumerable<TInnerItem, TPrependEnumerable, TPrependEnumerator>,
+            PrependEnumerator<TInnerItem, TPrependEnumerator>
+        > Zip<TInnerItem, TOutItem, TPrependEnumerable, TPrependEnumerator>(
+            PrependEnumerable<TInnerItem, TPrependEnumerable, TPrependEnumerator> second,
+            Func<TThisItem, TInnerItem, TOutItem> resultSelector
+        )
+            where TPrependEnumerable : struct, IStructEnumerable<TInnerItem, TPrependEnumerator>
+            where TPrependEnumerator : struct, IStructEnumerator<TInnerItem>;
     }
 }

@@ -18,7 +18,10 @@ namespace LinqAF.Tests
                 foreach(var mtd in type.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance).Where(m => m.Name == "OrderBy" || m.Name == "OrderByDescending"))
                 {
                     var ret = mtd.ReturnType;
-                    if(ret.IsGenericType && !ret.IsGenericTypeDefinition)
+                    
+                    if (!ret.IsValueType) continue;
+
+                    if (ret.IsGenericType && !ret.IsGenericTypeDefinition)
                     {
                         ret = ret.GetGenericTypeDefinition();
                     }

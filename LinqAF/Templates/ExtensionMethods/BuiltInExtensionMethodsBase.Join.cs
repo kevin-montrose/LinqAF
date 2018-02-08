@@ -490,5 +490,165 @@ namespace LinqAF
                     LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
+
+        // RangeEnumerable
+        [DoNotInject]
+        public
+            JoinDefaultEnumerable<
+                TOutItem,
+                TJoinKeyItem,
+                TJoinLeftItem,
+                BuiltInEnumerable<TJoinLeftItem>,
+                BuiltInEnumerator<TJoinLeftItem>,
+                int,
+                RangeEnumerable,
+                RangeEnumerator
+            > Join<TOutItem, TJoinKeyItem, TJoinLeftItem>(
+                BuiltInEnumerable<TJoinLeftItem> outer,
+                RangeEnumerable inner,
+                Func<TJoinLeftItem, TJoinKeyItem> outerKeySelector,
+                Func<int, TJoinKeyItem> innerKeySelector,
+                Func<TJoinLeftItem, int, TOutItem> resultSelector
+            )
+        {
+            var outerBridge = Bridge(outer, nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.JoinImpl<
+                    TOutItem,
+                    TJoinKeyItem,
+                    TJoinLeftItem,
+                    BuiltInEnumerable<TJoinLeftItem>,
+                    BuiltInEnumerator<TJoinLeftItem>,
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector);
+        }
+
+        [DoNotInject]
+        public
+            JoinSpecificEnumerable<
+                TOutItem,
+                TJoinKeyItem,
+                TJoinLeftItem,
+                BuiltInEnumerable<TJoinLeftItem>,
+                BuiltInEnumerator<TJoinLeftItem>,
+                int,
+                RangeEnumerable,
+                RangeEnumerator
+            > Join<TOutItem, TJoinKeyItem, TJoinLeftItem>(
+                BuiltInEnumerable<TJoinLeftItem> outer,
+                RangeEnumerable inner,
+                Func<TJoinLeftItem, TJoinKeyItem> outerKeySelector,
+                Func<int, TJoinKeyItem> innerKeySelector,
+                Func<TJoinLeftItem, int, TOutItem> resultSelector,
+                IEqualityComparer<TJoinKeyItem> comparer
+            )
+        {
+            var outerBridge = Bridge(outer, nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.JoinImpl<
+                    TOutItem,
+                    TJoinKeyItem,
+                    TJoinLeftItem,
+                    BuiltInEnumerable<TJoinLeftItem>,
+                    BuiltInEnumerator<TJoinLeftItem>,
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+        }
+
+        // ReverseRangeEnumerable
+        [DoNotInject]
+        public
+            JoinDefaultEnumerable<
+                TOutItem,
+                TJoinKeyItem,
+                TJoinLeftItem,
+                BuiltInEnumerable<TJoinLeftItem>,
+                BuiltInEnumerator<TJoinLeftItem>,
+                int,
+                ReverseRangeEnumerable,
+                ReverseRangeEnumerator
+            > Join<TOutItem, TJoinKeyItem, TJoinLeftItem>(
+                BuiltInEnumerable<TJoinLeftItem> outer,
+                ReverseRangeEnumerable inner,
+                Func<TJoinLeftItem, TJoinKeyItem> outerKeySelector,
+                Func<int, TJoinKeyItem> innerKeySelector,
+                Func<TJoinLeftItem, int, TOutItem> resultSelector
+            )
+        {
+            var outerBridge = Bridge(outer, nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.JoinImpl<
+                    TOutItem,
+                    TJoinKeyItem,
+                    TJoinLeftItem,
+                    BuiltInEnumerable<TJoinLeftItem>,
+                    BuiltInEnumerator<TJoinLeftItem>,
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector);
+        }
+
+        [DoNotInject]
+        public
+            JoinSpecificEnumerable<
+                TOutItem,
+                TJoinKeyItem,
+                TJoinLeftItem,
+                BuiltInEnumerable<TJoinLeftItem>,
+                BuiltInEnumerator<TJoinLeftItem>,
+                int,
+                ReverseRangeEnumerable,
+                ReverseRangeEnumerator
+            > Join<TOutItem, TJoinKeyItem, TJoinLeftItem>(
+                BuiltInEnumerable<TJoinLeftItem> outer,
+                ReverseRangeEnumerable inner,
+                Func<TJoinLeftItem, TJoinKeyItem> outerKeySelector,
+                Func<int, TJoinKeyItem> innerKeySelector,
+                Func<TJoinLeftItem, int, TOutItem> resultSelector,
+                IEqualityComparer<TJoinKeyItem> comparer
+            )
+        {
+            var outerBridge = Bridge(outer, nameof(outer));
+            if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
+
+            if (outerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(outerKeySelector));
+            if (innerKeySelector == null) throw CommonImplementation.ArgumentNull(nameof(innerKeySelector));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.JoinImpl<
+                    TOutItem,
+                    TJoinKeyItem,
+                    TJoinLeftItem,
+                    BuiltInEnumerable<TJoinLeftItem>,
+                    BuiltInEnumerator<TJoinLeftItem>,
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(RefLocal(outerBridge), ref inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
+        }
     }
 }

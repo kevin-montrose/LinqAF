@@ -1131,5 +1131,315 @@ namespace LinqAF
                     comparer
                 );
         }
+
+        // RangeEnumerable
+
+        public IntersectDefaultEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, RangeEnumerable, RangeEnumerator> Intersect(
+            PlaceholderEnumerable<int> first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second
+                );
+        }
+
+        public IntersectSpecificEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, RangeEnumerable, RangeEnumerator> Intersect(
+            PlaceholderEnumerable<int> first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second,
+                    comparer
+                );
+        }
+
+        //public IntersectDefaultEnumerable<int, RangeEnumerable, RangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Intersect(
+        //    RangeEnumerable first,
+        //    PlaceholderEnumerable<int> second
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Intersect<
+        //            int,
+        //            RangeEnumerable,
+        //            RangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second)
+        //        );
+        //}
+
+        //public IntersectSpecificEnumerable<int, RangeEnumerable, RangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Intersect(
+        //    RangeEnumerable first,
+        //    PlaceholderEnumerable<int> second,
+        //    IEqualityComparer<int> comparer
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Intersect<
+        //            int,
+        //            RangeEnumerable,
+        //            RangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second),
+        //            comparer
+        //        );
+        //}
+
+        public IntersectDefaultEnumerable<int, RangeEnumerable, RangeEnumerator, RangeEnumerable, RangeEnumerator> Intersect(
+            RangeEnumerable first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public IntersectSpecificEnumerable<int, RangeEnumerable, RangeEnumerator, RangeEnumerable, RangeEnumerator> Intersect(
+            RangeEnumerable first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        // ReverseRangeEnumerable
+
+        public IntersectDefaultEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, ReverseRangeEnumerable, ReverseRangeEnumerator> Intersect(
+            PlaceholderEnumerable<int> first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second
+                );
+        }
+
+        public IntersectSpecificEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, ReverseRangeEnumerable, ReverseRangeEnumerator> Intersect(
+            PlaceholderEnumerable<int> first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second,
+                    comparer
+                );
+        }
+
+        //public IntersectDefaultEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Intersect(
+        //    ReverseRangeEnumerable first,
+        //    PlaceholderEnumerable<int> second
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Intersect<
+        //            int,
+        //            ReverseRangeEnumerable,
+        //            ReverseRangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second)
+        //        );
+        //}
+
+        //public IntersectSpecificEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Intersect(
+        //    ReverseRangeEnumerable first,
+        //    PlaceholderEnumerable<int> second,
+        //    IEqualityComparer<int> comparer
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Intersect<
+        //            int,
+        //            ReverseRangeEnumerable,
+        //            ReverseRangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second),
+        //            comparer
+        //        );
+        //}
+
+        public IntersectDefaultEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Intersect(
+            ReverseRangeEnumerable first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public IntersectSpecificEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Intersect(
+            ReverseRangeEnumerable first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        // Range - ReverseRange
+        
+        public IntersectDefaultEnumerable<int, RangeEnumerable, RangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Intersect(
+            RangeEnumerable first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public IntersectSpecificEnumerable<int, RangeEnumerable, RangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Intersect(
+            RangeEnumerable first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        public IntersectDefaultEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, RangeEnumerable, RangeEnumerator> Intersect(
+            ReverseRangeEnumerable first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public IntersectSpecificEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, RangeEnumerable, RangeEnumerator> Intersect(
+            ReverseRangeEnumerable first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Intersect<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
     }
 }

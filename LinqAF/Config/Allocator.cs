@@ -84,6 +84,13 @@ namespace LinqAF.Config
         Dictionary<TKey, TValue> GetEmptyDictionary<TKey, TValue>(int? desiredCapacity, IEqualityComparer<TKey> comparer);
 
         /// <summary>
+        /// Must return an empty hashset with the desired comparer (or the default comparer, if comparer is null).
+        /// 
+        /// The passed IEqualityComparer may be null.
+        /// </summary>
+        HashSet<TItem> GetEmptyHashSet<TItem>(IEqualityComparer<TItem> comparer);
+
+        /// <summary>
         /// Invoked when an enumerable is boxed.
         /// </summary>
         void EnumerableBoxed<T>();

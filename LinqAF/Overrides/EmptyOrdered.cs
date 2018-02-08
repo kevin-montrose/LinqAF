@@ -7,6 +7,20 @@ namespace LinqAF
 {
     public partial struct EmptyOrderedEnumerable<TItem>
     {
+        public OneItemSpecificEnumerable<TItem> Append(TItem element)
+        {
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+
+            return new OneItemSpecificEnumerable<TItem>(Enumerable.OneItemSigil, element);
+        }
+
+        public OneItemSpecificEnumerable<TItem> Prepend(TItem element)
+        {
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+
+            return new OneItemSpecificEnumerable<TItem>(Enumerable.OneItemSigil, element);
+        }
+
         public OneItemDefaultEnumerable<TItem> DefaultIfEmpty()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
@@ -269,6 +283,13 @@ namespace LinqAF
             return EmptyCache<TItem>.Empty;
         }
 
+        public EmptyEnumerable<TItem> SkipLast(int count)
+        {
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+
+            return EmptyCache<TItem>.Empty;
+        }
+
         public TItem ElementAt(int index)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
@@ -317,6 +338,13 @@ namespace LinqAF
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
             if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
+
+            return EmptyCache<TItem>.Empty;
+        }
+        
+        public EmptyEnumerable<TItem> TakeLast(int count)
+        {
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
 
             return EmptyCache<TItem>.Empty;
         }
@@ -699,6 +727,20 @@ namespace LinqAF
             return EmptyCache<TItem>.Empty;
         }
 
+        public HashSet<TItem> ToHashSet()
+        {
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+
+            return Allocator.Current.GetEmptyHashSet<TItem>(null);
+        }
+
+        public HashSet<TItem> ToHashSet(IEqualityComparer<TItem> comparer)
+        {
+            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
+
+            return Allocator.Current.GetEmptyHashSet<TItem>(comparer);
+        }
+
         public List<TItem> ToList()
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
@@ -762,12 +804,12 @@ namespace LinqAF
             return EmptyCache<TToLookup_Key, TItem>.EmptyLookupDefault;
         }
 
-        public LookupDefaultEnumerable<TToLookup_Key, TItem> ToLookup<TToLookup_Key>(Func<TItem, TToLookup_Key> keySelector, IEqualityComparer<TToLookup_Key> comparer)
+        public LookupSpecificEnumerable<TToLookup_Key, TItem> ToLookup<TToLookup_Key>(Func<TItem, TToLookup_Key> keySelector, IEqualityComparer<TToLookup_Key> comparer)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
             if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
 
-            return EmptyCache<TToLookup_Key, TItem>.EmptyLookupDefault;
+            return EmptyCache<TToLookup_Key, TItem>.EmptyLookupSpecific;
         }
 
         public LookupDefaultEnumerable<TToLookup_Key, TToLookup_Element> ToLookup<TToLookup_Key, TToLookup_Element>(Func<TItem, TToLookup_Key> keySelector, Func<TItem, TToLookup_Element> elementSelector)
@@ -779,13 +821,13 @@ namespace LinqAF
             return EmptyCache<TToLookup_Key, TToLookup_Element>.EmptyLookupDefault;
         }
 
-        public LookupDefaultEnumerable<TToLookup_Key, TToLookup_Element> ToLookup<TToLookup_Key, TToLookup_Element>(Func<TItem, TToLookup_Key> keySelector, Func<TItem, TToLookup_Element> elementSelector, IEqualityComparer<TToLookup_Key> comparer)
+        public LookupSpecificEnumerable<TToLookup_Key, TToLookup_Element> ToLookup<TToLookup_Key, TToLookup_Element>(Func<TItem, TToLookup_Key> keySelector, Func<TItem, TToLookup_Element> elementSelector, IEqualityComparer<TToLookup_Key> comparer)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("source");
             if (keySelector == null) throw CommonImplementation.ArgumentNull(nameof(keySelector));
             if (elementSelector == null) throw CommonImplementation.ArgumentNull(nameof(elementSelector));
 
-            return EmptyCache<TToLookup_Key, TToLookup_Element>.EmptyLookupDefault;
+            return EmptyCache<TToLookup_Key, TToLookup_Element>.EmptyLookupSpecific;
         }
 
         public EmptyOrderedEnumerable<TItem> OrderBy<TOrderBy_Key>(Func<TItem, TOrderBy_Key> keySelector)

@@ -271,5 +271,107 @@ namespace LinqAF
                 LookupSpecificEnumerator<TGenGroupByKey, TGenGroupByElement>
             >(RefLocal(firstBridge), ref second, comparer);
         }
+
+        // RangeEnumerable
+
+        [DoNotInject]
+        public ExceptDefaultEnumerable<
+            int,
+            BuiltInEnumerable<int>,
+            BuiltInEnumerator<int>,
+            RangeEnumerable,
+            RangeEnumerator
+            > Except(
+                BuiltInEnumerable<int> first,
+                RangeEnumerable second
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return CommonImplementation.ExceptImpl<
+                int,
+                BuiltInEnumerable<int>,
+                BuiltInEnumerator<int>,
+                RangeEnumerable,
+                RangeEnumerator
+            >(RefLocal(firstBridge), ref second);
+        }
+
+        [DoNotInject]
+        public ExceptSpecificEnumerable<
+            int,
+            BuiltInEnumerable<int>,
+            BuiltInEnumerator<int>,
+            RangeEnumerable,
+            RangeEnumerator
+            > Except(
+                BuiltInEnumerable<int> first,
+                RangeEnumerable second,
+                IEqualityComparer<int> comparer
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return CommonImplementation.ExceptImpl<
+                int,
+                BuiltInEnumerable<int>,
+                BuiltInEnumerator<int>,
+                RangeEnumerable,
+                RangeEnumerator
+            >(RefLocal(firstBridge), ref second, comparer);
+        }
+
+        // ReverseRangeEnumerable
+
+        [DoNotInject]
+        public ExceptDefaultEnumerable<
+            int,
+            BuiltInEnumerable<int>,
+            BuiltInEnumerator<int>,
+            ReverseRangeEnumerable,
+            ReverseRangeEnumerator
+            > Except(
+                BuiltInEnumerable<int> first,
+                ReverseRangeEnumerable second
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return CommonImplementation.ExceptImpl<
+                int,
+                BuiltInEnumerable<int>,
+                BuiltInEnumerator<int>,
+                ReverseRangeEnumerable,
+                ReverseRangeEnumerator
+            >(RefLocal(firstBridge), ref second);
+        }
+
+        [DoNotInject]
+        public ExceptSpecificEnumerable<
+            int,
+            BuiltInEnumerable<int>,
+            BuiltInEnumerator<int>,
+            ReverseRangeEnumerable,
+            ReverseRangeEnumerator
+            > Except(
+                BuiltInEnumerable<int> first,
+                ReverseRangeEnumerable second,
+                IEqualityComparer<int> comparer
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return CommonImplementation.ExceptImpl<
+                int,
+                BuiltInEnumerable<int>,
+                BuiltInEnumerator<int>,
+                ReverseRangeEnumerable,
+                ReverseRangeEnumerator
+            >(RefLocal(firstBridge), ref second, comparer);
+        }
     }
 }

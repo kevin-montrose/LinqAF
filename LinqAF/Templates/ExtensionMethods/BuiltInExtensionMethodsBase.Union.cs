@@ -70,17 +70,17 @@ namespace LinqAF
 
         [DoNotInject]
         public UnionDefaultEnumerable<
-            GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>, 
-            BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>, 
+            GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>,
+            BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
             BuiltInEnumerator<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
             GroupByDefaultEnumerable<TGenGroupByInItem, TGenGroupByKey, TGenGroupByElement, TGenGroupByEnumerable, TGenGroupByEnumerator>,
             GroupByDefaultEnumerator<TGenGroupByInItem, TGenGroupByKey, TGenGroupByElement, TGenGroupByEnumerator>
             > Union<TGenGroupByInItem, TGenGroupByKey, TGenGroupByElement, TGenGroupByEnumerable, TGenGroupByEnumerator>(
-                BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>> first, 
+                BuiltInEnumerable<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>> first,
                 GroupByDefaultEnumerable<TGenGroupByInItem, TGenGroupByKey, TGenGroupByElement, TGenGroupByEnumerable, TGenGroupByEnumerator> second
             )
-            where TGenGroupByEnumerable: struct, IStructEnumerable<TGenGroupByInItem, TGenGroupByEnumerator>
-            where TGenGroupByEnumerator: struct, IStructEnumerator<TGenGroupByInItem>
+            where TGenGroupByEnumerable : struct, IStructEnumerable<TGenGroupByInItem, TGenGroupByEnumerator>
+            where TGenGroupByEnumerator : struct, IStructEnumerator<TGenGroupByInItem>
         {
             var firstBridge = Bridge(first, nameof(first));
             if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
@@ -271,6 +271,108 @@ namespace LinqAF
                 BuiltInEnumerator<GroupingEnumerable<TGenGroupByKey, TGenGroupByElement>>,
                 LookupSpecificEnumerable<TGenGroupByKey, TGenGroupByElement>,
                 LookupSpecificEnumerator<TGenGroupByKey, TGenGroupByElement>
+            >(RefLocal(firstBridge), ref second, comparer);
+        }
+
+        // RangeEnumerable
+
+        [DoNotInject]
+        public UnionDefaultEnumerable<
+            int,
+            BuiltInEnumerable<int>,
+            BuiltInEnumerator<int>,
+            RangeEnumerable,
+            RangeEnumerator
+            > Union(
+                BuiltInEnumerable<int> first,
+                RangeEnumerable second
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return CommonImplementation.UnionImpl<
+                int,
+                BuiltInEnumerable<int>,
+                BuiltInEnumerator<int>,
+                RangeEnumerable,
+                RangeEnumerator
+            >(RefLocal(firstBridge), ref second);
+        }
+
+        [DoNotInject]
+        public UnionSpecificEnumerable<
+            int,
+            BuiltInEnumerable<int>,
+            BuiltInEnumerator<int>,
+            RangeEnumerable,
+            RangeEnumerator
+            > Union(
+                BuiltInEnumerable<int> first,
+                RangeEnumerable second,
+                IEqualityComparer<int> comparer
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return CommonImplementation.UnionImpl<
+                int,
+                BuiltInEnumerable<int>,
+                BuiltInEnumerator<int>,
+                RangeEnumerable,
+                RangeEnumerator
+            >(RefLocal(firstBridge), ref second, comparer);
+        }
+
+        // ReverseRangeEnumerable
+
+        [DoNotInject]
+        public UnionDefaultEnumerable<
+            int,
+            BuiltInEnumerable<int>,
+            BuiltInEnumerator<int>,
+            ReverseRangeEnumerable,
+            ReverseRangeEnumerator
+            > Union(
+                BuiltInEnumerable<int> first,
+                ReverseRangeEnumerable second
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return CommonImplementation.UnionImpl<
+                int,
+                BuiltInEnumerable<int>,
+                BuiltInEnumerator<int>,
+                ReverseRangeEnumerable,
+                ReverseRangeEnumerator
+            >(RefLocal(firstBridge), ref second);
+        }
+
+        [DoNotInject]
+        public UnionSpecificEnumerable<
+            int,
+            BuiltInEnumerable<int>,
+            BuiltInEnumerator<int>,
+            ReverseRangeEnumerable,
+            ReverseRangeEnumerator
+            > Union(
+                BuiltInEnumerable<int> first,
+                ReverseRangeEnumerable second,
+                IEqualityComparer<int> comparer
+            )
+        {
+            var firstBridge = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return CommonImplementation.UnionImpl<
+                int,
+                BuiltInEnumerable<int>,
+                BuiltInEnumerator<int>,
+                ReverseRangeEnumerable,
+                ReverseRangeEnumerator
             >(RefLocal(firstBridge), ref second, comparer);
         }
     }

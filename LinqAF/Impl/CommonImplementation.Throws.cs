@@ -8,6 +8,7 @@ namespace LinqAF.Impl
         public static Exception UnexpectedPath(string methodName) => new InvalidOperationException($"Unexpected path taken through {methodName}");
         public static Exception Uninitialized(string argName) => new ArgumentException("Argument uninitialized", argName);
         public static Exception ArgumentNull(string argName) => new ArgumentNullException(argName);
+        public static Exception TaskEnumerableEmpty(string argName) => new ArgumentException("Task enumerable was empty", argName);
         public static Exception SequenceEmpty() => new InvalidOperationException("Sequence was empty");
         public static Exception OutOfRange(string argName) => new ArgumentOutOfRangeException(argName);
         public static Exception NoItemsMatched(string argName) => new InvalidOperationException($"No items matched {argName}");

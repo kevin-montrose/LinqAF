@@ -177,5 +177,73 @@ namespace LinqAF
                     LookupSpecificEnumerator<TGenLookupKey, TGenLookupElement>
                 >(RefLocal(firstBridged), ref second, resultSelector);
         }
+
+        // RangeEnumerable
+
+        [DoNotInject]
+        public
+            ZipEnumerable<
+                TOutItem,
+                TFirstItem,
+                int,
+                BuiltInEnumerable<TFirstItem>,
+                BuiltInEnumerator<TFirstItem>,
+                RangeEnumerable,
+                RangeEnumerator
+            > Zip<TOutItem, TFirstItem>(
+                BuiltInEnumerable<TFirstItem> first,
+                RangeEnumerable second,
+                Func<TFirstItem, int, TOutItem> resultSelector
+            )
+        {
+            var firstBridged = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.ZipImpl<
+                    TOutItem,
+                    TFirstItem,
+                    int,
+                    BuiltInEnumerable<TFirstItem>,
+                    BuiltInEnumerator<TFirstItem>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(RefLocal(firstBridged), ref second, resultSelector);
+        }
+
+        // ReverseRangeEnumerable
+
+        [DoNotInject]
+        public
+            ZipEnumerable<
+                TOutItem,
+                TFirstItem,
+                int,
+                BuiltInEnumerable<TFirstItem>,
+                BuiltInEnumerator<TFirstItem>,
+                ReverseRangeEnumerable,
+                ReverseRangeEnumerator
+            > Zip<TOutItem, TFirstItem>(
+                BuiltInEnumerable<TFirstItem> first,
+                ReverseRangeEnumerable second,
+                Func<TFirstItem, int, TOutItem> resultSelector
+            )
+        {
+            var firstBridged = Bridge(first, nameof(first));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+            if (resultSelector == null) throw CommonImplementation.ArgumentNull(nameof(resultSelector));
+
+            return
+                CommonImplementation.ZipImpl<
+                    TOutItem,
+                    TFirstItem,
+                    int,
+                    BuiltInEnumerable<TFirstItem>,
+                    BuiltInEnumerator<TFirstItem>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(RefLocal(firstBridged), ref second, resultSelector);
+        }
     }
 }

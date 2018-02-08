@@ -426,11 +426,11 @@ namespace LinqAF
         public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem, TSelectMany_CollectionItem>(Func<TItem, int, OneItemSpecificEnumerable<TSelectMany_CollectionItem>> collectionSelector, Func<TItem, TSelectMany_CollectionItem, TSelectMany_OutItem> resultSelector)
         => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, collectionSelector, resultSelector);
 
-        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem>(Func<TItem, ReverseRangeEnumerable<TSelectMany_OutItem>> selector)
-        => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, selector);
+        public EmptyEnumerable<int> SelectMany(Func<TItem, ReverseRangeEnumerable> selector)
+        => CommonImplementation.EmptySelectMany_Impl<TItem, int>(ref this, selector);
 
-        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem>(Func<TItem, int, ReverseRangeEnumerable<TSelectMany_OutItem>> selector)
-        => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, selector);
+        public EmptyEnumerable<int> SelectMany(Func<TItem, int, ReverseRangeEnumerable> selector)
+        => CommonImplementation.EmptySelectMany_Impl<TItem, int>(ref this, selector);
 
         public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem, TSelectMany_SelectMany_GroupingKey>(Func<TItem, GroupingEnumerable<TSelectMany_SelectMany_GroupingKey, TSelectMany_OutItem>> selector)
         => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, selector);
@@ -476,10 +476,10 @@ namespace LinqAF
         public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem, TSelectMany_SelectMany_GroupedKey>(Func<TItem, GroupedEnumerable<TSelectMany_SelectMany_GroupedKey, TSelectMany_OutItem>> selector)
         => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, selector);
 
-        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem, TSelectMany_CollectionItem>(Func<TItem, ReverseRangeEnumerable<TSelectMany_CollectionItem>> collectionSelector, Func<TItem, TSelectMany_CollectionItem, TSelectMany_OutItem> resultSelector)
+        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem>(Func<TItem, ReverseRangeEnumerable> collectionSelector, Func<TItem, int, TSelectMany_OutItem> resultSelector)
         => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, collectionSelector, resultSelector);
 
-        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem, TSelectMany_CollectionItem>(Func<TItem, int, ReverseRangeEnumerable<TSelectMany_CollectionItem>> collectionSelector, Func<TItem, TSelectMany_CollectionItem, TSelectMany_OutItem> resultSelector)
+        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem>(Func<TItem, int, ReverseRangeEnumerable> collectionSelector, Func<TItem, int, TSelectMany_OutItem> resultSelector)
        => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, collectionSelector, resultSelector);
 
         public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem, TSelectMany_SelectMany_ReverseEnumerable, TSelectMany_SelectMany_ReverseEnumerator>(Func<TItem, int, ReverseEnumerable<TSelectMany_OutItem, TSelectMany_SelectMany_ReverseEnumerable, TSelectMany_SelectMany_ReverseEnumerator>> selector)
@@ -550,11 +550,11 @@ namespace LinqAF
         public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem>(Func<TItem, RepeatEnumerable<TSelectMany_OutItem>> selector)
         => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, selector);
 
-        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem>(Func<TItem, RangeEnumerable<TSelectMany_OutItem>> selector)
-        => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, selector);
+        public EmptyEnumerable<int> SelectMany(Func<TItem, RangeEnumerable> selector)
+        => CommonImplementation.EmptySelectMany_Impl<TItem, int>(ref this, selector);
 
-        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem>(Func<TItem, int, RangeEnumerable<TSelectMany_OutItem>> selector)
-        => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, selector);
+        public EmptyEnumerable<int> SelectMany(Func<TItem, int, RangeEnumerable> selector)
+        => CommonImplementation.EmptySelectMany_Impl<TItem, int>(ref this, selector);
 
         public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem>(Func<TItem, int, RepeatEnumerable<TSelectMany_OutItem>> selector)
         => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, selector);
@@ -821,7 +821,7 @@ namespace LinqAF
             where TSelectMany_OfTypeInnerEnumerator : struct, IStructEnumerator<TSelectMany_OfTypeInItem>
         => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, collectionSelector, resultSelector);
 
-        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem, TSelectMany_CollectionItem>(Func<TItem, RangeEnumerable<TSelectMany_CollectionItem>> collectionSelector, Func<TItem, TSelectMany_CollectionItem, TSelectMany_OutItem> resultSelector)
+        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem>(Func<TItem, RangeEnumerable> collectionSelector, Func<TItem, int, TSelectMany_OutItem> resultSelector)
         => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, collectionSelector, resultSelector);
 
         public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem, TSelectMany_CollectionItem>(Func<TItem, RepeatEnumerable<TSelectMany_CollectionItem>> collectionSelector, Func<TItem, TSelectMany_CollectionItem, TSelectMany_OutItem> resultSelector)
@@ -945,7 +945,7 @@ namespace LinqAF
             where TSelectMany_OfTypeInnerEnumerator : struct, IStructEnumerator<TSelectMany_OfTypeInItem>
         => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, collectionSelector, resultSelector);
 
-        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem, TSelectMany_CollectionItem>(Func<TItem, int, RangeEnumerable<TSelectMany_CollectionItem>> collectionSelector, Func<TItem, TSelectMany_CollectionItem, TSelectMany_OutItem> resultSelector)
+        public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem>(Func<TItem, int, RangeEnumerable> collectionSelector, Func<TItem, int, TSelectMany_OutItem> resultSelector)
         => CommonImplementation.EmptySelectMany_Impl<TItem, TSelectMany_OutItem>(ref this, collectionSelector, resultSelector);
 
         public EmptyEnumerable<TSelectMany_OutItem> SelectMany<TSelectMany_OutItem, TSelectMany_CollectionItem>(Func<TItem, int, RepeatEnumerable<TSelectMany_CollectionItem>> collectionSelector, Func<TItem, TSelectMany_CollectionItem, TSelectMany_OutItem> resultSelector)

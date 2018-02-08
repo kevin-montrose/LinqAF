@@ -1131,5 +1131,315 @@ namespace LinqAF
                     comparer
                 );
         }
+
+        // RangeEnumerable
+
+        public UnionDefaultEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, RangeEnumerable, RangeEnumerator> Union(
+            PlaceholderEnumerable<int> first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second
+                );
+        }
+
+        public UnionSpecificEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, RangeEnumerable, RangeEnumerator> Union(
+            PlaceholderEnumerable<int> first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second,
+                    comparer
+                );
+        }
+
+        //public UnionDefaultEnumerable<int, RangeEnumerable, RangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Union(
+        //    RangeEnumerable first,
+        //    PlaceholderEnumerable<int> second
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Union<
+        //            int,
+        //            RangeEnumerable,
+        //            RangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second)
+        //        );
+        //}
+
+        //public UnionSpecificEnumerable<int, RangeEnumerable, RangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Union(
+        //    RangeEnumerable first,
+        //    PlaceholderEnumerable<int> second,
+        //    IEqualityComparer<int> comparer
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Union<
+        //            int,
+        //            RangeEnumerable,
+        //            RangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second),
+        //            comparer
+        //        );
+        //}
+
+        public UnionDefaultEnumerable<int, RangeEnumerable, RangeEnumerator, RangeEnumerable, RangeEnumerator> Union(
+            RangeEnumerable first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public UnionSpecificEnumerable<int, RangeEnumerable, RangeEnumerator, RangeEnumerable, RangeEnumerator> Union(
+            RangeEnumerable first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        // ReverseRangeEnumerable
+
+        public UnionDefaultEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, ReverseRangeEnumerable, ReverseRangeEnumerator> Union(
+            PlaceholderEnumerable<int> first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second
+                );
+        }
+
+        public UnionSpecificEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, ReverseRangeEnumerable, ReverseRangeEnumerator> Union(
+            PlaceholderEnumerable<int> first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second,
+                    comparer
+                );
+        }
+
+        //public UnionDefaultEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Union(
+        //    ReverseRangeEnumerable first,
+        //    PlaceholderEnumerable<int> second
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Union<
+        //            int,
+        //            ReverseRangeEnumerable,
+        //            ReverseRangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second)
+        //        );
+        //}
+
+        //public UnionSpecificEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Union(
+        //    ReverseRangeEnumerable first,
+        //    PlaceholderEnumerable<int> second,
+        //    IEqualityComparer<int> comparer
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Union<
+        //            int,
+        //            ReverseRangeEnumerable,
+        //            ReverseRangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second),
+        //            comparer
+        //        );
+        //}
+
+        public UnionDefaultEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Union(
+            ReverseRangeEnumerable first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public UnionSpecificEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Union(
+            ReverseRangeEnumerable first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        // Range - ReverseRange
+
+        public UnionDefaultEnumerable<int, RangeEnumerable, RangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Union(
+            RangeEnumerable first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public UnionSpecificEnumerable<int, RangeEnumerable, RangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Union(
+            RangeEnumerable first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
+
+        public UnionDefaultEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, RangeEnumerable, RangeEnumerator> Union(
+            ReverseRangeEnumerable first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public UnionSpecificEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, RangeEnumerable, RangeEnumerator> Union(
+            ReverseRangeEnumerable first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            return
+                CommonImplementation.Union<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second,
+                    comparer
+                );
+        }
     }
 }

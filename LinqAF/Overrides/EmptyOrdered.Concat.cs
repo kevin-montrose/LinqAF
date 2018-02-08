@@ -232,15 +232,7 @@ namespace LinqAF
 
             return second;
         }
-
-        public RangeEnumerable<TItem> Concat(RangeEnumerable<TItem> second)
-        {
-            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
-            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
-
-            return second;
-        }
-
+        
         public EmptyEnumerable<TItem> Concat(EmptyEnumerable<TItem> second)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
@@ -525,14 +517,6 @@ namespace LinqAF
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
 
             return CommonImplementation.Bridge(second, nameof(second));
-        }
-
-        public ReverseRangeEnumerable<TItem> Concat(ReverseRangeEnumerable<TItem> second)
-        {
-            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
-            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
-
-            return second;
         }
 
         public SelectManyBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator> Concat<TConcat_SelectManyInItem, TConcat_BridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator>(SelectManyBridgeEnumerable<TConcat_SelectManyInItem, TItem, TConcat_BridgeType, TConcat_SelectManyBridger, TConcat_InnerEnumerable, TConcat_InnerEnumerator, TConcat_ProjectedEnumerator> second)

@@ -295,26 +295,71 @@ namespace LinqAF
             {
                 var enumerableName = pair.Name;
 
+                // these are weird, have two generic params
                 if (enumerableName == "LookupDefaultEnumerable") continue;
                 if (enumerableName == "LookupSpecificEnumerable") continue;
                 if (enumerableName == "GroupByDefaultEnumerable") continue;
                 if (enumerableName == "GroupBySpecificEnumerable") continue;
 
+                // these are weird, have no generic params
+                if (enumerableName == "RangeEnumerable") continue;
+                if (enumerableName == "ReverseRangeEnumerable") continue;
+
                 var root = pair.Document.GetSyntaxRootAsync().Result;
                 var enumeratorName = pair.Name.Substring(0, pair.Name.Length - "Enumerable".Length) + "Enumerator";
                 var enumerableStruct = root.DescendantNodesAndSelf().OfType<StructDeclarationSyntax>().Single(s => s.Identifier.ValueText == enumerableName);
-                var enumerableStr = enumerableStruct.Identifier.ToFullString() + enumerableStruct.TypeParameterList.ToFullString();
-                var enumerable = (GenericNameSyntax)SyntaxFactory.ParseTypeName(enumerableStr);
+                var enumerableStr = enumerableStruct.Identifier.ToFullString();
+
+                if (enumerableStruct.TypeParameterList != null)
+                {
+                    enumerableStr += enumerableStruct.TypeParameterList.ToFullString();
+                }
+
+                var typeName = SyntaxFactory.ParseTypeName(enumerableStr);
+
+                var enumerable = SyntaxFactory.ParseTypeName(enumerableStr);
 
                 var baseTypes = enumerableStruct.BaseList.Types.Select(t => t.Type).ToList();
                 var baseTypeNames = baseTypes.OfType<GenericNameSyntax>().ToList();
                 var ienumerable = baseTypeNames.Single(s => s.Identifier.ValueText == Writer.ENUMERABLE_INTERFACE_NAME);
-                var outItem = ((SimpleNameSyntax)ienumerable.TypeArgumentList.Arguments.ElementAt(0)).Identifier.ValueText;
+
+                var firstArg = ienumerable.TypeArgumentList.Arguments.ElementAt(0);
+                string outItem;
+                if (firstArg is SimpleNameSyntax)
+                {
+                    outItem = ((SimpleNameSyntax)firstArg).Identifier.ValueText;
+                }
+                else
+                {
+                    if (firstArg is PredefinedTypeSyntax)
+                    {
+                        outItem = ((PredefinedTypeSyntax)firstArg).Keyword.ValueText;
+                    }
+                    else
+                    {
+                        throw new Exception("Unexpected argument type");
+                    }
+                }
+
                 var enumerator = (NameSyntax)ienumerable.TypeArgumentList.Arguments.ElementAt(1);
 
-                var genericTypes = enumerable.TypeArgumentList.Arguments.OfType<SimpleNameSyntax>().Select(t => t.Identifier.ValueText).Where(t => t != outItem).ToList();
+                List<string> genericTypes;
+
+                if(enumerable is GenericNameSyntax)
+                {
+                    var asGenericEnumerable = (GenericNameSyntax)enumerable;
+                    genericTypes = asGenericEnumerable.TypeArgumentList.Arguments.OfType<SimpleNameSyntax>().Select(t => t.Identifier.ValueText).Where(t => t != outItem).ToList();
+                }
+                else
+                {
+                    genericTypes = new List<string>();
+                }
+
                 var genericConstraints =
-                    enumerableStruct.ConstraintClauses.OfType<TypeParameterConstraintClauseSyntax>().Where(t => genericTypes.Contains(t.Name.Identifier.ValueText)).ToList();
+                    enumerableStruct.ConstraintClauses
+                        .OfType<TypeParameterConstraintClauseSyntax>()
+                        .Where(t => genericTypes.Contains(t.Name.Identifier.ValueText))
+                        .ToList();
 
                 ret.Add(
                     new EnumerableDetails

@@ -34,5 +34,27 @@ namespace LinqAF
 
         public decimal? Max(PlaceholderEnumerable<decimal?> source)
         => CommonImplementation.MaxNullableDecimal<PlaceholderEnumerable<decimal?>, PlaceholderEnumerator<decimal?>>(RefParam(source));
+
+        //// RangeEnumerable
+
+        //public int Max(RangeEnumerable source)
+        //{
+        //    if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+        //    if (source.InnerCount == 0) throw CommonImplementation.SequenceEmpty();
+
+        //    var ret = source.Start + source.InnerCount - 1;
+
+        //    return ret;
+        //}
+
+        //// ReverseRangeEnumerable
+
+        //public int Max(ReverseRangeEnumerable source)
+        //{
+        //    if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+        //    if (source.InnerCount == 0) throw CommonImplementation.SequenceEmpty();
+
+        //    return source.Start;
+        //}
     }
 }

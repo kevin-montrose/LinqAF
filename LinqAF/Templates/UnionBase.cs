@@ -57,18 +57,12 @@ namespace LinqAF
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
         }
-
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Union(ReverseRangeEnumerable<TItem> second)
-        => CommonImplementation.Union(RefThis(), ref second);
-
+        
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Union(Stack<TItem> second)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
             return CommonImplementation.Union(RefThis(), ref bridge);
         }
-
-        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Union(RangeEnumerable<TItem> second)
-        => CommonImplementation.Union(RefThis(), ref second);
 
         public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Union(RepeatEnumerable<TItem> second)
         => CommonImplementation.Union(RefThis(), ref second);
@@ -109,12 +103,6 @@ namespace LinqAF
         public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Union(RepeatEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         => CommonImplementation.Union(RefThis(), ref second, comparer);
         
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Union(ReverseRangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
-        => CommonImplementation.Union(RefThis(), ref second, comparer);
-
-        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Union(RangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
-        => CommonImplementation.Union(RefThis(), ref second, comparer);
-
         public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, IdentityEnumerable<TItem, Stack<TItem>, StackBridger<TItem>, StackEnumerator<TItem>>, StackEnumerator<TItem>> Union(Stack<TItem> second, IEqualityComparer<TItem> comparer)
         {
             var bridge = CommonImplementation.Bridge(second, nameof(second));
@@ -790,6 +778,46 @@ namespace LinqAF
         => CommonImplementation.Union(RefThis(), ref second);
 
         public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>> Union(OneItemSpecificOrderedEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
+        => CommonImplementation.Union(RefThis(), ref second, comparer);
+
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>, SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>> Union<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Union(RefThis(), ref second);
+
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>, TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>> Union<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Union(RefThis(), ref second);
+
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>, SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>> Union<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Union(RefThis(), ref second, comparer);
+
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>, TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>> Union<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Union(RefThis(), ref second, comparer);
+
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>, AppendEnumerator<TItem, TAppendInnerEnumerator>> Union<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Union(RefThis(), ref second);
+
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>, AppendEnumerator<TItem, TAppendInnerEnumerator>> Union<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Union(RefThis(), ref second, comparer);
+
+        public UnionDefaultEnumerable<TItem, TEnumerable, TEnumerator, PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>, PrependEnumerator<TItem, TPrependInnerEnumerator>> Union<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Union(RefThis(), ref second);
+
+        public UnionSpecificEnumerable<TItem, TEnumerable, TEnumerator, PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>, PrependEnumerator<TItem, TPrependInnerEnumerator>> Union<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Union(RefThis(), ref second, comparer);
     }
 }

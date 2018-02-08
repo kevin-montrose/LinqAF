@@ -2,12 +2,49 @@
 using System;
 using System.Collections.Generic;
 using TestHelpers;
+using System.Reflection;
+using System.Text;
 
 namespace LinqAF.Tests
 {
     [TestClass]
     public class ToLookupTests
     {
+        [TestMethod]
+        public void InstanceExtensionNoOverlap()
+        {
+            Dictionary<MethodInfo, List<MethodInfo>> instOverlaps, extOverlaps;
+            Helper.GetOverlappingMethods(typeof(Impl.IToLookup<>), out instOverlaps, out extOverlaps);
+
+            if (instOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in instOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+
+            if (extOverlaps.Count > 0)
+            {
+                var failure = new StringBuilder();
+                foreach (var kv in extOverlaps)
+                {
+                    failure.AppendLine("For " + kv.Key);
+                    failure.AppendLine(
+                        LinqAFString.Join("\t -", kv.Value.Select(x => x.ToString() + "\n"))
+                    );
+
+                    Assert.Fail(failure.ToString());
+                }
+            }
+        }
+
         [TestMethod]
         public void Universal()
         {
@@ -166,6 +203,20 @@ namespace LinqAF.Tests
             Assert.IsTrue(new[] { "3", "3" }.SequenceEqual(e[3]));
 
             Assert.IsFalse(e[4].Any());
+        }
+
+        [TestMethod]
+        public void Contains()
+        {
+            var e = new[] { 1, 1, 2, 2, 3, 3 }.ToLookup(x => x, x => x.ToString());
+
+            Assert.IsTrue(e.GetType().IsValueType);
+
+            Assert.AreEqual(3, e.Count);
+            Assert.IsTrue(e.Contains(1));
+            Assert.IsTrue(e.Contains(2));
+            Assert.IsTrue(e.Contains(3));
+            Assert.IsFalse(e.Contains(4));
         }
 
         public class _Comparer : IEqualityComparer<string>
@@ -425,9 +476,9 @@ namespace LinqAF.Tests
                     };
 
                 Assert.IsTrue(checkDefault(empty.ToLookup(x => x)));
-                Assert.IsTrue(checkDefault(empty.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkSpecific(empty.ToLookup(x => x, new _IntComparer())));
                 Assert.IsTrue(checkDefault(empty.ToLookup(x => x, x => x)));
-                Assert.IsTrue(checkDefault(empty.ToLookup(x => x, x => x, new _IntComparer())));
+                Assert.IsTrue(checkSpecific(empty.ToLookup(x => x, x => x, new _IntComparer())));
             }
 
             // emptyOrdered
@@ -444,9 +495,9 @@ namespace LinqAF.Tests
                     };
 
                 Assert.IsTrue(checkDefault(emptyOrdered.ToLookup(x => x)));
-                Assert.IsTrue(checkDefault(emptyOrdered.ToLookup(x => x, new _IntComparer())));
+                Assert.IsTrue(checkSpecific(emptyOrdered.ToLookup(x => x, new _IntComparer())));
                 Assert.IsTrue(checkDefault(emptyOrdered.ToLookup(x => x, x => x)));
-                Assert.IsTrue(checkDefault(emptyOrdered.ToLookup(x => x, x => x, new _IntComparer())));
+                Assert.IsTrue(checkSpecific(emptyOrdered.ToLookup(x => x, x => x, new _IntComparer())));
             }
 
             // groupByDefault
@@ -1140,9 +1191,9 @@ namespace LinqAF.Tests
             var groupBySpecific = new GroupBySpecificEnumerable<int, int, int, EmptyEnumerable<int>, EmptyEnumerator<int>>();
             var lookupDefault = new LookupDefaultEnumerable<int, int>();
             var lookupSpecific = new LookupSpecificEnumerable<int, int>();
-            var range = new RangeEnumerable<int>();
+            var range = new RangeEnumerable();
             var repeat = new RepeatEnumerable<int>();
-            var reverseRange = new ReverseRangeEnumerable<int>();
+            var reverseRange = new ReverseRangeEnumerable();
             var oneItemDefault = new OneItemDefaultEnumerable<int>();
             var oneItemSpecific = new OneItemSpecificEnumerable<int>();
             var oneItemDefaultOrdered = new OneItemDefaultOrderedEnumerable<int>();

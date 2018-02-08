@@ -59,6 +59,14 @@ namespace LinqAF
             return CommonImplementation.AnyImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
 
+        // Append
+        public AppendEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>  Append<TItem>(BuiltInEnumerable<TItem> source, TItem element)
+        {
+            var bridge = Bridge(source, nameof(source));
+
+            return CommonImplementation.AppendImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), element);
+        }
+
         // AsEnumerable
         public IEnumerable<TItem> AsEnumerable<TItem>(BuiltInEnumerable<TItem> source)
         {
@@ -350,25 +358,25 @@ namespace LinqAF
 
         // Max
         
-        public double Max(BuiltInEnumerable<int> source)
+        public int Max(BuiltInEnumerable<int> source)
         {
             var bridge = Bridge(source, nameof(source));
             return CommonImplementation.MaxIntImpl<BuiltInEnumerable<int>, BuiltInEnumerator<int>>(RefLocal(bridge));
         }
 
-        public double? Max(BuiltInEnumerable<int?> source)
+        public int? Max(BuiltInEnumerable<int?> source)
         {
             var bridge = Bridge(source, nameof(source));
             return CommonImplementation.MaxNullableIntImpl<BuiltInEnumerable<int?>, BuiltInEnumerator<int?>>(RefLocal(bridge));
         }
 
-        public double Max(BuiltInEnumerable<long> source)
+        public long Max(BuiltInEnumerable<long> source)
         {
             var bridge = Bridge(source, nameof(source));
             return CommonImplementation.MaxLongImpl<BuiltInEnumerable<long>, BuiltInEnumerator<long>>(RefLocal(bridge));
         }
 
-        public double? Max(BuiltInEnumerable<long?> source)
+        public long? Max(BuiltInEnumerable<long?> source)
         {
             var bridge = Bridge(source, nameof(source));
             return CommonImplementation.MaxNullableLongImpl<BuiltInEnumerable<long?>, BuiltInEnumerator<long?>>(RefLocal(bridge));
@@ -507,25 +515,25 @@ namespace LinqAF
 
         // Min
 
-        public double Min(BuiltInEnumerable<int> source)
+        public int Min(BuiltInEnumerable<int> source)
         {
             var bridge = Bridge(source, nameof(source));
             return CommonImplementation.MinIntImpl<BuiltInEnumerable<int>, BuiltInEnumerator<int>>(RefLocal(bridge));
         }
 
-        public double? Min(BuiltInEnumerable<int?> source)
+        public int? Min(BuiltInEnumerable<int?> source)
         {
             var bridge = Bridge(source, nameof(source));
             return CommonImplementation.MinNullableIntImpl<BuiltInEnumerable<int?>, BuiltInEnumerator<int?>>(RefLocal(bridge));
         }
 
-        public double Min(BuiltInEnumerable<long> source)
+        public long Min(BuiltInEnumerable<long> source)
         {
             var bridge = Bridge(source, nameof(source));
             return CommonImplementation.MinLongImpl<BuiltInEnumerable<long>, BuiltInEnumerator<long>>(RefLocal(bridge));
         }
 
-        public double? Min(BuiltInEnumerable<long?> source)
+        public long? Min(BuiltInEnumerable<long?> source)
         {
             var bridge = Bridge(source, nameof(source));
             return CommonImplementation.MinNullableLongImpl<BuiltInEnumerable<long?>, BuiltInEnumerator<long?>>(RefLocal(bridge));
@@ -696,6 +704,14 @@ namespace LinqAF
             return CommonImplementation.OrderByDescending<TItem, TKey, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, comparer);
         }
 
+        // Prepend
+        public PrependEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> Prepend<TItem>(BuiltInEnumerable<TItem> source, TItem element)
+        {
+            var bridge = Bridge(source, nameof(source));
+
+            return CommonImplementation.PrependImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), element);
+        }
+
         // Reverse
 
         public ReverseEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> Reverse<TItem>(BuiltInEnumerable<TItem> source)
@@ -779,7 +795,14 @@ namespace LinqAF
 
             return CommonImplementation.SkipWhileImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
         }
-        
+
+        public SkipLastEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> SkipLast<TItem>(BuiltInEnumerable<TItem> source, int count)
+        {
+            var bridge = Bridge(source, nameof(source));
+
+            return CommonImplementation.SkipLastImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), count);
+        }
+
         // Take
 
         public TakeEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> Take<TItem>(BuiltInEnumerable<TItem> source, int count)
@@ -803,6 +826,13 @@ namespace LinqAF
             if (predicate == null) throw CommonImplementation.ArgumentNull(nameof(predicate));
 
             return CommonImplementation.TakeWhileImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), predicate);
+        }
+
+        public TakeLastEnumerable<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>> TakeLast<TItem>(BuiltInEnumerable<TItem> source, int count)
+        {
+            var bridge = Bridge(source, nameof(source));
+
+            return CommonImplementation.TakeLastImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), count);
         }
 
         // ToArray
@@ -891,6 +921,19 @@ namespace LinqAF
             }
 
             return CommonImplementation.ToDictionaryImpl<TItem, TKey, TElement, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), keySelector, elementSelector, comparer);
+        }
+
+        // ToHashSet
+        public HashSet<TItem> ToHashSet<TItem>(BuiltInEnumerable<TItem> source)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.ToHashSetImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), null);
+        }
+
+        public HashSet<TItem> ToHashSet<TItem>(BuiltInEnumerable<TItem> source, IEqualityComparer<TItem> comparer)
+        {
+            var bridge = Bridge(source, nameof(source));
+            return CommonImplementation.ToHashSetImpl<TItem, BuiltInEnumerable<TItem>, BuiltInEnumerator<TItem>>(RefLocal(bridge), comparer);
         }
 
         // ToList

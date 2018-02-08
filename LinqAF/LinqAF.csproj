@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LinqAF</RootNamespace>
     <AssemblyName>LinqAF</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Impl\StructQueue.cs" />
+    <Compile Include="LinqAFNew.cs" />
+    <Compile Include="LinqAFNew.HashSet.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFNew.LinkedList.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFNew.List.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFNew.Queue.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFNew.SortedSet.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFNew.Stack.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overrides\Append.cs" />
+    <Compile Include="Overrides\ExtensionMethods\ArrayExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\AverageExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\HashSetExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\LinkedListExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\ListExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\QueueExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\SortedDictionaryKeyCollectionExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\DictionaryKeyCollectionExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\SortedDictionaryValueCollectionExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\DictionaryValueCollectionExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\MinExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\MaxExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\SortedSetExtensionMethods.cs" />
+    <Compile Include="Overrides\ExtensionMethods\StackExtensionMethods.cs" />
+    <Compile Include="Overrides\Prepend.cs" />
+    <Compile Include="Overrides\SkipLast.cs" />
+    <Compile Include="Overrides\TakeLast.cs" />
+    <Compile Include="Prepend.cs" />
+    <Compile Include="Append.cs" />
     <Compile Include="Array.cs" />
     <Compile Include="Bridgers.cs" />
     <Compile Include="Cast.cs" />
@@ -68,15 +109,27 @@
     <Compile Include="Dictionary.cs" />
     <Compile Include="Boxed.cs" />
     <Compile Include="Distinct.cs" />
+    <Compile Include="Impl\CommonImplementation.Prepend.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Append.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Impl\CommonImplementation.Reset.cs">
       <DependentUpon>CommonImplementation.cs</DependentUpon>
     </Compile>
     <Compile Include="Impl\CommonImplementation.Throws.cs">
       <DependentUpon>CommonImplementation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Impl\CommonImplementation.ToHashSet.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Impl\DefaultAllocator.cs" />
     <Compile Include="Impl\CompactSet.cs" />
+    <Compile Include="Impl\IPrepend.cs" />
+    <Compile Include="Impl\IAppend.cs" />
     <Compile Include="Impl\IndexedItemContainer.cs" />
+    <Compile Include="Impl\IToHashSet.cs" />
     <Compile Include="Impl\LookupHashtable.cs" />
     <Compile Include="Impl\StructStack.cs" />
     <Compile Include="IStructBridger.cs" />
@@ -86,6 +139,19 @@
     <Compile Include="LinqAFString.cs" />
     <Compile Include="LinqAFString.Join.cs">
       <DependentUpon>LinqAFString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFTask.cs" />
+    <Compile Include="LinqAFTask.WaitAll.cs">
+      <DependentUpon>LinqAFTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFTask.WaitAny.cs">
+      <DependentUpon>LinqAFTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFTask.WhenAll.cs">
+      <DependentUpon>LinqAFTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFTask.WhenAny.cs">
+      <DependentUpon>LinqAFTask.cs</DependentUpon>
     </Compile>
     <Compile Include="OneItemOrdered.cs" />
     <Compile Include="EmptyOrdered.cs" />
@@ -267,7 +333,6 @@
     <Compile Include="Impl\ITake.cs" />
     <Compile Include="Impl\IWhere.cs" />
     <Compile Include="Impl\IZip.cs" />
-    <Compile Include="Impl\Operator.cs" />
     <Compile Include="IStructProjection.cs" />
     <Compile Include="IStructEnumerable.cs" />
     <Compile Include="IStructEnumerator.cs" />
@@ -348,8 +413,12 @@
     <Compile Include="Overrides\Skip.cs" />
     <Compile Include="Overrides\Take.cs" />
     <Compile Include="Queryable.cs" />
+    <Compile Include="RangeExtensionMethods.cs" />
     <Compile Include="Reverse.cs" />
+    <Compile Include="ReverseRangeExtensionMethods.cs" />
+    <Compile Include="Templates\PrependBase.cs" />
     <Compile Include="Templates\AsEnumerableBase.cs" />
+    <Compile Include="Templates\AppendBase.cs" />
     <Compile Include="Templates\ExceptBase.cs" />
     <Compile Include="Templates\ExtensionMethods\BuiltInExtensionMethodsBase.Box.cs">
       <DependentUpon>BuiltInExtensionMethodsBase.cs</DependentUpon>
@@ -392,6 +461,7 @@
     <Compile Include="Templates\OrderByBase.cs" />
     <Compile Include="Templates\ReverseBase.cs" />
     <Compile Include="Templates\ThenByBase.cs" />
+    <Compile Include="Templates\ToHashSetBase.cs" />
     <Compile Include="Templates\ToDictionaryBase.cs" />
     <Compile Include="Templates\ToArrayBase.cs" />
     <Compile Include="Overrides\Where.cs" />

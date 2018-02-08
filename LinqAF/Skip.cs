@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinqAF.Impl;
+using System;
 
 namespace LinqAF
 {
@@ -28,7 +29,7 @@ namespace LinqAF
 
         public bool MoveNext()
         {
-            while(Index < Count && Inner.MoveNext())
+            while (Index < Count && Inner.MoveNext())
             {
                 Index++;
             }
@@ -49,8 +50,8 @@ namespace LinqAF
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
     public partial struct SkipEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> :
         IStructEnumerable<TItem, SkipEnumerator<TItem, TInnerEnumerator>>
-        where TInnerEnumerable: struct, IStructEnumerable<TItem, TInnerEnumerator>
-        where TInnerEnumerator: struct, IStructEnumerator<TItem>
+        where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
+        where TInnerEnumerator : struct, IStructEnumerator<TItem>
     {
         int SkipCount;
         TInnerEnumerable Inner;
@@ -74,15 +75,15 @@ namespace LinqAF
     }
 
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public struct SkipWhileEnumerator<TItem, TInnerEnumerator>: IStructEnumerator<TItem>
-        where TInnerEnumerator: struct, IStructEnumerator<TItem>
+    public struct SkipWhileEnumerator<TItem, TInnerEnumerator> : IStructEnumerator<TItem>
+        where TInnerEnumerator : struct, IStructEnumerator<TItem>
     {
         public TItem Current { get; private set; }
 
         TInnerEnumerator Inner;
         Func<TItem, bool> Predicate;
         bool Finished;
-        
+
         internal SkipWhileEnumerator(ref TInnerEnumerator inner, Func<TItem, bool> predicate)
         {
             Inner = inner;
@@ -251,6 +252,103 @@ namespace LinqAF
         {
             var inner = Inner.GetEnumerator();
             return new SkipWhileIndexedEnumerator<TItem, TInnerEnumerator>(ref inner, Predicate);
+        }
+    }
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct SkipLastEnumerator<TItem, TInnerEnumerator> :
+        IStructEnumerator<TItem>
+        where TInnerEnumerator : struct, IStructEnumerator<TItem>
+    {
+        public TItem Current { get; private set; }
+
+        TInnerEnumerator Inner;
+        int InnerCount;
+        StructQueue<TItem> Queue;
+
+        internal SkipLastEnumerator(ref TInnerEnumerator inner, int count)
+        {
+            Current = default(TItem);
+            Queue = default(StructQueue<TItem>);
+            Inner = inner;
+            InnerCount = count;
+        }
+
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
+
+        public bool MoveNext()
+        {
+            // just pass through in this case, don't ever allocate
+            //   a StructQueue
+            if (InnerCount == 0)
+            {
+                var ret = Inner.MoveNext();
+                if (ret)
+                {
+                    Current = Inner.Current;
+                }
+
+                return ret;
+            }
+
+            if (Queue.IsDefaultValue())
+            {
+                Queue.Initialize();
+            }
+
+            // Advance in inner...
+            while (Inner.MoveNext())
+            {
+                Queue.Enqueue(Inner.Current);
+
+                // until we've got Count + 1 Elements....
+                if (Queue.Count > InnerCount)
+                {
+                    // then take the first element out and yield it
+                    //   leaving us with Count elements
+                    Current = Queue.Dequeue();
+                    return true;
+                }
+            }
+
+            // so when we fall through we've either got Count elements or fewer in the Queue
+            return false;
+        }
+
+        public void Reset()
+        {
+            Queue.Dispose();
+            Inner.Reset();
+        }
+
+        public void Dispose()
+        {
+            Queue.Dispose();
+            Inner.Dispose();
+        }
+    }
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct SkipLastEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> :
+        IStructEnumerable<TItem, SkipLastEnumerator<TItem, TInnerEnumerator>>
+        where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
+        where TInnerEnumerator : struct, IStructEnumerator<TItem>
+    {
+        TInnerEnumerable Inner;
+        int InnerCount;
+
+        internal SkipLastEnumerable(ref TInnerEnumerable inner, int count)
+        {
+            Inner = inner;
+            InnerCount = count;
+        }
+
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
+
+        public SkipLastEnumerator<TItem, TInnerEnumerator> GetEnumerator()
+        {
+            var e = Inner.GetEnumerator();
+            return new SkipLastEnumerator<TItem, TInnerEnumerator>(ref e, InnerCount);
         }
     }
 }

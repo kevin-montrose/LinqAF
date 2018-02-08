@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace LinqAF.Impl
 {
@@ -89,10 +87,7 @@ namespace LinqAF.Impl
         bool SequenceEqual<TOfTypeInItem, TOfTypeInnerEnumerable, TOfTypeInnerEnumerator>(OfTypeEnumerable<TOfTypeInItem, TItem, TOfTypeInnerEnumerable, TOfTypeInnerEnumerator> second, IEqualityComparer<TItem> comparer)
             where TOfTypeInnerEnumerable : struct, IStructEnumerable<TOfTypeInItem, TOfTypeInnerEnumerator>
             where TOfTypeInnerEnumerator : struct, IStructEnumerator<TOfTypeInItem>;
-
-        bool SequenceEqual(RangeEnumerable<TItem> second);
-        bool SequenceEqual(RangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
-
+        
         bool SequenceEqual(RepeatEnumerable<TItem> second);
         bool SequenceEqual(RepeatEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
 
@@ -542,9 +537,6 @@ namespace LinqAF.Impl
             where TReverseEnumerable : struct, IStructEnumerable<TItem, TReverseEnumerator>
             where TReverseEnumerator : struct, IStructEnumerator<TItem>;
 
-        bool SequenceEqual(ReverseRangeEnumerable<TItem> second);
-        bool SequenceEqual(ReverseRangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
-
         bool SequenceEqual(OneItemDefaultEnumerable<TItem> second);
         bool SequenceEqual(OneItemDefaultEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
 
@@ -556,5 +548,33 @@ namespace LinqAF.Impl
 
         bool SequenceEqual(OneItemSpecificOrderedEnumerable<TItem> second);
         bool SequenceEqual(OneItemSpecificOrderedEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
+        
+        bool SequenceEqual<TSkipEnumerable, TSkipEnumerator>(SkipLastEnumerable<TItem, TSkipEnumerable, TSkipEnumerator> second)
+            where TSkipEnumerable : struct, IStructEnumerable<TItem, TSkipEnumerator>
+            where TSkipEnumerator : struct, IStructEnumerator<TItem>;
+        bool SequenceEqual<TSkipEnumerable, TSkipEnumerator>(SkipLastEnumerable<TItem, TSkipEnumerable, TSkipEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TSkipEnumerable : struct, IStructEnumerable<TItem, TSkipEnumerator>
+            where TSkipEnumerator : struct, IStructEnumerator<TItem>;
+        
+        bool SequenceEqual<TTakeEnumerable, TTakeEnumerator>(TakeLastEnumerable<TItem, TTakeEnumerable, TTakeEnumerator> second)
+            where TTakeEnumerable : struct, IStructEnumerable<TItem, TTakeEnumerator>
+            where TTakeEnumerator : struct, IStructEnumerator<TItem>;
+        bool SequenceEqual<TTakeEnumerable, TTakeEnumerator>(TakeLastEnumerable<TItem, TTakeEnumerable, TTakeEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TTakeEnumerable : struct, IStructEnumerable<TItem, TTakeEnumerator>
+            where TTakeEnumerator : struct, IStructEnumerator<TItem>;
+
+        bool SequenceEqual<TAppendEnumerable, TAppendEnumerator>(AppendEnumerable<TItem, TAppendEnumerable, TAppendEnumerator> second)
+            where TAppendEnumerable : struct, IStructEnumerable<TItem, TAppendEnumerator>
+            where TAppendEnumerator : struct, IStructEnumerator<TItem>;
+        bool SequenceEqual<TAppendEnumerable, TAppendEnumerator>(AppendEnumerable<TItem, TAppendEnumerable, TAppendEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TAppendEnumerable : struct, IStructEnumerable<TItem, TAppendEnumerator>
+            where TAppendEnumerator : struct, IStructEnumerator<TItem>;
+
+        bool SequenceEqual<TPrependEnumerable, TPrependEnumerator>(PrependEnumerable<TItem, TPrependEnumerable, TPrependEnumerator> second)
+            where TPrependEnumerable : struct, IStructEnumerable<TItem, TPrependEnumerator>
+            where TPrependEnumerator : struct, IStructEnumerator<TItem>;
+        bool SequenceEqual<TPrependEnumerable, TPrependEnumerator>(PrependEnumerable<TItem, TPrependEnumerable, TPrependEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TPrependEnumerable : struct, IStructEnumerable<TItem, TPrependEnumerator>
+            where TPrependEnumerator : struct, IStructEnumerator<TItem>;
     }
 }

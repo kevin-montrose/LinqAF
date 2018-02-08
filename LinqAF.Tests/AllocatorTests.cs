@@ -82,6 +82,13 @@ namespace LinqAF.Tests
             {
                 Array.Resize(ref array, length);
             }
+
+            public int HashSets;
+            public HashSet<TItem> GetEmptyHashSet<TItem>(IEqualityComparer<TItem> comparer)
+            {
+                HashSets++;
+                return new HashSet<TItem>(comparer);
+            }
         }
 
         [TestMethod]
@@ -95,12 +102,14 @@ namespace LinqAF.Tests
                 foreach (var _ in new[] { 4 }.ToDictionary(x => x, x => x)) { }
                 foreach (var _ in new[] { 4 }.SelectMany(x => x == 4 ? (BoxedEnumerable<int>)Enumerable.Empty<int>() : (BoxedEnumerable<int>)Enumerable.Empty<int>().DefaultIfEmpty(5))) { }
                 foreach (var _ in new[] { 4 }.ToArray()) { }
+                foreach (var _ in new[] { 4 }.ToHashSet()) { }
             }
 
             Assert.AreEqual(1, alloc.Dictionary);
             Assert.AreEqual(1, alloc.EmptyList);
             Assert.AreEqual(1, alloc.PopulatedList);
             Assert.AreEqual(1, alloc.Arrays);
+            Assert.AreEqual(1, alloc.HashSets);
         }
 
         class _Resuse : IAllocator
@@ -294,6 +303,52 @@ namespace LinqAF.Tests
 
                 throw new Exception("Tried to free array that didn't come from allocator");
             }
+
+            ThreadLocal<List<FreeEntry>> HashSets = new ThreadLocal<List<FreeEntry>>(() => new List<FreeEntry>());
+            public HashSet<T> GetEmptyHashSet<T>(IEqualityComparer<T> comparer)
+            {
+                comparer = comparer ?? EqualityComparer<T>.Default;
+
+                var sets = HashSets.Value;
+                foreach (var entry in sets)
+                {
+                    if (!entry.IsFree) continue;
+
+                    if (entry.Collection is HashSet<T>)
+                    {
+                        var ret = (HashSet<T>)entry.Collection;
+
+                        if (!object.ReferenceEquals(ret.Comparer, comparer)) continue;
+
+                        ret.Clear();
+                        entry.IsFree = false;
+
+                        return ret;
+                    }
+                }
+
+                Interlocked.Increment(ref NewCalls);
+                var newRet = new HashSet<T>(comparer);
+
+                sets.Add(new FreeEntry { IsFree = false, Collection = newRet });
+
+                return newRet;
+            }
+
+            public void FreeHashSet<T>(HashSet<T> set)
+            {
+                var sets = HashSets.Value;
+                foreach (var entry in sets)
+                {
+                    if (entry.Collection == set)
+                    {
+                        entry.IsFree = true;
+                        return;
+                    }
+                }
+
+                throw new Exception("Tried to free HashSet that didn't come from allocator");
+            }
         }
 
         [TestMethod]
@@ -329,6 +384,11 @@ namespace LinqAF.Tests
                                     var arr = Enumerable.Range(0, 4).ToArray();
                                     Assert.IsTrue(arr.SequenceEqual(Enumerable.Range(0, 4)));
                                     alloc.FreeArray(arr);
+
+                                    var hashset = Enumerable.Range(0, 10).ToHashSet();
+                                    Assert.AreEqual(10, hashset.Count);
+                                    Assert.IsTrue(Enumerable.Range(0, 10).All(y => hashset.Contains(y)));
+                                    alloc.FreeHashSet(hashset);
                                 }
                             }
                         );
@@ -340,8 +400,8 @@ namespace LinqAF.Tests
                 threads.ForEach(t => t.Join());
             }
 
-            // one each for list, dictionary, and array * # of threads
-            Assert.AreEqual(3 * 32, alloc.NewCalls);
+            // one each for list, dictionary, hashset, and array * # of threads
+            Assert.AreEqual(4 * 32, alloc.NewCalls);
         }
     }
 }

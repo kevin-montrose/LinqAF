@@ -237,5 +237,87 @@ namespace LinqAF
                     LookupSpecificEnumerator<TGenKey, TGenElement>
                 >(RefLocal(firstBridge), ref second, comparer);
         }
+
+        // RangeEnumerable
+
+        [DoNotInject]
+        public bool SequenceEqual(
+            BuiltInEnumerable<int> first,
+            RangeEnumerable second
+        )
+        {
+            var firstBridge = Bridge(first, nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return
+                CommonImplementation.SequenceEqualImpl<
+                    int,
+                    BuiltInEnumerable<int>,
+                    BuiltInEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(RefLocal(firstBridge), ref second);
+        }
+
+        [DoNotInject]
+        public bool SequenceEqual(
+            BuiltInEnumerable<int> first,
+            RangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            var firstBridge = Bridge(first, nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return
+                CommonImplementation.SequenceEqualImpl<
+                    int,
+                    BuiltInEnumerable<int>,
+                    BuiltInEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(RefLocal(firstBridge), ref second, comparer);
+        }
+
+        // ReverseRangeEnumerable
+
+        [DoNotInject]
+        public bool SequenceEqual(
+            BuiltInEnumerable<int> first,
+            ReverseRangeEnumerable second
+        )
+        {
+            var firstBridge = Bridge(first, nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return
+                CommonImplementation.SequenceEqualImpl<
+                    int,
+                    BuiltInEnumerable<int>,
+                    BuiltInEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(RefLocal(firstBridge), ref second);
+        }
+
+        [DoNotInject]
+        public bool SequenceEqual(
+            BuiltInEnumerable<int> first,
+            ReverseRangeEnumerable second,
+            IEqualityComparer<int> comparer
+        )
+        {
+            var firstBridge = Bridge(first, nameof(second));
+            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
+
+            return
+                CommonImplementation.SequenceEqualImpl<
+                    int,
+                    BuiltInEnumerable<int>,
+                    BuiltInEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(RefLocal(firstBridge), ref second, comparer);
+        }
     }
 }

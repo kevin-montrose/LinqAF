@@ -101,7 +101,6 @@ namespace LinqAF.Impl
                     where TInnerRightEnumerable : struct, IStructEnumerable<TItem, TInnerRightEnumerator>
                     where TInnerRightEnumerator : struct, IStructEnumerator<TItem>;
         ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>> Except(EmptyEnumerable<TItem> second);
-        ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Except(RangeEnumerable<TItem> second);
         ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Except(RepeatEnumerable<TItem> second);
         ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectEnumerable<TExcept_SelectInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator>, SelectEnumerator<TExcept_SelectInItem, TItem, TExcept_InnerEnumerator>> Except<TExcept_SelectInItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator>(SelectEnumerable<TExcept_SelectInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator> second)
                     where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectInItem, TExcept_InnerEnumerator>
@@ -270,7 +269,6 @@ namespace LinqAF.Impl
         ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>> Except<TReverseEnumerable, TReverseEnumerator>(ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator> second)
                     where TReverseEnumerable : struct, IStructEnumerable<TItem, TReverseEnumerator>
                     where TReverseEnumerator : struct, IStructEnumerator<TItem>;
-        ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Except(ReverseRangeEnumerable<TItem> second);
         ExceptDefaultEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>, OrderByEnumerator<TItem, TOrderByKey, TOrderByEnumerator, TOrderByComparer>> Except<TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
                     where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
                     where TOrderByEnumerator : struct, IStructEnumerator<TItem>
@@ -444,7 +442,7 @@ namespace LinqAF.Impl
                     where TInnerRightEnumerable : struct, IStructEnumerable<TItem, TInnerRightEnumerator>
                     where TInnerRightEnumerator : struct, IStructEnumerator<TItem>;
         ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>> Except(EmptyEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
-        ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Except(RangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
+        
         ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Except(RepeatEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
         ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectEnumerable<TExcept_SelectInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator>, SelectEnumerator<TExcept_SelectInItem, TItem, TExcept_InnerEnumerator>> Except<TExcept_SelectInItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator>(SelectEnumerable<TExcept_SelectInItem, TItem, TExcept_InnerEnumerable, TExcept_InnerEnumerator> second, IEqualityComparer<TItem> comparer)
                     where TExcept_InnerEnumerable : struct, IStructEnumerable<TExcept_SelectInItem, TExcept_InnerEnumerator>
@@ -615,7 +613,7 @@ namespace LinqAF.Impl
         ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>> Except<TReverseEnumerable, TReverseEnumerator>(ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator> second, IEqualityComparer<TItem> comparer)
                     where TReverseEnumerable : struct, IStructEnumerable<TItem, TReverseEnumerator>
                     where TReverseEnumerator : struct, IStructEnumerator<TItem>;
-        ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Except(ReverseRangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
+        
         ExceptSpecificEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>, OrderByEnumerator<TItem, TOrderByKey, TOrderByEnumerator, TOrderByComparer>> Except<TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second, IEqualityComparer<TItem> comparer)
                     where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
                     where TOrderByEnumerator : struct, IStructEnumerator<TItem>
@@ -765,5 +763,84 @@ namespace LinqAF.Impl
             OneItemSpecificOrderedEnumerator<TItem>
         > Except(OneItemSpecificOrderedEnumerable<TItem> second, IEqualityComparer<TItem> comparer);
 
+        ExceptDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>,
+            SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>
+        > Except<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        ExceptDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>,
+            TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>
+        > Except<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        ExceptSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>,
+            SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>
+        > Except<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        ExceptSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>,
+            TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>
+        > Except<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        ExceptDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>,
+            AppendEnumerator<TItem, TAppendInnerEnumerator>
+        > Except<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        ExceptSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>,
+            AppendEnumerator<TItem, TAppendInnerEnumerator>
+        > Except<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        ExceptDefaultEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>,
+            PrependEnumerator<TItem, TPrependInnerEnumerator>
+        > Except<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        ExceptSpecificEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>,
+            PrependEnumerator<TItem, TPrependInnerEnumerator>
+        > Except<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>;
     }
 }

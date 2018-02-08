@@ -76,8 +76,8 @@ namespace LinqAF
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string Join<TItem>(string separator, RangeEnumerable<TItem> second)
-        => JoinImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(separator, ref second);
+        public static string Join(string separator, RangeEnumerable second)
+        => JoinImpl<int, RangeEnumerable, RangeEnumerator>(separator, ref second);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Join<TItem>(string separator, RepeatEnumerable<TItem> second)
@@ -361,8 +361,8 @@ namespace LinqAF
         => JoinImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(separator, ref second);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string Join<TItem>(string separator, ReverseRangeEnumerable<TItem> second)
-        => JoinImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(separator, ref second);
+        public static string Join(string separator, ReverseRangeEnumerable second)
+        => JoinImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(separator, ref second);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Join<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(string separator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
@@ -448,5 +448,29 @@ namespace LinqAF
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Join<TItem>(string separator, OneItemSpecificOrderedEnumerable<TItem> second)
         => JoinImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(separator, ref second);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string Join<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator>(string separator, SkipLastEnumerable<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator> second)
+           where TJoin_InnerEnumerable : struct, IStructEnumerable<TItem, TJoin_InnerEnumerator>
+           where TJoin_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => JoinImpl<TItem, SkipLastEnumerable<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator>, SkipLastEnumerator<TItem, TJoin_InnerEnumerator>>(separator, ref second);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string Join<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator>(string separator, TakeLastEnumerable<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator> second)
+           where TJoin_InnerEnumerable : struct, IStructEnumerable<TItem, TJoin_InnerEnumerator>
+           where TJoin_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => JoinImpl<TItem, TakeLastEnumerable<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator>, TakeLastEnumerator<TItem, TJoin_InnerEnumerator>>(separator, ref second);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string Join<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator>(string separator, AppendEnumerable<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator> second)
+           where TJoin_InnerEnumerable : struct, IStructEnumerable<TItem, TJoin_InnerEnumerator>
+           where TJoin_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => JoinImpl<TItem, AppendEnumerable<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator>, AppendEnumerator<TItem, TJoin_InnerEnumerator>>(separator, ref second);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string Join<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator>(string separator, PrependEnumerable<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator> second)
+           where TJoin_InnerEnumerable : struct, IStructEnumerable<TItem, TJoin_InnerEnumerator>
+           where TJoin_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => JoinImpl<TItem, PrependEnumerable<TItem, TJoin_InnerEnumerable, TJoin_InnerEnumerator>, PrependEnumerator<TItem, TJoin_InnerEnumerator>>(separator, ref second);
     }
 }

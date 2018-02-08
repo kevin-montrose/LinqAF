@@ -59,5 +59,26 @@ namespace LinqAF.Impl
         {
             return new SkipWhileIndexedEnumerable<TItem, TEnumerable, TEnumerator>(ref source, predicate);
         }
+
+        public static SkipLastEnumerable<TItem, TEnumerable, TEnumerator> SkipLast<TItem, TEnumerable, TEnumerator>(ref TEnumerable source, int count)
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+
+            return SkipLastImpl<TItem, TEnumerable, TEnumerator>(ref source, count);
+        }
+
+        internal static SkipLastEnumerable<TItem, TEnumerable, TEnumerator> SkipLastImpl<TItem, TEnumerable, TEnumerator>(ref TEnumerable source, int count)
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            if (count < 0)
+            {
+                count = 0;
+            }
+
+            return new SkipLastEnumerable<TItem, TEnumerable, TEnumerator>(ref source, count);
+        }
     }
 }

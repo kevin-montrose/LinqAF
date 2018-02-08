@@ -11,11 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF.Generator", "LinqAF.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF.Generated", "LinqAF.Generated\LinqAF.Generated.csproj", "{50CAD84A-C6D6-4682-8CCB-132ECC3E3B5B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9955F5E6-F517-46FA-9711-92B2BCA64893}"
-	ProjectSection(SolutionItems) = preProject
-		Notes.txt = Notes.txt
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF.TestRunner", "LinqAF.TestRunner\LinqAF.TestRunner.csproj", "{371389D1-75DB-44BE-A535-6999FFC211DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqAF.Benchmark", "LinqAF.Benchmark\LinqAF.Benchmark.csproj", "{CA5FBEF7-D1C3-4974-BB45-041B2AC08987}"

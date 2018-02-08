@@ -106,8 +106,6 @@ namespace LinqAF.Impl
 
         TLeftEnumerable Concat(EmptyEnumerable<TItem> second);
         
-        ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Concat(RangeEnumerable<TItem> second);
-
         ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Concat(RepeatEnumerable<TItem> second);
 
         ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, SelectEnumerable<TConcat_SelectInItem, TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>, SelectEnumerator<TConcat_SelectInItem, TItem, TConcat_InnerEnumerator>> Concat<TConcat_SelectInItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>(SelectEnumerable<TConcat_SelectInItem, TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator> second)
@@ -315,8 +313,6 @@ namespace LinqAF.Impl
             where TReverseEnumerable : struct, IStructEnumerable<TItem, TReverseEnumerator>
             where TReverseEnumerator : struct, IStructEnumerator<TItem>;
 
-        ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Concat(ReverseRangeEnumerable<TItem> second);
-
         ConcatEnumerable<TItem, TLeftEnumerable, TLeftEnumerator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>, OrderByEnumerator<TItem, TOrderByKey, TOrderByEnumerator, TOrderByComparer>> Concat<TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
             where TOrderByEnumerator : struct, IStructEnumerator<TItem>
@@ -433,5 +429,45 @@ namespace LinqAF.Impl
             OneItemSpecificOrderedEnumerable<TItem>,
             OneItemSpecificOrderedEnumerator<TItem>
         > Concat(OneItemSpecificOrderedEnumerable<TItem> second);
+
+        ConcatEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>,
+            SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>
+        > Concat<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        ConcatEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>,
+            TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>
+        > Concat<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        ConcatEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>,
+            AppendEnumerator<TItem, TAppendInnerEnumerator>
+        > Concat<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>;
+
+        ConcatEnumerable<
+            TItem,
+            TLeftEnumerable,
+            TLeftEnumerator,
+            PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>,
+            PrependEnumerator<TItem, TPrependInnerEnumerator>
+        > Concat<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>;
     }
 }

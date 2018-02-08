@@ -526,32 +526,7 @@ namespace LinqAF
 
             return comparer.Equals(Item, second[0]);
         }
-
-        public bool SequenceEqual(RangeEnumerable<TItem> second)
-        {
-            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
-            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
-
-            if (second.InnerCount != 1) return false;
-
-            return EqualityComparer<TItem>.Default.Equals(Item, second.Start);
-        }
-
-        public bool SequenceEqual(RangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
-        {
-            if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");
-            if (second.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(second));
-
-            if (second.InnerCount != 1) return false;
-
-            if (comparer == null)
-            {
-                return EqualityComparer<TItem>.Default.Equals(Item, second.Start);
-            }
-
-            return comparer.Equals(Item, second.Start);
-        }
-
+        
         public bool SequenceEqual(RepeatEnumerable<TItem> second)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("first");

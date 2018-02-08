@@ -3,132 +3,20 @@
 namespace LinqAF
 {
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public struct RangeEnumerator<TItem>: IStructEnumerator<TItem>
-        // TItem is _always_ int, but we need an unconstrained generic param for chaining elsewhere
+    public struct RangeEnumerator : IStructEnumerator<int>
     {
-        static volatile bool _OneSet;
-        static TItem _One;
-        internal static TItem One
-        {
-            get
-            {
-                if (_OneSet)
-                {
-                    return _One;
-                }
-
-                try
-                {
-                    // we can't prevent someone from going nuts new'ing up something that 1 can't handle
-                    //   so just eat it and give them non-sense
-                    _One = Operator.Convert<int, TItem>(1);
-                }
-                catch
-                {
-                    _One = default(TItem);
-                }
-                _OneSet = true;
-                return _One;
-            }
-        }
-
-        static volatile bool _ZeroSet;
-        static TItem _Zero;
-        internal static TItem Zero
-        {
-            get
-            {
-                if (_ZeroSet)
-                {
-                    return _Zero;
-                }
-
-                _Zero = Operator<TItem>.Zero;
-                _ZeroSet = true;
-                return _Zero;
-            }
-        }
-        
-        public TItem Current { get; private set; }
+        public int Current { get; private set; }
 
         byte Sigil;
         int Index;
-        TItem Start;
+        int Start;
         int Count;
-        internal RangeEnumerator(byte sigil,TItem start, int count)
+        internal RangeEnumerator(byte sigil, int start, int count)
         {
             Sigil = sigil;
             Start = start;
             Count = count;
-            Current = default(TItem);
-            Index = 0;
-        }
-
-        public bool IsDefaultValue()
-        {
-            return Sigil == default(byte);
-        }
-
-        public void Dispose() { }
-
-        public bool MoveNext()
-        {
-            var indexLessThanCount = Index < Count;
-
-            if(indexLessThanCount)
-            {
-                Current = Operator.Add(Start, Operator.Convert<int, TItem>(Index));
-                Index++;
-                return true;
-            }
-
-            return false;
-        }
-
-        public void Reset()
-        {
-            Index = 0;
-            Current = default(TItem);
-        }
-    }
-
-    // soooo, really this should be RangeEnumerator<int> but life is hard
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public partial struct RangeEnumerable<TItem>: IStructEnumerable<TItem, RangeEnumerator<TItem>>
-    {
-        byte Sigil;
-        internal TItem Start;
-        internal int InnerCount;
-        internal RangeEnumerable(byte sigil, TItem start, int count)
-        {
-            Sigil = sigil;
-            Start = start;
-            InnerCount = count;
-        }
-
-        public bool IsDefaultValue()
-        {
-            return Sigil == default(byte);
-        }
-        
-        public RangeEnumerator<TItem> GetEnumerator() => new RangeEnumerator<TItem>(Sigil, Start, InnerCount);
-    }
-
-    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public struct ReverseRangeEnumerator<TItem>: IStructEnumerator<TItem>
-    {
-        public TItem Current { get; private set; }
-
-        byte Sigil;
-        int Index;
-        TItem Start;
-        int Count;
-        internal ReverseRangeEnumerator(byte sigil, TItem start, int count)
-        {
-            Sigil = sigil;
-            Start = start;
-            Count = count;
-            Current = default(TItem);
+            Current = 0;
             Index = 0;
         }
 
@@ -145,7 +33,7 @@ namespace LinqAF
 
             if (indexLessThanCount)
             {
-                Current = Operator.Subtract(Start, Operator.Convert<int, TItem>(Index));
+                Current = Start + Index;
                 Index++;
                 return true;
             }
@@ -156,17 +44,17 @@ namespace LinqAF
         public void Reset()
         {
             Index = 0;
-            Current = default(TItem);
+            Current = 0;
         }
     }
 
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public partial struct ReverseRangeEnumerable<TItem>: IStructEnumerable<TItem, ReverseRangeEnumerator<TItem>>
+    public partial struct RangeEnumerable : IStructEnumerable<int, RangeEnumerator>
     {
         byte Sigil;
-        internal TItem Start;
+        internal int Start;
         internal int InnerCount;
-        internal ReverseRangeEnumerable(byte sigil, TItem start, int count)
+        internal RangeEnumerable(byte sigil, int start, int count)
         {
             Sigil = sigil;
             Start = start;
@@ -178,6 +66,73 @@ namespace LinqAF
             return Sigil == default(byte);
         }
 
-        public ReverseRangeEnumerator<TItem> GetEnumerator() => new ReverseRangeEnumerator<TItem>(Sigil, Start, InnerCount);
+        public RangeEnumerator GetEnumerator() => new RangeEnumerator(Sigil, Start, InnerCount);
+    }
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct ReverseRangeEnumerator : IStructEnumerator<int>
+    {
+        public int Current { get; private set; }
+
+        byte Sigil;
+        int Index;
+        int Start;
+        int Count;
+        internal ReverseRangeEnumerator(byte sigil, int start, int count)
+        {
+            Sigil = sigil;
+            Start = start;
+            Count = count;
+            Current = 0;
+            Index = 0;
+        }
+
+        public bool IsDefaultValue()
+        {
+            return Sigil == default(byte);
+        }
+
+        public void Dispose() { }
+
+        public bool MoveNext()
+        {
+            var indexLessThanCount = Index < Count;
+
+            if (indexLessThanCount)
+            {
+                Current = Start - Index;
+                Index++;
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Reset()
+        {
+            Index = 0;
+            Current = 0;
+        }
+    }
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct ReverseRangeEnumerable : IStructEnumerable<int, ReverseRangeEnumerator>
+    {
+        byte Sigil;
+        internal int Start;
+        internal int InnerCount;
+        internal ReverseRangeEnumerable(byte sigil, int start, int count)
+        {
+            Sigil = sigil;
+            Start = start;
+            InnerCount = count;
+        }
+
+        public bool IsDefaultValue()
+        {
+            return Sigil == default(byte);
+        }
+
+        public ReverseRangeEnumerator GetEnumerator() => new ReverseRangeEnumerator(Sigil, Start, InnerCount);
     }
 }

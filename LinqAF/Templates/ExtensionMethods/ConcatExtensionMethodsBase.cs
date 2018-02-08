@@ -546,5 +546,155 @@ namespace LinqAF
                     ref second
                 );
         }
+
+        // RangeEnumerable
+
+        public ConcatEnumerable<int,PlaceholderEnumerable<int>,PlaceholderEnumerator<int>,RangeEnumerable,RangeEnumerator> Concat(
+            PlaceholderEnumerable<int> first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Concat<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second
+                );
+        }
+
+        //public ConcatEnumerable<int, RangeEnumerable, RangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Concat(
+        //    RangeEnumerable first,
+        //    PlaceholderEnumerable<int> second
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Concat<
+        //            int,
+        //            RangeEnumerable,
+        //            RangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second)
+        //        );
+        //}
+
+        public ConcatEnumerable<int, RangeEnumerable, RangeEnumerator, RangeEnumerable, RangeEnumerator> Concat(
+            RangeEnumerable first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Concat<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        // ReverseRangeEnumerable
+
+        public ConcatEnumerable<int, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>, ReverseRangeEnumerable, ReverseRangeEnumerator> Concat(
+            PlaceholderEnumerable<int> first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Concat<
+                    int,
+                    PlaceholderEnumerable<int>,
+                    PlaceholderEnumerator<int>,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    RefParam(first),
+                    ref second
+                );
+        }
+
+        //public ConcatEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, PlaceholderEnumerable<int>, PlaceholderEnumerator<int>> Concat(
+        //    ReverseRangeEnumerable first,
+        //    PlaceholderEnumerable<int> second
+        //)
+        //{
+        //    return
+        //        CommonImplementation.Concat<
+        //            int,
+        //            ReverseRangeEnumerable,
+        //            ReverseRangeEnumerator,
+        //            PlaceholderEnumerable<int>,
+        //            PlaceholderEnumerator<int>
+        //        >(
+        //            ref first,
+        //            RefParam(second)
+        //        );
+        //}
+
+        public ConcatEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Concat(
+            ReverseRangeEnumerable first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Concat<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        // Range - ReverseRange
+
+        public ConcatEnumerable<int, RangeEnumerable, RangeEnumerator, ReverseRangeEnumerable, ReverseRangeEnumerator> Concat(
+            RangeEnumerable first,
+            ReverseRangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Concat<
+                    int,
+                    RangeEnumerable,
+                    RangeEnumerator,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
+
+        public ConcatEnumerable<int, ReverseRangeEnumerable, ReverseRangeEnumerator, RangeEnumerable, RangeEnumerator> Concat(
+            ReverseRangeEnumerable first,
+            RangeEnumerable second
+        )
+        {
+            return
+                CommonImplementation.Concat<
+                    int,
+                    ReverseRangeEnumerable,
+                    ReverseRangeEnumerator,
+                    RangeEnumerable,
+                    RangeEnumerator
+                >(
+                    ref first,
+                    ref second
+                );
+        }
     }
 }

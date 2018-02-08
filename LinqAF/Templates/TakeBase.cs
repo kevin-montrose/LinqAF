@@ -17,5 +17,8 @@ namespace LinqAF
 
         public TakeWhileEnumerable<TItem, TEnumerable, TEnumerator> TakeWhile(Func<TItem, bool> predicate)
         => CommonImplementation.TakeWhile<TItem, TEnumerable, TEnumerator>(RefThis(), predicate);
+
+        public TakeLastEnumerable<TItem, TEnumerable, TEnumerator> TakeLast(int count)
+        => CommonImplementation.TakeLast<TItem, TEnumerable, TEnumerator>(RefThis(), count);
     }
 }

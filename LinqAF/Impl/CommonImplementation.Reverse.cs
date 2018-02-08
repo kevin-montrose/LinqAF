@@ -21,16 +21,16 @@ namespace LinqAF.Impl
             return new ReverseEnumerable<TItem, TEnumerable, TEnumerator>(ref source);
         }
 
-        public static ReverseRangeEnumerable<TItem> ReverseRange<TItem>(ref RangeEnumerable<TItem> source)
+        public static ReverseRangeEnumerable ReverseRange(ref RangeEnumerable source)
         {
             if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
-            var newStart = Operator.Subtract(Operator.Add(source.Start, Operator.Convert<int, TItem>(source.InnerCount)), RangeEnumerator<TItem>.One);
+            var newStart = (source.Start + source.InnerCount) - 1;
 
-            return new ReverseRangeEnumerable<TItem>(Enumerable.ReverseRangeSigil, newStart, source.InnerCount);
+            return new ReverseRangeEnumerable(Enumerable.ReverseRangeSigil, newStart, source.InnerCount);
         }
 
-        public static RangeEnumerable<TItem> ReverseReverseRange<TItem>(ref ReverseRangeEnumerable<TItem> source)
+        public static RangeEnumerable ReverseReverseRange(ref ReverseRangeEnumerable source)
         {
             if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
 
@@ -39,9 +39,9 @@ namespace LinqAF.Impl
             // Range(1, 3) -> 1, 2, 3
             // ReverseRange(3, 3) -> 3, 2, 1
             
-            var newStart = Operator.Add(Operator.Subtract(source.Start, Operator.Convert<int, TItem>(source.InnerCount)), RangeEnumerator<TItem>.One);
+            var newStart = (source.Start - source.InnerCount) + 1;
 
-            return new RangeEnumerable<TItem>(Enumerable.RangeSigil, newStart, source.InnerCount);
+            return new RangeEnumerable(Enumerable.RangeSigil, newStart, source.InnerCount);
         }
     }
 }

@@ -887,7 +887,7 @@ namespace LinqAF
             return EmptyCache<TGroupJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TGroupJoin_OutItem> GroupJoin<TGroupJoin_OutItem, TGroupJoin_KeyItem, TGroupJoin_RightItem>(RangeEnumerable<TGroupJoin_RightItem> inner, Func<TItem, TGroupJoin_KeyItem> outerKeySelector, Func<TGroupJoin_RightItem, TGroupJoin_KeyItem> innerKeySelector, Func<TItem, GroupedEnumerable<TGroupJoin_KeyItem, TGroupJoin_RightItem>, TGroupJoin_OutItem> resultSelector)
+        public EmptyEnumerable<TGroupJoin_OutItem> GroupJoin<TGroupJoin_OutItem, TGroupJoin_KeyItem>(RangeEnumerable inner, Func<TItem, TGroupJoin_KeyItem> outerKeySelector, Func<int, TGroupJoin_KeyItem> innerKeySelector, Func<TItem, GroupedEnumerable<TGroupJoin_KeyItem, int>, TGroupJoin_OutItem> resultSelector)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
@@ -898,7 +898,7 @@ namespace LinqAF
             return EmptyCache<TGroupJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TGroupJoin_OutItem> GroupJoin<TGroupJoin_OutItem, TGroupJoin_KeyItem, TGroupJoin_RightItem>(RangeEnumerable<TGroupJoin_RightItem> inner, Func<TItem, TGroupJoin_KeyItem> outerKeySelector, Func<TGroupJoin_RightItem, TGroupJoin_KeyItem> innerKeySelector, Func<TItem, GroupedEnumerable<TGroupJoin_KeyItem, TGroupJoin_RightItem>, TGroupJoin_OutItem> resultSelector, IEqualityComparer<TGroupJoin_KeyItem> comparer)
+        public EmptyEnumerable<TGroupJoin_OutItem> GroupJoin<TGroupJoin_OutItem, TGroupJoin_KeyItem>(RangeEnumerable inner, Func<TItem, TGroupJoin_KeyItem> outerKeySelector, Func<int, TGroupJoin_KeyItem> innerKeySelector, Func<TItem, GroupedEnumerable<TGroupJoin_KeyItem, int>, TGroupJoin_OutItem> resultSelector, IEqualityComparer<TGroupJoin_KeyItem> comparer)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
@@ -1743,7 +1743,7 @@ namespace LinqAF
             return EmptyCache<TGroupJoin_OutItem>.Empty;
         }
         
-        public EmptyEnumerable<TGroupJoin_OutItem> GroupJoin<TGroupJoin_OutItem, TGroupJoin_KeyItem, TGroupJoin_RightItem>(ReverseRangeEnumerable<TGroupJoin_RightItem> inner, Func<TItem, TGroupJoin_KeyItem> outerKeySelector, Func<TGroupJoin_RightItem, TGroupJoin_KeyItem> innerKeySelector, Func<TItem, GroupedEnumerable<TGroupJoin_KeyItem, TGroupJoin_RightItem>, TGroupJoin_OutItem> resultSelector)
+        public EmptyEnumerable<TGroupJoin_OutItem> GroupJoin<TGroupJoin_OutItem, TGroupJoin_KeyItem>(ReverseRangeEnumerable inner, Func<TItem, TGroupJoin_KeyItem> outerKeySelector, Func<int, TGroupJoin_KeyItem> innerKeySelector, Func<TItem, GroupedEnumerable<TGroupJoin_KeyItem, int>, TGroupJoin_OutItem> resultSelector)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));
@@ -1754,7 +1754,7 @@ namespace LinqAF
             return EmptyCache<TGroupJoin_OutItem>.Empty;
         }
 
-        public EmptyEnumerable<TGroupJoin_OutItem> GroupJoin<TGroupJoin_OutItem, TGroupJoin_KeyItem, TGroupJoin_RightItem>(ReverseRangeEnumerable<TGroupJoin_RightItem> inner, Func<TItem, TGroupJoin_KeyItem> outerKeySelector, Func<TGroupJoin_RightItem, TGroupJoin_KeyItem> innerKeySelector, Func<TItem, GroupedEnumerable<TGroupJoin_KeyItem, TGroupJoin_RightItem>, TGroupJoin_OutItem> resultSelector, IEqualityComparer<TGroupJoin_KeyItem> comparer)
+        public EmptyEnumerable<TGroupJoin_OutItem> GroupJoin<TGroupJoin_OutItem, TGroupJoin_KeyItem>(ReverseRangeEnumerable inner, Func<TItem, TGroupJoin_KeyItem> outerKeySelector, Func<int, TGroupJoin_KeyItem> innerKeySelector, Func<TItem, GroupedEnumerable<TGroupJoin_KeyItem, int>, TGroupJoin_OutItem> resultSelector, IEqualityComparer<TGroupJoin_KeyItem> comparer)
         {
             if (IsDefaultValue()) throw CommonImplementation.Uninitialized("outer");
             if (inner.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(inner));

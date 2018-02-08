@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LinqAF</RootNamespace>
     <AssemblyName>LinqAF</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -38,6 +38,136 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Append.Aggregate.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.All.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Any.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Append.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.AsEnumerable.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Average.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Boxing.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Cast.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Concat.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Contains.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Count.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.cs" />
+    <Compile Include="Append.DefaultIfEmpty.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Distinct.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.ElementAt.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Enumerator.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Except.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.First.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.GroupBy.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.GroupJoin.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Intersect.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Join.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Last.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Max.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Min.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.OfType.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.OrderBy.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Prepend.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Reverse.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Select.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.SelectMany.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.SequenceEqual.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Single.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Skip.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Sum.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Take.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.ToArray.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.ToDictionary.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.ToHashSet.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.ToList.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.ToLookup.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Union.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Where.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Append.Zip.cs">
+      <DependentUpon>Append.cs</DependentUpon>
+    </Compile>
     <Compile Include="ArrayExtensionMethods.cs" />
     <Compile Include="AverageExtensionMethods.cs" />
     <Compile Include="Boxed.Aggregate.cs">
@@ -47,6 +177,9 @@
       <DependentUpon>Boxed.cs</DependentUpon>
     </Compile>
     <Compile Include="Boxed.Any.cs">
+      <DependentUpon>Boxed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Boxed.Append.cs">
       <DependentUpon>Boxed.cs</DependentUpon>
     </Compile>
     <Compile Include="Boxed.AsEnumerable.cs">
@@ -113,6 +246,9 @@
     <Compile Include="Boxed.OrderBy.cs">
       <DependentUpon>Boxed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Boxed.Prepend.cs">
+      <DependentUpon>Boxed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Boxed.Reverse.cs">
       <DependentUpon>Boxed.cs</DependentUpon>
     </Compile>
@@ -143,6 +279,9 @@
     <Compile Include="Boxed.ToDictionary.cs">
       <DependentUpon>Boxed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Boxed.ToHashSet.cs">
+      <DependentUpon>Boxed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Boxed.ToList.cs">
       <DependentUpon>Boxed.cs</DependentUpon>
     </Compile>
@@ -167,6 +306,9 @@
       <DependentUpon>Cast.cs</DependentUpon>
     </Compile>
     <Compile Include="Cast.Any.cs">
+      <DependentUpon>Cast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cast.Append.cs">
       <DependentUpon>Cast.cs</DependentUpon>
     </Compile>
     <Compile Include="Cast.AsEnumerable.cs">
@@ -236,6 +378,9 @@
     <Compile Include="Cast.OrderBy.cs">
       <DependentUpon>Cast.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cast.Prepend.cs">
+      <DependentUpon>Cast.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cast.Reverse.cs">
       <DependentUpon>Cast.cs</DependentUpon>
     </Compile>
@@ -266,6 +411,9 @@
     <Compile Include="Cast.ToDictionary.cs">
       <DependentUpon>Cast.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cast.ToHashSet.cs">
+      <DependentUpon>Cast.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cast.ToList.cs">
       <DependentUpon>Cast.cs</DependentUpon>
     </Compile>
@@ -291,6 +439,9 @@
       <DependentUpon>Concat.cs</DependentUpon>
     </Compile>
     <Compile Include="Concat.Any.cs">
+      <DependentUpon>Concat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Concat.Append.cs">
       <DependentUpon>Concat.cs</DependentUpon>
     </Compile>
     <Compile Include="Concat.AsEnumerable.cs">
@@ -360,6 +511,9 @@
     <Compile Include="Concat.OrderBy.cs">
       <DependentUpon>Concat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Concat.Prepend.cs">
+      <DependentUpon>Concat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Concat.Reverse.cs">
       <DependentUpon>Concat.cs</DependentUpon>
     </Compile>
@@ -388,6 +542,9 @@
       <DependentUpon>Concat.cs</DependentUpon>
     </Compile>
     <Compile Include="Concat.ToDictionary.cs">
+      <DependentUpon>Concat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Concat.ToHashSet.cs">
       <DependentUpon>Concat.cs</DependentUpon>
     </Compile>
     <Compile Include="Concat.ToList.cs">
@@ -427,6 +584,9 @@
       <DependentUpon>DefaultIfEmptyDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="DefaultIfEmptyDefault.Any.cs">
+      <DependentUpon>DefaultIfEmptyDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultIfEmptyDefault.Append.cs">
       <DependentUpon>DefaultIfEmptyDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="DefaultIfEmptyDefault.AsEnumerable.cs">
@@ -496,6 +656,9 @@
     <Compile Include="DefaultIfEmptyDefault.OrderBy.cs">
       <DependentUpon>DefaultIfEmptyDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="DefaultIfEmptyDefault.Prepend.cs">
+      <DependentUpon>DefaultIfEmptyDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="DefaultIfEmptyDefault.Reverse.cs">
       <DependentUpon>DefaultIfEmptyDefault.cs</DependentUpon>
     </Compile>
@@ -526,6 +689,9 @@
     <Compile Include="DefaultIfEmptyDefault.ToDictionary.cs">
       <DependentUpon>DefaultIfEmptyDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="DefaultIfEmptyDefault.ToHashSet.cs">
+      <DependentUpon>DefaultIfEmptyDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="DefaultIfEmptyDefault.ToList.cs">
       <DependentUpon>DefaultIfEmptyDefault.cs</DependentUpon>
     </Compile>
@@ -548,6 +714,9 @@
       <DependentUpon>DefaultIfEmptySpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="DefaultIfEmptySpecific.Any.cs">
+      <DependentUpon>DefaultIfEmptySpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultIfEmptySpecific.Append.cs">
       <DependentUpon>DefaultIfEmptySpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="DefaultIfEmptySpecific.AsEnumerable.cs">
@@ -617,6 +786,9 @@
     <Compile Include="DefaultIfEmptySpecific.OrderBy.cs">
       <DependentUpon>DefaultIfEmptySpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="DefaultIfEmptySpecific.Prepend.cs">
+      <DependentUpon>DefaultIfEmptySpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="DefaultIfEmptySpecific.Reverse.cs">
       <DependentUpon>DefaultIfEmptySpecific.cs</DependentUpon>
     </Compile>
@@ -647,6 +819,9 @@
     <Compile Include="DefaultIfEmptySpecific.ToDictionary.cs">
       <DependentUpon>DefaultIfEmptySpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="DefaultIfEmptySpecific.ToHashSet.cs">
+      <DependentUpon>DefaultIfEmptySpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="DefaultIfEmptySpecific.ToList.cs">
       <DependentUpon>DefaultIfEmptySpecific.cs</DependentUpon>
     </Compile>
@@ -671,6 +846,9 @@
       <DependentUpon>DistinctDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="DistinctDefault.Any.cs">
+      <DependentUpon>DistinctDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DistinctDefault.Append.cs">
       <DependentUpon>DistinctDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="DistinctDefault.AsEnumerable.cs">
@@ -740,6 +918,9 @@
     <Compile Include="DistinctDefault.OrderBy.cs">
       <DependentUpon>DistinctDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="DistinctDefault.Prepend.cs">
+      <DependentUpon>DistinctDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="DistinctDefault.Reverse.cs">
       <DependentUpon>DistinctDefault.cs</DependentUpon>
     </Compile>
@@ -770,6 +951,9 @@
     <Compile Include="DistinctDefault.ToDictionary.cs">
       <DependentUpon>DistinctDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="DistinctDefault.ToHashSet.cs">
+      <DependentUpon>DistinctDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="DistinctDefault.ToList.cs">
       <DependentUpon>DistinctDefault.cs</DependentUpon>
     </Compile>
@@ -792,6 +976,9 @@
       <DependentUpon>DistinctSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="DistinctSpecific.Any.cs">
+      <DependentUpon>DistinctSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DistinctSpecific.Append.cs">
       <DependentUpon>DistinctSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="DistinctSpecific.AsEnumerable.cs">
@@ -861,6 +1048,9 @@
     <Compile Include="DistinctSpecific.OrderBy.cs">
       <DependentUpon>DistinctSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="DistinctSpecific.Prepend.cs">
+      <DependentUpon>DistinctSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="DistinctSpecific.Reverse.cs">
       <DependentUpon>DistinctSpecific.cs</DependentUpon>
     </Compile>
@@ -891,6 +1081,9 @@
     <Compile Include="DistinctSpecific.ToDictionary.cs">
       <DependentUpon>DistinctSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="DistinctSpecific.ToHashSet.cs">
+      <DependentUpon>DistinctSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="DistinctSpecific.ToList.cs">
       <DependentUpon>DistinctSpecific.cs</DependentUpon>
     </Compile>
@@ -913,6 +1106,9 @@
       <DependentUpon>Empty.cs</DependentUpon>
     </Compile>
     <Compile Include="Empty.Any.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Empty.Append.cs">
       <DependentUpon>Empty.cs</DependentUpon>
     </Compile>
     <Compile Include="Empty.AsEnumerable.cs">
@@ -982,6 +1178,9 @@
     <Compile Include="Empty.OrderBy.cs">
       <DependentUpon>Empty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Empty.Prepend.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Empty.Reverse.cs">
       <DependentUpon>Empty.cs</DependentUpon>
     </Compile>
@@ -1012,6 +1211,9 @@
     <Compile Include="Empty.ToDictionary.cs">
       <DependentUpon>Empty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Empty.ToHashSet.cs">
+      <DependentUpon>Empty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Empty.ToList.cs">
       <DependentUpon>Empty.cs</DependentUpon>
     </Compile>
@@ -1034,6 +1236,9 @@
       <DependentUpon>EmptyOrdered.cs</DependentUpon>
     </Compile>
     <Compile Include="EmptyOrdered.Any.cs">
+      <DependentUpon>EmptyOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmptyOrdered.Append.cs">
       <DependentUpon>EmptyOrdered.cs</DependentUpon>
     </Compile>
     <Compile Include="EmptyOrdered.AsEnumerable.cs">
@@ -1103,6 +1308,9 @@
     <Compile Include="EmptyOrdered.OrderBy.cs">
       <DependentUpon>EmptyOrdered.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmptyOrdered.Prepend.cs">
+      <DependentUpon>EmptyOrdered.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmptyOrdered.Reverse.cs">
       <DependentUpon>EmptyOrdered.cs</DependentUpon>
     </Compile>
@@ -1136,6 +1344,9 @@
     <Compile Include="EmptyOrdered.ToDictionary.cs">
       <DependentUpon>EmptyOrdered.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmptyOrdered.ToHashSet.cs">
+      <DependentUpon>EmptyOrdered.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmptyOrdered.ToList.cs">
       <DependentUpon>EmptyOrdered.cs</DependentUpon>
     </Compile>
@@ -1159,6 +1370,9 @@
       <DependentUpon>ExceptDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="ExceptDefault.Any.cs">
+      <DependentUpon>ExceptDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptDefault.Append.cs">
       <DependentUpon>ExceptDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="ExceptDefault.AsEnumerable.cs">
@@ -1228,6 +1442,9 @@
     <Compile Include="ExceptDefault.OrderBy.cs">
       <DependentUpon>ExceptDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExceptDefault.Prepend.cs">
+      <DependentUpon>ExceptDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExceptDefault.Reverse.cs">
       <DependentUpon>ExceptDefault.cs</DependentUpon>
     </Compile>
@@ -1258,6 +1475,9 @@
     <Compile Include="ExceptDefault.ToDictionary.cs">
       <DependentUpon>ExceptDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExceptDefault.ToHashSet.cs">
+      <DependentUpon>ExceptDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExceptDefault.ToList.cs">
       <DependentUpon>ExceptDefault.cs</DependentUpon>
     </Compile>
@@ -1281,6 +1501,9 @@
       <DependentUpon>ExceptSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="ExceptSpecific.Any.cs">
+      <DependentUpon>ExceptSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptSpecific.Append.cs">
       <DependentUpon>ExceptSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="ExceptSpecific.AsEnumerable.cs">
@@ -1350,6 +1573,9 @@
     <Compile Include="ExceptSpecific.OrderBy.cs">
       <DependentUpon>ExceptSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExceptSpecific.Prepend.cs">
+      <DependentUpon>ExceptSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExceptSpecific.Reverse.cs">
       <DependentUpon>ExceptSpecific.cs</DependentUpon>
     </Compile>
@@ -1380,6 +1606,9 @@
     <Compile Include="ExceptSpecific.ToDictionary.cs">
       <DependentUpon>ExceptSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExceptSpecific.ToHashSet.cs">
+      <DependentUpon>ExceptSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExceptSpecific.ToList.cs">
       <DependentUpon>ExceptSpecific.cs</DependentUpon>
     </Compile>
@@ -1402,6 +1631,9 @@
       <DependentUpon>GroupByCollectionDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupByCollectionDefault.Any.cs">
+      <DependentUpon>GroupByCollectionDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupByCollectionDefault.Append.cs">
       <DependentUpon>GroupByCollectionDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupByCollectionDefault.AsEnumerable.cs">
@@ -1471,6 +1703,9 @@
     <Compile Include="GroupByCollectionDefault.OrderBy.cs">
       <DependentUpon>GroupByCollectionDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupByCollectionDefault.Prepend.cs">
+      <DependentUpon>GroupByCollectionDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupByCollectionDefault.Reverse.cs">
       <DependentUpon>GroupByCollectionDefault.cs</DependentUpon>
     </Compile>
@@ -1501,6 +1736,9 @@
     <Compile Include="GroupByCollectionDefault.ToDictionary.cs">
       <DependentUpon>GroupByCollectionDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupByCollectionDefault.ToHashSet.cs">
+      <DependentUpon>GroupByCollectionDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupByCollectionDefault.ToList.cs">
       <DependentUpon>GroupByCollectionDefault.cs</DependentUpon>
     </Compile>
@@ -1523,6 +1761,9 @@
       <DependentUpon>GroupByCollectionSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupByCollectionSpecific.Any.cs">
+      <DependentUpon>GroupByCollectionSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupByCollectionSpecific.Append.cs">
       <DependentUpon>GroupByCollectionSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupByCollectionSpecific.AsEnumerable.cs">
@@ -1592,6 +1833,9 @@
     <Compile Include="GroupByCollectionSpecific.OrderBy.cs">
       <DependentUpon>GroupByCollectionSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupByCollectionSpecific.Prepend.cs">
+      <DependentUpon>GroupByCollectionSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupByCollectionSpecific.Reverse.cs">
       <DependentUpon>GroupByCollectionSpecific.cs</DependentUpon>
     </Compile>
@@ -1622,6 +1866,9 @@
     <Compile Include="GroupByCollectionSpecific.ToDictionary.cs">
       <DependentUpon>GroupByCollectionSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupByCollectionSpecific.ToHashSet.cs">
+      <DependentUpon>GroupByCollectionSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupByCollectionSpecific.ToList.cs">
       <DependentUpon>GroupByCollectionSpecific.cs</DependentUpon>
     </Compile>
@@ -1644,6 +1891,9 @@
       <DependentUpon>GroupByDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupByDefault.Any.cs">
+      <DependentUpon>GroupByDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupByDefault.Append.cs">
       <DependentUpon>GroupByDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupByDefault.AsEnumerable.cs">
@@ -1713,6 +1963,9 @@
     <Compile Include="GroupByDefault.OrderBy.cs">
       <DependentUpon>GroupByDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupByDefault.Prepend.cs">
+      <DependentUpon>GroupByDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupByDefault.Reverse.cs">
       <DependentUpon>GroupByDefault.cs</DependentUpon>
     </Compile>
@@ -1743,6 +1996,9 @@
     <Compile Include="GroupByDefault.ToDictionary.cs">
       <DependentUpon>GroupByDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupByDefault.ToHashSet.cs">
+      <DependentUpon>GroupByDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupByDefault.ToList.cs">
       <DependentUpon>GroupByDefault.cs</DependentUpon>
     </Compile>
@@ -1765,6 +2021,9 @@
       <DependentUpon>GroupBySpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupBySpecific.Any.cs">
+      <DependentUpon>GroupBySpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupBySpecific.Append.cs">
       <DependentUpon>GroupBySpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupBySpecific.AsEnumerable.cs">
@@ -1834,6 +2093,9 @@
     <Compile Include="GroupBySpecific.OrderBy.cs">
       <DependentUpon>GroupBySpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupBySpecific.Prepend.cs">
+      <DependentUpon>GroupBySpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupBySpecific.Reverse.cs">
       <DependentUpon>GroupBySpecific.cs</DependentUpon>
     </Compile>
@@ -1864,6 +2126,9 @@
     <Compile Include="GroupBySpecific.ToDictionary.cs">
       <DependentUpon>GroupBySpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupBySpecific.ToHashSet.cs">
+      <DependentUpon>GroupBySpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupBySpecific.ToList.cs">
       <DependentUpon>GroupBySpecific.cs</DependentUpon>
     </Compile>
@@ -1886,6 +2151,9 @@
       <DependentUpon>Grouped.cs</DependentUpon>
     </Compile>
     <Compile Include="Grouped.Any.cs">
+      <DependentUpon>Grouped.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grouped.Append.cs">
       <DependentUpon>Grouped.cs</DependentUpon>
     </Compile>
     <Compile Include="Grouped.AsEnumerable.cs">
@@ -1955,6 +2223,9 @@
     <Compile Include="Grouped.OrderBy.cs">
       <DependentUpon>Grouped.cs</DependentUpon>
     </Compile>
+    <Compile Include="Grouped.Prepend.cs">
+      <DependentUpon>Grouped.cs</DependentUpon>
+    </Compile>
     <Compile Include="Grouped.Reverse.cs">
       <DependentUpon>Grouped.cs</DependentUpon>
     </Compile>
@@ -1985,6 +2256,9 @@
     <Compile Include="Grouped.ToDictionary.cs">
       <DependentUpon>Grouped.cs</DependentUpon>
     </Compile>
+    <Compile Include="Grouped.ToHashSet.cs">
+      <DependentUpon>Grouped.cs</DependentUpon>
+    </Compile>
     <Compile Include="Grouped.ToList.cs">
       <DependentUpon>Grouped.cs</DependentUpon>
     </Compile>
@@ -2007,6 +2281,9 @@
       <DependentUpon>Grouping.cs</DependentUpon>
     </Compile>
     <Compile Include="Grouping.Any.cs">
+      <DependentUpon>Grouping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grouping.Append.cs">
       <DependentUpon>Grouping.cs</DependentUpon>
     </Compile>
     <Compile Include="Grouping.AsEnumerable.cs">
@@ -2076,6 +2353,9 @@
     <Compile Include="Grouping.OrderBy.cs">
       <DependentUpon>Grouping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Grouping.Prepend.cs">
+      <DependentUpon>Grouping.cs</DependentUpon>
+    </Compile>
     <Compile Include="Grouping.Reverse.cs">
       <DependentUpon>Grouping.cs</DependentUpon>
     </Compile>
@@ -2106,6 +2386,9 @@
     <Compile Include="Grouping.ToDictionary.cs">
       <DependentUpon>Grouping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Grouping.ToHashSet.cs">
+      <DependentUpon>Grouping.cs</DependentUpon>
+    </Compile>
     <Compile Include="Grouping.ToList.cs">
       <DependentUpon>Grouping.cs</DependentUpon>
     </Compile>
@@ -2128,6 +2411,9 @@
       <DependentUpon>GroupJoinDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupJoinDefault.Any.cs">
+      <DependentUpon>GroupJoinDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupJoinDefault.Append.cs">
       <DependentUpon>GroupJoinDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupJoinDefault.AsEnumerable.cs">
@@ -2197,6 +2483,9 @@
     <Compile Include="GroupJoinDefault.OrderBy.cs">
       <DependentUpon>GroupJoinDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupJoinDefault.Prepend.cs">
+      <DependentUpon>GroupJoinDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupJoinDefault.Reverse.cs">
       <DependentUpon>GroupJoinDefault.cs</DependentUpon>
     </Compile>
@@ -2227,6 +2516,9 @@
     <Compile Include="GroupJoinDefault.ToDictionary.cs">
       <DependentUpon>GroupJoinDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupJoinDefault.ToHashSet.cs">
+      <DependentUpon>GroupJoinDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupJoinDefault.ToList.cs">
       <DependentUpon>GroupJoinDefault.cs</DependentUpon>
     </Compile>
@@ -2249,6 +2541,9 @@
       <DependentUpon>GroupJoinSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupJoinSpecific.Any.cs">
+      <DependentUpon>GroupJoinSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupJoinSpecific.Append.cs">
       <DependentUpon>GroupJoinSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupJoinSpecific.AsEnumerable.cs">
@@ -2318,6 +2613,9 @@
     <Compile Include="GroupJoinSpecific.OrderBy.cs">
       <DependentUpon>GroupJoinSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupJoinSpecific.Prepend.cs">
+      <DependentUpon>GroupJoinSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupJoinSpecific.Reverse.cs">
       <DependentUpon>GroupJoinSpecific.cs</DependentUpon>
     </Compile>
@@ -2348,6 +2646,9 @@
     <Compile Include="GroupJoinSpecific.ToDictionary.cs">
       <DependentUpon>GroupJoinSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupJoinSpecific.ToHashSet.cs">
+      <DependentUpon>GroupJoinSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupJoinSpecific.ToList.cs">
       <DependentUpon>GroupJoinSpecific.cs</DependentUpon>
     </Compile>
@@ -2371,6 +2672,9 @@
       <DependentUpon>Identity.cs</DependentUpon>
     </Compile>
     <Compile Include="Identity.Any.cs">
+      <DependentUpon>Identity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Identity.Append.cs">
       <DependentUpon>Identity.cs</DependentUpon>
     </Compile>
     <Compile Include="Identity.AsEnumerable.cs">
@@ -2440,6 +2744,9 @@
     <Compile Include="Identity.OrderBy.cs">
       <DependentUpon>Identity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Identity.Prepend.cs">
+      <DependentUpon>Identity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Identity.Reverse.cs">
       <DependentUpon>Identity.cs</DependentUpon>
     </Compile>
@@ -2470,6 +2777,9 @@
     <Compile Include="Identity.ToDictionary.cs">
       <DependentUpon>Identity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Identity.ToHashSet.cs">
+      <DependentUpon>Identity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Identity.ToList.cs">
       <DependentUpon>Identity.cs</DependentUpon>
     </Compile>
@@ -2494,6 +2804,9 @@
       <DependentUpon>CommonImplementation.cs</DependentUpon>
     </Compile>
     <Compile Include="Impl\CommonImplementation.Any.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Impl\CommonImplementation.Append.cs">
       <DependentUpon>CommonImplementation.cs</DependentUpon>
     </Compile>
     <Compile Include="Impl\CommonImplementation.AsEnumerable.cs">
@@ -2560,6 +2873,9 @@
     <Compile Include="Impl\CommonImplementation.OrderBy.cs">
       <DependentUpon>CommonImplementation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Impl\CommonImplementation.Prepend.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Impl\CommonImplementation.Reset.cs">
       <DependentUpon>CommonImplementation.cs</DependentUpon>
     </Compile>
@@ -2599,6 +2915,9 @@
     <Compile Include="Impl\CommonImplementation.ToDictionary.cs">
       <DependentUpon>CommonImplementation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Impl\CommonImplementation.ToHashSet.cs">
+      <DependentUpon>CommonImplementation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Impl\CommonImplementation.ToList.cs">
       <DependentUpon>CommonImplementation.cs</DependentUpon>
     </Compile>
@@ -2622,6 +2941,7 @@
     <Compile Include="Impl\IAggregate.cs" />
     <Compile Include="Impl\IAll.cs" />
     <Compile Include="Impl\IAny.cs" />
+    <Compile Include="Impl\IAppend.cs" />
     <Compile Include="Impl\IAsEnumerable.cs" />
     <Compile Include="Impl\IAverage.cs" />
     <Compile Include="Impl\IBoxedEnumerable.cs" />
@@ -2645,6 +2965,7 @@
     <Compile Include="Impl\IndexedItemContainer.cs" />
     <Compile Include="Impl\IOfType.cs" />
     <Compile Include="Impl\IOrderBy.cs" />
+    <Compile Include="Impl\IPrepend.cs" />
     <Compile Include="Impl\IReverse.cs" />
     <Compile Include="Impl\ISelect.cs" />
     <Compile Include="Impl\ISelectMany.cs" />
@@ -2656,15 +2977,16 @@
     <Compile Include="Impl\IThenBy.cs" />
     <Compile Include="Impl\IToArray.cs" />
     <Compile Include="Impl\IToDictionary.cs" />
+    <Compile Include="Impl\IToHashSet.cs" />
     <Compile Include="Impl\IToList.cs" />
     <Compile Include="Impl\IToLookup.cs" />
     <Compile Include="Impl\IUnion.cs" />
     <Compile Include="Impl\IWhere.cs" />
     <Compile Include="Impl\IZip.cs" />
     <Compile Include="Impl\LookupHashtable.cs" />
-    <Compile Include="Impl\Operator.cs" />
     <Compile Include="Impl\OrderBySortItem.cs" />
     <Compile Include="Impl\Orderer.cs" />
+    <Compile Include="Impl\StructQueue.cs" />
     <Compile Include="Impl\StructStack.cs" />
     <Compile Include="IntersectDefault.Aggregate.cs">
       <DependentUpon>IntersectDefault.cs</DependentUpon>
@@ -2673,6 +2995,9 @@
       <DependentUpon>IntersectDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="IntersectDefault.Any.cs">
+      <DependentUpon>IntersectDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IntersectDefault.Append.cs">
       <DependentUpon>IntersectDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="IntersectDefault.AsEnumerable.cs">
@@ -2742,6 +3067,9 @@
     <Compile Include="IntersectDefault.OrderBy.cs">
       <DependentUpon>IntersectDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="IntersectDefault.Prepend.cs">
+      <DependentUpon>IntersectDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="IntersectDefault.Reverse.cs">
       <DependentUpon>IntersectDefault.cs</DependentUpon>
     </Compile>
@@ -2772,6 +3100,9 @@
     <Compile Include="IntersectDefault.ToDictionary.cs">
       <DependentUpon>IntersectDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="IntersectDefault.ToHashSet.cs">
+      <DependentUpon>IntersectDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="IntersectDefault.ToList.cs">
       <DependentUpon>IntersectDefault.cs</DependentUpon>
     </Compile>
@@ -2795,6 +3126,9 @@
       <DependentUpon>IntersectSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="IntersectSpecific.Any.cs">
+      <DependentUpon>IntersectSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IntersectSpecific.Append.cs">
       <DependentUpon>IntersectSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="IntersectSpecific.AsEnumerable.cs">
@@ -2864,6 +3198,9 @@
     <Compile Include="IntersectSpecific.OrderBy.cs">
       <DependentUpon>IntersectSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="IntersectSpecific.Prepend.cs">
+      <DependentUpon>IntersectSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="IntersectSpecific.Reverse.cs">
       <DependentUpon>IntersectSpecific.cs</DependentUpon>
     </Compile>
@@ -2894,6 +3231,9 @@
     <Compile Include="IntersectSpecific.ToDictionary.cs">
       <DependentUpon>IntersectSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="IntersectSpecific.ToHashSet.cs">
+      <DependentUpon>IntersectSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="IntersectSpecific.ToList.cs">
       <DependentUpon>IntersectSpecific.cs</DependentUpon>
     </Compile>
@@ -2922,6 +3262,9 @@
       <DependentUpon>JoinDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="JoinDefault.Any.cs">
+      <DependentUpon>JoinDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JoinDefault.Append.cs">
       <DependentUpon>JoinDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="JoinDefault.AsEnumerable.cs">
@@ -2991,6 +3334,9 @@
     <Compile Include="JoinDefault.OrderBy.cs">
       <DependentUpon>JoinDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="JoinDefault.Prepend.cs">
+      <DependentUpon>JoinDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="JoinDefault.Reverse.cs">
       <DependentUpon>JoinDefault.cs</DependentUpon>
     </Compile>
@@ -3021,6 +3367,9 @@
     <Compile Include="JoinDefault.ToDictionary.cs">
       <DependentUpon>JoinDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="JoinDefault.ToHashSet.cs">
+      <DependentUpon>JoinDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="JoinDefault.ToList.cs">
       <DependentUpon>JoinDefault.cs</DependentUpon>
     </Compile>
@@ -3043,6 +3392,9 @@
       <DependentUpon>JoinSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="JoinSpecific.Any.cs">
+      <DependentUpon>JoinSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JoinSpecific.Append.cs">
       <DependentUpon>JoinSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="JoinSpecific.AsEnumerable.cs">
@@ -3112,6 +3464,9 @@
     <Compile Include="JoinSpecific.OrderBy.cs">
       <DependentUpon>JoinSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="JoinSpecific.Prepend.cs">
+      <DependentUpon>JoinSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="JoinSpecific.Reverse.cs">
       <DependentUpon>JoinSpecific.cs</DependentUpon>
     </Compile>
@@ -3142,6 +3497,9 @@
     <Compile Include="JoinSpecific.ToDictionary.cs">
       <DependentUpon>JoinSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="JoinSpecific.ToHashSet.cs">
+      <DependentUpon>JoinSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="JoinSpecific.ToList.cs">
       <DependentUpon>JoinSpecific.cs</DependentUpon>
     </Compile>
@@ -3158,12 +3516,44 @@
       <DependentUpon>JoinSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="LinkedListExtensionMethods.cs" />
+    <Compile Include="LinqAFNew.cs" />
+    <Compile Include="LinqAFNew.HashSet.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFNew.LinkedList.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFNew.List.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFNew.Queue.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFNew.SortedSet.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFNew.Stack.cs">
+      <DependentUpon>LinqAFNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="LinqAFString.Concat.cs">
       <DependentUpon>LinqAFString.cs</DependentUpon>
     </Compile>
     <Compile Include="LinqAFString.cs" />
     <Compile Include="LinqAFString.Join.cs">
       <DependentUpon>LinqAFString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFTask.cs" />
+    <Compile Include="LinqAFTask.WaitAll.cs">
+      <DependentUpon>LinqAFTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFTask.WaitAny.cs">
+      <DependentUpon>LinqAFTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFTask.WhenAll.cs">
+      <DependentUpon>LinqAFTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LinqAFTask.WhenAny.cs">
+      <DependentUpon>LinqAFTask.cs</DependentUpon>
     </Compile>
     <Compile Include="ListExtensionMethods.cs" />
     <Compile Include="LookupDefault.Aggregate.cs">
@@ -3173,6 +3563,9 @@
       <DependentUpon>LookupDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="LookupDefault.Any.cs">
+      <DependentUpon>LookupDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LookupDefault.Append.cs">
       <DependentUpon>LookupDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="LookupDefault.AsEnumerable.cs">
@@ -3242,6 +3635,9 @@
     <Compile Include="LookupDefault.OrderBy.cs">
       <DependentUpon>LookupDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="LookupDefault.Prepend.cs">
+      <DependentUpon>LookupDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="LookupDefault.Reverse.cs">
       <DependentUpon>LookupDefault.cs</DependentUpon>
     </Compile>
@@ -3272,6 +3668,9 @@
     <Compile Include="LookupDefault.ToDictionary.cs">
       <DependentUpon>LookupDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="LookupDefault.ToHashSet.cs">
+      <DependentUpon>LookupDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="LookupDefault.ToList.cs">
       <DependentUpon>LookupDefault.cs</DependentUpon>
     </Compile>
@@ -3295,6 +3694,9 @@
       <DependentUpon>LookupSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="LookupSpecific.Any.cs">
+      <DependentUpon>LookupSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LookupSpecific.Append.cs">
       <DependentUpon>LookupSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="LookupSpecific.AsEnumerable.cs">
@@ -3364,6 +3766,9 @@
     <Compile Include="LookupSpecific.OrderBy.cs">
       <DependentUpon>LookupSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="LookupSpecific.Prepend.cs">
+      <DependentUpon>LookupSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="LookupSpecific.Reverse.cs">
       <DependentUpon>LookupSpecific.cs</DependentUpon>
     </Compile>
@@ -3394,6 +3799,9 @@
     <Compile Include="LookupSpecific.ToDictionary.cs">
       <DependentUpon>LookupSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="LookupSpecific.ToHashSet.cs">
+      <DependentUpon>LookupSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="LookupSpecific.ToList.cs">
       <DependentUpon>LookupSpecific.cs</DependentUpon>
     </Compile>
@@ -3418,6 +3826,9 @@
       <DependentUpon>OfType.cs</DependentUpon>
     </Compile>
     <Compile Include="OfType.Any.cs">
+      <DependentUpon>OfType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OfType.Append.cs">
       <DependentUpon>OfType.cs</DependentUpon>
     </Compile>
     <Compile Include="OfType.AsEnumerable.cs">
@@ -3487,6 +3898,9 @@
     <Compile Include="OfType.OrderBy.cs">
       <DependentUpon>OfType.cs</DependentUpon>
     </Compile>
+    <Compile Include="OfType.Prepend.cs">
+      <DependentUpon>OfType.cs</DependentUpon>
+    </Compile>
     <Compile Include="OfType.Reverse.cs">
       <DependentUpon>OfType.cs</DependentUpon>
     </Compile>
@@ -3517,6 +3931,9 @@
     <Compile Include="OfType.ToDictionary.cs">
       <DependentUpon>OfType.cs</DependentUpon>
     </Compile>
+    <Compile Include="OfType.ToHashSet.cs">
+      <DependentUpon>OfType.cs</DependentUpon>
+    </Compile>
     <Compile Include="OfType.ToList.cs">
       <DependentUpon>OfType.cs</DependentUpon>
     </Compile>
@@ -3540,6 +3957,9 @@
       <DependentUpon>OneItemDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="OneItemDefault.Any.cs">
+      <DependentUpon>OneItemDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OneItemDefault.Append.cs">
       <DependentUpon>OneItemDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="OneItemDefault.AsEnumerable.cs">
@@ -3609,6 +4029,9 @@
     <Compile Include="OneItemDefault.OrderBy.cs">
       <DependentUpon>OneItemDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="OneItemDefault.Prepend.cs">
+      <DependentUpon>OneItemDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="OneItemDefault.Reverse.cs">
       <DependentUpon>OneItemDefault.cs</DependentUpon>
     </Compile>
@@ -3639,6 +4062,9 @@
     <Compile Include="OneItemDefault.ToDictionary.cs">
       <DependentUpon>OneItemDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="OneItemDefault.ToHashSet.cs">
+      <DependentUpon>OneItemDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="OneItemDefault.ToList.cs">
       <DependentUpon>OneItemDefault.cs</DependentUpon>
     </Compile>
@@ -3661,6 +4087,9 @@
       <DependentUpon>OneItemDefaultOrdered.cs</DependentUpon>
     </Compile>
     <Compile Include="OneItemDefaultOrdered.Any.cs">
+      <DependentUpon>OneItemDefaultOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OneItemDefaultOrdered.Append.cs">
       <DependentUpon>OneItemDefaultOrdered.cs</DependentUpon>
     </Compile>
     <Compile Include="OneItemDefaultOrdered.AsEnumerable.cs">
@@ -3730,6 +4159,9 @@
     <Compile Include="OneItemDefaultOrdered.OrderBy.cs">
       <DependentUpon>OneItemDefaultOrdered.cs</DependentUpon>
     </Compile>
+    <Compile Include="OneItemDefaultOrdered.Prepend.cs">
+      <DependentUpon>OneItemDefaultOrdered.cs</DependentUpon>
+    </Compile>
     <Compile Include="OneItemDefaultOrdered.Reverse.cs">
       <DependentUpon>OneItemDefaultOrdered.cs</DependentUpon>
     </Compile>
@@ -3763,6 +4195,9 @@
     <Compile Include="OneItemDefaultOrdered.ToDictionary.cs">
       <DependentUpon>OneItemDefaultOrdered.cs</DependentUpon>
     </Compile>
+    <Compile Include="OneItemDefaultOrdered.ToHashSet.cs">
+      <DependentUpon>OneItemDefaultOrdered.cs</DependentUpon>
+    </Compile>
     <Compile Include="OneItemDefaultOrdered.ToList.cs">
       <DependentUpon>OneItemDefaultOrdered.cs</DependentUpon>
     </Compile>
@@ -3785,6 +4220,9 @@
       <DependentUpon>OneItemSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="OneItemSpecific.Any.cs">
+      <DependentUpon>OneItemSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OneItemSpecific.Append.cs">
       <DependentUpon>OneItemSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="OneItemSpecific.AsEnumerable.cs">
@@ -3854,6 +4292,9 @@
     <Compile Include="OneItemSpecific.OrderBy.cs">
       <DependentUpon>OneItemSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="OneItemSpecific.Prepend.cs">
+      <DependentUpon>OneItemSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="OneItemSpecific.Reverse.cs">
       <DependentUpon>OneItemSpecific.cs</DependentUpon>
     </Compile>
@@ -3884,6 +4325,9 @@
     <Compile Include="OneItemSpecific.ToDictionary.cs">
       <DependentUpon>OneItemSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="OneItemSpecific.ToHashSet.cs">
+      <DependentUpon>OneItemSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="OneItemSpecific.ToList.cs">
       <DependentUpon>OneItemSpecific.cs</DependentUpon>
     </Compile>
@@ -3906,6 +4350,9 @@
       <DependentUpon>OneItemSpecificOrdered.cs</DependentUpon>
     </Compile>
     <Compile Include="OneItemSpecificOrdered.Any.cs">
+      <DependentUpon>OneItemSpecificOrdered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OneItemSpecificOrdered.Append.cs">
       <DependentUpon>OneItemSpecificOrdered.cs</DependentUpon>
     </Compile>
     <Compile Include="OneItemSpecificOrdered.AsEnumerable.cs">
@@ -3975,6 +4422,9 @@
     <Compile Include="OneItemSpecificOrdered.OrderBy.cs">
       <DependentUpon>OneItemSpecificOrdered.cs</DependentUpon>
     </Compile>
+    <Compile Include="OneItemSpecificOrdered.Prepend.cs">
+      <DependentUpon>OneItemSpecificOrdered.cs</DependentUpon>
+    </Compile>
     <Compile Include="OneItemSpecificOrdered.Reverse.cs">
       <DependentUpon>OneItemSpecificOrdered.cs</DependentUpon>
     </Compile>
@@ -4008,6 +4458,9 @@
     <Compile Include="OneItemSpecificOrdered.ToDictionary.cs">
       <DependentUpon>OneItemSpecificOrdered.cs</DependentUpon>
     </Compile>
+    <Compile Include="OneItemSpecificOrdered.ToHashSet.cs">
+      <DependentUpon>OneItemSpecificOrdered.cs</DependentUpon>
+    </Compile>
     <Compile Include="OneItemSpecificOrdered.ToList.cs">
       <DependentUpon>OneItemSpecificOrdered.cs</DependentUpon>
     </Compile>
@@ -4030,6 +4483,9 @@
       <DependentUpon>OrderBy.cs</DependentUpon>
     </Compile>
     <Compile Include="OrderBy.Any.cs">
+      <DependentUpon>OrderBy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderBy.Append.cs">
       <DependentUpon>OrderBy.cs</DependentUpon>
     </Compile>
     <Compile Include="OrderBy.AsEnumerable.cs">
@@ -4099,6 +4555,9 @@
     <Compile Include="OrderBy.OrderBy.cs">
       <DependentUpon>OrderBy.cs</DependentUpon>
     </Compile>
+    <Compile Include="OrderBy.Prepend.cs">
+      <DependentUpon>OrderBy.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderBy.Reverse.cs">
       <DependentUpon>OrderBy.cs</DependentUpon>
     </Compile>
@@ -4132,6 +4591,9 @@
     <Compile Include="OrderBy.ToDictionary.cs">
       <DependentUpon>OrderBy.cs</DependentUpon>
     </Compile>
+    <Compile Include="OrderBy.ToHashSet.cs">
+      <DependentUpon>OrderBy.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderBy.ToList.cs">
       <DependentUpon>OrderBy.cs</DependentUpon>
     </Compile>
@@ -4148,6 +4610,136 @@
       <DependentUpon>OrderBy.cs</DependentUpon>
     </Compile>
     <Compile Include="Predicates.cs" />
+    <Compile Include="Prepend.Aggregate.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.All.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Any.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Append.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.AsEnumerable.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Average.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Boxing.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Cast.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Concat.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Contains.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Count.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.cs" />
+    <Compile Include="Prepend.DefaultIfEmpty.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Distinct.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.ElementAt.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Enumerator.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Except.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.First.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.GroupBy.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.GroupJoin.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Intersect.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Join.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Last.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Max.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Min.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.OfType.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.OrderBy.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Prepend.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Reverse.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Select.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.SelectMany.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.SequenceEqual.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Single.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Skip.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Sum.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Take.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.ToArray.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.ToDictionary.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.ToHashSet.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.ToList.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.ToLookup.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Union.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Where.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prepend.Zip.cs">
+      <DependentUpon>Prepend.cs</DependentUpon>
+    </Compile>
     <Compile Include="Projections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queryable.cs" />
@@ -4159,6 +4751,9 @@
       <DependentUpon>Range.cs</DependentUpon>
     </Compile>
     <Compile Include="Range.Any.cs">
+      <DependentUpon>Range.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Range.Append.cs">
       <DependentUpon>Range.cs</DependentUpon>
     </Compile>
     <Compile Include="Range.AsEnumerable.cs">
@@ -4228,6 +4823,9 @@
     <Compile Include="Range.OrderBy.cs">
       <DependentUpon>Range.cs</DependentUpon>
     </Compile>
+    <Compile Include="Range.Prepend.cs">
+      <DependentUpon>Range.cs</DependentUpon>
+    </Compile>
     <Compile Include="Range.Reverse.cs">
       <DependentUpon>Range.cs</DependentUpon>
     </Compile>
@@ -4258,6 +4856,9 @@
     <Compile Include="Range.ToDictionary.cs">
       <DependentUpon>Range.cs</DependentUpon>
     </Compile>
+    <Compile Include="Range.ToHashSet.cs">
+      <DependentUpon>Range.cs</DependentUpon>
+    </Compile>
     <Compile Include="Range.ToList.cs">
       <DependentUpon>Range.cs</DependentUpon>
     </Compile>
@@ -4273,6 +4874,7 @@
     <Compile Include="Range.Zip.cs">
       <DependentUpon>Range.cs</DependentUpon>
     </Compile>
+    <Compile Include="RangeExtensionMethods.cs" />
     <Compile Include="Repeat.Aggregate.cs">
       <DependentUpon>Repeat.cs</DependentUpon>
     </Compile>
@@ -4280,6 +4882,9 @@
       <DependentUpon>Repeat.cs</DependentUpon>
     </Compile>
     <Compile Include="Repeat.Any.cs">
+      <DependentUpon>Repeat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repeat.Append.cs">
       <DependentUpon>Repeat.cs</DependentUpon>
     </Compile>
     <Compile Include="Repeat.AsEnumerable.cs">
@@ -4349,6 +4954,9 @@
     <Compile Include="Repeat.OrderBy.cs">
       <DependentUpon>Repeat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repeat.Prepend.cs">
+      <DependentUpon>Repeat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repeat.Reverse.cs">
       <DependentUpon>Repeat.cs</DependentUpon>
     </Compile>
@@ -4379,6 +4987,9 @@
     <Compile Include="Repeat.ToDictionary.cs">
       <DependentUpon>Repeat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repeat.ToHashSet.cs">
+      <DependentUpon>Repeat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repeat.ToList.cs">
       <DependentUpon>Repeat.cs</DependentUpon>
     </Compile>
@@ -4401,6 +5012,9 @@
       <DependentUpon>Reverse.cs</DependentUpon>
     </Compile>
     <Compile Include="Reverse.Any.cs">
+      <DependentUpon>Reverse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reverse.Append.cs">
       <DependentUpon>Reverse.cs</DependentUpon>
     </Compile>
     <Compile Include="Reverse.AsEnumerable.cs">
@@ -4470,6 +5084,9 @@
     <Compile Include="Reverse.OrderBy.cs">
       <DependentUpon>Reverse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reverse.Prepend.cs">
+      <DependentUpon>Reverse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reverse.Reverse.cs">
       <DependentUpon>Reverse.cs</DependentUpon>
     </Compile>
@@ -4500,6 +5117,9 @@
     <Compile Include="Reverse.ToDictionary.cs">
       <DependentUpon>Reverse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reverse.ToHashSet.cs">
+      <DependentUpon>Reverse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reverse.ToList.cs">
       <DependentUpon>Reverse.cs</DependentUpon>
     </Compile>
@@ -4522,6 +5142,9 @@
       <DependentUpon>ReverseRange.cs</DependentUpon>
     </Compile>
     <Compile Include="ReverseRange.Any.cs">
+      <DependentUpon>ReverseRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReverseRange.Append.cs">
       <DependentUpon>ReverseRange.cs</DependentUpon>
     </Compile>
     <Compile Include="ReverseRange.AsEnumerable.cs">
@@ -4591,6 +5214,9 @@
     <Compile Include="ReverseRange.OrderBy.cs">
       <DependentUpon>ReverseRange.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReverseRange.Prepend.cs">
+      <DependentUpon>ReverseRange.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReverseRange.Reverse.cs">
       <DependentUpon>ReverseRange.cs</DependentUpon>
     </Compile>
@@ -4621,6 +5247,9 @@
     <Compile Include="ReverseRange.ToDictionary.cs">
       <DependentUpon>ReverseRange.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReverseRange.ToHashSet.cs">
+      <DependentUpon>ReverseRange.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReverseRange.ToList.cs">
       <DependentUpon>ReverseRange.cs</DependentUpon>
     </Compile>
@@ -4636,6 +5265,7 @@
     <Compile Include="ReverseRange.Zip.cs">
       <DependentUpon>ReverseRange.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReverseRangeExtensionMethods.cs" />
     <Compile Include="Select.Aggregate.cs">
       <DependentUpon>Select.cs</DependentUpon>
     </Compile>
@@ -4643,6 +5273,9 @@
       <DependentUpon>Select.cs</DependentUpon>
     </Compile>
     <Compile Include="Select.Any.cs">
+      <DependentUpon>Select.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Select.Append.cs">
       <DependentUpon>Select.cs</DependentUpon>
     </Compile>
     <Compile Include="Select.AsEnumerable.cs">
@@ -4712,6 +5345,9 @@
     <Compile Include="Select.OrderBy.cs">
       <DependentUpon>Select.cs</DependentUpon>
     </Compile>
+    <Compile Include="Select.Prepend.cs">
+      <DependentUpon>Select.cs</DependentUpon>
+    </Compile>
     <Compile Include="Select.Reverse.cs">
       <DependentUpon>Select.cs</DependentUpon>
     </Compile>
@@ -4742,6 +5378,9 @@
     <Compile Include="Select.ToDictionary.cs">
       <DependentUpon>Select.cs</DependentUpon>
     </Compile>
+    <Compile Include="Select.ToHashSet.cs">
+      <DependentUpon>Select.cs</DependentUpon>
+    </Compile>
     <Compile Include="Select.ToList.cs">
       <DependentUpon>Select.cs</DependentUpon>
     </Compile>
@@ -4764,6 +5403,9 @@
       <DependentUpon>SelectIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectIndexed.Any.cs">
+      <DependentUpon>SelectIndexed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectIndexed.Append.cs">
       <DependentUpon>SelectIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectIndexed.AsEnumerable.cs">
@@ -4833,6 +5475,9 @@
     <Compile Include="SelectIndexed.OrderBy.cs">
       <DependentUpon>SelectIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectIndexed.Prepend.cs">
+      <DependentUpon>SelectIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectIndexed.Reverse.cs">
       <DependentUpon>SelectIndexed.cs</DependentUpon>
     </Compile>
@@ -4863,6 +5508,9 @@
     <Compile Include="SelectIndexed.ToDictionary.cs">
       <DependentUpon>SelectIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectIndexed.ToHashSet.cs">
+      <DependentUpon>SelectIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectIndexed.ToList.cs">
       <DependentUpon>SelectIndexed.cs</DependentUpon>
     </Compile>
@@ -4885,6 +5533,9 @@
       <DependentUpon>SelectMany.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectMany.Any.cs">
+      <DependentUpon>SelectMany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectMany.Append.cs">
       <DependentUpon>SelectMany.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectMany.AsEnumerable.cs">
@@ -4954,6 +5605,9 @@
     <Compile Include="SelectMany.OrderBy.cs">
       <DependentUpon>SelectMany.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectMany.Prepend.cs">
+      <DependentUpon>SelectMany.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectMany.Reverse.cs">
       <DependentUpon>SelectMany.cs</DependentUpon>
     </Compile>
@@ -4984,6 +5638,9 @@
     <Compile Include="SelectMany.ToDictionary.cs">
       <DependentUpon>SelectMany.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectMany.ToHashSet.cs">
+      <DependentUpon>SelectMany.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectMany.ToList.cs">
       <DependentUpon>SelectMany.cs</DependentUpon>
     </Compile>
@@ -5006,6 +5663,9 @@
       <DependentUpon>SelectManyBridge.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyBridge.Any.cs">
+      <DependentUpon>SelectManyBridge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectManyBridge.Append.cs">
       <DependentUpon>SelectManyBridge.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyBridge.AsEnumerable.cs">
@@ -5075,6 +5735,9 @@
     <Compile Include="SelectManyBridge.OrderBy.cs">
       <DependentUpon>SelectManyBridge.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyBridge.Prepend.cs">
+      <DependentUpon>SelectManyBridge.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyBridge.Reverse.cs">
       <DependentUpon>SelectManyBridge.cs</DependentUpon>
     </Compile>
@@ -5105,6 +5768,9 @@
     <Compile Include="SelectManyBridge.ToDictionary.cs">
       <DependentUpon>SelectManyBridge.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyBridge.ToHashSet.cs">
+      <DependentUpon>SelectManyBridge.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyBridge.ToList.cs">
       <DependentUpon>SelectManyBridge.cs</DependentUpon>
     </Compile>
@@ -5127,6 +5793,9 @@
       <DependentUpon>SelectManyCollection.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyCollection.Any.cs">
+      <DependentUpon>SelectManyCollection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectManyCollection.Append.cs">
       <DependentUpon>SelectManyCollection.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyCollection.AsEnumerable.cs">
@@ -5196,6 +5865,9 @@
     <Compile Include="SelectManyCollection.OrderBy.cs">
       <DependentUpon>SelectManyCollection.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyCollection.Prepend.cs">
+      <DependentUpon>SelectManyCollection.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyCollection.Reverse.cs">
       <DependentUpon>SelectManyCollection.cs</DependentUpon>
     </Compile>
@@ -5226,6 +5898,9 @@
     <Compile Include="SelectManyCollection.ToDictionary.cs">
       <DependentUpon>SelectManyCollection.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyCollection.ToHashSet.cs">
+      <DependentUpon>SelectManyCollection.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyCollection.ToList.cs">
       <DependentUpon>SelectManyCollection.cs</DependentUpon>
     </Compile>
@@ -5248,6 +5923,9 @@
       <DependentUpon>SelectManyCollectionBridge.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyCollectionBridge.Any.cs">
+      <DependentUpon>SelectManyCollectionBridge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectManyCollectionBridge.Append.cs">
       <DependentUpon>SelectManyCollectionBridge.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyCollectionBridge.AsEnumerable.cs">
@@ -5317,6 +5995,9 @@
     <Compile Include="SelectManyCollectionBridge.OrderBy.cs">
       <DependentUpon>SelectManyCollectionBridge.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyCollectionBridge.Prepend.cs">
+      <DependentUpon>SelectManyCollectionBridge.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyCollectionBridge.Reverse.cs">
       <DependentUpon>SelectManyCollectionBridge.cs</DependentUpon>
     </Compile>
@@ -5347,6 +6028,9 @@
     <Compile Include="SelectManyCollectionBridge.ToDictionary.cs">
       <DependentUpon>SelectManyCollectionBridge.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyCollectionBridge.ToHashSet.cs">
+      <DependentUpon>SelectManyCollectionBridge.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyCollectionBridge.ToList.cs">
       <DependentUpon>SelectManyCollectionBridge.cs</DependentUpon>
     </Compile>
@@ -5369,6 +6053,9 @@
       <DependentUpon>SelectManyCollectionIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyCollectionIndexed.Any.cs">
+      <DependentUpon>SelectManyCollectionIndexed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectManyCollectionIndexed.Append.cs">
       <DependentUpon>SelectManyCollectionIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyCollectionIndexed.AsEnumerable.cs">
@@ -5438,6 +6125,9 @@
     <Compile Include="SelectManyCollectionIndexed.OrderBy.cs">
       <DependentUpon>SelectManyCollectionIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyCollectionIndexed.Prepend.cs">
+      <DependentUpon>SelectManyCollectionIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyCollectionIndexed.Reverse.cs">
       <DependentUpon>SelectManyCollectionIndexed.cs</DependentUpon>
     </Compile>
@@ -5468,6 +6158,9 @@
     <Compile Include="SelectManyCollectionIndexed.ToDictionary.cs">
       <DependentUpon>SelectManyCollectionIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyCollectionIndexed.ToHashSet.cs">
+      <DependentUpon>SelectManyCollectionIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyCollectionIndexed.ToList.cs">
       <DependentUpon>SelectManyCollectionIndexed.cs</DependentUpon>
     </Compile>
@@ -5490,6 +6183,9 @@
       <DependentUpon>SelectManyCollectionIndexedBridge.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyCollectionIndexedBridge.Any.cs">
+      <DependentUpon>SelectManyCollectionIndexedBridge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectManyCollectionIndexedBridge.Append.cs">
       <DependentUpon>SelectManyCollectionIndexedBridge.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyCollectionIndexedBridge.AsEnumerable.cs">
@@ -5559,6 +6255,9 @@
     <Compile Include="SelectManyCollectionIndexedBridge.OrderBy.cs">
       <DependentUpon>SelectManyCollectionIndexedBridge.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyCollectionIndexedBridge.Prepend.cs">
+      <DependentUpon>SelectManyCollectionIndexedBridge.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyCollectionIndexedBridge.Reverse.cs">
       <DependentUpon>SelectManyCollectionIndexedBridge.cs</DependentUpon>
     </Compile>
@@ -5589,6 +6288,9 @@
     <Compile Include="SelectManyCollectionIndexedBridge.ToDictionary.cs">
       <DependentUpon>SelectManyCollectionIndexedBridge.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyCollectionIndexedBridge.ToHashSet.cs">
+      <DependentUpon>SelectManyCollectionIndexedBridge.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyCollectionIndexedBridge.ToList.cs">
       <DependentUpon>SelectManyCollectionIndexedBridge.cs</DependentUpon>
     </Compile>
@@ -5611,6 +6313,9 @@
       <DependentUpon>SelectManyIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyIndexed.Any.cs">
+      <DependentUpon>SelectManyIndexed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectManyIndexed.Append.cs">
       <DependentUpon>SelectManyIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyIndexed.AsEnumerable.cs">
@@ -5680,6 +6385,9 @@
     <Compile Include="SelectManyIndexed.OrderBy.cs">
       <DependentUpon>SelectManyIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyIndexed.Prepend.cs">
+      <DependentUpon>SelectManyIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyIndexed.Reverse.cs">
       <DependentUpon>SelectManyIndexed.cs</DependentUpon>
     </Compile>
@@ -5710,6 +6418,9 @@
     <Compile Include="SelectManyIndexed.ToDictionary.cs">
       <DependentUpon>SelectManyIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyIndexed.ToHashSet.cs">
+      <DependentUpon>SelectManyIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyIndexed.ToList.cs">
       <DependentUpon>SelectManyIndexed.cs</DependentUpon>
     </Compile>
@@ -5732,6 +6443,9 @@
       <DependentUpon>SelectManyIndexedBridge.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyIndexedBridge.Any.cs">
+      <DependentUpon>SelectManyIndexedBridge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectManyIndexedBridge.Append.cs">
       <DependentUpon>SelectManyIndexedBridge.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectManyIndexedBridge.AsEnumerable.cs">
@@ -5801,6 +6515,9 @@
     <Compile Include="SelectManyIndexedBridge.OrderBy.cs">
       <DependentUpon>SelectManyIndexedBridge.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyIndexedBridge.Prepend.cs">
+      <DependentUpon>SelectManyIndexedBridge.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyIndexedBridge.Reverse.cs">
       <DependentUpon>SelectManyIndexedBridge.cs</DependentUpon>
     </Compile>
@@ -5831,6 +6548,9 @@
     <Compile Include="SelectManyIndexedBridge.ToDictionary.cs">
       <DependentUpon>SelectManyIndexedBridge.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectManyIndexedBridge.ToHashSet.cs">
+      <DependentUpon>SelectManyIndexedBridge.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectManyIndexedBridge.ToList.cs">
       <DependentUpon>SelectManyIndexedBridge.cs</DependentUpon>
     </Compile>
@@ -5853,6 +6573,9 @@
       <DependentUpon>SelectSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectSelect.Any.cs">
+      <DependentUpon>SelectSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectSelect.Append.cs">
       <DependentUpon>SelectSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectSelect.AsEnumerable.cs">
@@ -5922,6 +6645,9 @@
     <Compile Include="SelectSelect.OrderBy.cs">
       <DependentUpon>SelectSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectSelect.Prepend.cs">
+      <DependentUpon>SelectSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectSelect.Reverse.cs">
       <DependentUpon>SelectSelect.cs</DependentUpon>
     </Compile>
@@ -5952,6 +6678,9 @@
     <Compile Include="SelectSelect.ToDictionary.cs">
       <DependentUpon>SelectSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectSelect.ToHashSet.cs">
+      <DependentUpon>SelectSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectSelect.ToList.cs">
       <DependentUpon>SelectSelect.cs</DependentUpon>
     </Compile>
@@ -5974,6 +6703,9 @@
       <DependentUpon>SelectWhere.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectWhere.Any.cs">
+      <DependentUpon>SelectWhere.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectWhere.Append.cs">
       <DependentUpon>SelectWhere.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectWhere.AsEnumerable.cs">
@@ -6043,6 +6775,9 @@
     <Compile Include="SelectWhere.OrderBy.cs">
       <DependentUpon>SelectWhere.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectWhere.Prepend.cs">
+      <DependentUpon>SelectWhere.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectWhere.Reverse.cs">
       <DependentUpon>SelectWhere.cs</DependentUpon>
     </Compile>
@@ -6073,6 +6808,9 @@
     <Compile Include="SelectWhere.ToDictionary.cs">
       <DependentUpon>SelectWhere.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectWhere.ToHashSet.cs">
+      <DependentUpon>SelectWhere.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectWhere.ToList.cs">
       <DependentUpon>SelectWhere.cs</DependentUpon>
     </Compile>
@@ -6096,6 +6834,9 @@
       <DependentUpon>Skip.cs</DependentUpon>
     </Compile>
     <Compile Include="Skip.Any.cs">
+      <DependentUpon>Skip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Skip.Append.cs">
       <DependentUpon>Skip.cs</DependentUpon>
     </Compile>
     <Compile Include="Skip.AsEnumerable.cs">
@@ -6165,6 +6906,9 @@
     <Compile Include="Skip.OrderBy.cs">
       <DependentUpon>Skip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Skip.Prepend.cs">
+      <DependentUpon>Skip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Skip.Reverse.cs">
       <DependentUpon>Skip.cs</DependentUpon>
     </Compile>
@@ -6195,6 +6939,9 @@
     <Compile Include="Skip.ToDictionary.cs">
       <DependentUpon>Skip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Skip.ToHashSet.cs">
+      <DependentUpon>Skip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Skip.ToList.cs">
       <DependentUpon>Skip.cs</DependentUpon>
     </Compile>
@@ -6210,6 +6957,136 @@
     <Compile Include="Skip.Zip.cs">
       <DependentUpon>Skip.cs</DependentUpon>
     </Compile>
+    <Compile Include="SkipLast.Aggregate.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.All.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Any.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Append.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.AsEnumerable.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Average.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Boxing.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Cast.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Concat.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Contains.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Count.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.cs" />
+    <Compile Include="SkipLast.DefaultIfEmpty.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Distinct.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.ElementAt.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Enumerator.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Except.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.First.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.GroupBy.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.GroupJoin.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Intersect.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Join.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Last.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Max.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Min.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.OfType.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.OrderBy.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Prepend.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Reverse.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Select.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.SelectMany.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.SequenceEqual.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Single.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Skip.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Sum.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Take.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.ToArray.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.ToDictionary.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.ToHashSet.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.ToList.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.ToLookup.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Union.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Where.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipLast.Zip.cs">
+      <DependentUpon>SkipLast.cs</DependentUpon>
+    </Compile>
     <Compile Include="SkipWhile.Aggregate.cs">
       <DependentUpon>SkipWhile.cs</DependentUpon>
     </Compile>
@@ -6217,6 +7094,9 @@
       <DependentUpon>SkipWhile.cs</DependentUpon>
     </Compile>
     <Compile Include="SkipWhile.Any.cs">
+      <DependentUpon>SkipWhile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipWhile.Append.cs">
       <DependentUpon>SkipWhile.cs</DependentUpon>
     </Compile>
     <Compile Include="SkipWhile.AsEnumerable.cs">
@@ -6286,6 +7166,9 @@
     <Compile Include="SkipWhile.OrderBy.cs">
       <DependentUpon>SkipWhile.cs</DependentUpon>
     </Compile>
+    <Compile Include="SkipWhile.Prepend.cs">
+      <DependentUpon>SkipWhile.cs</DependentUpon>
+    </Compile>
     <Compile Include="SkipWhile.Reverse.cs">
       <DependentUpon>SkipWhile.cs</DependentUpon>
     </Compile>
@@ -6316,6 +7199,9 @@
     <Compile Include="SkipWhile.ToDictionary.cs">
       <DependentUpon>SkipWhile.cs</DependentUpon>
     </Compile>
+    <Compile Include="SkipWhile.ToHashSet.cs">
+      <DependentUpon>SkipWhile.cs</DependentUpon>
+    </Compile>
     <Compile Include="SkipWhile.ToList.cs">
       <DependentUpon>SkipWhile.cs</DependentUpon>
     </Compile>
@@ -6338,6 +7224,9 @@
       <DependentUpon>SkipWhileIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="SkipWhileIndexed.Any.cs">
+      <DependentUpon>SkipWhileIndexed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkipWhileIndexed.Append.cs">
       <DependentUpon>SkipWhileIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="SkipWhileIndexed.AsEnumerable.cs">
@@ -6407,6 +7296,9 @@
     <Compile Include="SkipWhileIndexed.OrderBy.cs">
       <DependentUpon>SkipWhileIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="SkipWhileIndexed.Prepend.cs">
+      <DependentUpon>SkipWhileIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="SkipWhileIndexed.Reverse.cs">
       <DependentUpon>SkipWhileIndexed.cs</DependentUpon>
     </Compile>
@@ -6437,6 +7329,9 @@
     <Compile Include="SkipWhileIndexed.ToDictionary.cs">
       <DependentUpon>SkipWhileIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="SkipWhileIndexed.ToHashSet.cs">
+      <DependentUpon>SkipWhileIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="SkipWhileIndexed.ToList.cs">
       <DependentUpon>SkipWhileIndexed.cs</DependentUpon>
     </Compile>
@@ -6464,6 +7359,9 @@
       <DependentUpon>Take.cs</DependentUpon>
     </Compile>
     <Compile Include="Take.Any.cs">
+      <DependentUpon>Take.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Take.Append.cs">
       <DependentUpon>Take.cs</DependentUpon>
     </Compile>
     <Compile Include="Take.AsEnumerable.cs">
@@ -6533,6 +7431,9 @@
     <Compile Include="Take.OrderBy.cs">
       <DependentUpon>Take.cs</DependentUpon>
     </Compile>
+    <Compile Include="Take.Prepend.cs">
+      <DependentUpon>Take.cs</DependentUpon>
+    </Compile>
     <Compile Include="Take.Reverse.cs">
       <DependentUpon>Take.cs</DependentUpon>
     </Compile>
@@ -6563,6 +7464,9 @@
     <Compile Include="Take.ToDictionary.cs">
       <DependentUpon>Take.cs</DependentUpon>
     </Compile>
+    <Compile Include="Take.ToHashSet.cs">
+      <DependentUpon>Take.cs</DependentUpon>
+    </Compile>
     <Compile Include="Take.ToList.cs">
       <DependentUpon>Take.cs</DependentUpon>
     </Compile>
@@ -6578,6 +7482,136 @@
     <Compile Include="Take.Zip.cs">
       <DependentUpon>Take.cs</DependentUpon>
     </Compile>
+    <Compile Include="TakeLast.Aggregate.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.All.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Any.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Append.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.AsEnumerable.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Average.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Boxing.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Cast.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Concat.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Contains.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Count.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.cs" />
+    <Compile Include="TakeLast.DefaultIfEmpty.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Distinct.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.ElementAt.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Enumerator.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Except.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.First.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.GroupBy.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.GroupJoin.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Intersect.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Join.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Last.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Max.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Min.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.OfType.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.OrderBy.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Prepend.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Reverse.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Select.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.SelectMany.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.SequenceEqual.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Single.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Skip.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Sum.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Take.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.ToArray.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.ToDictionary.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.ToHashSet.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.ToList.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.ToLookup.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Union.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Where.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeLast.Zip.cs">
+      <DependentUpon>TakeLast.cs</DependentUpon>
+    </Compile>
     <Compile Include="TakeWhile.Aggregate.cs">
       <DependentUpon>TakeWhile.cs</DependentUpon>
     </Compile>
@@ -6585,6 +7619,9 @@
       <DependentUpon>TakeWhile.cs</DependentUpon>
     </Compile>
     <Compile Include="TakeWhile.Any.cs">
+      <DependentUpon>TakeWhile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeWhile.Append.cs">
       <DependentUpon>TakeWhile.cs</DependentUpon>
     </Compile>
     <Compile Include="TakeWhile.AsEnumerable.cs">
@@ -6654,6 +7691,9 @@
     <Compile Include="TakeWhile.OrderBy.cs">
       <DependentUpon>TakeWhile.cs</DependentUpon>
     </Compile>
+    <Compile Include="TakeWhile.Prepend.cs">
+      <DependentUpon>TakeWhile.cs</DependentUpon>
+    </Compile>
     <Compile Include="TakeWhile.Reverse.cs">
       <DependentUpon>TakeWhile.cs</DependentUpon>
     </Compile>
@@ -6684,6 +7724,9 @@
     <Compile Include="TakeWhile.ToDictionary.cs">
       <DependentUpon>TakeWhile.cs</DependentUpon>
     </Compile>
+    <Compile Include="TakeWhile.ToHashSet.cs">
+      <DependentUpon>TakeWhile.cs</DependentUpon>
+    </Compile>
     <Compile Include="TakeWhile.ToList.cs">
       <DependentUpon>TakeWhile.cs</DependentUpon>
     </Compile>
@@ -6706,6 +7749,9 @@
       <DependentUpon>TakeWhileIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="TakeWhileIndexed.Any.cs">
+      <DependentUpon>TakeWhileIndexed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakeWhileIndexed.Append.cs">
       <DependentUpon>TakeWhileIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="TakeWhileIndexed.AsEnumerable.cs">
@@ -6775,6 +7821,9 @@
     <Compile Include="TakeWhileIndexed.OrderBy.cs">
       <DependentUpon>TakeWhileIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="TakeWhileIndexed.Prepend.cs">
+      <DependentUpon>TakeWhileIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="TakeWhileIndexed.Reverse.cs">
       <DependentUpon>TakeWhileIndexed.cs</DependentUpon>
     </Compile>
@@ -6805,6 +7854,9 @@
     <Compile Include="TakeWhileIndexed.ToDictionary.cs">
       <DependentUpon>TakeWhileIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="TakeWhileIndexed.ToHashSet.cs">
+      <DependentUpon>TakeWhileIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="TakeWhileIndexed.ToList.cs">
       <DependentUpon>TakeWhileIndexed.cs</DependentUpon>
     </Compile>
@@ -6827,6 +7879,9 @@
       <DependentUpon>UnionDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="UnionDefault.Any.cs">
+      <DependentUpon>UnionDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnionDefault.Append.cs">
       <DependentUpon>UnionDefault.cs</DependentUpon>
     </Compile>
     <Compile Include="UnionDefault.AsEnumerable.cs">
@@ -6896,6 +7951,9 @@
     <Compile Include="UnionDefault.OrderBy.cs">
       <DependentUpon>UnionDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="UnionDefault.Prepend.cs">
+      <DependentUpon>UnionDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="UnionDefault.Reverse.cs">
       <DependentUpon>UnionDefault.cs</DependentUpon>
     </Compile>
@@ -6926,6 +7984,9 @@
     <Compile Include="UnionDefault.ToDictionary.cs">
       <DependentUpon>UnionDefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="UnionDefault.ToHashSet.cs">
+      <DependentUpon>UnionDefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="UnionDefault.ToList.cs">
       <DependentUpon>UnionDefault.cs</DependentUpon>
     </Compile>
@@ -6949,6 +8010,9 @@
       <DependentUpon>UnionSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="UnionSpecific.Any.cs">
+      <DependentUpon>UnionSpecific.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnionSpecific.Append.cs">
       <DependentUpon>UnionSpecific.cs</DependentUpon>
     </Compile>
     <Compile Include="UnionSpecific.AsEnumerable.cs">
@@ -7018,6 +8082,9 @@
     <Compile Include="UnionSpecific.OrderBy.cs">
       <DependentUpon>UnionSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="UnionSpecific.Prepend.cs">
+      <DependentUpon>UnionSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="UnionSpecific.Reverse.cs">
       <DependentUpon>UnionSpecific.cs</DependentUpon>
     </Compile>
@@ -7048,6 +8115,9 @@
     <Compile Include="UnionSpecific.ToDictionary.cs">
       <DependentUpon>UnionSpecific.cs</DependentUpon>
     </Compile>
+    <Compile Include="UnionSpecific.ToHashSet.cs">
+      <DependentUpon>UnionSpecific.cs</DependentUpon>
+    </Compile>
     <Compile Include="UnionSpecific.ToList.cs">
       <DependentUpon>UnionSpecific.cs</DependentUpon>
     </Compile>
@@ -7070,6 +8140,9 @@
       <DependentUpon>Where.cs</DependentUpon>
     </Compile>
     <Compile Include="Where.Any.cs">
+      <DependentUpon>Where.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Where.Append.cs">
       <DependentUpon>Where.cs</DependentUpon>
     </Compile>
     <Compile Include="Where.AsEnumerable.cs">
@@ -7139,6 +8212,9 @@
     <Compile Include="Where.OrderBy.cs">
       <DependentUpon>Where.cs</DependentUpon>
     </Compile>
+    <Compile Include="Where.Prepend.cs">
+      <DependentUpon>Where.cs</DependentUpon>
+    </Compile>
     <Compile Include="Where.Reverse.cs">
       <DependentUpon>Where.cs</DependentUpon>
     </Compile>
@@ -7169,6 +8245,9 @@
     <Compile Include="Where.ToDictionary.cs">
       <DependentUpon>Where.cs</DependentUpon>
     </Compile>
+    <Compile Include="Where.ToHashSet.cs">
+      <DependentUpon>Where.cs</DependentUpon>
+    </Compile>
     <Compile Include="Where.ToList.cs">
       <DependentUpon>Where.cs</DependentUpon>
     </Compile>
@@ -7191,6 +8270,9 @@
       <DependentUpon>WhereIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="WhereIndexed.Any.cs">
+      <DependentUpon>WhereIndexed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WhereIndexed.Append.cs">
       <DependentUpon>WhereIndexed.cs</DependentUpon>
     </Compile>
     <Compile Include="WhereIndexed.AsEnumerable.cs">
@@ -7260,6 +8342,9 @@
     <Compile Include="WhereIndexed.OrderBy.cs">
       <DependentUpon>WhereIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="WhereIndexed.Prepend.cs">
+      <DependentUpon>WhereIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="WhereIndexed.Reverse.cs">
       <DependentUpon>WhereIndexed.cs</DependentUpon>
     </Compile>
@@ -7290,6 +8375,9 @@
     <Compile Include="WhereIndexed.ToDictionary.cs">
       <DependentUpon>WhereIndexed.cs</DependentUpon>
     </Compile>
+    <Compile Include="WhereIndexed.ToHashSet.cs">
+      <DependentUpon>WhereIndexed.cs</DependentUpon>
+    </Compile>
     <Compile Include="WhereIndexed.ToList.cs">
       <DependentUpon>WhereIndexed.cs</DependentUpon>
     </Compile>
@@ -7312,6 +8400,9 @@
       <DependentUpon>WhereSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="WhereSelect.Any.cs">
+      <DependentUpon>WhereSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WhereSelect.Append.cs">
       <DependentUpon>WhereSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="WhereSelect.AsEnumerable.cs">
@@ -7381,6 +8472,9 @@
     <Compile Include="WhereSelect.OrderBy.cs">
       <DependentUpon>WhereSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="WhereSelect.Prepend.cs">
+      <DependentUpon>WhereSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="WhereSelect.Reverse.cs">
       <DependentUpon>WhereSelect.cs</DependentUpon>
     </Compile>
@@ -7411,6 +8505,9 @@
     <Compile Include="WhereSelect.ToDictionary.cs">
       <DependentUpon>WhereSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="WhereSelect.ToHashSet.cs">
+      <DependentUpon>WhereSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="WhereSelect.ToList.cs">
       <DependentUpon>WhereSelect.cs</DependentUpon>
     </Compile>
@@ -7433,6 +8530,9 @@
       <DependentUpon>WhereWhere.cs</DependentUpon>
     </Compile>
     <Compile Include="WhereWhere.Any.cs">
+      <DependentUpon>WhereWhere.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WhereWhere.Append.cs">
       <DependentUpon>WhereWhere.cs</DependentUpon>
     </Compile>
     <Compile Include="WhereWhere.AsEnumerable.cs">
@@ -7502,6 +8602,9 @@
     <Compile Include="WhereWhere.OrderBy.cs">
       <DependentUpon>WhereWhere.cs</DependentUpon>
     </Compile>
+    <Compile Include="WhereWhere.Prepend.cs">
+      <DependentUpon>WhereWhere.cs</DependentUpon>
+    </Compile>
     <Compile Include="WhereWhere.Reverse.cs">
       <DependentUpon>WhereWhere.cs</DependentUpon>
     </Compile>
@@ -7532,6 +8635,9 @@
     <Compile Include="WhereWhere.ToDictionary.cs">
       <DependentUpon>WhereWhere.cs</DependentUpon>
     </Compile>
+    <Compile Include="WhereWhere.ToHashSet.cs">
+      <DependentUpon>WhereWhere.cs</DependentUpon>
+    </Compile>
     <Compile Include="WhereWhere.ToList.cs">
       <DependentUpon>WhereWhere.cs</DependentUpon>
     </Compile>
@@ -7554,6 +8660,9 @@
       <DependentUpon>Zip.cs</DependentUpon>
     </Compile>
     <Compile Include="Zip.Any.cs">
+      <DependentUpon>Zip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Zip.Append.cs">
       <DependentUpon>Zip.cs</DependentUpon>
     </Compile>
     <Compile Include="Zip.AsEnumerable.cs">
@@ -7623,6 +8732,9 @@
     <Compile Include="Zip.OrderBy.cs">
       <DependentUpon>Zip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Zip.Prepend.cs">
+      <DependentUpon>Zip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Zip.Reverse.cs">
       <DependentUpon>Zip.cs</DependentUpon>
     </Compile>
@@ -7651,6 +8763,9 @@
       <DependentUpon>Zip.cs</DependentUpon>
     </Compile>
     <Compile Include="Zip.ToDictionary.cs">
+      <DependentUpon>Zip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Zip.ToHashSet.cs">
       <DependentUpon>Zip.cs</DependentUpon>
     </Compile>
     <Compile Include="Zip.ToList.cs">

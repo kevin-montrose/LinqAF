@@ -17,7 +17,13 @@ namespace LinqAF.Generator
 
             var genericArgs = enumerableBase.DescendantNodes().OfType<TypeArgumentListSyntax>().First();
 
-            enumerable = @struct.Identifier.ValueText + @struct.TypeParameterList.GetText().ToString();
+            enumerable = @struct.Identifier.ValueText;
+
+            if (@struct.TypeParameterList != null)
+            {
+                enumerable += @struct.TypeParameterList.GetText().ToString();
+            }
+
             outType = genericArgs.Arguments[0].GetText().ToString();
             enumerator = genericArgs.Arguments[1].GetText().ToString();
         }

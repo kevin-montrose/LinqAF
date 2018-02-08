@@ -1,10 +1,11 @@
-﻿using System;
+﻿using LinqAF.Impl;
+using System;
 
 namespace LinqAF
 {
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public struct TakeEnumerator<TItem, TInnerEnumerator>: IStructEnumerator<TItem>
-        where TInnerEnumerator: struct, IStructEnumerator<TItem>
+    public struct TakeEnumerator<TItem, TInnerEnumerator> : IStructEnumerator<TItem>
+        where TInnerEnumerator : struct, IStructEnumerator<TItem>
     {
         public TItem Current { get; private set; }
 
@@ -28,7 +29,7 @@ namespace LinqAF
 
         public bool MoveNext()
         {
-            if(Index < Count && Inner.MoveNext())
+            if (Index < Count && Inner.MoveNext())
             {
                 Current = Inner.Current;
                 Index++;
@@ -74,9 +75,9 @@ namespace LinqAF
     }
 
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
-    public struct TakeWhileEnumerator<TItem, TInnerEnumerator>:
+    public struct TakeWhileEnumerator<TItem, TInnerEnumerator> :
         IStructEnumerator<TItem>
-        where TInnerEnumerator: struct, IStructEnumerator<TItem>
+        where TInnerEnumerator : struct, IStructEnumerator<TItem>
     {
         public TItem Current { get; private set; }
 
@@ -245,6 +246,98 @@ namespace LinqAF
         {
             var inner = Inner.GetEnumerator();
             return new TakeWhileIndexedEnumerator<TItem, TInnerEnumerator>(ref inner, Predicate);
+        }
+    }
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public struct TakeLastEnumerator<TItem, TInnerEnumerator> :
+        IStructEnumerator<TItem>
+        where TInnerEnumerator : struct, IStructEnumerator<TItem>
+    {
+        public TItem Current { get; private set; }
+
+        TInnerEnumerator Inner;
+        int InnerCount;
+        StructQueue<TItem> Queue;
+
+        internal TakeLastEnumerator(ref TInnerEnumerator inner, int count)
+        {
+            Current = default(TItem);
+            Queue = default(StructQueue<TItem>);
+            InnerCount = count;
+            Inner = inner;
+        }
+
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
+
+        public bool MoveNext()
+        {
+            if (InnerCount == 0) return false;
+
+            if (Queue.IsDefaultValue())
+            {
+                Queue.Initialize(InnerCount);
+
+                // advance until we exhaust the thing...
+                while (Inner.MoveNext())
+                {
+                    // if we've hit size, pop oldest and push this latest
+                    if (Queue.Count == InnerCount)
+                    {
+                        Queue.DequeueAndEnqueue(Inner.Current);
+                    }
+                    else
+                    {
+                        // otherwise, just keep pushing
+                        Queue.Enqueue(Inner.Current);
+                    }
+                }
+            }
+
+            // yield everything in Queue
+            if (Queue.Count > 0)
+            {
+                Current = Queue.Dequeue();
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Reset()
+        {
+            Queue.Dispose();
+            Inner.Reset();
+        }
+
+        public void Dispose()
+        {
+            Queue.Dispose();
+            Inner.Dispose();
+        }
+    }
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Auto)]
+    public partial struct TakeLastEnumerable<TItem, TInnerEnumerable, TInnerEnumerator> :
+        IStructEnumerable<TItem, TakeLastEnumerator<TItem, TInnerEnumerator>>
+        where TInnerEnumerable : struct, IStructEnumerable<TItem, TInnerEnumerator>
+        where TInnerEnumerator : struct, IStructEnumerator<TItem>
+    {
+        TInnerEnumerable Inner;
+        int InnerCount;
+
+        internal TakeLastEnumerable(ref TInnerEnumerable inner, int count)
+        {
+            Inner = inner;
+            InnerCount = count;
+        }
+
+        public bool IsDefaultValue() => Inner.IsDefaultValue();
+
+        public TakeLastEnumerator<TItem, TInnerEnumerator> GetEnumerator()
+        {
+            var e = Inner.GetEnumerator();
+            return new TakeLastEnumerator<TItem, TInnerEnumerator>(ref e, InnerCount);
         }
     }
 }

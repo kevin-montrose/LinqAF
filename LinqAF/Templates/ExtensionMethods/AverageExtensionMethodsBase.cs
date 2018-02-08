@@ -34,5 +34,65 @@ namespace LinqAF
 
         public decimal? Average(PlaceholderEnumerable<decimal?> source)
         => CommonImplementation.AverageNullableDecimal<PlaceholderEnumerable<decimal?>, PlaceholderEnumerator<decimal?>>(RefParam(source));
+
+        // RangeEnumerable
+
+        public double Average(RangeEnumerable source)
+        {
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (source.InnerCount == 0) throw CommonImplementation.SequenceEmpty();
+
+            // 4 5 6
+            //   ^
+
+            // 1 2 3 4
+            //    ^
+
+            var leftIx = source.InnerCount / 2;
+            double left = source.Start + leftIx;
+
+            if (source.InnerCount % 2 == 0)
+            {
+                // even
+                double right = left + 1;
+
+                return (left + right) / 2.0;
+            }
+            else
+            {
+                // odd
+                return left;
+            }
+        }
+
+        // ReverseRangeEnumerable
+
+        public double Average(ReverseRangeEnumerable source)
+        {
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+            if (source.InnerCount == 0) throw CommonImplementation.SequenceEmpty();
+
+            // 6 5 4
+            //   ^
+
+            // 4 3 2 1
+            //    ^
+
+            var leftIx = source.InnerCount / 2;
+            double left = source.Start - leftIx;
+
+            if (source.InnerCount % 2 == 0)
+            {
+                // even
+                double right = left - 1;
+
+                return (left + right) / 2.0;
+            }
+            else
+            {
+                // odd
+                return left;
+            }
+        }
     }
 }

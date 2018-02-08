@@ -83,8 +83,8 @@ namespace LinqAF
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string Concat<TItem>(RangeEnumerable<TItem> second)
-        => ConcatImpl<TItem, RangeEnumerable<TItem>, RangeEnumerator<TItem>>(ref second);
+        public static string Concat(RangeEnumerable second)
+        => ConcatImpl<int, RangeEnumerable, RangeEnumerator>(ref second);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Concat<TItem>(RepeatEnumerable<TItem> second)
@@ -366,8 +366,8 @@ namespace LinqAF
         => ConcatImpl<TItem, ReverseEnumerable<TItem, TReverseEnumerable, TReverseEnumerator>, ReverseEnumerator<TItem>>(ref second);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string Concat<TItem>(ReverseRangeEnumerable<TItem> second)
-        => ConcatImpl<TItem, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>>(ref second);
+        public static string Concat(ReverseRangeEnumerable second)
+        => ConcatImpl<int, ReverseRangeEnumerable, ReverseRangeEnumerator>(ref second);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Concat<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
@@ -447,5 +447,29 @@ namespace LinqAF
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Concat<TItem>(OneItemSpecificOrderedEnumerable<TItem> second)
         => ConcatImpl<TItem, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>>(ref second);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string Concat<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>(SkipLastEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator> second)
+           where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
+           where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => ConcatImpl<TItem, SkipLastEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>, SkipLastEnumerator<TItem, TConcat_InnerEnumerator>>(ref second);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string Concat<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>(TakeLastEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator> second)
+           where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
+           where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => ConcatImpl<TItem, TakeLastEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>, TakeLastEnumerator<TItem, TConcat_InnerEnumerator>>(ref second);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string Concat<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>(AppendEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator> second)
+           where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
+           where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => ConcatImpl<TItem, AppendEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>, AppendEnumerator<TItem, TConcat_InnerEnumerator>>(ref second);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string Concat<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>(PrependEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator> second)
+           where TConcat_InnerEnumerable : struct, IStructEnumerable<TItem, TConcat_InnerEnumerator>
+           where TConcat_InnerEnumerator : struct, IStructEnumerator<TItem>
+        => ConcatImpl<TItem, PrependEnumerable<TItem, TConcat_InnerEnumerable, TConcat_InnerEnumerator>, PrependEnumerator<TItem, TConcat_InnerEnumerator>>(ref second);
     }
 }

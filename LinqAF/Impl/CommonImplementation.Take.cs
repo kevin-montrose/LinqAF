@@ -58,5 +58,26 @@ namespace LinqAF.Impl
         {
             return new TakeWhileIndexedEnumerable<TItem, TEnumerable, TEnumerator>(ref source, predicate);
         }
+
+        public static TakeLastEnumerable<TItem, TEnumerable, TEnumerator> TakeLast<TItem, TEnumerable, TEnumerator>(ref TEnumerable source, int count)
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            if (source.IsDefaultValue()) throw CommonImplementation.Uninitialized(nameof(source));
+
+            return TakeLastImpl<TItem, TEnumerable, TEnumerator>(ref source, count);
+        }
+
+        internal static TakeLastEnumerable<TItem, TEnumerable, TEnumerator> TakeLastImpl<TItem, TEnumerable, TEnumerator>(ref TEnumerable source, int count)
+            where TEnumerable : struct, IStructEnumerable<TItem, TEnumerator>
+            where TEnumerator : struct, IStructEnumerator<TItem>
+        {
+            if (count < 0)
+            {
+                count = 0;
+            }
+
+            return new TakeLastEnumerable<TItem, TEnumerable, TEnumerator>(ref source, count);
+        }
     }
 }

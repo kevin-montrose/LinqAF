@@ -125,9 +125,6 @@ namespace LinqAF
         public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>> Except(EmptyEnumerable<TItem> second)
         => CommonImplementation.Except(RefThis(), ref second);
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Except(RangeEnumerable<TItem> second)
-        => CommonImplementation.Except(RefThis(), ref second);
-
         public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Except(RepeatEnumerable<TItem> second)
         => CommonImplementation.Except(RefThis(), ref second);
 
@@ -366,9 +363,6 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Except(RefThis(), ref second);
 
-        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Except(ReverseRangeEnumerable<TItem> second)
-        => CommonImplementation.Except(RefThis(), ref second);
-
         public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>, OrderByEnumerator<TItem, TOrderByKey, TOrderByEnumerator, TOrderByComparer>> Except<TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
             where TOrderByEnumerator : struct, IStructEnumerator<TItem>
@@ -526,9 +520,6 @@ namespace LinqAF
         => CommonImplementation.Except(RefThis(), ref second, comparer);
 
         public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, EmptyEnumerable<TItem>, EmptyEnumerator<TItem>> Except(EmptyEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
-        => CommonImplementation.Except(RefThis(), ref second, comparer);
-
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, RangeEnumerable<TItem>, RangeEnumerator<TItem>> Except(RangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
         => CommonImplementation.Except(RefThis(), ref second, comparer);
 
         public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, RepeatEnumerable<TItem>, RepeatEnumerator<TItem>> Except(RepeatEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
@@ -769,9 +760,6 @@ namespace LinqAF
             where TReverseEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Except(RefThis(), ref second, comparer);
 
-        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, ReverseRangeEnumerable<TItem>, ReverseRangeEnumerator<TItem>> Except(ReverseRangeEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
-        => CommonImplementation.Except(RefThis(), ref second, comparer);
-
         public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>, OrderByEnumerator<TItem, TOrderByKey, TOrderByEnumerator, TOrderByComparer>> Except<TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer>(OrderByEnumerable<TItem, TOrderByKey, TOrderByEnumerable, TOrderByEnumerator, TOrderByComparer> second, IEqualityComparer<TItem> comparer)
             where TOrderByEnumerable : struct, IStructEnumerable<TItem, TOrderByEnumerator>
             where TOrderByEnumerator : struct, IStructEnumerator<TItem>
@@ -838,6 +826,46 @@ namespace LinqAF
         => CommonImplementation.Except(RefThis(), ref second);
 
         public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, OneItemSpecificOrderedEnumerable<TItem>, OneItemSpecificOrderedEnumerator<TItem>> Except(OneItemSpecificOrderedEnumerable<TItem> second, IEqualityComparer<TItem> comparer)
+        => CommonImplementation.Except(RefThis(), ref second, comparer);
+
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>, SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>> Except<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Except(RefThis(), ref second);
+
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>, TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>> Except<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Except(RefThis(), ref second);
+
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>, SkipLastEnumerator<TItem, TSkipLastInnerEnumerator>> Except<TSkipLastInnerEnumerable, TSkipLastInnerEnumerator>(SkipLastEnumerable<TItem, TSkipLastInnerEnumerable, TSkipLastInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TSkipLastInnerEnumerable : struct, IStructEnumerable<TItem, TSkipLastInnerEnumerator>
+            where TSkipLastInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Except(RefThis(), ref second, comparer);
+
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>, TakeLastEnumerator<TItem, TTakeLastInnerEnumerator>> Except<TTakeLastInnerEnumerable, TTakeLastInnerEnumerator>(TakeLastEnumerable<TItem, TTakeLastInnerEnumerable, TTakeLastInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TTakeLastInnerEnumerable : struct, IStructEnumerable<TItem, TTakeLastInnerEnumerator>
+            where TTakeLastInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Except(RefThis(), ref second, comparer);
+
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>, AppendEnumerator<TItem, TAppendInnerEnumerator>> Except<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Except(RefThis(), ref second);
+
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator>, AppendEnumerator<TItem, TAppendInnerEnumerator>> Except<TAppendInnerEnumerable, TAppendInnerEnumerator>(AppendEnumerable<TItem, TAppendInnerEnumerable, TAppendInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TAppendInnerEnumerable : struct, IStructEnumerable<TItem, TAppendInnerEnumerator>
+            where TAppendInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Except(RefThis(), ref second, comparer);
+
+        public ExceptDefaultEnumerable<TItem, TEnumerable, TEnumerator, PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>, PrependEnumerator<TItem, TPrependInnerEnumerator>> Except<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>
+        => CommonImplementation.Except(RefThis(), ref second);
+
+        public ExceptSpecificEnumerable<TItem, TEnumerable, TEnumerator, PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator>, PrependEnumerator<TItem, TPrependInnerEnumerator>> Except<TPrependInnerEnumerable, TPrependInnerEnumerator>(PrependEnumerable<TItem, TPrependInnerEnumerable, TPrependInnerEnumerator> second, IEqualityComparer<TItem> comparer)
+            where TPrependInnerEnumerable : struct, IStructEnumerable<TItem, TPrependInnerEnumerator>
+            where TPrependInnerEnumerator : struct, IStructEnumerator<TItem>
         => CommonImplementation.Except(RefThis(), ref second, comparer);
     }
 }
