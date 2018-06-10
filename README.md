@@ -35,6 +35,26 @@ foreach(var str in e)
 }
 ```
 
+Several convenience types and extension methods are provided so LinqAF's `IEnumerable<T>`-ish types can be used in common ways without requiring `.AsEnumerable()`-calls all over the place.
+
+Specifically:
+
+ - `LinqAFString` provides implementations of `System.String`'s `Concat` and `Join` methods that take all LinqAF enumerable types, and pass throughs for all other methods
+ - `LinqAFTask` does likewise for `System.Thread.Task`'s `WaitAll`, `WaitAny`, `WhenAll`, and `WhenAny` methods, and also provides pass through methods
+ - `LinqAFNew` provides methods that are equivalent to enumerable consuming constructors for the builtin `HashSet<T>`, `LinkedList<T>`, `List<T>`, `Queue<T>`, `SortedSet<T>`, and `Stack<T>` types.
+ - Extension methods for the following methods on `HashSet<T>`, `ISet<T>`, and `SortedSet<T>` that take all LinqAF enumerables are provided:
+   * `ExceptWith`
+   * `IntersectWith`
+   * `IsProperSubset`
+   * `IsProperSuperset`
+   * `IsSubsetOf`
+   * `IsSupersetOf`
+   * `Overlaps`
+   * `SetEquals`
+   * `SymmetricExceptWith`
+   * `UnionWith`
+ - Likewise extension methods are provided for `AddRange`, and `InsertRange` on `List<T>`
+
 ## Dealing with compatibility exceptions
 
 There cases where LinqAF is not a direct replacement for LinqAF are broadly:
@@ -106,13 +126,13 @@ var e = a > 0 ? Enumerable.Repeat(1, 1).Box() : Enumerable.Empty<int>().Box();
 
 ## Optimizations
 
-LinqAF's primary purpose (besides scratching an intellectual itch) is to minimize the number of allocations LINQ-like code involves.  Accordingly almost all operations are zero-allocation, with the exceptions of the `ToXXX`, `Distinct`, `Except`, `GroupJoin`, `Intersect`, `Join`, `OrderBy(Descending)`, `ThenBy(Descending)`, `Reverse`, and `Union` operations (and even then, certain cases will be zero allocation).
+LinqAF's primary purpose (besides scratching an intellectual itch) is to minimize the number of allocations LINQ-like code involves.  Accordingly almost all operations are zero-allocation, with the exceptions of the `ToXXX`, `Distinct`, `Except`, `GroupJoin`, `Intersect`, `Join`, `OrderBy(Descending)`, `ThenBy(Descending)`, `Reverse`, `TakeLast`, `SkipLast`, and `Union` operations (and even then, certain cases will be zero allocation).
 
 LinqAF achieves this, in part, by representing all operations as structs and exploiting C#'s extensive duck-typing around LINQ and `foreach`.  This blatently disregards the [official guidance on struct use](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/choosing-between-class-and-struct).
 
 Note that LinqAF does not change any of C#'s LINQ -> method rewrite rules, so allocations introduced as part of those will still occur.  It is for this reason that I encourage the direct use of methods rather than [LINQ query keywords](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/query-keywords) (in all cases, not just with LinqAF) as that syntax makes allocations from intermediate objects and delegates explicit.
 
-LinqAF leverages the much more extensive type information it has available at compile time (compared to LINQ-to-Objects) to optimize numerous cases.  For example, `Enumerable.Range(0, 100).Reverse()` is optimized into a `ReverseRangeEnumerable<int>` that does no allocations.
+LinqAF leverages the much more extensive type information it has available at compile time (compared to LINQ-to-Objects) to optimize numerous cases.  For example, `Enumerable.Range(0, 100).Reverse()` is optimized into a `ReverseRangeEnumerable` that does no allocations.
 
 LinqAF also has a few alternative collection implementations that aim to allocate less than what LINQ-to-Objects would.
 
@@ -128,7 +148,7 @@ Be aware that LinqAF is full of dubious ideas: large structs, mutable structs, l
 
 LinqAF _can_ be useful, but it's not a painless or trivial dependency.  Be very cautious in using it.
 
-Also the LinqAF.dll is ~23MB, so that's a thing.
+Also the LinqAF.dll is ~26MB, so that's a thing.
 
 ## Building, testing, and benchmarking LinqAF
 
@@ -169,7 +189,5 @@ LinqAF is composed of several projects:
 The initial motivation for LinqAF came from playing around with the [Rust Language](https://www.rust-lang.org/en-US/) and its [Iterators](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
 
 A great deal of my understanding of LINQ-to-Objects (and [600+ test cases](https://github.com/kevin-montrose/LinqAF/blob/master/LinqAF.Tests/EdulinqTests.cs)) came from [Jon Skeet's EduLinq blog series](https://codeblog.jonskeet.uk/category/edulinq/).
-
-The [MiscUtil library](http://www.yoda.arachsys.com/csharp/miscutil/) made my `RangeEnumerable` implementation possible - so thanks to Jon Skeet (again), and Marc Gravell.
 
 Thanks to Benjamin Hodgson for `Box()`, as he pointed out that explicit casting couldn't handle anonymous types and would be quite painful for long type names regardless.
