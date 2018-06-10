@@ -57,7 +57,7 @@ Specifically:
 
 ## Dealing with compatibility exceptions
 
-There cases where LinqAF is not a direct replacement for LinqAF are broadly:
+There are cases where LinqAF is not a direct replacement for LINQ-to-Objects.  Speaking broadly, these are:
 
  1. Where the `IEnumerable<T>` type appears
  2. When different kinds of enumerables need to be assigned or returned
